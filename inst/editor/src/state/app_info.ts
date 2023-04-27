@@ -68,7 +68,6 @@ export const mainStateSlice = createSlice({
     // what we expect in the app
     SET_APP_INFO: (tree, action: PayloadAction<App_Info>) => {
       try {
-        debugger;
         return {
           mode: "MAIN",
           ...action.payload,

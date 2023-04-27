@@ -1,28 +1,1284 @@
-"use strict";var dt=Object.create;var $=Object.defineProperty;var ft=Object.getOwnPropertyDescriptor;var mt=Object.getOwnPropertyNames;var _t=Object.getPrototypeOf,gt=Object.prototype.hasOwnProperty;var vt=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),ht=(t,e)=>{for(var o in e)$(t,o,{get:e[o],enumerable:!0})},ne=(t,e,o,n)=>{if(e&&typeof e=="object"||typeof e=="function")for(let r of mt(e))!gt.call(t,r)&&r!==o&&$(t,r,{get:()=>e[r],enumerable:!(n=ft(e,r))||n.enumerable});return t};var w=(t,e,o)=>(o=t!=null?dt(_t(t)):{},ne(e||!t||!t.__esModule?$(o,"default",{value:t,enumerable:!0}):o,t)),yt=t=>ne($({},"__esModule",{value:!0}),t);var Ve=vt((xo,He)=>{var X=require("util"),Ot=require("path"),P=require("child_process").spawn,S=function(){},z="HKLM",be="HKCU",Ie="HKCR",ke="HKU",Oe="HKCC",De=[z,be,Ie,ke,Oe],Ue="REG_SZ",Me="REG_MULTI_SZ",Le="REG_EXPAND_SZ",Ge="REG_DWORD",Fe="REG_QWORD",$e="REG_BINARY",Be="REG_NONE",We=[Ue,Me,Le,Ge,Fe,$e,Be],Dt="",Ut=/(\\[a-zA-Z0-9_\s]+)*/,Mt=/^(HKEY_LOCAL_MACHINE|HKEY_CURRENT_USER|HKEY_CLASSES_ROOT|HKEY_USERS|HKEY_CURRENT_CONFIG)(.*)$/,Ke=/^(.*)\s(REG_SZ|REG_MULTI_SZ|REG_EXPAND_SZ|REG_DWORD|REG_QWORD|REG_BINARY|REG_NONE)\s+([^\s].*)$/;function D(t,e){if(!(this instanceof D))return new D(t,e);Error.captureStackTrace(this,D),this.__defineGetter__("name",function(){return D.name}),this.__defineGetter__("message",function(){return t}),this.__defineGetter__("code",function(){return e})}X.inherits(D,Error);function N(t){var e={stdout:"",stderr:""};return t.stdout.on("data",function(o){e.stdout+=o.toString()}),t.stderr.on("data",function(o){e.stderr+=o.toString()}),e}function C(t,e,o){var n=o.stdout.trim(),r=o.stderr.trim(),s=X.format(`%s command exited with code %d:
-%s
-%s`,t,e,n,r);return new D(s,e)}function Lt(t){if(t=="x64")return"64";if(t=="x86")return"32";throw new Error("illegal architecture: "+t+" (use x86 or x64)")}function b(t,e){e&&t.push("/reg:"+Lt(e))}function I(){return process.platform==="win32"?Ot.join(process.env.windir,"system32","reg.exe"):"REG"}function L(t,e,o,n,r,s,i){if(!(this instanceof L))return new L(t,e,o,n,r,s,i);var a=t,c=e,p=o,d=n,l=r,v=s,f=i;this.__defineGetter__("host",function(){return a}),this.__defineGetter__("hive",function(){return c}),this.__defineGetter__("key",function(){return p}),this.__defineGetter__("name",function(){return d}),this.__defineGetter__("type",function(){return l}),this.__defineGetter__("value",function(){return v}),this.__defineGetter__("arch",function(){return f})}X.inherits(L,Object);function _(t){if(!(this instanceof _))return new _(t);var e=t||{},o=""+(e.host||""),n=""+(e.hive||z),r=""+(e.key||""),s=e.arch||null;if(this.__defineGetter__("host",function(){return o}),this.__defineGetter__("hive",function(){return n}),this.__defineGetter__("key",function(){return r}),this.__defineGetter__("path",function(){return(o.length==0?"":"\\\\"+o+"\\")+n+r}),this.__defineGetter__("arch",function(){return s}),this.__defineGetter__("parent",function(){var i=r.lastIndexOf("\\");return new _({host:this.host,hive:this.hive,key:i==-1?"":r.substring(0,i),arch:this.arch})}),De.indexOf(n)==-1)throw new Error("illegal hive specified.");if(!Ut.test(r))throw new Error("illegal key specified.");if(s&&s!="x64"&&s!="x86")throw new Error("illegal architecture specified (use x86 or x64)")}_.HKLM=z;_.HKCU=be;_.HKCR=Ie;_.HKU=ke;_.HKCC=Oe;_.HIVES=De;_.REG_SZ=Ue;_.REG_MULTI_SZ=Me;_.REG_EXPAND_SZ=Le;_.REG_DWORD=Ge;_.REG_QWORD=Fe;_.REG_BINARY=$e;_.REG_NONE=Be;_.REG_TYPES=We;_.DEFAULT_VALUE=Dt;_.prototype.values=function(e){if(typeof e!="function")throw new TypeError("must specify a callback");var o=["QUERY",this.path];b(o,this.arch);var n=P(I(),o,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),r="",s=this,i=null,a=N(n);return n.on("close",function(c){if(!i)if(c!==0)S("process exited with code "+c),e(C("QUERY",c,a),null);else{for(var p=[],d=[],l=r.split(`
-`),v=0,f=0,u=l.length;f<u;f++){var m=l[f].trim();m.length>0&&(S(m),v!=0&&p.push(m),++v)}for(var f=0,u=p.length;f<u;f++){var g=Ke.exec(p[f]),R,h,y;g&&(R=g[1].trim(),h=g[2].trim(),y=g[3],d.push(new L(s.host,s.hive,s.key,R,h,y,s.arch)))}e(null,d)}}),n.stdout.on("data",function(c){r+=c.toString()}),n.on("error",function(c){i=c,e(c)}),this};_.prototype.keys=function(e){if(typeof e!="function")throw new TypeError("must specify a callback");var o=["QUERY",this.path];b(o,this.arch);var n=P(I(),o,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),r="",s=this,i=null,a=N(n);return n.on("close",function(c){i||c!==0&&(S("process exited with code "+c),e(C("QUERY",c,a),null))}),n.stdout.on("data",function(c){r+=c.toString()}),n.stdout.on("end",function(){for(var c=[],p=[],d=r.split(`
-`),l=0,v=d.length;l<v;l++){var f=d[l].trim();f.length>0&&(S(f),c.push(f))}for(var l=0,v=c.length;l<v;l++){var u=Mt.exec(c[l]),m,g;u&&(m=u[1],g=u[2],g&&g!==s.key&&p.push(new _({host:s.host,hive:s.hive,key:g,arch:s.arch})))}e(null,p)}),n.on("error",function(c){i=c,e(c)}),this};_.prototype.get=function(e,o){if(typeof o!="function")throw new TypeError("must specify a callback");var n=["QUERY",this.path];e==""?n.push("/ve"):n=n.concat(["/v",e]),b(n,this.arch);var r=P(I(),n,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),s="",i=this,a=null,c=N(r);return r.on("close",function(p){if(!a)if(p!==0)S("process exited with code "+p),o(C("QUERY",p,c),null);else{for(var d=[],l=null,v=s.split(`
-`),f=0,u=0,m=v.length;u<m;u++){var g=v[u].trim();g.length>0&&(S(g),f!=0&&d.push(g),++f)}var R=d[d.length-1]||"",h=Ke.exec(R),y,F,oe;h&&(y=h[1].trim(),F=h[2].trim(),oe=h[3],l=new L(i.host,i.hive,i.key,y,F,oe,i.arch)),o(null,l)}}),r.stdout.on("data",function(p){s+=p.toString()}),r.on("error",function(p){a=p,o(p)}),this};_.prototype.set=function(e,o,n,r){if(typeof r!="function")throw new TypeError("must specify a callback");if(We.indexOf(o)==-1)throw Error("illegal type specified.");var s=["ADD",this.path];e==""?s.push("/ve"):s=s.concat(["/v",e]),s=s.concat(["/t",o,"/d",n,"/f"]),b(s,this.arch);var i=P(I(),s,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),a=null,c=N(i);return i.on("close",function(p){a||(p!==0?(S("process exited with code "+p),r(C("ADD",p,c,null))):r(null))}),i.stdout.on("data",function(p){S(""+p)}),i.on("error",function(p){a=p,r(p)}),this};_.prototype.remove=function(e,o){if(typeof o!="function")throw new TypeError("must specify a callback");var n=e?["DELETE",this.path,"/f","/v",e]:["DELETE",this.path,"/f","/ve"];b(n,this.arch);var r=P(I(),n,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),s=null,i=N(r);return r.on("close",function(a){s||(a!==0?(S("process exited with code "+a),o(C("DELETE",a,i),null)):o(null))}),r.stdout.on("data",function(a){S(""+a)}),r.on("error",function(a){s=a,o(a)}),this};_.prototype.clear=function(e){if(typeof e!="function")throw new TypeError("must specify a callback");var o=["DELETE",this.path,"/f","/va"];b(o,this.arch);var n=P(I(),o,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),r=null,s=N(n);return n.on("close",function(i){r||(i!==0?(S("process exited with code "+i),e(C("DELETE",i,s),null)):e(null))}),n.stdout.on("data",function(i){S(""+i)}),n.on("error",function(i){r=i,e(i)}),this};_.prototype.erase=_.prototype.clear;_.prototype.destroy=function(e){if(typeof e!="function")throw new TypeError("must specify a callback");var o=["DELETE",this.path,"/f"];b(o,this.arch);var n=P(I(),o,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),r=null,s=N(n);return n.on("close",function(i){r||(i!==0?(S("process exited with code "+i),e(C("DELETE",i,s),null)):e(null))}),n.stdout.on("data",function(i){S(""+i)}),n.on("error",function(i){r=i,e(i)}),this};_.prototype.create=function(e){if(typeof e!="function")throw new TypeError("must specify a callback");var o=["ADD",this.path,"/f"];b(o,this.arch);var n=P(I(),o,{cwd:void 0,env:process.env,stdio:["ignore","pipe","pipe"]}),r=null,s=N(n);return n.on("close",function(i){r||(i!==0?(S("process exited with code "+i),e(C("ADD",i,s),null)):e(null))}),n.stdout.on("data",function(i){S(""+i)}),n.on("error",function(i){r=i,e(i)}),this};_.prototype.keyExists=function(e){return this.values(function(o,n){if(o)return o.code==1?e(null,!1):e(o);e(null,!0)}),this};_.prototype.valueExists=function(e,o){return this.get(e,function(n,r){if(n)return n.code==1?o(null,!1):o(n);o(null,!0)}),this};He.exports=_});var Kt={};ht(Kt,{activate:()=>Wt});module.exports=yt(Kt);var te=w(require("vscode"));var A=require("vscode"),T=w(require("vscode"));var q="app.R",Et=/^([\w|\s]+)([\.[\w|^\.]*]*)$/i;function j(t){if(t==="")return{valid:!0,name:q};let e=t.match(Et);if(e===null)return{valid:!1,msg:`Invalid app name: ${t}.`};let[o,n,r]=e;return(r===""||r===".")&&(r=".R"),n?r!==".R"?{valid:!1,msg:`Invalid file extension: ${r}. Extension needs to be .R`}:(n=n.replaceAll(" ","-"),{valid:!0,name:`${n}${r}`}):{valid:!1,msg:`Invalid app name: ${t}. Make sure to only use numbers and letters. Spaces will be converted to dashes.`}}var re=new TextEncoder().encode("");async function se(){let t=await A.window.showOpenDialog({canSelectFolders:!0,canSelectFiles:!0,title:"Choose location for Shiny app",openLabel:"Choose app folder or file",canSelectMany:!1,filters:{"R scripts":["R","r"]}});if(!t)return;let e=t[0],n=(await T.workspace.fs.stat(e)).type===T.FileType.Directory?await St(e):e;n&&T.commands.executeCommand("vscode.openWith",n,"shinyuieditor.appFile")}async function St(t){let e=(await A.workspace.fs.readDirectory(t)).filter(([i,a])=>a===T.FileType.File).map(([i,a])=>i),o=await A.window.showInputBox({prompt:"Enter file name for new app",placeHolder:q,validateInput(i){let a=j(i);return a.valid?e.includes(a.name)?{message:`Run the editor on existing app: ${a.name}.`,severity:T.InputBoxValidationSeverity.Info}:{message:`Run the template chooser to build new app: ${a.name}.`,severity:T.InputBoxValidationSeverity.Info}:{message:a.msg,severity:T.InputBoxValidationSeverity.Error}}});if(!o)return;let n=j(o);if(!n.valid){T.window.showErrorMessage(`Error processing requested file name: ${o}. Try with a different name.`);return}let r=A.Uri.joinPath(t,n.name);return e.includes(n.name)||await A.workspace.fs.writeFile(r,re),r}var ie=w(require("path")),ae=w(require("vscode")),B=require("vscode");function Rt(t){let e=t.ext;return/\.R/i.test(e)}function pe(t="world"){let e=B.window.activeTextEditor;if(!e){B.window.showErrorMessage("No active file open to run ui editor on!");return}let o=ie.default.parse(e.document.fileName);if(!Rt(o)){B.window.showErrorMessage(`Can't run the ui editor on the currently active file ${o.base}, needs to be a .R file.`);return}ae.commands.executeCommand("vscode.openWith",e.document.uri,"shinyuieditor.appFile")}var x=w(require("vscode"));function ce(t){return typeof t=="object"&&t!==null}function ue(t){return ce(t)?"path"in t:!1}var le=wt;function wt(t,e,o){var n=null,r=null,s=function(){n&&(clearTimeout(n),r=null,n=null)},i=function(){var c=r;s(),c&&c()},a=function(){if(!e)return t.apply(this,arguments);var c=this,p=arguments,d=o&&!n;if(s(),r=function(){t.apply(c,p)},n=setTimeout(function(){if(n=null,!d){var l=r;return r=null,l()}},e),d)return r()};return a.cancel=s,a.flush=i,a}var nt=w(require("vscode"));var k=w(require("vscode"));async function de(t){let e=t.uri,o=new k.WorkspaceEdit,n=t.validateRange(new k.Range(0,0,1/0,1/0));o.replace(e,n,""),await k.workspace.applyEdit(o),t.save()}var M=w(require("vscode"));async function fe({appFile:t,existingEditor:e}){return e&&M.window.visibleTextEditors.includes(e)?e:await M.window.showTextDocument(t.uri,{viewColumn:M.ViewColumn.Beside,preview:!0})}async function me(t,e){let o=await t.runCmd(`print(require(${e}, quietly = TRUE))`,{verbose:!1});return o.status==="error"?{status:"error",msg:o.errorMsg}:o.values[0].includes("FALSE")?{status:"error",msg:Tt(e)}:{status:"success"}}function Tt(t){return`The ShinyUiEditor extension needs the \`${t}\` pkg installed. Install using \`remotes::install_github('rstudio/${t}')\` and restart the extension.`}function Q(t){return typeof t=="object"&&t!==null}var O=class extends Error{constructor({message:o,cause:n}){super();this.name="AST_PARSING_ERROR",this.message=o,this.cause=n}};function W(t){return t.type==="e"&&Array.isArray(t.val)}function xt(t,e){if(!W(t))return!1;let{val:o}=t;return o[0].val==="<-"||o[0].val==="="?e?o[1].val===e:!0:!1}function At(t){return t.val[1]}function Z(t){let e=[];return t.forEach(o=>{if(xt(o)){let n=At(o);Pt(n)?e.push({name:n.val[2].val,is_output:!0,node:o}):n.type==="s"&&e.push({name:n.val,is_output:!1,node:o})}if(W(o)){let n=Z(o.val);e.push(...n)}}),e}function Pt(t){if(!W(t))return!1;let{val:e}=t;return e.length===3&&e[1].val==="output"&&typeof e[2].val=="string"}function _e(t){return t.filter(({is_output:e})=>e).reduce((e,{name:o,node:n})=>{let{pos:r}=n;return r&&(e[o]=[...e[o]??[],r]),e},{})}function ge(t){let e=t.find(({name:n,is_output:r})=>n==="server"&&!r);if(!e)throw new O({message:"No server assignment node was found in provided ast"});let{node:o}=e;if(!o.pos)throw new O({message:"No position info attached to the ui assignment node",cause:o});return o}function ve(t){let e=Z(t),o=ge(e).pos,n=_e(e);return{app_type:"SINGLE-FILE",server_pos:o,get_output_position:s=>s in n?n[s]:null}}function he(...t){return t.filter(o=>o!==void 0).reduce((o,n,r)=>(r===0?"":o+`
-`)+n,"")}function ye(t){return t.replace(/(?<=\\)"/g,'\\\\"').replace(/\\n/g,"\\\\n").replace(/(?<!\\)"/g,'\\"')}function Ee(t){return t.replace(/^"(.*)"$/,"$1").replace(/^'(.*)'$/,"$1")}function Se(t,e){let o=" ".repeat(e);return t.replaceAll(/\n/g,`
-${o}`)}async function Nt(t,e){let n=`shinyuieditor:::safe_parse_and_serialize("${ye(e)}")`,r=await t.runCmd(n,{verbose:!1,timeout_ms:5e3});if(r.status==="error")return r;try{let s=JSON.parse(r.values.reduce((a,c)=>a+`
-`+c,""));if(Ct(s),s.type==="error")return{status:"error",errorMsg:s.msg};if(Object.keys(s.ast).length===0)return{status:"success",values:"EMPTY"};let i=ve(s.ast);return{status:"success",values:{ast:s.ast,server_info:i}}}catch{return{status:"error",errorMsg:"Something went wrong parsing app. Check to make sure your app text doesn't contain any syntax errors."}}}function Ct(t){if(!(Q(t)&&"type"in t&&(t.type==="success"||t.type==="error")))throw new Error("Parse result does not appear to be from safe ast parse function")}function Re(t,e){let o=null;async function n(){let r=t.version;if(r===o?.file_version)return{status:"success",values:o.ast_info};let s=await Nt(e,t.getText());if(s.status==="error")return s;let i=s.values;return o={file_version:r,ast_info:i},s}return n}var xe=w(require("fs")),K=w(require("vscode"));var we=require("child_process");async function Te({cmd:t,args:e,verbose:o=!1,timeout_ms:n=1500}){let r=bt(o,"runShellCommand: ");return new Promise(s=>{let i={stdout:[],stderr:[]},a=(0,we.spawn)(t,e);function c(){r("Spawned")}function p(m){r("Error "+m.message),f(),s({status:"error",errorMsgs:m.message,...i})}function d(){r("Close"),f(),s({status:"success",...i})}function l(m){r(`stdout: ${m.toString()}`),i.stdout.push(m.toString())}function v(m){r(`stderr: ${m.toString()}`),i.stderr.push(m.toString())}function f(){clearTimeout(u),a.off("spawn",c),a.off("error",p),a.off("close",d),a.stdout.off("data",l),a.stderr.off("data",v)}let u=setTimeout(()=>{s({status:"error",errorMsgs:`Command, no response from run command within ${n}ms:
-${t} ${e?.join(" ")}`,...i}),f()},n);a.on("spawn",c),a.on("error",p),a.on("close",d),a.stdout.on("data",l),a.stderr.on("data",v)})}function bt(t,e){return o=>{t&&console.log(e+o)}}async function Ae(t){if(It())return await kt(t);let e=K.Uri.parse(`http://localhost:${t}`);return(await K.env.asExternalUri(e)).toString()}var Pe="/usr/lib/rstudio-server/bin/rserver-url";function It(){return"RS_SERVER_URL"in process.env?xe.existsSync(Pe):!1}async function kt(t){let e=await Te({cmd:Pe,args:[String(t)]});e.status==="error"&&Error(`Failed to get Posit workbench forwarded port. Error msg:
-`+e.errorMsgs);let o=process.env.RS_SERVER_URL,n=process.env.RS_SESSION_URL;if(!o||!n)throw new Error("Can't find URL for workbench.");let r=e.stdout[0];return`${o}${n.slice(1)}p/${r}/`}var Ne=w(require("net"));async function Ce(){return new Promise(t=>{let e=Ne.default.createServer();e.listen(0,()=>{let o=e.address?.();if(typeof o=="string"||o===null)throw new Error("Failed to find a free port...");e.close(n=>t(o.port))})})}var Xe=require("child_process");var Qe=require("fs");var qe=require("fs"),J=w(require("path")),Ye=Ve();async function je(){let t=process.platform,e=Gt(t);if(!e&&t==="win32")try{let o=new Ye({hive:Ye.HKLM,key:"\\Software\\R-Core\\R"}),n=await new Promise((r,s)=>o.get("InstallPath",(i,a)=>i===null?r(a):s(i)));e=J.default.join(n.value,"bin","R.exe")}catch{e=""}return e}function Gt(t){let e=":",o="";t==="win32"&&(e=";",o=".exe");let n=process.env.PATH?process.env.PATH.split(e):[];for(let r of n){let s=J.default.join(r,"R"+o);if((0,qe.existsSync)(s))return s}return""}async function Ze(){let t=await je();if(!t){let e="Cannot find R for running shinyuieditor. Make sure R is installed and/or updating the shinyuieditor extension settings option to proper to R path.";throw new Error(e)}if(!(0,Qe.existsSync)(t)){let e=`Path to R is invalid: ${t}. Make sure R is installed and/or updating the shinyuieditor extension settings option to proper to R path.`;throw new Error(e)}return Ee(t)}async function H(t,e={}){let o=await Ze();if(o===void 0)throw new Error("Can't get R path");let n="";return new Promise(r=>{let s=new AbortController,{signal:i}=s,a=(0,Xe.spawn)(o,t,{signal:i});a.on("spawn",d),a.on("error",l),a.on("close",v),a.stdout.on("data",f),a.stderr.on("data",u);function c(h,y){n+=`${h}: ${y}`}function p(h){e.verbose&&console.log(`%c[RProc ${a.pid}] %c${h.replaceAll(/\n$/g,"").replaceAll(/\n/g,`
-\u2219\u2219\u2219 `)}`,"color: orangered;","color: grey; opacity: 0.5")}function d(){p("spawned"),clearTimeout(R),r({proc:a,stop:g,getIsRunning:()=>a.exitCode===null})}function l(h){p(`Error: 
-${h.toString()}`),clearTimeout(R),e.onError?.(h)}function v(){p("Closed"),clearTimeout(R),e.onClose?.()}function f(h){let y=h.toString();p(`stdout: 
-${y}`),c("out",y),e.onStdout?.(y)}function u(h){let y=h.toString();p(`stderr: ${y}`),c("error",y),e.onStderr?.(y)}function m(){a.off("spawn",d),a.off("error",l),a.off("close",v),a.stdout.off("data",f),a.stderr.off("data",u)}function g(){return m(),!a.pid||!a.connected?!0:(p(`Killing R process ${a.pid}`),process.kill(a.pid))}let R=setTimeout(()=>{throw g(),new Error(`Starting backend server failed.
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/extension.ts
+var extension_exports = {};
+__export(extension_exports, {
+  activate: () => activate
+});
+module.exports = __toCommonJS(extension_exports);
+var vscode11 = __toESM(require("vscode"));
+
+// src/commands/launchEditor.ts
+var import_vscode = require("vscode");
+var vscode = __toESM(require("vscode"));
+
+// src/commands/appFileUtils.ts
+var defaultAppName = "app.R";
+var nameRootRegex = /^([\w|\s]+)([\.[\w|^\.]*]*)$/i;
+function validateAppFileName(fileName) {
+  if (fileName === "") {
+    return {
+      valid: true,
+      name: defaultAppName
+    };
+  }
+  const nameRoot = fileName.match(nameRootRegex);
+  if (nameRoot === null) {
+    return {
+      valid: false,
+      msg: `Invalid app name: ${fileName}.`
+    };
+  }
+  let [full, base, extension] = nameRoot;
+  if (extension === "" || extension === ".") {
+    extension = ".R";
+  }
+  if (!base) {
+    return {
+      valid: false,
+      msg: `Invalid app name: ${fileName}. Make sure to only use numbers and letters. Spaces will be converted to dashes.`
+    };
+  }
+  if (extension !== ".R") {
+    return {
+      valid: false,
+      msg: `Invalid file extension: ${extension}. Extension needs to be .R`
+    };
+  }
+  base = base.replaceAll(" ", "-");
+  return {
+    valid: true,
+    name: `${base}${extension}`
+  };
+}
+var emptyAppContent = new TextEncoder().encode("");
+
+// src/commands/launchEditor.ts
+async function launchEditor() {
+  const uri = await import_vscode.window.showOpenDialog({
+    canSelectFolders: true,
+    canSelectFiles: true,
+    title: "Choose location for Shiny app",
+    openLabel: "Choose app folder or file",
+    canSelectMany: false,
+    filters: {
+      "R scripts": ["R", "r"]
+    }
+  });
+  if (!uri)
+    return;
+  const selection = uri[0];
+  const isDirectory = (await vscode.workspace.fs.stat(selection)).type === vscode.FileType.Directory;
+  const newAppFile = isDirectory ? await getAppFileFromDirectory(selection) : selection;
+  if (!newAppFile) {
+    return;
+  }
+  vscode.commands.executeCommand(
+    "vscode.openWith",
+    newAppFile,
+    "shinyuieditor.appFile"
+  );
+}
+async function getAppFileFromDirectory(appDir) {
+  const existingFilesInFolder = (await import_vscode.workspace.fs.readDirectory(appDir)).filter(([_, type]) => type === vscode.FileType.File).map(([name, _]) => name);
+  const nameForFile = await import_vscode.window.showInputBox({
+    prompt: "Enter file name for new app",
+    placeHolder: defaultAppName,
+    validateInput(inputName) {
+      const validatedName2 = validateAppFileName(inputName);
+      if (!validatedName2.valid) {
+        return {
+          message: validatedName2.msg,
+          severity: vscode.InputBoxValidationSeverity.Error
+        };
+      }
+      if (existingFilesInFolder.includes(validatedName2.name)) {
+        return {
+          message: `Run the editor on existing app: ${validatedName2.name}.`,
+          severity: vscode.InputBoxValidationSeverity.Info
+        };
+      }
+      return {
+        message: `Run the template chooser to build new app: ${validatedName2.name}.`,
+        severity: vscode.InputBoxValidationSeverity.Info
+      };
+    }
+  });
+  if (!nameForFile) {
+    return;
+  }
+  const validatedName = validateAppFileName(nameForFile);
+  if (!validatedName.valid) {
+    vscode.window.showErrorMessage(
+      `Error processing requested file name: ${nameForFile}. Try with a different name.`
+    );
+    return;
+  }
+  const newAppFile = import_vscode.Uri.joinPath(appDir, validatedName.name);
+  const alreadyExists = existingFilesInFolder.includes(validatedName.name);
+  if (!alreadyExists) {
+    await import_vscode.workspace.fs.writeFile(newAppFile, emptyAppContent);
+  }
+  return newAppFile;
+}
+
+// src/commands/startEditorOnActiveFile.ts
+var vscode2 = __toESM(require("vscode"));
+var import_vscode2 = require("vscode");
+function startEditorOnActiveFile(name = "world") {
+  const activeEditor = import_vscode2.window.activeTextEditor;
+  if (!activeEditor) {
+    import_vscode2.window.showErrorMessage("No active file open to run ui editor on!");
+    return;
+  }
+  vscode2.commands.executeCommand(
+    "vscode.openWith",
+    activeEditor.document.uri,
+    "shinyuieditor.appFile"
+  );
+}
+
+// src/shinyuieditor_extension.ts
+var vscode10 = __toESM(require("vscode"));
+
+// src/editorLogic.ts
+var import_MessageToBackend = require("communication-types/src/MessageToBackend");
+var import_just_debounce_it = __toESM(require("just-debounce-it"));
+var vscode9 = __toESM(require("vscode"));
+
+// src/clearAppFile.ts
+var vscode3 = __toESM(require("vscode"));
+async function clearAppFile(document) {
+  const uri = document.uri;
+  const edit = new vscode3.WorkspaceEdit();
+  const uiRange = document.validateRange(
+    new vscode3.Range(0, 0, Infinity, Infinity)
+  );
+  edit.replace(uri, uiRange, "");
+  await vscode3.workspace.applyEdit(edit);
+  document.save();
+}
+
+// src/extension-api-utils/openCodeCompanionEditor.ts
+var vscode4 = __toESM(require("vscode"));
+async function openCodeCompanionEditor({
+  appFile,
+  existingEditor
+}) {
+  const alreadyHaveOpenEditor = existingEditor && vscode4.window.visibleTextEditors.includes(existingEditor);
+  const companionEditor = alreadyHaveOpenEditor ? existingEditor : await vscode4.window.showTextDocument(appFile.uri, {
+    viewColumn: vscode4.ViewColumn.Beside,
+    preview: true
+  });
+  return companionEditor;
+}
+
+// src/Python-Utils/build_python_app_parser.ts
+var import_abstract_snake_tree = require("abstract-snake-tree");
+
+// src/R-Utils/getAppInfo.ts
+var import_parse_app_server_info = require("r-ast-parsing/src/parse_app_server_info");
+var import_raw_R_info_to_app_info = require("r-ast-parsing/src/raw_R_info_to_app_info");
+var import_is_object = require("util-functions/src/is_object");
+var import_strings = require("util-functions/src/strings");
+async function getRAppInfo(rProc, fileText) {
+  const escapedAppText = (0, import_strings.makePortableString)(fileText);
+  const parseCommand = `shinyuieditor:::safe_parse_and_serialize("${escapedAppText}")`;
+  const parsedCommandOutput = await rProc.runCmd(parseCommand, {
+    verbose: false,
+    timeout_ms: 5e3
+  });
+  if (parsedCommandOutput.status === "error") {
+    return parsedCommandOutput;
+  }
+  try {
+    const output_response = JSON.parse(
+      parsedCommandOutput.values.reduce((all, l) => all + "\n" + l, "")
+    );
+    assert_is_ast_parse_response(output_response);
+    if (output_response.type === "error") {
+      return {
+        status: "error",
+        errorMsg: output_response.msg
+      };
+    }
+    if (Object.keys(output_response.ast).length === 0) {
+      return { status: "success", values: "EMPTY" };
+    }
+    const raw_ast = output_response.ast;
+    const parsed_info = (0, import_raw_R_info_to_app_info.raw_R_info_to_app_info)({
+      app_type: "SINGLE-FILE",
+      app: { ast: raw_ast, script: fileText }
+    });
+    const server_info = (0, import_parse_app_server_info.parse_app_server_info)(output_response.ast);
+    return {
+      status: "success",
+      values: { parsed_info, server_info }
+    };
+  } catch {
+    return {
+      status: "error",
+      errorMsg: "Something went wrong parsing app. Check to make sure your app text doesn't contain any syntax errors."
+    };
+  }
+}
+function assert_is_ast_parse_response(parse_res) {
+  if ((0, import_is_object.is_object)(parse_res) && "type" in parse_res && (parse_res.type === "success" || parse_res.type === "error")) {
+    return;
+  }
+  throw new Error(
+    "Parse result does not appear to be from safe ast parse function"
+  );
+}
+function make_cached_info_getter(document, get_info_fn) {
+  let last_info_grabbed = null;
+  async function get_info() {
+    const current_file_version = document.version;
+    if (current_file_version === (last_info_grabbed == null ? void 0 : last_info_grabbed.file_version)) {
+      return { status: "success", values: last_info_grabbed.info };
+    }
+    const info_attempt = await get_info_fn(document.getText());
+    if (info_attempt.status === "error") {
+      return info_attempt;
+    }
+    const ast_info = info_attempt.values;
+    last_info_grabbed = {
+      file_version: current_file_version,
+      info: ast_info
+    };
+    return info_attempt;
+  }
+  return get_info;
+}
+
+// src/Python-Utils/build_python_app_parser.ts
+async function build_python_app_parser(document) {
+  const parser = (0, import_abstract_snake_tree.setup_python_parser)();
+  const get_app_info = async (text) => {
+    const parsed = parser.parse(text);
+    const assignment_nodes = (0, import_abstract_snake_tree.get_assignment_nodes)(parsed);
+    const ui_node = (0, import_abstract_snake_tree.get_ui_assignment)(assignment_nodes);
+    if (!ui_node) {
+      return {
+        status: "error",
+        errorMsg: "No UI assignment found"
+      };
+    }
+    const ui_tree = (0, import_abstract_snake_tree.treesitter_to_ui_tree)(ui_node);
+    const app_info = {
+      language: "PYTHON",
+      app_type: "SINGLE-FILE",
+      ui_tree,
+      // TODO: Make this actually work by looking at parsed tre
+      known_outputs: /* @__PURE__ */ new Set(),
+      app: {
+        code: "",
+        packages: []
+      }
+    };
+    return {
+      status: "success",
+      values: {
+        parsed_info: app_info
+      }
+    };
+  };
+  const getInfo = make_cached_info_getter(document, get_app_info);
+  const check_if_pkgs_installed = async (pkgs) => {
+    return { success: true };
+  };
+  return {
+    getInfo,
+    check_if_pkgs_installed
+  };
+}
+
+// src/R-Utils/checkIfPkgAvailable.ts
+async function checkIfPkgAvailable(rProc, pkg) {
+  const loadingResults = await rProc.runCmd(
+    `print(require(${pkg}, quietly = TRUE))`,
+    {
+      verbose: false
+    }
+  );
+  if (loadingResults.status === "error") {
+    return { status: "error", msg: loadingResults.errorMsg };
+  }
+  if (loadingResults.values[0].includes("FALSE")) {
+    return { status: "error", msg: generateMissingPkgMsg(pkg) };
+  }
+  return { status: "success" };
+}
+function generateMissingPkgMsg(pkg) {
+  return `The ShinyUiEditor extension needs the \`${pkg}\` pkg installed. Install using \`remotes::install_github('rstudio/${pkg}')\` and restart the extension.`;
+}
+
+// src/R-Utils/runRCommand.ts
+var START_SIGNAL = "SUE_START_SIGNAL";
+var END_SIGNAL = "SUE_END_SIGNAL";
+async function runRCommand(rProc, cmd, { timeout_ms = 1e3, verbose = false } = {}) {
+  const logger = (msg) => {
+    if (verbose) {
+      console.log(`runRCommand: ${msg}`);
+    }
+  };
+  let logs = "";
+  let seenStartSignal = false;
+  const lines = [];
+  if (rProc.exitCode !== null) {
+    return {
+      status: "error",
+      errorMsg: `Can't run R command as background R process has exited with code ${rProc.exitCode}.`
+    };
+  }
+  return new Promise((resolve) => {
+    function listenForOutput(d) {
+      const outputString = d.toString();
+      const outputLines = outputString.split("\n");
+      logger("~~~Output chunk~~~");
+      for (const l of outputLines) {
+        const isStartSignal = l.includes(START_SIGNAL);
+        const isEndSignal = l.includes(END_SIGNAL);
+        const emptyLine = l.length === 0;
+        if (isStartSignal) {
+          seenStartSignal = true;
+          continue;
+        }
+        if (isEndSignal) {
+          clearTimeout(startTimeout);
+          resolve({ status: "success", values: lines });
+          logger("Output finished");
+          cleanup();
+          break;
+        }
+        if (!seenStartSignal || emptyLine) {
+          continue;
+        }
+        logger(l);
+        logs += l + "\n";
+        lines.push(l);
+      }
+    }
+    function listenForStderrOutput(d) {
+      const msg = d.toString();
+      logs += `stderr: ${msg}
+`;
+      logger("stderr: " + msg);
+    }
+    function listenForClose() {
+      resolve({
+        status: "error",
+        errorMsg: logs
+      });
+      cleanup();
+    }
+    rProc.stdout.on("data", listenForOutput);
+    rProc.stderr.on("data", listenForStderrOutput);
+    rProc.on("close", listenForClose);
+    const startTimeout = setTimeout(() => {
+      resolve({
+        status: "error",
+        errorMsg: `Timeout, no response from run command within ${timeout_ms}ms: ${cmd}
  Logs:
-`+n)},e.timeout_ms??5e3)})}function ze({pathToApp:t,onCrash:e,onInitiation:o,onReady:n,onFailToStart:r,onLogs:s}){let i="0.0.0.0",a=null;async function c(){o(),p();try{let d=await Ce(),l=await Ae(d),v=new RegExp(`listening on .+${d}`,"i"),f=he("options(shiny.autoreload = TRUE)",`shiny::runApp(appDir = "${t}", port = ${d}, host = "${i}")`);return a=await H(["--no-save","--no-restore","--silent","-e",f],{onStderr(u){v.test(u)&&n(l.toString()),s(u.split(`
-`))},onClose:e,onError:e}),!0}catch{return r(),!1}}function p(){return a===null?!0:a.stop()}return{start:c,stop:p}}var E=w(require("vscode"));var V=w(require("vscode"));async function Je({uri:t,position:e=new V.Position(0,0),locations:o,multiple:n="gotoAndPeek",noResultsMessage:r}){await V.commands.executeCommand("editor.action.goToLocations",t,e,o,n,r)}async function et({editor:t,snippet:e,server_pos:o,where_in_server:n}){let[s,,i]=o,a=t.document.validatePosition(new E.Position(n==="end"?i-2:s-2,1/0));await t.insertSnippet(new E.SnippetString(`
-  ${Se(e,2)}`),a)||E.window.showErrorMessage("Failed to add output scaffold")}function ee({editor:t,selections:e}){let o=e.map(([n,r,s,i])=>{let a=new E.Position(n-1,r-1),c=new E.Position(s-1,i);return new E.Selection(a,c)});t.selection=o[0],t.revealRange(o[0])}async function tt({editor:t,input:{inputId:e}}){let o=`input$${e}`,n=o,s=t.document.getText().split(`
-`),i=new RegExp(`(?<!#.*)${Ft(n)}(?=\\W)`),a=s.map((p,d)=>({line:d,match:i.exec(p)})).filter(({match:p})=>p!==null);if(a.length===0)return null;let c=a.map(({line:p,match:d})=>{let l=d?.index??0,v=new E.Position(p,l),f=new E.Position(p,l+n.length);return new E.Location(t.document.uri,new E.Range(v,f))});E.window.showTextDocument(t.document),await Je({uri:t.document.uri,locations:c,noResultsMessage:`Failed to find any current use of ${o} in server`})}function Ft(t){return t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}var U=w(require("vscode"));async function ot({script_text:t,document:e}){let o=e.getText();if(t===o)return!1;let n=e.uri,r=new U.WorkspaceEdit,s=e.validateRange(new U.Selection(0,0,e.lineCount+1,0));return r.replace(n,s,t),await U.workspace.applyEdit(r),e.save(),!0}var{showErrorMessage:$t}=nt.window;function rt({RProcess:t,document:e,sendMessage:o}){let n=!1,r=null,s,i=Re(e,t),a=async()=>{let u=e.getText();if(!(r!==null&&u.includes(r))){if(!n){let g=await me(t,"shinyuieditor");if(g.status==="error")throw o({path:"BACKEND-ERROR",payload:{context:"checking for shinyuieditor package",msg:g.msg}}),$t(g.msg),new Error(g.msg);n=!0}if(u===""){o({path:"TEMPLATE_CHOOSER",payload:"SINGLE-FILE"});return}try{let g=await i();if(g.status==="error"){o({path:"BACKEND-ERROR",payload:{context:"parsing app",msg:g.errorMsg}}),r=null;return}if(g.values==="EMPTY"){o({path:"TEMPLATE_CHOOSER",payload:"SINGLE-FILE"});return}r=u,o({path:"APP-INFO",payload:{app_type:"SINGLE-FILE",app:{script:u,ast:g.values.ast}}})}catch(g){console.error("Failed to parse",g)}}},c=le(a,500),p=()=>{c()},d=()=>{c.flush()},l=ze({pathToApp:e.fileName,onInitiation:()=>{o({path:"APP-PREVIEW-STATUS",payload:"LOADING"})},onReady:u=>{o({path:"APP-PREVIEW-STATUS",payload:{url:u}})},onFailToStart:()=>{o({path:"APP-PREVIEW-CRASH",payload:"Failed to start"})},onCrash:()=>{o({path:"APP-PREVIEW-CRASH",payload:"Crashed"})},onLogs:u=>{o({path:"APP-PREVIEW-LOGS",payload:u})}}),v=async()=>(s=await fe({appFile:e,existingEditor:s}),s);return{onDocumentChanged:p,onDocumentSaved:d,onDidReceiveMessage:async u=>{if(ue(u))switch(u.path){case"READY-FOR-STATE":a();return;case"UPDATED-APP":{if(u.payload.app_type==="MULTI-FILE")return;await ot({script_text:u.payload.app,document:e})&&(r=u.payload.app);return}case"APP-PREVIEW-REQUEST":{l.start();return}case"APP-PREVIEW-STOP":{l.stop();return}case"APP-PREVIEW-RESTART":{l.start();return}case"ENTERED-TEMPLATE-SELECTOR":{l.stop(),await de(e);return}case"OPEN-COMPANION-EDITOR":{await v();return}case"SHOW-APP-LINES":{ee({editor:await v(),selections:u.payload});return}case"INSERT-SNIPPET":{let m=await i();m.status==="success"&&m.values!=="EMPTY"&&et({editor:await v(),server_pos:m.values.server_info.server_pos,...u.payload});return}case"FIND-SERVER-USES":{if(u.payload.type==="Input")tt({editor:await v(),input:u.payload});else{let m=await i();m.status==="success"&&m.values!=="EMPTY"&&ee({editor:await v(),selections:m.values.server_info.get_output_position(u.payload.outputId)??[]})}return}default:console.warn("Unhandled message from client",u)}else console.log("Unknown message from webview",u)}}}function st(t){let e=t.getText();return e.trim()===""?"empty":Bt.test(e)?"valid":"invalid"}var Bt=/shinyApp\(/;var it="SUE_START_SIGNAL",at="SUE_END_SIGNAL";async function pt(t,e,{timeout_ms:o=1e3,verbose:n=!1}={}){let r=c=>{n&&console.log(`runRCommand: ${c}`)},s="",i=!1,a=[];return t.exitCode!==null?{status:"error",errorMsg:`Can't run R command as background R process has exited with code ${t.exitCode}.`}:new Promise(c=>{function p(u){let g=u.toString().split(`
-`);r("~~~Output chunk~~~");for(let R of g){let h=R.includes(it),y=R.includes(at),F=R.length===0;if(h){i=!0;continue}if(y){clearTimeout(v),c({status:"success",values:a}),r("Output finished"),f();break}!i||F||(r(R),s+=R+`
-`,a.push(R))}}function d(u){let m=u.toString();s+=`stderr: ${m}
-`,r("stderr: "+m)}function l(){c({status:"error",errorMsg:s}),f()}t.stdout.on("data",p),t.stderr.on("data",d),t.on("close",l);let v=setTimeout(()=>{c({status:"error",errorMsg:`Timeout, no response from run command within ${o}ms: ${e}
- Logs:
- ${s}`}),f()},o);function f(){t.stdout.off("data",p),t.stderr.off("data",d),t.off("close",l)}ct(`print('${it}');${e};print('${at}')`,t)})}async function ut(){async function t(){return await H(["--silent","--slave","--no-save","--no-restore"],{timeout_ms:5e3})}let e=await t();return{...e,async runCmd(o,n){return e.getIsRunning()||(console.warn("Background R Process has crashed. Restarting..."),e.stop(),e=await t(),console.warn("Background R Process restarted")),pt(e.proc,o,n)}}}function ct(t,e){e.stdin.write(`${t}
-`)}function lt(){let t="",e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";for(let o=0;o<32;o++)t+=e.charAt(Math.floor(Math.random()*e.length));return t}var Y=class{constructor(e){this.context=e;this.RProcess=null;ut().then(o=>{this.RProcess=o})}static register(e){let o=new Y(e);return x.window.registerCustomEditorProvider(Y.viewType,o,{webviewOptions:{retainContextWhenHidden:!0}})}async resolveCustomTextEditor(e,o,n){if(st(e)==="invalid"){let p="The active file doesn't appear to be a Shiny app. Make sure that the script is either empty or has a valid shiny app in it.";throw x.window.showErrorMessage(p),o.dispose(),new Error(p)}if(o.webview.options={enableScripts:!0},o.webview.html=this.getHtmlForWebview(o.webview),!this.RProcess)throw new Error("Don't have an R Process to pass to editor backend!");let s=rt({RProcess:this.RProcess,document:e,sendMessage:p=>o.webview.postMessage(p)}),i=x.workspace.onDidChangeTextDocument(p=>{p.document.uri.toString()===e.uri.toString()&&s.onDocumentChanged()}),a=x.workspace.onDidSaveTextDocument(p=>{p.uri.toString()===e.uri.toString()&&s.onDocumentSaved()}),c=o.webview.onDidReceiveMessage(s.onDidReceiveMessage);o.onDidDispose(()=>{i.dispose(),a.dispose(),c.dispose()})}getHtmlForWebview(e){let o=e.asWebviewUri(x.Uri.joinPath(this.context.extensionUri,"media","build","extension-editor.js")),n=e.asWebviewUri(x.Uri.joinPath(this.context.extensionUri,"media","build","style.css")),r=lt(),s=e.cspSource;return`
+ ${logs}`
+      });
+      cleanup();
+    }, timeout_ms);
+    function cleanup() {
+      rProc.stdout.off("data", listenForOutput);
+      rProc.stderr.off("data", listenForStderrOutput);
+      rProc.off("close", listenForClose);
+    }
+    sendMsgToProc(
+      `print('${START_SIGNAL}');${cmd};print('${END_SIGNAL}')`,
+      rProc
+    );
+  });
+}
+
+// src/R-Utils/startRProcess.ts
+var import_child_process = require("child_process");
+
+// src/R-Utils/getPathToR.ts
+var import_fs2 = require("fs");
+var import_strings2 = require("util-functions/src/strings");
+
+// src/R-Utils/getRpathFromSystem.ts
+var import_fs = require("fs");
+var import_path = __toESM(require("path"));
+var winreg = require("winreg");
+async function getRpathFromSystem() {
+  const platform = process.platform;
+  let rpath = getRfromEnvPath(platform);
+  if (!rpath && platform === "win32") {
+    try {
+      const key = new winreg({
+        hive: winreg.HKLM,
+        key: "\\Software\\R-Core\\R"
+      });
+      const item = await new Promise(
+        (c, e) => key.get(
+          "InstallPath",
+          (err, result) => err === null ? c(result) : e(err)
+        )
+      );
+      rpath = import_path.default.join(item.value, "bin", "R.exe");
+    } catch (e) {
+      rpath = "";
+    }
+  }
+  return rpath;
+}
+function getRfromEnvPath(platform) {
+  let splitChar = ":";
+  let fileExtension = "";
+  if (platform === "win32") {
+    splitChar = ";";
+    fileExtension = ".exe";
+  }
+  const os_paths = process.env.PATH ? process.env.PATH.split(splitChar) : [];
+  for (const os_path of os_paths) {
+    const os_r_path = import_path.default.join(os_path, "R" + fileExtension);
+    if ((0, import_fs.existsSync)(os_r_path)) {
+      return os_r_path;
+    }
+  }
+  return "";
+}
+
+// src/R-Utils/getPathToR.ts
+async function getPathToR() {
+  const pathToR = await getRpathFromSystem();
+  if (!pathToR) {
+    const errMsg = `Cannot find R for running shinyuieditor. Make sure R is installed and/or updating the shinyuieditor extension settings option to proper to R path.`;
+    throw new Error(errMsg);
+  }
+  if (!(0, import_fs2.existsSync)(pathToR)) {
+    const errMsg = `Path to R is invalid: ${pathToR}. Make sure R is installed and/or updating the shinyuieditor extension settings option to proper to R path.`;
+    throw new Error(errMsg);
+  }
+  return (0, import_strings2.removeQuotes)(pathToR);
+}
+
+// src/R-Utils/startRProcess.ts
+async function startRProcess(commands5, opts = {}) {
+  const pathToR = await getPathToR();
+  if (pathToR === void 0) {
+    throw new Error("Can't get R path");
+  }
+  let logs = "";
+  return new Promise((resolve) => {
+    const controller = new AbortController();
+    const { signal } = controller;
+    const spawnedProcess = (0, import_child_process.spawn)(pathToR, commands5, { signal });
+    spawnedProcess.on("spawn", onSpawn);
+    spawnedProcess.on("error", onError);
+    spawnedProcess.on("close", onClose);
+    spawnedProcess.stdout.on("data", onStdout);
+    spawnedProcess.stderr.on("data", onStderr);
+    function gatherLogs(type, logMsg) {
+      logs += `${type}: ${logMsg}`;
+    }
+    function eventLog(msg) {
+      if (!opts.verbose)
+        return;
+      console.log(
+        `%c[RProc ${spawnedProcess.pid}] %c${msg.replaceAll(/\n$/g, "").replaceAll(/\n/g, "\n\u2219\u2219\u2219 ")}`,
+        "color: orangered;",
+        "color: grey; opacity: 0.5"
+      );
+    }
+    function onSpawn() {
+      eventLog(`spawned`);
+      clearTimeout(startTimeout);
+      resolve({
+        proc: spawnedProcess,
+        stop,
+        getIsRunning: () => spawnedProcess.exitCode === null
+      });
+    }
+    function onError(d) {
+      var _a;
+      eventLog(`Error: 
+${d.toString()}`);
+      clearTimeout(startTimeout);
+      (_a = opts.onError) == null ? void 0 : _a.call(opts, d);
+    }
+    function onClose() {
+      var _a;
+      eventLog(`Closed`);
+      clearTimeout(startTimeout);
+      (_a = opts.onClose) == null ? void 0 : _a.call(opts);
+    }
+    function onStdout(d) {
+      var _a;
+      const msg = d.toString();
+      eventLog(`stdout: 
+${msg}`);
+      gatherLogs("out", msg);
+      (_a = opts.onStdout) == null ? void 0 : _a.call(opts, msg);
+    }
+    function onStderr(d) {
+      var _a;
+      const msg = d.toString();
+      eventLog(`stderr: ${msg}`);
+      gatherLogs("error", msg);
+      (_a = opts.onStderr) == null ? void 0 : _a.call(opts, msg);
+    }
+    function cleanupListeners() {
+      spawnedProcess.off("spawn", onSpawn);
+      spawnedProcess.off("error", onError);
+      spawnedProcess.off("close", onClose);
+      spawnedProcess.stdout.off("data", onStdout);
+      spawnedProcess.stderr.off("data", onStderr);
+    }
+    function stop() {
+      cleanupListeners();
+      if (!spawnedProcess.pid || !spawnedProcess.connected) {
+        return true;
+      }
+      eventLog(`Killing R process ${spawnedProcess.pid}`);
+      return process.kill(spawnedProcess.pid);
+    }
+    const startTimeout = setTimeout(() => {
+      stop();
+      throw new Error("Starting backend server failed.\n Logs:\n" + logs);
+    }, opts.timeout_ms ?? 5e3);
+  });
+}
+
+// src/R-Utils/startBackgroundRProcess.ts
+async function startBackgroundRProcess() {
+  async function startProc() {
+    return await startRProcess(
+      ["--silent", "--slave", "--no-save", "--no-restore"],
+      { timeout_ms: 5e3 }
+    );
+  }
+  let rProc = await startProc();
+  return {
+    ...rProc,
+    async runCmd(cmd, opts) {
+      if (!rProc.getIsRunning()) {
+        console.warn("Background R Process has crashed. Restarting...");
+        rProc.stop();
+        rProc = await startProc();
+        console.warn("Background R Process restarted");
+      }
+      return runRCommand(rProc.proc, cmd, opts);
+    }
+  };
+}
+function sendMsgToProc(msg, proc) {
+  proc.stdin.write(`${msg}
+`);
+}
+
+// src/R-Utils/build_R_app_parser.ts
+async function build_R_app_parser(document) {
+  const RProcess = await startBackgroundRProcess();
+  if (!RProcess) {
+    throw new Error("Don't have an R Process to pass to editor backend!");
+  }
+  const get_app_info = async (text) => {
+    return getRAppInfo(RProcess, text);
+  };
+  const getInfo = make_cached_info_getter(document, get_app_info);
+  const check_if_pkgs_installed = async (pkgs) => {
+    const pkgsLoaded = await checkIfPkgAvailable(RProcess, pkgs);
+    if (pkgsLoaded.status === "error") {
+      return { success: false, msg: pkgsLoaded.msg };
+    }
+    return { success: true };
+  };
+  return {
+    getInfo,
+    check_if_pkgs_installed
+  };
+}
+
+// src/R-Utils/startPreviewApp.ts
+var import_strings3 = require("util-functions/src/strings");
+
+// src/extension-api-utils/getRemoteSafeUrl.ts
+var fs = __toESM(require("fs"));
+var vscode5 = __toESM(require("vscode"));
+
+// src/extension-api-utils/runShellCommand.ts
+var import_child_process2 = require("child_process");
+async function runShellCommand({
+  cmd,
+  args,
+  verbose = false,
+  timeout_ms = 1500
+}) {
+  const logger = makeLogger(verbose, "runShellCommand: ");
+  return new Promise((resolve) => {
+    const output = { stdout: [], stderr: [] };
+    const spawnedProcess = (0, import_child_process2.spawn)(cmd, args);
+    function onSpawn() {
+      logger("Spawned");
+    }
+    function onError(e) {
+      logger("Error " + e.message);
+      cleanup();
+      resolve({ status: "error", errorMsgs: e.message, ...output });
+    }
+    function onClose() {
+      logger("Close");
+      cleanup();
+      resolve({ status: "success", ...output });
+    }
+    function onStdout(d) {
+      logger(`stdout: ${d.toString()}`);
+      output.stdout.push(d.toString());
+    }
+    function onStderr(d) {
+      logger(`stderr: ${d.toString()}`);
+      output.stderr.push(d.toString());
+    }
+    function cleanup() {
+      clearTimeout(startTimeout);
+      spawnedProcess.off("spawn", onSpawn);
+      spawnedProcess.off("error", onError);
+      spawnedProcess.off("close", onClose);
+      spawnedProcess.stdout.off("data", onStdout);
+      spawnedProcess.stderr.off("data", onStderr);
+    }
+    const startTimeout = setTimeout(() => {
+      resolve({
+        status: "error",
+        errorMsgs: `Command, no response from run command within ${timeout_ms}ms:
+${cmd} ${args == null ? void 0 : args.join(
+          " "
+        )}`,
+        ...output
+      });
+      cleanup();
+    }, timeout_ms);
+    spawnedProcess.on("spawn", onSpawn);
+    spawnedProcess.on("error", onError);
+    spawnedProcess.on("close", onClose);
+    spawnedProcess.stdout.on("data", onStdout);
+    spawnedProcess.stderr.on("data", onStderr);
+  });
+}
+function makeLogger(verbose, prefix) {
+  return (msg) => {
+    if (verbose) {
+      console.log(prefix + msg);
+    }
+  };
+}
+
+// src/extension-api-utils/getRemoteSafeUrl.ts
+async function getRemoteSafeUrl(local_port) {
+  if (getInPositWorkbench()) {
+    return await getForwardedWorkbenchUrl(local_port);
+  }
+  const local_uri = vscode5.Uri.parse(`http://localhost:${local_port}`);
+  return (await vscode5.env.asExternalUri(local_uri)).toString();
+}
+var WORKBENCH_URL_FORWARDING_BINARY = "/usr/lib/rstudio-server/bin/rserver-url";
+function getInPositWorkbench() {
+  const env_variables_exist = "RS_SERVER_URL" in process.env;
+  if (!env_variables_exist)
+    return false;
+  const forwarding_binary_exists = fs.existsSync(
+    WORKBENCH_URL_FORWARDING_BINARY
+  );
+  return forwarding_binary_exists;
+}
+async function getForwardedWorkbenchUrl(local_port) {
+  const port_forward_cmd_output = await runShellCommand({
+    cmd: WORKBENCH_URL_FORWARDING_BINARY,
+    args: [String(local_port)]
+  });
+  if (port_forward_cmd_output.status === "error") {
+    Error(
+      "Failed to get Posit workbench forwarded port. Error msg:\n" + port_forward_cmd_output.errorMsgs
+    );
+  }
+  const server_url = process.env["RS_SERVER_URL"];
+  const session_url = process.env["RS_SESSION_URL"];
+  if (!server_url || !session_url) {
+    throw new Error("Can't find URL for workbench.");
+  }
+  const forwarded_port = port_forward_cmd_output.stdout[0];
+  return `${server_url}${session_url.slice(1)}p/${forwarded_port}/`;
+}
+
+// src/getFreePort.ts
+var import_net = __toESM(require("net"));
+async function getFreePort() {
+  return new Promise((res) => {
+    const srv = import_net.default.createServer();
+    srv.listen(0, () => {
+      var _a;
+      const serverAddress = (_a = srv.address) == null ? void 0 : _a.call(srv);
+      if (typeof serverAddress === "string" || serverAddress === null) {
+        throw new Error("Failed to find a free port...");
+      }
+      srv.close((err) => res(serverAddress.port));
+    });
+  });
+}
+
+// src/R-Utils/startPreviewApp.ts
+function startPreviewApp({
+  pathToApp,
+  onCrash,
+  onInitiation,
+  onReady,
+  onFailToStart,
+  onLogs
+}) {
+  const host = "0.0.0.0";
+  let appProcess = null;
+  async function startApp() {
+    onInitiation();
+    stopApp();
+    try {
+      const port = await getFreePort();
+      const previewAppUri = await getRemoteSafeUrl(port);
+      const readyToGoRegex = new RegExp(`listening on .+${port}`, "i");
+      const appStartupCommand = (0, import_strings3.collapseText)(
+        `options(shiny.autoreload = TRUE)`,
+        `shiny::runApp(appDir = "${pathToApp}", port = ${port}, host = "${host}")`
+      );
+      appProcess = await startRProcess(
+        ["--no-save", "--no-restore", "--silent", "-e", appStartupCommand],
+        {
+          onStderr(msg) {
+            if (readyToGoRegex.test(msg)) {
+              onReady(previewAppUri.toString());
+            }
+            onLogs(msg.split("\n"));
+          },
+          onClose: onCrash,
+          onError: onCrash
+        }
+      );
+      return true;
+    } catch {
+      onFailToStart();
+      return false;
+    }
+  }
+  function stopApp() {
+    if (appProcess === null) {
+      return true;
+    }
+    return appProcess.stop();
+  }
+  return {
+    start: startApp,
+    stop: stopApp
+  };
+}
+
+// src/selectServerReferences.ts
+var import_strings4 = require("util-functions/src/strings");
+var vscode7 = __toESM(require("vscode"));
+
+// src/extension-api-utils/selectMultupleLocations.ts
+var vscode6 = __toESM(require("vscode"));
+async function selectMultupleLocations({
+  uri,
+  position = new vscode6.Position(0, 0),
+  locations,
+  multiple = "gotoAndPeek",
+  noResultsMessage
+}) {
+  await vscode6.commands.executeCommand(
+    "editor.action.goToLocations",
+    uri,
+    position,
+    locations,
+    multiple,
+    noResultsMessage
+  );
+}
+
+// src/selectServerReferences.ts
+async function insert_code_snippet({
+  editor,
+  snippet,
+  server_pos,
+  where_in_server
+}) {
+  const INDENT_SPACES = 2;
+  const [start_row, , end_row] = server_pos;
+  const where_to_insert = editor.document.validatePosition(
+    new vscode7.Position(
+      where_in_server === "end" ? end_row - 2 : start_row - 2,
+      Infinity
+    )
+  );
+  const successfull_template_add = await editor.insertSnippet(
+    new vscode7.SnippetString(
+      `
+  ${(0, import_strings4.indent_text_block)(snippet, INDENT_SPACES)}`
+    ),
+    where_to_insert
+  );
+  if (!successfull_template_add) {
+    vscode7.window.showErrorMessage(`Failed to add output scaffold`);
+  }
+}
+function select_app_lines({
+  editor,
+  selections
+}) {
+  const selection_objs = selections.map(
+    ([start_row, start_col, end_row, end_col]) => {
+      const start = new vscode7.Position(start_row - 1, start_col - 1);
+      const end = new vscode7.Position(end_row - 1, end_col);
+      return new vscode7.Selection(start, end);
+    }
+  );
+  editor.selection = selection_objs[0];
+  editor.revealRange(selection_objs[0]);
+}
+async function selectInputReferences({
+  editor,
+  input: { inputId }
+}) {
+  const fullInput = `input$${inputId}`;
+  const to_find = fullInput;
+  const app_text = editor.document.getText();
+  const doc_lines = app_text.split("\n");
+  const regex_for_output = new RegExp(
+    `(?<!#.*)${escapeRegExp(to_find)}(?=\\W)`
+  );
+  const lines_with_output = doc_lines.map((l, i) => ({
+    line: i,
+    match: regex_for_output.exec(l)
+  })).filter(({ match }) => match !== null);
+  if (lines_with_output.length === 0)
+    return null;
+  const selection_locations = lines_with_output.map(({ line, match }) => {
+    const startChar = (match == null ? void 0 : match.index) ?? 0;
+    const searchStart = new vscode7.Position(line, startChar);
+    const searchEnd = new vscode7.Position(line, startChar + to_find.length);
+    return new vscode7.Location(
+      editor.document.uri,
+      new vscode7.Range(searchStart, searchEnd)
+    );
+  });
+  vscode7.window.showTextDocument(editor.document);
+  await selectMultupleLocations({
+    uri: editor.document.uri,
+    locations: selection_locations,
+    noResultsMessage: `Failed to find any current use of ${fullInput} in server`
+  });
+}
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// src/update_app_file.ts
+var vscode8 = __toESM(require("vscode"));
+async function update_app_file({
+  script_text,
+  document
+}) {
+  const existing_app_text = document.getText();
+  if (script_text === existing_app_text) {
+    return false;
+  }
+  const uri = document.uri;
+  const edit = new vscode8.WorkspaceEdit();
+  const full_selection = document.validateRange(
+    new vscode8.Selection(0, 0, document.lineCount + 1, 0)
+  );
+  edit.replace(uri, full_selection, script_text);
+  await vscode8.workspace.applyEdit(edit);
+  document.save();
+  return true;
+}
+
+// src/editorLogic.ts
+var { showErrorMessage } = vscode9.window;
+async function editorLogic({
+  language,
+  document,
+  sendMessage
+}) {
+  const app_info_getter = language === "R" ? await build_R_app_parser(document) : await build_python_app_parser(document);
+  const get_app_info = app_info_getter.getInfo;
+  let hasInitialized = false;
+  let latestAppWrite = null;
+  let codeCompanionEditor = void 0;
+  const syncFileToClientState = async () => {
+    const appFileText = document.getText();
+    const updateWeMade = latestAppWrite !== null && appFileText.includes(latestAppWrite);
+    if (updateWeMade)
+      return;
+    if (!hasInitialized) {
+      const pkgsLoaded = await app_info_getter.check_if_pkgs_installed(
+        "shinyuieditor"
+      );
+      if (!pkgsLoaded.success) {
+        sendMessage({
+          path: "BACKEND-ERROR",
+          payload: {
+            context: "checking for shinyuieditor package",
+            msg: pkgsLoaded.msg
+          }
+        });
+        showErrorMessage(pkgsLoaded.msg);
+        throw new Error(pkgsLoaded.msg);
+      }
+      hasInitialized = true;
+    }
+    if (appFileText === "") {
+      sendMessage({
+        path: "TEMPLATE_CHOOSER",
+        payload: "SINGLE-FILE"
+      });
+      return;
+    }
+    try {
+      const appAST = await get_app_info();
+      if (appAST.status === "error") {
+        sendMessage({
+          path: "BACKEND-ERROR",
+          payload: {
+            context: "parsing app",
+            msg: appAST.errorMsg
+          }
+        });
+        latestAppWrite = null;
+        return;
+      }
+      if (appAST.values === "EMPTY") {
+        sendMessage({
+          path: "TEMPLATE_CHOOSER",
+          payload: "SINGLE-FILE"
+        });
+        return;
+      }
+      latestAppWrite = appFileText;
+      const ui_info = appAST.values.parsed_info;
+      sendMessage({
+        path: "APP-INFO",
+        payload: ui_info
+      });
+    } catch (e) {
+      console.error("Failed to parse", e);
+    }
+  };
+  const syncFileToClientStateDebounced = (0, import_just_debounce_it.default)(syncFileToClientState, 500);
+  const onDocumentChanged = () => {
+    syncFileToClientStateDebounced();
+  };
+  const onDocumentSaved = () => {
+    syncFileToClientStateDebounced.flush();
+  };
+  const previewAppInfo = startPreviewApp({
+    pathToApp: document.fileName,
+    onInitiation: () => {
+      sendMessage({
+        path: "APP-PREVIEW-STATUS",
+        payload: "LOADING"
+      });
+    },
+    onReady: (url) => {
+      sendMessage({
+        path: "APP-PREVIEW-STATUS",
+        payload: { url }
+      });
+    },
+    onFailToStart: () => {
+      sendMessage({
+        path: "APP-PREVIEW-CRASH",
+        payload: "Failed to start"
+      });
+    },
+    onCrash: () => {
+      sendMessage({
+        path: "APP-PREVIEW-CRASH",
+        payload: "Crashed"
+      });
+    },
+    onLogs: (logs) => {
+      sendMessage({
+        path: "APP-PREVIEW-LOGS",
+        payload: logs
+      });
+    }
+  });
+  const get_companion_editor = async () => {
+    codeCompanionEditor = await openCodeCompanionEditor({
+      appFile: document,
+      existingEditor: codeCompanionEditor
+    });
+    return codeCompanionEditor;
+  };
+  const onDidReceiveMessage = async (msg) => {
+    if ((0, import_MessageToBackend.isMessageToBackend)(msg)) {
+      switch (msg.path) {
+        case "READY-FOR-STATE":
+          syncFileToClientState();
+          return;
+        case "UPDATED-APP": {
+          if (msg.payload.app_type === "MULTI-FILE")
+            return;
+          const app_file_was_updated = await update_app_file({
+            script_text: msg.payload.app,
+            document
+          });
+          if (app_file_was_updated) {
+            latestAppWrite = msg.payload.app;
+          }
+          return;
+        }
+        case "APP-PREVIEW-REQUEST": {
+          previewAppInfo.start();
+          return;
+        }
+        case "APP-PREVIEW-STOP": {
+          previewAppInfo.stop();
+          return;
+        }
+        case "APP-PREVIEW-RESTART": {
+          previewAppInfo.start();
+          return;
+        }
+        case "ENTERED-TEMPLATE-SELECTOR": {
+          previewAppInfo.stop();
+          await clearAppFile(document);
+          return;
+        }
+        case "OPEN-COMPANION-EDITOR": {
+          await get_companion_editor();
+          return;
+        }
+        case "SHOW-APP-LINES": {
+          select_app_lines({
+            editor: await get_companion_editor(),
+            selections: msg.payload
+          });
+          return;
+        }
+        case "INSERT-SNIPPET": {
+          const appAST = await get_app_info();
+          if (appAST.status === "success" && appAST.values !== "EMPTY" && appAST.values.server_info) {
+            insert_code_snippet({
+              editor: await get_companion_editor(),
+              server_pos: appAST.values.server_info.server_pos,
+              ...msg.payload
+            });
+          }
+          return;
+        }
+        case "FIND-SERVER-USES": {
+          if (msg.payload.type === "Input") {
+            selectInputReferences({
+              editor: await get_companion_editor(),
+              input: msg.payload
+            });
+          } else {
+            const appAST = await get_app_info();
+            if (appAST.status === "success" && appAST.values !== "EMPTY" && appAST.values.server_info) {
+              select_app_lines({
+                editor: await get_companion_editor(),
+                selections: appAST.values.server_info.get_output_position(
+                  msg.payload.outputId
+                ) ?? []
+              });
+            }
+          }
+          return;
+        }
+        default:
+          console.warn("Unhandled message from client", msg);
+      }
+    } else {
+      console.log("Unknown message from webview", msg);
+    }
+  };
+  return {
+    onDocumentChanged,
+    onDocumentSaved,
+    onDidReceiveMessage
+  };
+}
+
+// src/R-Utils/appScriptStatus.ts
+function getLanguageMode(lang_id) {
+  if (lang_id === "python")
+    return "PYTHON";
+  if (lang_id === "r")
+    return "R";
+  return "OTHER";
+}
+function appScriptStatus(document) {
+  const lang = getLanguageMode(document.languageId);
+  if (lang === "OTHER")
+    return {
+      status: "invalid",
+      reason: "The editor currently only supports R and Python."
+    };
+  const scriptText = document.getText();
+  if (scriptText.trim() === "") {
+    return {
+      status: "empty",
+      lang
+    };
+  }
+  return lang === "R" ? checkIfValidRShinyScript(scriptText) : checkIfValidPyShinyScript(scriptText);
+}
+function checkIfValidRShinyScript(script) {
+  if (RShinyAppCommandRegex.test(script)) {
+    return { status: "valid", lang: "R" };
+  }
+  return {
+    status: "invalid",
+    reason: "Script doesn't appear to be a shiny app. Please start with a template or add a shinyApp() call."
+  };
+}
+var RShinyAppCommandRegex = /shinyApp\(/;
+function checkIfValidPyShinyScript(script) {
+  if (script.includes("from shiny")) {
+    return { status: "valid", lang: "PYTHON" };
+  }
+  return {
+    status: "invalid",
+    reason: "Script doesn't appear to be a shiny app. Please start with a template or make sure you're importing shiny."
+  };
+}
+
+// src/util.ts
+function getNonce() {
+  let text = "";
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < 32; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
+
+// src/shinyuieditor_extension.ts
+var _ShinyUiEditorProvider = class {
+  constructor(context) {
+    this.context = context;
+  }
+  static register(context) {
+    const provider = new _ShinyUiEditorProvider(context);
+    const providerRegistration = vscode10.window.registerCustomEditorProvider(
+      _ShinyUiEditorProvider.viewType,
+      provider,
+      {
+        webviewOptions: {
+          // Make it so the app stays alive if it's not the main tab, avoids
+          // unneccesary refreshes. May be worth removing this in favor of cold
+          // startups everytime tab is focused if memory usage etc becomes an
+          // issue
+          retainContextWhenHidden: true
+        }
+      }
+    );
+    return providerRegistration;
+  }
+  /**
+   * Called when an instance of the custom editor is opened.
+   *
+   * The `document` arg will correspond to the associated app.R or ui.R file for this editor view.
+   * By keeping logic in here we will ensure we don't get mixed up when we have multiple editor windows open.
+   */
+  async resolveCustomTextEditor(document, webviewPanel, _token) {
+    const scriptStatus = appScriptStatus(document);
+    if (scriptStatus.status === "invalid") {
+      vscode10.window.showErrorMessage(scriptStatus.reason);
+      webviewPanel.dispose();
+      throw new Error(scriptStatus.reason);
+    }
+    webviewPanel.webview.options = {
+      enableScripts: true
+    };
+    webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+    const editorBackend = await editorLogic({
+      language: scriptStatus.lang,
+      document,
+      sendMessage: (msg) => webviewPanel.webview.postMessage(msg)
+    });
+    const changeDocumentSubscription = vscode10.workspace.onDidChangeTextDocument(
+      (e) => {
+        if (e.document.uri.toString() === document.uri.toString()) {
+          editorBackend.onDocumentChanged();
+        }
+      }
+    );
+    const saveDocumentSubscription = vscode10.workspace.onDidSaveTextDocument(
+      (savedDocument) => {
+        if (savedDocument.uri.toString() === document.uri.toString()) {
+          editorBackend.onDocumentSaved();
+        }
+      }
+    );
+    const onMessageSubscription = webviewPanel.webview.onDidReceiveMessage(
+      editorBackend.onDidReceiveMessage
+    );
+    webviewPanel.onDidDispose(() => {
+      changeDocumentSubscription.dispose();
+      saveDocumentSubscription.dispose();
+      onMessageSubscription.dispose();
+    });
+  }
+  /**
+   * Get the static html used for the editor webviews.
+   */
+  getHtmlForWebview(webview) {
+    const scriptUri = webview.asWebviewUri(
+      vscode10.Uri.joinPath(
+        this.context.extensionUri,
+        "media",
+        "build",
+        "extension-editor.js"
+      )
+    );
+    const styleMainUri = webview.asWebviewUri(
+      vscode10.Uri.joinPath(
+        this.context.extensionUri,
+        "media",
+        "build",
+        "style.css"
+      )
+    );
+    const nonce = getNonce();
+    const cspSource = webview.cspSource;
+    return (
+      /* html */
+      `
 			<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -39,18 +1295,39 @@ ${y}`),c("out",y),e.onStdout?.(y)}function u(h){let y=h.toString();p(`stderr: ${
 				-->
 				<meta 
           http-equiv="Content-Security-Policy" 
-          content="default-src 'none'; frame-src http://localhost:*/ ${s} https:; img-src ${s} data:; style-src ${e.cspSource} 'unsafe-inline'; script-src 'nonce-${r}';">
+          content="default-src 'none'; frame-src http://localhost:*/ ${cspSource} https:; img-src ${cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 				
-				<link href="${n}" rel="stylesheet" />
+				<link href="${styleMainUri}" rel="stylesheet" />
 				
 				<title>Shiny UI Editor</title>
 			</head>
 			<body style="padding-inline: 0;">
 				<noscript>You need to enable JavaScript to run this app.</noscript>
 				<div id="root" style="height: 100vh; display: relative"></div>
-				<script type="module" nonce="${r}" src="${o}"></script>
+				<script type="module" nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
-			</html>`}},G=Y;G.viewType="shinyuieditor.appFile";function Wt(t){t.subscriptions.push(G.register(t)),t.subscriptions.push(te.commands.registerCommand("shinyuieditor.startEditorOnActiveFile",pe),te.commands.registerCommand("shinyuieditor.launchEditor",se))}0&&(module.exports={activate});
+			</html>`
+    );
+  }
+};
+var ShinyUiEditorProvider = _ShinyUiEditorProvider;
+ShinyUiEditorProvider.viewType = "shinyuieditor.appFile";
+
+// src/extension.ts
+function activate(context) {
+  context.subscriptions.push(ShinyUiEditorProvider.register(context));
+  context.subscriptions.push(
+    vscode11.commands.registerCommand(
+      "shinyuieditor.startEditorOnActiveFile",
+      startEditorOnActiveFile
+    ),
+    vscode11.commands.registerCommand("shinyuieditor.launchEditor", launchEditor)
+  );
+}
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  activate
+});

@@ -70,7 +70,6 @@
   "scripts": {
     "start": "vite",
     "dev": "vite build --mode dev",
-    "prod": "vite build",
     "build-website-demo": "vite build --outDir ../../vignettes/demo-app/",
     "build": "vite build",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
