@@ -3,6 +3,7 @@ import type {
   Script_Generation_Template,
 } from "communication-types/src/AppInfo";
 import type { Raw_R_Info, Script_Position } from "r-ast-parsing";
+import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 
 import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 import {
@@ -10,11 +11,6 @@ import {
   get_known_outputs,
   get_ui_assignment_node,
 } from "./get_assignment_nodes";
-
-export const SCRIPT_LOC_KEYS = {
-  ui: "<UI>",
-  packages: "<PACKAGES>",
-};
 
 /**
  * Go from basic info about R Shiny app and turn it into the neccesary
@@ -47,7 +43,7 @@ function raw_multi_file_app_info_to_full(
     language: "R",
     known_outputs,
     app_type: "MULTI-FILE",
-    ui: generate_ui_script_template(
+    ui: generate_R_ui_script_template(
       { ui_pos, ui_assignment_operator },
       ui.script
     ),
@@ -77,14 +73,14 @@ function raw_single_file_app_info_to_full(
     language: "R",
     known_outputs,
     app_type: "SINGLE-FILE",
-    app: generate_ui_script_template(
+    app: generate_R_ui_script_template(
       { ui_pos: ui_pos, ui_assignment_operator: assignment_operator },
       raw_info.app.script
     ),
   };
 }
 
-function generate_ui_script_template(
+function generate_R_ui_script_template(
   {
     ui_pos,
     ui_assignment_operator,

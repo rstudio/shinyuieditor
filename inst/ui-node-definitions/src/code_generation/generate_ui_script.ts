@@ -2,11 +2,15 @@ import type {
   Language_Mode,
   Script_Generation_Template,
 } from "communication-types/src/AppInfo";
-import { SCRIPT_LOC_KEYS } from "r-ast-parsing/src/raw_R_info_to_app_info";
 
 import type { ShinyUiNode } from "../ShinyUiNode";
 
 import { ui_node_to_code } from "./ui_node_to_code";
+
+export const SCRIPT_LOC_KEYS = {
+  ui: "<UI>",
+  packages: "<PACKAGES>",
+};
 
 export function generate_ui_script({
   ui_tree,

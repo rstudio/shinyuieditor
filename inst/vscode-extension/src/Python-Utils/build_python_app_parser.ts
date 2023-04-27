@@ -1,6 +1,6 @@
 import {
+  generate_app_script_template,
   get_assignment_nodes,
-  get_imported_pkgs,
   get_ui_assignment,
   treesitter_to_ui_tree,
 } from "abstract-snake-tree";
@@ -28,11 +28,6 @@ export async function build_python_app_parser(
     throw e;
   }
 
-  const getInfo = make_cached_info_getter(
-    document,
-    makePyAppInfoGetter(parser)
-  );
-
   const check_if_pkgs_installed = async (pkgs: string) => {
     //  TODO: Implement this
 
@@ -40,7 +35,7 @@ export async function build_python_app_parser(
   };
 
   return {
-    getInfo,
+    getInfo: make_cached_info_getter(document, makePyAppInfoGetter(parser)),
     check_if_pkgs_installed,
   };
 }
@@ -67,10 +62,7 @@ function makePyAppInfoGetter(parser: Parser) {
       ui_tree: treesitter_to_ui_tree(ui_node),
       // TODO: Make this actually work by looking at parsed tree
       known_outputs: new Set<string>(),
-      app: {
-        code: "",
-        packages: get_imported_pkgs(parsed_app),
-      },
+      app: generate_app_script_template(ui_node),
     };
 
     return {
