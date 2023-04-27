@@ -1,11 +1,7 @@
+import type { Brand } from "util-functions/src/TypescriptUtils";
 import type Parser from "web-tree-sitter";
 
-import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
-
-export interface TSBooleanNode extends Parser.SyntaxNode {
-  type: "boolean";
-  text: string;
-}
+type TSBooleanNode = Brand<Parser.SyntaxNode, "BooleanNode">;
 
 export function is_boolean_node(
   node: Parser.SyntaxNode
@@ -32,13 +28,4 @@ export function extract_boolean_content(node: TSBooleanNode): boolean {
   }
 
   return value;
-}
-
-export function parse_boolean_node(
-  node: TSBooleanNode
-): Parsed_Nodes_By_Type["boolean"] {
-  return {
-    type: "boolean",
-    value: extract_boolean_content(node),
-  };
 }

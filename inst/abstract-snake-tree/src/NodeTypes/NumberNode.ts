@@ -1,11 +1,7 @@
+import type { Brand } from "util-functions/src/TypescriptUtils";
 import type Parser from "web-tree-sitter";
 
-import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
-
-export interface TSNumberNode extends Parser.SyntaxNode {
-  type: "number";
-  text: string;
-}
+type TSNumberNode = Brand<Parser.SyntaxNode, "NumberNode">;
 
 export function is_number_node(node: Parser.SyntaxNode): node is TSNumberNode {
   return node.type === "integer" || node.type === "float";
@@ -23,13 +19,4 @@ export function extract_number_content(node: TSNumberNode): number {
     throw new Error(`Failed to parse number: ${node.text}`);
   }
   return number;
-}
-
-export function parse_number_node(
-  node: TSNumberNode
-): Parsed_Nodes_By_Type["number"] {
-  return {
-    type: "number",
-    value: extract_number_content(node),
-  };
 }

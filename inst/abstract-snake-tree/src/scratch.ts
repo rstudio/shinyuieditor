@@ -4,7 +4,7 @@ import { parse_python_script } from ".";
 
 import { get_assignment_nodes } from "./get_assignment_nodes";
 import { get_ui_assignment } from "./get_ui_assignment";
-import { treesitter_to_ui_tree } from "./NodeTypes/ts_node_to_ui_tree";
+import { treesitter_to_ui_tree } from "./ts_node_to_ui_tree";
 
 const navbar_page_app = `
 from shiny import *

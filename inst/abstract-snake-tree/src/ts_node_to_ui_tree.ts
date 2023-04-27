@@ -3,27 +3,29 @@ import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { pyFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import type Parser from "web-tree-sitter";
 
-import { extract_boolean_content, is_boolean_node } from "./BooleanNode";
-import { extract_number_content, is_number_node } from "./NumberNode";
-import { extract_string_content, is_string_node } from "./StringNode";
+import {
+  extract_boolean_content,
+  is_boolean_node,
+} from "./NodeTypes/BooleanNode";
+import { extract_call_content, is_call_node } from "./NodeTypes/CallNode";
+import {
+  is_keyword_arg_node,
+  parse_keyword_arg_node,
+} from "./NodeTypes/KeywordArgNode";
+import { extract_number_content, is_number_node } from "./NodeTypes/NumberNode";
+import { extract_string_content, is_string_node } from "./NodeTypes/StringNode";
 
 export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
-  if (node.type !== "call") {
-    throw new Error("Node is not a call node");
+  if (!is_call_node(node)) {
+    return make_unknown_ui_function(node.text);
   }
-  const fn_name = node.child(0)?.text;
-  const fn_args = node.child(1)?.namedChildren;
 
-  if (!fn_name || !fn_args) {
-    throw new Error("Call node is missing a function name or args");
-  }
-  // const fn_name = node.functionNode.text;
+  const { fn_name, fn_args } = extract_call_content(node);
+
   const known_info = pyFnNameToNodeInfo.get(fn_name);
   if (!known_info) {
     return make_unknown_ui_function(node.text);
   }
-
-  // const fn_args = node.argumentsNode.namedChildren;
 
   const positional_args = [...known_info.ordered_positional_args];
   const num_of_positional_args = positional_args.length;
@@ -42,6 +44,7 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
     id: known_info.id,
     namedArgs: {},
   };
+
   // Make children a second variable in case it's not needed
   let children_nodes: ShinyUiNode[] = [];
 
@@ -56,15 +59,20 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
       continue;
     }
 
-    if (arg.type === "keyword_argument") {
-      const { arg_name, arg_value } = parse_kwarg_node(arg);
+    if (is_keyword_arg_node(arg)) {
+      const kwarg = parse_keyword_arg_node(arg);
 
-      parsed_node.namedArgs[arg_name] = parse_arg_node(arg_value);
+      const sue_arg_name = py_arg_name_to_sue_arg_name.get(kwarg.name);
+
+      parsed_node.namedArgs[sue_arg_name ?? kwarg.name] = parse_arg_node(
+        kwarg.value
+      );
       continue;
     }
 
     if (known_info.takesChildren) {
-      // Must be a child node, so add it to the children array
+      // Must be a child node, so add it to the children array. This may be an
+      // issue with simple nodes like strings that can be children
       children_nodes.push(treesitter_to_ui_tree(arg));
       continue;
     }
@@ -112,26 +120,8 @@ function parse_arg_node(node: Parser.SyntaxNode) {
   }
 
   if (is_boolean_node(node)) {
-    debugger;
     return extract_boolean_content(node);
   }
 
-  if (node.type === "call") {
-    return treesitter_to_ui_tree(node);
-  }
-
-  return make_unknown_ui_function(node.text);
-}
-
-function parse_kwarg_node(node: Parser.SyntaxNode) {
-  const arg_name = node.child(0)?.text;
-  const arg_value = node.child(1);
-  if (!arg_name || !arg_value) {
-    throw new Error("Keyword argument node is missing a name or value");
-  }
-
-  return {
-    arg_name,
-    arg_value,
-  };
+  return treesitter_to_ui_tree(node);
 }

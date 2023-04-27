@@ -1,5 +1,3 @@
-import type { Parsed_Ui_Node } from "./NodeTypes/Parsed_Ui_Node";
-
 export const navbar_page_app = `
 from shiny import *
 
@@ -32,50 +30,6 @@ def server(input, output, session):
 
 app = App(app_ui, server)
 `;
-
-export const parsed_navbar_page_app = {
-  type: "call",
-  fn_name: "ui.page_navbar",
-  args: [
-    {
-      type: "call",
-      fn_name: "ui.nav",
-      args: [
-        { type: "string", value: "Settings" },
-        {
-          type: "call",
-          fn_name: "ui.input_slider",
-          args: [
-            { name: "id", type: "string", value: "inputId" },
-            { name: "label", type: "string", value: "Slider Input" },
-            { name: "min", type: "number", value: 0 },
-            { name: "max", type: "number", value: 10 },
-            { name: "value", type: "number", value: 5.5 },
-            { name: "width", type: "string", value: "100%" },
-          ],
-        },
-      ],
-    },
-    {
-      type: "call",
-      fn_name: "ui.nav",
-      args: [
-        { type: "string", value: "Plot 1" },
-        {
-          type: "call",
-          fn_name: "ui.output_plot",
-          args: [
-            { name: "id", type: "string", value: "MyPlot" },
-            { name: "width", type: "string", value: "100%" },
-            { name: "height", type: "string", value: "100%" },
-          ],
-        },
-      ],
-    },
-    { name: "title", type: "string", value: "My Navbar Page" },
-    { name: "collapsible", type: "boolean", value: false },
-  ],
-} satisfies Parsed_Ui_Node;
 
 export const simple_app_script = `
 from shiny import App, render, ui

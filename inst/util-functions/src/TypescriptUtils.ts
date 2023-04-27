@@ -108,3 +108,11 @@ type test_require_keys = Expect<
     { a: string; b: number; c?: string[] }
   >
 >;
+
+declare const brand: unique symbol;
+
+/**
+ * Used for when you want to ensure that a given type has been verified at the
+ * type level without having to do anything to the actual object itself.
+ */
+export type Brand<T, TBrand> = T & { [brand]: TBrand };
