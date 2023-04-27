@@ -10,6 +10,7 @@ export function parse_python_script(parser: PythonParser, script_text: string) {
   return parser.parse(script_text);
 }
 
+export { get_imported_pkgs } from "./get_imported_pkgs";
 export { treesitter_to_ui_tree } from "./ts_node_to_ui_tree";
 export { get_assignment_nodes } from "./get_assignment_nodes";
 export { get_ui_assignment } from "./get_ui_assignment";

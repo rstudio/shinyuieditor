@@ -1,6 +1,6 @@
 import { setup_python_parser } from "python-ts-parser";
 
-import { parse_python_script } from ".";
+import { get_imported_pkgs, parse_python_script } from ".";
 
 import { get_assignment_nodes } from "./get_assignment_nodes";
 import { get_ui_assignment } from "./get_ui_assignment";
@@ -42,6 +42,8 @@ app = App(app_ui, server)
 const my_parser = await setup_python_parser();
 
 const parsed_app = parse_python_script(my_parser, navbar_page_app);
+
+const import_statements = get_imported_pkgs(parsed_app);
 
 const assigned_nodes = get_assignment_nodes(parsed_app);
 
