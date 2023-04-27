@@ -3,7 +3,7 @@ import type * as vscode from "vscode";
 import type { App_Parser } from "../App_Parser";
 
 import { checkIfPkgAvailable } from "./checkIfPkgAvailable";
-import { getRAppInfo, make_cached_info_getter } from "./getAppInfo";
+import { makeRAppInfoGetter, make_cached_info_getter } from "./getAppInfo";
 import { startBackgroundRProcess } from "./startBackgroundRProcess";
 
 export async function build_R_app_parser(
@@ -14,12 +14,6 @@ export async function build_R_app_parser(
   if (!RProcess) {
     throw new Error("Don't have an R Process to pass to editor backend!");
   }
-
-  const get_app_info = async (text: string) => {
-    return getRAppInfo(RProcess, text);
-  };
-
-  const getInfo = make_cached_info_getter(document, get_app_info);
 
   const check_if_pkgs_installed = async (pkgs: string) => {
     const pkgsLoaded = await checkIfPkgAvailable(RProcess, pkgs);
@@ -32,7 +26,7 @@ export async function build_R_app_parser(
   };
 
   return {
-    getInfo,
+    getInfo: make_cached_info_getter(document, makeRAppInfoGetter(RProcess)),
     check_if_pkgs_installed,
   };
 }
