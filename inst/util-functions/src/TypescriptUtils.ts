@@ -114,5 +114,10 @@ declare const brand: unique symbol;
 /**
  * Used for when you want to ensure that a given type has been verified at the
  * type level without having to do anything to the actual object itself.
+ *
+ * For more info see [this article on a similar concept in
+ * flow.](https://codemix.com/opaque-types-in-javascript/) And [this
+ * tweet](https://twitter.com/mattpocockuk/status/1625173884885401600?s=20) for
+ * the logic for this implementation.
  */
 export type Brand<T, TBrand> = T & { [brand]: TBrand };
