@@ -10,10 +10,11 @@ import type { ParserNode } from ".";
 export function get_node_position(node: ParserNode): Script_Position {
   const { startPosition, endPosition } = node;
 
+  // Add one to the row because... well i'm not really sure why but we need to.
   return [
-    startPosition.row,
+    startPosition.row + 1,
     startPosition.column,
-    endPosition.row,
+    endPosition.row + 1,
     endPosition.column,
   ];
 }
