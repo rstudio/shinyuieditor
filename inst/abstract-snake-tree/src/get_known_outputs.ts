@@ -1,14 +1,7 @@
+import type { Script_Position } from "communication-types/src/MessageToBackend";
 import type Parser from "web-tree-sitter";
 
-type Position = {
-  column: number;
-  row: number;
-};
-
-type Script_Range = {
-  start: Position;
-  end: Position;
-};
+import { get_node_position } from "./get_node_position";
 
 /**
  * Grab all known outputs in the PyShiny app
@@ -17,8 +10,8 @@ type Script_Range = {
  */
 export function get_known_outputs(
   app_tree: Parser.Tree
-): Map<string, Script_Range> {
-  const outputs = new Map<string, Script_Range>();
+): Map<string, Script_Position> {
+  const outputs = new Map<string, Script_Position>();
 
   // Get all the nodes that represent decorated functions in the script
   const decorated_fns = app_tree.rootNode.descendantsOfType(
@@ -43,10 +36,7 @@ export function get_known_outputs(
 
     // Now that we're sure we have an output definition and its name, grab the
     // location and add to our map
-    outputs.set(name_of_wrapped_fn, {
-      start: decorated_def.startPosition,
-      end: decorated_def.endPosition,
-    });
+    outputs.set(name_of_wrapped_fn, get_node_position(decorated_def));
   });
 
   return outputs;

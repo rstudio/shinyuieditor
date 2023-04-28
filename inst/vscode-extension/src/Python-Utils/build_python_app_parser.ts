@@ -1,6 +1,8 @@
 import {
   generate_app_script_template,
   get_assignment_nodes,
+  get_known_outputs,
+  get_server_node_position,
   get_ui_assignment,
   treesitter_to_ui_tree,
 } from "abstract-snake-tree";
@@ -56,12 +58,14 @@ function makePyAppInfoGetter(parser: Parser) {
       };
     }
 
+    const output_positions = get_known_outputs(parsed_app);
+    const output_names = new Set<string>(output_positions.keys());
+
     const app_info: App_Info = {
       language: "PYTHON",
       app_type: "SINGLE-FILE",
       ui_tree: treesitter_to_ui_tree(ui_node),
-      // TODO: Make this actually work by looking at parsed tree
-      known_outputs: new Set<string>(),
+      known_outputs: output_names,
       app: generate_app_script_template(ui_node),
     };
 
@@ -69,6 +73,14 @@ function makePyAppInfoGetter(parser: Parser) {
       status: "success",
       values: {
         parsed_info: app_info,
+        server_info: {
+          get_output_position: (name: string) => {
+            const output = output_positions.get(name);
+            return output ? [output] : null;
+          },
+          server_pos: get_server_node_position(parsed_app),
+          app_type: "SINGLE-FILE",
+        },
       },
     };
   };
