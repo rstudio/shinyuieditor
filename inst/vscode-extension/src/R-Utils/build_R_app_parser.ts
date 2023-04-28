@@ -28,5 +28,8 @@ export async function build_R_app_parser(
   return {
     getInfo: make_cached_info_getter(document, makeRAppInfoGetter(RProcess)),
     check_if_pkgs_installed,
+    locate_input: () => {
+      throw new Error("Not implemented");
+    },
   };
 }

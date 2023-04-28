@@ -7,13 +7,14 @@ import * as vscode from "vscode";
 
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
+import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";
 import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
 import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
+  findRInputReferences,
   insert_code_snippet,
   select_app_lines,
-  selectInputReferences,
 } from "./selectServerReferences";
 import { update_app_file } from "./update_app_file";
 
@@ -255,9 +256,24 @@ export async function editorLogic({
 
         case "FIND-SERVER-USES": {
           if (msg.payload.type === "Input") {
-            selectInputReferences({
-              editor: await get_companion_editor(),
-              input: msg.payload,
+            const editor = await get_companion_editor();
+
+            const input_locations =
+              language === "R"
+                ? findRInputReferences({
+                    editor,
+                    input: msg.payload,
+                  })
+                : await app_info_getter.locate_input(msg.payload.inputId);
+
+            // Force companion editor to be in focus. Otherwise the selection will show up
+            // on whatever was most recently clicked on which can kill the custom editor
+            // etc..
+            vscode.window.showTextDocument(editor.document);
+            await selectMultupleLocations({
+              uri: editor.document.uri,
+              locations: input_locations,
+              noResultsMessage: `Failed to find any current inputs in server`,
             });
           } else {
             const appAST = await get_app_info();

@@ -6,8 +6,6 @@ import type {
 import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
 
-import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";
-
 export async function insert_code_snippet({
   editor,
   snippet,
@@ -65,7 +63,7 @@ export function select_app_lines({
   editor.revealRange(selection_objs[0]);
 }
 
-export async function selectInputReferences({
+export function findRInputReferences({
   editor,
   input: { inputId },
 }: {
@@ -92,9 +90,9 @@ export async function selectInputReferences({
     }))
     .filter(({ match }) => match !== null);
 
-  if (lines_with_output.length === 0) return null;
+  if (lines_with_output.length === 0) return [];
 
-  const selection_locations = lines_with_output.map(({ line, match }) => {
+  return lines_with_output.map(({ line, match }) => {
     const startChar = match?.index ?? 0;
     const searchStart = new vscode.Position(line, startChar);
     // Add to account for length of prefix
@@ -105,18 +103,10 @@ export async function selectInputReferences({
       new vscode.Range(searchStart, searchEnd)
     );
   });
-
-  // Force companion editor to be in focus. Otherwise the selection will show up
-  // on whatever was most recently clicked on which can kill the custom editor
-  // etc..
-  vscode.window.showTextDocument(editor.document);
-  await selectMultupleLocations({
-    uri: editor.document.uri,
-    locations: selection_locations,
-    noResultsMessage: `Failed to find any current use of ${fullInput} in server`,
-  });
 }
 
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
+
+export function findPythonInputReferences({}) {}

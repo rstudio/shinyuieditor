@@ -36,9 +36,19 @@ export async function build_python_app_parser(
     return { success: true } as const;
   };
 
+  const locate_input_references = (input_id: string) => {
+    // TODO: Implement this
+
+    throw new Error("Not implemented");
+    // Parse app script
+    // Find all uses of input.<id>() in the script
+    // Return the positions of these uses
+  };
+
   return {
     getInfo: make_cached_info_getter(document, makePyAppInfoGetter(parser)),
     check_if_pkgs_installed,
+    locate_input: locate_input_references,
   };
 }
 
