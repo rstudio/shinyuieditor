@@ -5,10 +5,12 @@ import type {
   Single_File_Template_Selection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
-import { SCRIPT_LOC_KEYS } from "r-ast-parsing/src/raw_R_info_to_app_info";
 import { indent_line_breaks } from "ui-node-definitions/src/code_generation/build_function_text";
 import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
-import { write_R_library_calls } from "ui-node-definitions/src/code_generation/generate_ui_script";
+import {
+  SCRIPT_LOC_KEYS,
+  write_R_library_calls,
+} from "ui-node-definitions/src/code_generation/generate_ui_script";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
