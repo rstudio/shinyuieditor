@@ -55,6 +55,8 @@ function GoToOutputsBtn({
 
   const { outputIdKey, renderScaffold } = serverOutputInfo;
 
+
+
   // I have no idea why I have to do this coercsian but for some reason this
   // keeps getting narrowed to never type for args unless I do it.
   const keyForOutput =
@@ -65,7 +67,7 @@ function GoToOutputsBtn({
   const outputId = namedArgs[keyForOutput as keyof typeof namedArgs];
   if (typeof outputId !== "string") return null;
 
-  const existing_output_locations = known_outputs.has(outputId);
+  const existing_output_locations = known_outputs.includes(outputId);
 
   return (
     <TooltipButton

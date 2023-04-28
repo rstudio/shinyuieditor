@@ -32,7 +32,7 @@ export function setupStaticBackend({
                 ui_tree,
                 language,
                 app_type: "SINGLE-FILE",
-                known_outputs: new Set<string>(),
+                known_outputs: [],
                 app: {
                   code: "",
                   packages: ["shiny"],

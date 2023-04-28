@@ -14,7 +14,7 @@ export type Language_Mode = "R" | "PYTHON";
 export type App_Info = {
   ui_tree: ShinyUiNode;
   language: Language_Mode;
-  known_outputs: Set<string>;
+  known_outputs: string[];
 } & (
   | {
       app_type: Single_File_App_Type;

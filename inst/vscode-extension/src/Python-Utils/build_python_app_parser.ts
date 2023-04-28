@@ -59,13 +59,12 @@ function makePyAppInfoGetter(parser: Parser) {
     }
 
     const output_positions = get_known_outputs(parsed_app);
-    const output_names = new Set<string>(output_positions.keys());
 
     const app_info: App_Info = {
       language: "PYTHON",
       app_type: "SINGLE-FILE",
       ui_tree: treesitter_to_ui_tree(ui_node),
-      known_outputs: output_names,
+      known_outputs: [...output_positions.keys()],
       app: generate_app_script_template(ui_node),
     };
 

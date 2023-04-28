@@ -61,7 +61,7 @@ shinyApp(ui, server)
     ui_tree: uiTree,
     language: "R",
     app_type: "SINGLE-FILE",
-    known_outputs: new Set<string>(),
+    known_outputs: [],
     app: {
       code,
       packages: ["shiny", ...serverLibraries],
@@ -95,7 +95,7 @@ server <- function(input, output) {
     app_type: "MULTI-FILE",
     language: "R",
     ui_tree: uiTree,
-    known_outputs: new Set<string>(),
+    known_outputs: [],
     ui: {
       code: ui_code,
       packages: ["shiny", ...serverLibraries],

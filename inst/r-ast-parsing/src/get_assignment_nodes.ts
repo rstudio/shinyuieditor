@@ -134,7 +134,7 @@ export function get_known_outputs(
   output_nodes.forEach(({ name }) => {
     known_names.add(name);
   });
-  return known_names;
+  return [...known_names];
 }
 
 export type Ui_Assignment_Node = Required<
