@@ -17,7 +17,7 @@ const setup = ({ mode }) => {
       },
       rollupOptions: { external: ["vscode-webview"] },
       emptyOutDir: true,
-      sourcemap: mode === "development",
+      sourcemap: mode === "dev",
       target: "es2015",
       chunkSizeWarningLimit: 1000,
     },

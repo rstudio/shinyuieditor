@@ -11,7 +11,8 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "dev": "vite build",
+    "build-extension-client": "vite build",
+    "dev": "vite build --mode dev",
     "prod": "vite build",
     "type-check": "tsc -p ./ --noEmit"
   },

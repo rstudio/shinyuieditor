@@ -4,14 +4,19 @@
     "dev": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
       "outputs": ["build/**", "media/build/**"],
-      "dependsOn": ["^dev", "install-r-pkg"],
+      "dependsOn": ["build-parser", "^dev", "install-r-pkg"],
+      "outputMode": "new-only"
+    },
+    "build-parser": {
+      "inputs": ["src/**/*"],
+      "outputs": ["dist/*"],
       "outputMode": "new-only"
     },
     "prod": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
       "outputs": ["build/**", "media/build/**", "vscode-extension-*.vsix"],
       "outputMode": "new-only",
-      "dependsOn": ["build"]
+      "dependsOn": ["build-parser", "build"]
     },
     "build": {
       "outputs": ["dist/**", "build/**"],
