@@ -2,7 +2,8 @@ import type {
   App_Info,
   Script_Generation_Template,
 } from "communication-types/src/AppInfo";
-import type { Raw_R_Info, Script_Position } from "r-ast-parsing";
+import type { Script_Position } from "communication-types/src/MessageToBackend";
+import type { Raw_R_Info } from "r-ast-parsing";
 import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 
 import { ast_to_ui_node } from "./ast_to_shiny_ui_node";

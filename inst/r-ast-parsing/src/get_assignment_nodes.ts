@@ -1,11 +1,11 @@
 import type { App_Info } from "communication-types/src/AppInfo";
+import type { Script_Position } from "communication-types/src/MessageToBackend";
 
 import type {
   Branch_Node,
   Expression_Node,
   R_AST,
   R_AST_Node,
-  Script_Position,
   Symbol_Node,
 } from ".";
 

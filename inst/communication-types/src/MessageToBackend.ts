@@ -64,7 +64,7 @@ export type Generated_UI_Def = {
  */
 export type CompanionEditorPosition = "BESIDE";
 
-type Script_Position = [
+export type Script_Position = [
   start_row: number,
   start_col: number,
   end_row: number,

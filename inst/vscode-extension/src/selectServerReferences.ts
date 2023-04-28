@@ -1,6 +1,8 @@
 import type { InputSourceRequest } from "communication-types";
-import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
-import type { Script_Position } from "r-ast-parsing";
+import type {
+  Script_Position,
+  SnippetInsertRequest,
+} from "communication-types/src/MessageToBackend";
 import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
 

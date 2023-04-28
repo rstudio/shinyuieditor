@@ -1,11 +1,6 @@
-export type Primatives = string | number | boolean;
+import type { Script_Position } from "communication-types/src/MessageToBackend";
 
-export type Script_Position = [
-  start_row: number,
-  start_col: number,
-  end_row: number,
-  end_col: number
-];
+export type Primatives = string | number | boolean;
 
 type Node_Vals_By_Key = {
   s: string; // Symbol

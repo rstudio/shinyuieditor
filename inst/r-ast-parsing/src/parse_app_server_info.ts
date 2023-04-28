@@ -1,4 +1,6 @@
-import type { R_AST, Script_Position } from ".";
+import type { Script_Position } from "communication-types/src/MessageToBackend";
+
+import type { R_AST } from ".";
 
 import {
   get_assignment_nodes,
