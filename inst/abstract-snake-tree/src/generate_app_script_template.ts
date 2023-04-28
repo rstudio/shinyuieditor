@@ -33,5 +33,5 @@ export function generate_app_script_template(
   }
 
   // We need to add a newline in here because the parser seems to remove it
-  return { code: "\n" + templated_app_script, packages };
+  return { code:  templated_app_script, packages };
 }

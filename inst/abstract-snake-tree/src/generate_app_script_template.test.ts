@@ -7,8 +7,7 @@ import { generate_app_script_template } from "./generate_app_script_template";
 import { get_assignment_nodes } from "./get_assignment_nodes";
 
 test("Can generate templates for filling in app from ", async () => {
-  const navbar_page_app = `
-from shiny import *
+  const navbar_page_app = `from shiny import *
 
 app_ui = ui.page_navbar(
   ui.nav(
@@ -40,8 +39,7 @@ def server(input, output, session):
 app = App(app_ui, server)
 `;
 
-  const templated_version = `
-${SCRIPT_LOC_KEYS.packages}
+  const templated_version = `${SCRIPT_LOC_KEYS.packages}
 
 app_ui = ${SCRIPT_LOC_KEYS.ui}
 
