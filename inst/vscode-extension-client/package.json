@@ -4,20 +4,19 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@types/vscode": "^1.65.0",
-    "editor": "*",
-    "tsconfig": "*",
-    "tsx": "^3.12.1",
-    "typescript": "^5.0.4"
+    "editor": "*"
   },
   "scripts": {
-    "build-extension-client": "vite build",
+    "build": "vite build",
     "dev": "vite build --mode dev",
-    "prod": "vite build",
     "type-check": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
+    "@types/vscode": "^1.65.0",
+    "tsconfig": "*",
+    "typescript": "^5.0.4",
     "@types/vscode-webview": "^1.57.0",
+    "tsx": "^3.12.1",
     "vite": "^4.2.1",
     "vite-tsconfig-paths": "^4.0.5"
   }

@@ -14,9 +14,9 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "build-python-grammar": "tree-sitter build-wasm ../../node_modules/tree-sitter-python; mv tree-sitter-python.wasm assets/tree-sitter-python.wasm",
-    "build-parser": "node build.mjs",
+    "build": "node build.mjs; yarn run gen-types",
     "gen-types": "tsc src/index.ts --esModuleInterop --declaration --emitDeclarationOnly --outDir dist",
+    "build-python-grammar": "tree-sitter build-wasm ../../node_modules/tree-sitter-python; mv tree-sitter-python.wasm assets/tree-sitter-python.wasm",
     "run-test-script": "node dist/index.js"
   },
   "dependencies": {

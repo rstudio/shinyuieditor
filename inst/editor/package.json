@@ -68,10 +68,10 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "start": "vite",
-    "dev": "vite build --mode dev",
-    "build-website-demo": "vite build --outDir ../../vignettes/demo-app/",
     "build": "vite build",
+    "dev": "vite build --mode dev",
+    "start": "vite",
+    "build-website-demo": "vite build --outDir ../../vignettes/demo-app/",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
     "test": "vitest run",
     "test-watch": "vitest",

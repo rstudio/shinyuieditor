@@ -111,12 +111,9 @@
     }
   },
   "scripts": {
-    "prod": "vsce package",
-    "vscode:prepublish": "yarn run build-extension",
-    "build-extension": "tsx ./build.mts",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=build/extension.js --external:vscode --format=cjs --platform=node",
-    "dev": "yarn run esbuild-base -- --sourcemap",
-    "esbuild-watch": "yarn run esbuild-base -- --sourcemap --watch",
+    "build": "vsce package",
+    "dev": "tsx ./build.mts --dev",
+    "vscode:prepublish": "tsx ./build.mts",
     "lint": "eslint \"src/**/*.ts\"",
     "type-check": "tsc -p ./ --noEmit",
     "test": "jest",

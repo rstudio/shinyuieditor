@@ -1,26 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "dev": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
-      "outputs": ["build/**", "media/build/**"],
-      "dependsOn": ["build-parser", "^dev", "install-r-pkg"],
-      "outputMode": "new-only"
-    },
-    "build-parser": {
-      "inputs": ["src/**/*"],
-      "outputs": ["dist/*"],
-      "outputMode": "new-only"
-    },
-    "prod": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
-      "outputs": ["build/**", "media/build/**", "vscode-extension-*.vsix"],
-      "outputMode": "new-only",
-      "dependsOn": ["build-parser", "build"]
-    },
     "build": {
+      "inputs": ["src/**", "assets/", "vite.config.ts", "build.*ts"],
       "outputs": ["dist/**", "build/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"]
+      "dependsOn": ["^build"]
+    },
+    "dev": {
+      "inputs": ["src/**", "assets/"],
+      "outputs": ["build/**", "media/build/**", "dist/**"],
+      "dependsOn": ["^dev", "install-r-pkg"],
+      "outputMode": "new-only"
     },
     "type-check": {
       "outputs": [],
@@ -37,7 +27,8 @@
     },
     "playwright": {
       "cache": false,
-      "outputs": [""]
+      "outputs": [""],
+      "dependsOn": ["^dev", "dev", "install-r-pkg"]
     },
     "build-storybook": {
       "cache": false,
