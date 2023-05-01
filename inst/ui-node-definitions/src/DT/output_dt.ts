@@ -10,6 +10,10 @@ export const output_dt = nodeInfoFactory<{
   r_info: {
     fn_name: "DTOutput",
     package: "DT",
+    output_bindings: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderDT({\n  iris\n})`,
+    },
   },
   title: "DT Table",
   takesChildren: false,
@@ -32,12 +36,6 @@ export const output_dt = nodeInfoFactory<{
       inputType: "cssMeasure",
       defaultValue: "auto",
       optional: true,
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderDT({\n  iris\n})`,
     },
   },
   category: "Outputs",

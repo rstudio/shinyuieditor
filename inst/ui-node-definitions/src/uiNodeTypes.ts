@@ -1,4 +1,4 @@
-import type { Expand, PickKeyFn } from "util-functions/src/TypescriptUtils";
+import type { Expand } from "util-functions/src/TypescriptUtils";
 
 import { bslib_card } from "./Bslib/card";
 import { card_body_fill } from "./Bslib/card_body_fill";
@@ -31,22 +31,6 @@ import { tab_panel } from "./Shiny/tab_panel";
 import { tabset_panel } from "./Shiny/tabset_panel";
 
 export type namedArgsObject = Record<string, unknown | undefined>;
-
-export type ServerBindings<
-  NodeSettings extends namedArgsObject = namedArgsObject
-> = {
-  outputs: {
-    outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-    /** Scaffold text to be inserted into the app server if the user requests.
-     * Can use the [vscode snippet
-     * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
-     * */
-    renderScaffold: string;
-  };
-  inputs: {
-    inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-  };
-};
 
 /**
  * This is the main object that contains the info about a given uiNode. Once the

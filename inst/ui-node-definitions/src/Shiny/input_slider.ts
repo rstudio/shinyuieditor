@@ -14,10 +14,16 @@ export const input_slider = nodeInfoFactory<{
   r_info: {
     fn_name: "sliderInput",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   py_info: {
     fn_name: "ui.input_slider",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   title: "Slider Input",
   takesChildren: false,
@@ -62,12 +68,6 @@ export const input_slider = nodeInfoFactory<{
       units: ["%", "px", "rem"],
       optional: true,
       useDefaultIfOptional: true,
-    },
-  },
-
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

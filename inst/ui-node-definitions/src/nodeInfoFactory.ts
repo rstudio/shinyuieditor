@@ -3,6 +3,7 @@ import type {
   Equal,
   Expand_Single,
   Expect,
+  PickKeyFn,
 } from "util-functions/src/TypescriptUtils";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
@@ -10,7 +11,7 @@ import { get_ordered_positional_args } from "./get_ordered_positional_args";
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type { input_action_button } from "./Shiny/input_action_button";
 import type { ShinyUiNode } from "./ShinyUiNode";
-import type { namedArgsObject, ServerBindings } from "./uiNodeTypes";
+import type { namedArgsObject } from "./uiNodeTypes";
 
 /**
  * Typescript factory function that takes as a type parameter the arguments type
@@ -100,6 +101,17 @@ export type Lang_Info<
    * @returns Processed version of the AST argument node
    */
   preprocess_raw_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
+
+  /**
+   * Does this node have outputs code it connects to in the server side of
+   * things? If so what's the argument name that links it to the server code?
+   * Can also supply a function that takes the current arguments for the node
+   * and returns the key. This is useful for ones where the choice may be
+   * dynamic. See `GridlayoutGridCardPlot` for an example.
+   */
+  output_bindings?: OutputBindings<Args>;
+
+  input_bindings?: InputBindings<Args>;
 };
 
 // Sanity tests for types
@@ -159,7 +171,7 @@ type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
    * and returns the key. This is useful for ones where the choice may be
    * dynamic. See `GridlayoutGridCardPlot` for an example.
    */
-  serverBindings?: Partial<ServerBindings<Args>>;
+  // serverBindings?: Partial<ServerBindings<Args>>;
 
   /**
    * Does this node take children? Aka is it a parent node?
@@ -194,3 +206,19 @@ type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
 export type Named_Arg_Transformer<Args extends namedArgsObject> = (
   args: Args
 ) => namedArgsObject;
+
+export type OutputBindings<
+  NodeSettings extends namedArgsObject = namedArgsObject
+> = {
+  outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+  /** Scaffold text to be inserted into the app server if the user requests.
+   * Can use the [vscode snippet
+   * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
+   * */
+  renderScaffold: string;
+};
+export type InputBindings<
+  NodeSettings extends namedArgsObject = namedArgsObject
+> = {
+  inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+};

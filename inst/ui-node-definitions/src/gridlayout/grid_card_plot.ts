@@ -10,6 +10,11 @@ export const grid_card_plot = nodeInfoFactory<{
   r_info: {
     fn_name: "grid_card_plot",
     package: "gridlayout",
+    output_bindings: {
+      // If the outputId is undefined we use the area as our id but otherwise we use the standard
+      outputIdKey: (args) => (args.outputId ? "outputId" : "area"),
+      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
+    },
   },
   title: "Grid Plot Card",
   takesChildren: false,
@@ -29,13 +34,6 @@ export const grid_card_plot = nodeInfoFactory<{
         return "MyPlot";
       },
       optional: true,
-    },
-  },
-  // If the outputId is undefined we use the area as our id but otherwise we use the standard
-  serverBindings: {
-    outputs: {
-      outputIdKey: (args) => (args.outputId ? "outputId" : "area"),
-      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
     },
   },
   allowedParents: grid_parents,

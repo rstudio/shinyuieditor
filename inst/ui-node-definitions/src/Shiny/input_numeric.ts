@@ -14,6 +14,9 @@ export const input_numeric = nodeInfoFactory<{
   r_info: {
     fn_name: "numericInput",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   title: "Numeric Input",
   takesChildren: false,
@@ -57,12 +60,6 @@ export const input_numeric = nodeInfoFactory<{
       defaultValue: "100%",
       units: ["%", "px", "rem"],
       optional: true,
-    },
-  },
-
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

@@ -7,6 +7,10 @@ export const output_ui = nodeInfoFactory<{
   r_info: {
     fn_name: "uiOutput",
     package: "shiny",
+    output_bindings: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderUI({\n  h1("Hello, World")\n})`,
+    },
   },
   title: "Dynamic UI Output",
   takesChildren: false,
@@ -15,12 +19,6 @@ export const output_ui = nodeInfoFactory<{
       label: "Output ID",
       inputType: "string",
       defaultValue: "dynamicUiOutput",
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderUI({\n  h1("Hello, World")\n})`,
     },
   },
   category: "Outputs",

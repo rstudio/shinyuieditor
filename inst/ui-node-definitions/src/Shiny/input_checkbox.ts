@@ -11,6 +11,9 @@ export const input_checkbox = nodeInfoFactory<{
   r_info: {
     fn_name: "checkboxInput",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   title: "Checkbox Input",
   takesChildren: false,
@@ -36,11 +39,6 @@ export const input_checkbox = nodeInfoFactory<{
       defaultValue: "100%",
       units: ["%", "px", "rem"],
       optional: true,
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

@@ -12,6 +12,9 @@ export const input_radio_buttons = nodeInfoFactory<{
   r_info: {
     fn_name: "radioButtons",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   title: "Radio Buttons",
   takesChildren: false,
@@ -41,11 +44,6 @@ export const input_radio_buttons = nodeInfoFactory<{
       units: ["%", "px", "rem"],
       optional: true,
       useDefaultIfOptional: true,
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

@@ -7,6 +7,10 @@ export const output_text = nodeInfoFactory<{
   r_info: {
     fn_name: "textOutput",
     package: "shiny",
+    output_bindings: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderText({\n  "Hello, World"\n})`,
+    },
   },
   title: "Text Output",
   takesChildren: false,
@@ -15,12 +19,6 @@ export const output_text = nodeInfoFactory<{
       label: "Output ID",
       inputType: "string",
       defaultValue: "textOutput",
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderText({\n  "Hello, World"\n})`,
     },
   },
   category: "Outputs",

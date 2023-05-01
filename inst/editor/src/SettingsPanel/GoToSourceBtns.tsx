@@ -1,33 +1,50 @@
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import type {
+  InputBindings,
+  OutputBindings,
+} from "ui-node-definitions/src/nodeInfoFactory";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import type { ServerBindings } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
 import { useCurrentAppInfo } from "../state/app_info";
+import { useLanguageMode } from "../state/languageMode";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg, mode } = useBackendConnection();
 
+  const language = useLanguageMode();
   if (mode !== "VSCODE" || !node) return null;
 
-  const serverBindings = (getUiNodeInfo(node.id).serverBindings ??
-    {}) as Partial<ServerBindings>;
+  const node_info = getUiNodeInfo(node.id)[
+    language === "PYTHON" ? "py_info" : "r_info"
+  ];
+
+  const output_bindings = (
+    "output_bindings" in node_info ? node_info.output_bindings : null
+  ) as OutputBindings | null;
+
+  const input_bindings =
+    "input_bindings" in node_info ? node_info.input_bindings : null;
 
   return (
     <div>
-      <GoToOutputsBtn
-        serverOutputInfo={serverBindings?.outputs}
-        node={node}
-        sendMsg={sendMsg}
-      />
-      <GoToInputsBtn
-        serverInputInfo={serverBindings?.inputs}
-        node={node}
-        sendMsg={sendMsg}
-      />
+      {output_bindings ? (
+        <GoToOutputsBtn
+          serverOutputInfo={output_bindings}
+          node={node}
+          sendMsg={sendMsg}
+        />
+      ) : null}
+      {input_bindings ? (
+        <GoToInputsBtn
+          serverInputInfo={input_bindings}
+          node={node}
+          sendMsg={sendMsg}
+        />
+      ) : null}
     </div>
   );
 }
@@ -38,24 +55,19 @@ function GoToOutputsBtn({
   sendMsg,
 }: {
   node: ShinyUiNode;
-  serverOutputInfo?: ServerBindings["outputs"];
+  serverOutputInfo: OutputBindings;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
   const current_app_info = useCurrentAppInfo();
 
   if (
-    !(
-      current_app_info.mode === "MAIN" && "known_outputs" in current_app_info
-    ) ||
-    typeof serverOutputInfo === "undefined"
+    !(current_app_info.mode === "MAIN" && "known_outputs" in current_app_info)
   )
     return null;
 
   const known_outputs = current_app_info.known_outputs;
 
   const { outputIdKey, renderScaffold } = serverOutputInfo;
-
-
 
   // I have no idea why I have to do this coercsian but for some reason this
   // keeps getting narrowed to never type for args unless I do it.
@@ -109,11 +121,9 @@ function GoToInputsBtn({
   sendMsg,
 }: {
   node: ShinyUiNode;
-  serverInputInfo?: ServerBindings["inputs"];
+  serverInputInfo: InputBindings;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
-  if (typeof serverInputInfo === "undefined") return null;
-
   const { inputIdKey } = serverInputInfo;
 
   // I have no idea why I have to do this coercsian but for some reason this

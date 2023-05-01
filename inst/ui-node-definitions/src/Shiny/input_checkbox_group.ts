@@ -12,6 +12,9 @@ export const input_checkbox_group = nodeInfoFactory<{
   r_info: {
     fn_name: "checkboxGroupInput",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   title: "Checkbox Group",
   takesChildren: false,
@@ -40,11 +43,6 @@ export const input_checkbox_group = nodeInfoFactory<{
       defaultValue: "100%",
       units: ["%", "px", "rem"],
       optional: true,
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

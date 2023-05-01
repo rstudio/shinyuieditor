@@ -10,6 +10,9 @@ export const input_action_button = nodeInfoFactory<{
   r_info: {
     fn_name: "actionButton",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   id: "actionButton",
   takesChildren: false,
@@ -30,11 +33,6 @@ export const input_action_button = nodeInfoFactory<{
       defaultValue: "100%",
       units: ["%", "px", "rem"],
       optional: true,
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

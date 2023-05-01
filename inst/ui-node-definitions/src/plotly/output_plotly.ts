@@ -10,6 +10,10 @@ export const output_plotly = nodeInfoFactory<{
   r_info: {
     fn_name: "plotlyOutput",
     package: "plotly",
+    output_bindings: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
+    },
   },
   title: "Plotly Plot",
   takesChildren: false,
@@ -30,12 +34,6 @@ export const output_plotly = nodeInfoFactory<{
       inputType: "cssMeasure",
       defaultValue: "400px",
       optional: true,
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
     },
   },
   category: "Plotting",

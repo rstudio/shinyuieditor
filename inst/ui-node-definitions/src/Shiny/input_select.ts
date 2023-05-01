@@ -12,6 +12,9 @@ export const input_select = nodeInfoFactory<ShinySelectInputProps>()({
   r_info: {
     fn_name: "selectInput",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   title: "Select Input",
   takesChildren: false,
@@ -33,11 +36,6 @@ export const input_select = nodeInfoFactory<ShinySelectInputProps>()({
         "choice a": "a",
         "choice b": "b",
       },
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

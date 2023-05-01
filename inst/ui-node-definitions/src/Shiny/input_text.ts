@@ -12,6 +12,9 @@ export const input_text = nodeInfoFactory<{
   r_info: {
     fn_name: "textInput",
     package: "shiny",
+    input_bindings: {
+      inputIdKey: "inputId",
+    },
   },
   title: "Text Input",
   takesChildren: false,
@@ -43,11 +46,6 @@ export const input_text = nodeInfoFactory<{
       defaultValue: "100%",
       units: ["%", "px", "rem"],
       optional: true,
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
     },
   },
   category: "Inputs",

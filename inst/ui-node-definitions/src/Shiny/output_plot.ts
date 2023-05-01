@@ -10,10 +10,18 @@ export const output_plot = nodeInfoFactory<{
   r_info: {
     fn_name: "plotOutput",
     package: "shiny",
+    output_bindings: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
+    },
   },
   py_info: {
     fn_name: "ui.output_plot",
     package: "shiny",
+    output_bindings: {
+      outputIdKey: "outputId",
+      renderScaffold: `#TO IMPLEMEMNT`,
+    },
   },
   title: "Plot Output",
   takesChildren: false,
@@ -35,12 +43,6 @@ export const output_plot = nodeInfoFactory<{
       inputType: "cssMeasure",
       defaultValue: "400px",
       optional: true,
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
     },
   },
   category: "Outputs",
