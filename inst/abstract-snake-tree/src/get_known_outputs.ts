@@ -2,6 +2,7 @@ import type { Script_Position } from "communication-types/src/MessageToBackend";
 
 import type { ParserTree } from ".";
 
+import type { Server_Position_Map } from "./get_known_inputs";
 import { get_node_position } from "./get_node_position";
 
 /**
@@ -9,10 +10,8 @@ import { get_node_position } from "./get_node_position";
  * @param app_tree A tree-sitter tree of the whole app script
  * @returns Mapping of the output's `id` its position in app script
  */
-export function get_known_outputs(
-  app_tree: ParserTree
-): Map<string, Script_Position> {
-  const outputs = new Map<string, Script_Position>();
+export function get_known_outputs(app_tree: ParserTree): Server_Position_Map {
+  const outputs = new Map<string, Script_Position[]>();
 
   // Get all the nodes that represent decorated functions in the script
   const decorated_fns = app_tree.rootNode.descendantsOfType(
@@ -31,13 +30,19 @@ export function get_known_outputs(
     // Now that we know we're working with an output decorator, go into the
     // function definition and grab the function name to get the associated id
     const fn_def = decorated_def.descendantsOfType("function_definition")[0];
-    const name_of_wrapped_fn = fn_def.firstNamedChild?.text;
+    const output_id = fn_def.firstNamedChild?.text;
 
-    if (!name_of_wrapped_fn) return;
+    if (!output_id) return;
 
-    // Now that we're sure we have an output definition and its name, grab the
-    // location and add to our map
-    outputs.set(name_of_wrapped_fn, get_node_position(decorated_def));
+    const position = get_node_position(decorated_def);
+
+    const existing_entry = outputs.get(output_id);
+
+    if (!existing_entry) {
+      outputs.set(output_id, [position]);
+    } else {
+      existing_entry.push(position);
+    }
   });
 
   return outputs;

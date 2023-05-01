@@ -2,8 +2,8 @@
 import type { MessageToClient } from "communication-types";
 import * as vscode from "vscode";
 
+import { appScriptStatus } from "./appScriptStatus";
 import { editorLogic } from "./editorLogic";
-import { appScriptStatus } from "./R-Utils/appScriptStatus";
 import { getNonce } from "./util";
 
 /**

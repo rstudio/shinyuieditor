@@ -7,7 +7,6 @@ import * as vscode from "vscode";
 
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
-import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";
 import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
 import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
@@ -94,14 +93,14 @@ export async function editorLogic({
     }
 
     try {
-      const appAST = await get_app_info();
+      const app_info_fetch = await get_app_info();
 
-      if (appAST.status === "error") {
+      if (app_info_fetch.status === "error") {
         sendMessage({
           path: "BACKEND-ERROR",
           payload: {
             context: "parsing app",
-            msg: appAST.errorMsg,
+            msg: app_info_fetch.errorMsg,
           },
         });
         // Error means that there is no latest app write. If we don't set this
@@ -111,7 +110,8 @@ export async function editorLogic({
         return;
       }
 
-      if (appAST.values === "EMPTY") {
+      const app_info = app_info_fetch.values;
+      if (app_info === "EMPTY") {
         sendMessage({
           path: "TEMPLATE_CHOOSER",
           payload: "SINGLE-FILE",
@@ -121,11 +121,9 @@ export async function editorLogic({
 
       latestAppWrite = appFileText;
 
-      const ui_info = appAST.values.parsed_info;
-
       sendMessage({
         path: "APP-INFO",
-        payload: ui_info,
+        payload: app_info.ui,
       });
     } catch (e) {
       console.error("Failed to parse", e);
@@ -242,11 +240,11 @@ export async function editorLogic({
           if (
             appAST.status === "success" &&
             appAST.values !== "EMPTY" &&
-            appAST.values.server_info
+            appAST.values.server
           ) {
             insert_code_snippet({
               editor: await get_companion_editor(),
-              server_pos: appAST.values.server_info.server_pos,
+              server_pos: appAST.values.server.server_pos,
               ...msg.payload,
             });
           }
@@ -254,33 +252,25 @@ export async function editorLogic({
         }
 
         case "FIND-SERVER-USES": {
-          const editor = await get_companion_editor();
-          if (msg.payload.type === "Input") {
-            // Force companion editor to be in focus. Otherwise the selection will show up
-            // on whatever was most recently clicked on which can kill the custom editor
-            // etc..
-            vscode.window.showTextDocument(editor.document);
-            await selectMultupleLocations({
-              uri: editor.document.uri,
-              locations: app_info_getter.locate_input(msg.payload.inputId),
-              noResultsMessage: `Failed to find any current inputs in server`,
-            });
-          } else {
-            const appAST = await get_app_info();
-            if (
-              appAST.status === "success" &&
-              appAST.values !== "EMPTY" &&
-              appAST.values.server_info
-            ) {
-              select_app_lines({
-                editor,
-                selections:
-                  appAST.values.server_info.get_output_position(
-                    msg.payload.outputId
-                  ) ?? [],
-              });
-            }
+          const app_info_fetch = await get_app_info();
+          if (
+            app_info_fetch.status !== "success" ||
+            app_info_fetch.values === "EMPTY"
+          ) {
+            return;
           }
+
+          const server_info = app_info_fetch.values.server;
+
+          const server_locations =
+            msg.payload.type === "Input"
+              ? server_info.get_input_positions(msg.payload.inputId)
+              : server_info.get_output_position(msg.payload.outputId);
+
+          select_app_lines({
+            editor: await get_companion_editor(),
+            selections: server_locations,
+          });
 
           return;
         }

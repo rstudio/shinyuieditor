@@ -109,7 +109,8 @@ function is_output_node(node: R_AST_Node): node is Output_Node {
   );
 }
 
-export type Output_Server_Pos = Record<string, Script_Position[]>;
+type Output_Server_Pos = Map<string, Script_Position[]>;
+
 export function get_output_positions(
   all_asignments: Variable_Assignment[]
 ): Output_Server_Pos {
@@ -118,11 +119,21 @@ export function get_output_positions(
     .reduce((by_name, { name, node }) => {
       const { pos } = node;
       if (pos) {
-        by_name[name] = [...(by_name[name] ?? []), pos];
+        const existing = by_name.get(name);
+
+        // For some reason the start column needs to be shifted back by one here
+        // to get the correct position in the editor.
+        pos[1] -= 1;
+
+        if (existing) {
+          existing.push(pos);
+        } else {
+          by_name.set(name, [pos]);
+        }
       }
 
       return by_name;
-    }, {} as Output_Server_Pos);
+    }, new Map<string, Script_Position[]>());
 }
 
 export function get_known_outputs(

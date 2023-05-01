@@ -49,7 +49,7 @@ export function select_app_lines({
 }) {
   const selection_objs = selections.map(
     ([start_row, start_col, end_row, end_col]) => {
-      const start = new vscode.Position(start_row - 1, start_col - 1);
+      const start = new vscode.Position(start_row - 1, start_col);
       const end = new vscode.Position(end_row - 1, end_col);
       return new vscode.Selection(start, end);
     }
