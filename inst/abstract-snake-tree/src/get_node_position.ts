@@ -1,6 +1,5 @@
 import type { Script_Position } from "communication-types/src/MessageToBackend";
-
-import type { ParserNode } from ".";
+import type { ParserNode } from "python-ts-parser";
 
 /**
  * Get position of node in the script in Ui-Editor friendly format

@@ -1,10 +1,4 @@
-import type { setup_python_parser } from "python-ts-parser";
-
-import type { get_ui_assignment } from "./get_ui_assignment";
-
-export type PythonParser = Awaited<ReturnType<typeof setup_python_parser>>;
-export type ParserTree = Awaited<ReturnType<typeof parse_python_script>>;
-export type ParserNode = Exclude<ReturnType<typeof get_ui_assignment>, null>;
+import type { PythonParser } from "python-ts-parser";
 
 export function parse_python_script(parser: PythonParser, script_text: string) {
   // Parse the current script

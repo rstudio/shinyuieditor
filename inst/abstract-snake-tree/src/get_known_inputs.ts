@@ -1,6 +1,5 @@
 import type { Script_Position } from "communication-types/src/MessageToBackend";
-
-import type { ParserTree } from ".";
+import type { ParserTree } from "python-ts-parser";
 
 import { get_node_position } from "./get_node_position";
 

@@ -1,4 +1,4 @@
-import type { ParserTree } from ".";
+import type { ParserTree } from "python-ts-parser";
 
 /**
  * Find the node representing the server function definition in an app script

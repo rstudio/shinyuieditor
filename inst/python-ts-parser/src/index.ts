@@ -16,3 +16,17 @@ export async function setup_python_parser() {
   parser.setLanguage(PythonGrammar);
   return parser;
 }
+
+/**
+ * Function to parse a python script into a tree-sitter syntax tree
+ */
+export type PythonParser = Parser;
+/**
+ * A node within the tree-sitter syntax tree.
+ */
+export type ParserNode = Parser.SyntaxNode;
+
+/**
+ * The main object returned from parsing an app script. Contains the main tree as the root node attribute
+ */
+export type ParserTree = Parser.Tree;
