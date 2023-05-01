@@ -1,14 +1,16 @@
 import {
   generate_app_script_template,
   get_assignment_nodes,
+  get_known_inputs,
   get_known_outputs,
   get_server_node_position,
   get_ui_assignment,
+  parse_python_script,
   treesitter_to_ui_tree,
 } from "abstract-snake-tree";
 import type { App_Info } from "communication-types/src/AppInfo";
 import { setup_python_parser } from "python-ts-parser";
-import type * as vscode from "vscode";
+import * as vscode from "vscode";
 
 import type { App_Parser } from "../App_Parser";
 import type { INFO_GET_RESULTS } from "../R-Utils/getAppInfo";
@@ -37,12 +39,20 @@ export async function build_python_app_parser(
   };
 
   const locate_input_references = (input_id: string) => {
-    // TODO: Implement this
+    const parsed_app = parse_python_script(parser, document.getText());
+    const inputs = get_known_inputs(parsed_app);
 
-    throw new Error("Not implemented");
-    // Parse app script
-    // Find all uses of input.<id>() in the script
-    // Return the positions of these uses
+    return (inputs.get(input_id) ?? []).map(
+      ([start_row, start_col, end_row, end_col]) => {
+        return new vscode.Location(
+          document.uri,
+          new vscode.Range(
+            new vscode.Position(start_row - 1, start_col),
+            new vscode.Position(end_row - 1, end_col)
+          )
+        );
+      }
+    );
   };
 
   return {

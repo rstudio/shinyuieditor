@@ -12,7 +12,6 @@ import { build_python_app_parser } from "./Python-Utils/build_python_app_parser"
 import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
-  findRInputReferences,
   insert_code_snippet,
   select_app_lines,
 } from "./selectServerReferences";
@@ -255,24 +254,15 @@ export async function editorLogic({
         }
 
         case "FIND-SERVER-USES": {
+          const editor = await get_companion_editor();
           if (msg.payload.type === "Input") {
-            const editor = await get_companion_editor();
-
-            const input_locations =
-              language === "R"
-                ? findRInputReferences({
-                    editor,
-                    input: msg.payload,
-                  })
-                : await app_info_getter.locate_input(msg.payload.inputId);
-
             // Force companion editor to be in focus. Otherwise the selection will show up
             // on whatever was most recently clicked on which can kill the custom editor
             // etc..
             vscode.window.showTextDocument(editor.document);
             await selectMultupleLocations({
               uri: editor.document.uri,
-              locations: input_locations,
+              locations: app_info_getter.locate_input(msg.payload.inputId),
               noResultsMessage: `Failed to find any current inputs in server`,
             });
           } else {
@@ -283,7 +273,7 @@ export async function editorLogic({
               appAST.values.server_info
             ) {
               select_app_lines({
-                editor: await get_companion_editor(),
+                editor,
                 selections:
                   appAST.values.server_info.get_output_position(
                     msg.payload.outputId

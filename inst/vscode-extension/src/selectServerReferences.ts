@@ -1,4 +1,3 @@
-import type { InputSourceRequest } from "communication-types";
 import type {
   Script_Position,
   SnippetInsertRequest,
@@ -62,51 +61,3 @@ export function select_app_lines({
   // Make sure that the user can actually see those outputs.
   editor.revealRange(selection_objs[0]);
 }
-
-export function findRInputReferences({
-  editor,
-  input: { inputId },
-}: {
-  editor: vscode.TextEditor;
-  input: InputSourceRequest;
-}) {
-  const fullInput = `input$${inputId}`;
-  const to_find = fullInput;
-  const app_text = editor.document.getText();
-  const doc_lines = app_text.split("\n");
-
-  // To find valid examples we want to check:
-  // 1. That we're not looking after a comment, aka not active code. and
-  // 2. That right after our searched for variable we have a non word token to
-  //    avoid over-eager findings like input$bins2 matching when we're searching
-  //    for input$bins
-  const regex_for_output = new RegExp(
-    `(?<!#.*)${escapeRegExp(to_find)}(?=\\W)`
-  );
-  const lines_with_output = doc_lines
-    .map((l, i) => ({
-      line: i,
-      match: regex_for_output.exec(l),
-    }))
-    .filter(({ match }) => match !== null);
-
-  if (lines_with_output.length === 0) return [];
-
-  return lines_with_output.map(({ line, match }) => {
-    const startChar = match?.index ?? 0;
-    const searchStart = new vscode.Position(line, startChar);
-    // Add to account for length of prefix
-    const searchEnd = new vscode.Position(line, startChar + to_find.length);
-
-    return new vscode.Location(
-      editor.document.uri,
-      new vscode.Range(searchStart, searchEnd)
-    );
-  });
-}
-
-function escapeRegExp(string: string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-}
-
-export function findPythonInputReferences({}) {}
