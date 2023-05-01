@@ -17,4 +17,5 @@ export { treesitter_to_ui_tree } from "./ts_node_to_ui_tree";
 export { get_assignment_nodes } from "./get_assignment_nodes";
 export { get_ui_assignment } from "./get_ui_assignment";
 export { get_known_outputs } from "./get_known_outputs";
+export { get_known_inputs } from "./get_known_inputs";
 export { get_server_node_position } from "./get_server_node_position";

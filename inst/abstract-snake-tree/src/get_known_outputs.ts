@@ -1,5 +1,6 @@
 import type { Script_Position } from "communication-types/src/MessageToBackend";
-import type Parser from "web-tree-sitter";
+
+import type { ParserTree } from ".";
 
 import { get_node_position } from "./get_node_position";
 
@@ -9,7 +10,7 @@ import { get_node_position } from "./get_node_position";
  * @returns Mapping of the output's `id` its position in app script
  */
 export function get_known_outputs(
-  app_tree: Parser.Tree
+  app_tree: ParserTree
 ): Map<string, Script_Position> {
   const outputs = new Map<string, Script_Position>();
 
