@@ -12,10 +12,11 @@ yarn type-check
 
 # Build assets
 echo "Building assets..."
-yarn build
+yarn build --force
 
 # Add any changes to repo
-git add inst/*/build/  || echo "no build to add"
+git add inst/*/dist/  || echo "no dist/ to add"
+git add inst/*/build/  || echo "no build/ to add"
 git add inst/*/media/build/  || echo "no extension client-assets to add"
 git add *.vsix || echo "no vsix to add"
 
