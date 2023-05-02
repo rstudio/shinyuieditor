@@ -1,3 +1,4 @@
+import type { App_Info } from "communication-types/src/AppInfo";
 import {
   generate_app_script_template,
   get_assignment_nodes,
@@ -6,8 +7,7 @@ import {
   get_server_node_position,
   get_ui_assignment,
   treesitter_to_ui_tree,
-} from "abstract-snake-tree";
-import type { App_Info } from "communication-types/src/AppInfo";
+} from "python-bindings";
 import { setup_python_parser } from "python-ts-parser";
 import type * as vscode from "vscode";
 

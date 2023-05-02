@@ -1,5 +1,5 @@
 {
-  "name": "abstract-snake-tree",
+  "name": "python-bindings",
   "main": "src/index.ts",
   "version": "0.0.1",
   "private": true,
