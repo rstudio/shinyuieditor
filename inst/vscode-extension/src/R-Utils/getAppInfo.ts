@@ -28,7 +28,7 @@ export function makeRAppInfoGetter(rProc: ActiveRSession) {
 
     try {
       const output_response = JSON.parse(
-        parsedCommandOutput.values.reduce((all, l) => all + "\n" + l, "")
+        parsedCommandOutput.values.reduce((all, l) => all + l, "")
       );
 
       assert_is_ast_parse_response(output_response);
