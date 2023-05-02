@@ -5,6 +5,8 @@ import type {
 import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
 
+import type { Server_Info } from "./App_Parser";
+
 export async function insert_code_snippet({
   editor,
   snippet,
@@ -12,19 +14,19 @@ export async function insert_code_snippet({
   where_in_server,
 }: {
   editor: vscode.TextEditor;
-  server_pos: Script_Range;
+  server_pos: Server_Info["server_pos"];
 } & SnippetInsertRequest) {
   // This is an assumption that we should probably extract from the script
   // itself
   const INDENT_SPACES = 2;
-  // const  = server_pos;
 
+  const server_fn_range = server_pos.server_fn;
   // Fill in the template at bottom of server
   const where_to_insert = editor.document.validatePosition(
     new vscode.Position(
       where_in_server === "end"
-        ? server_pos.end.row - 2
-        : server_pos.start.row - 2,
+        ? server_fn_range.end.row - 2
+        : server_fn_range.start.row - 2,
       Infinity
     )
   );

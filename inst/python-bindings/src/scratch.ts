@@ -49,9 +49,8 @@ const my_parser = await setup_python_parser();
 
 const parsed_app = parse_python_script(my_parser, app_script);
 
-const server_node = get_server_node(parsed_app);
-
-const server_node_pos = get_known_inputs(parsed_app);
+const server_node_pos = get_server_node_position(parsed_app);
+// const server_node = get_server_node(parsed_app);
 
 console.log(parsed_app);
 // const import_statements = get_imported_pkgs(parsed_app);

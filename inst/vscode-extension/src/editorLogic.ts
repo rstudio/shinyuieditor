@@ -242,10 +242,9 @@ export async function editorLogic({
             info_fetch.values !== "EMPTY" &&
             info_fetch.values.server
           ) {
-            const server_info = info_fetch.values.server;
             insert_code_snippet({
               editor: await get_companion_editor(),
-              server_pos: server_info.server_pos,
+              server_pos: info_fetch.values.server.server_pos,
               ...msg.payload,
             });
           }

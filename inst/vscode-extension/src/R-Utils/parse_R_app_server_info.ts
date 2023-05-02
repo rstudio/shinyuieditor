@@ -14,14 +14,17 @@ export function parse_R_app_server_info(
   app_text: string
 ): Server_Info {
   const assignment_nodes = get_assignment_nodes(ast);
-  const server_pos = pos_to_script_range(
+  const server_fn_range = pos_to_script_range(
     get_server_assignment_node(assignment_nodes).pos
   );
   const output_positions = get_output_positions(assignment_nodes);
 
   return {
     app_type: "SINGLE-FILE",
-    server_pos,
+    server_pos: {
+      server_fn: server_fn_range,
+      indent: 2,
+    },
     get_output_position: (outputId: string) =>
       output_positions.get(outputId) ?? [],
     get_input_positions: (input_id: string) =>

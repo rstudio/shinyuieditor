@@ -5,7 +5,10 @@ import type { CommandOutputGeneric } from "./R-Utils/runRCommand";
 
 export type Server_Info = {
   app_type: App_Type;
-  server_pos: Script_Range;
+  server_pos: {
+    server_fn: Script_Range;
+    indent: number;
+  };
   get_output_position: (outputId: string) => Script_Range[];
   get_input_positions: (inputId: string) => Script_Range[];
 };
