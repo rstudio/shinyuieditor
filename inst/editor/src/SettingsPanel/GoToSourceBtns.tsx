@@ -1,9 +1,5 @@
 import type { Language_Mode } from "communication-types/src/AppInfo";
-import type {
-  MessageToBackend,
-  SnippetInsertRequest,
-} from "communication-types/src/MessageToBackend";
-import { generate_output_binding } from "python-bindings";
+import type { MessageToBackend } from "communication-types/src/MessageToBackend";
 import type {
   InputBindings,
   OutputBindings,
@@ -16,6 +12,8 @@ import { useBackendConnection } from "../backendCommunication/useBackendMessageC
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
 import { useCurrentAppInfo } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
+
+import { buildOutputScaffold } from "./buildOutputScaffold";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg, mode } = useBackendConnection();
@@ -122,39 +120,6 @@ function GoToOutputsBtn({
       {existing_output_locations ? "Show in server" : "Generate server code"}
     </TooltipButton>
   );
-}
-
-function buildOutputScaffold({
-  language,
-  output_id,
-  output_info,
-}: {
-  language: Language_Mode;
-  output_id: string;
-  output_info: OutputBindings;
-}): SnippetInsertRequest {
-  const { renderScaffold } = output_info;
-
-  let snippet: string;
-
-  debugger;
-  // TODO: Separate this into functions for the various use-cases and write basic tests for them.
-  if (typeof renderScaffold === "string") {
-    snippet =
-      language === "R"
-        ? `output\\$${output_id} <- ${renderScaffold}`
-        : `#Not yet implemented`;
-  } else {
-    snippet =
-      language === "R"
-        ? `output\\$${output_id} <- ${renderScaffold.render_fn_name}(${renderScaffold.render_fn_body})`
-        : generate_output_binding({ id: output_id, ...renderScaffold });
-  }
-
-  return {
-    snippet,
-    where_in_server: "end",
-  };
 }
 
 function GoToInputsBtn({

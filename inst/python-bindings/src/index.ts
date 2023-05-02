@@ -13,4 +13,4 @@ export { get_ui_assignment } from "./get_ui_assignment";
 export { get_known_outputs } from "./get_known_outputs";
 export { get_known_inputs } from "./get_known_inputs";
 export { get_server_node_position } from "./get_server_node_position";
-export { generate_output_binding } from "./generate_output_binding";
+export { generate_python_output_binding } from "./generate_output_binding";

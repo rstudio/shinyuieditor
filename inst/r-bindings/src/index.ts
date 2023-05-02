@@ -109,3 +109,4 @@ export {
   get_output_positions,
   get_server_assignment_node,
 } from "./get_assignment_nodes";
+export { generate_r_output_binding } from "./generate_output_binding";

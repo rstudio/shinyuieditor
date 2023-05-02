@@ -215,7 +215,7 @@ export type OutputBindings<
    * Can use the [vscode snippet
    * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
    * */
-  renderScaffold: string | Omit<OutputBindingScaffold, "id">;
+  renderScaffold: string | OutputBindingScaffold;
 };
 
 /**
@@ -223,10 +223,6 @@ export type OutputBindings<
  * code of an app
  */
 export type OutputBindingScaffold = {
-  /**
-   * Id of the output
-   */
-  id: string;
   /**
    * Name of the function to be called in the server code to render the output
    */
