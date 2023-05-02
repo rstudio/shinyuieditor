@@ -215,8 +215,14 @@ export type OutputBindings<
    * Can use the [vscode snippet
    * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
    * */
-  renderScaffold: string;
+  renderScaffold:
+    | string
+    | {
+        render_fn_name: string;
+        render_fn_body: string;
+      };
 };
+
 export type InputBindings<
   NodeSettings extends namedArgsObject = namedArgsObject
 > = {

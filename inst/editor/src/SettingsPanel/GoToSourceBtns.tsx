@@ -1,4 +1,8 @@
-import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import type { Language_Mode } from "communication-types/src/AppInfo";
+import type {
+  MessageToBackend,
+  SnippetInsertRequest,
+} from "communication-types/src/MessageToBackend";
 import type {
   InputBindings,
   OutputBindings,
@@ -33,6 +37,7 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
     <div>
       {output_bindings ? (
         <GoToOutputsBtn
+          language={language}
           serverOutputInfo={output_bindings}
           node={node}
           sendMsg={sendMsg}
@@ -50,10 +55,12 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 }
 
 function GoToOutputsBtn({
+  language,
   serverOutputInfo,
   node: { namedArgs },
   sendMsg,
 }: {
+  language: Language_Mode;
   node: ShinyUiNode;
   serverOutputInfo: OutputBindings;
   sendMsg: (msg: MessageToBackend) => void;
@@ -67,7 +74,7 @@ function GoToOutputsBtn({
 
   const known_outputs = current_app_info.known_outputs;
 
-  const { outputIdKey, renderScaffold } = serverOutputInfo;
+  const { outputIdKey } = serverOutputInfo;
 
   // I have no idea why I have to do this coercsian but for some reason this
   // keeps getting narrowed to never type for args unless I do it.
@@ -102,10 +109,11 @@ function GoToOutputsBtn({
         } else {
           sendMsg({
             path: "INSERT-SNIPPET",
-            payload: {
-              snippet: `\noutput\\$${outputId} <- ${renderScaffold}`,
-              where_in_server: "end",
-            },
+            payload: buildOutputScaffold({
+              language,
+              output_id: outputId,
+              output_info: serverOutputInfo,
+            }),
           });
         }
       }}
@@ -113,6 +121,38 @@ function GoToOutputsBtn({
       {existing_output_locations ? "Show in server" : "Generate server code"}
     </TooltipButton>
   );
+}
+
+function buildOutputScaffold({
+  language,
+  output_id,
+  output_info,
+}: {
+  language: Language_Mode;
+  output_id: string;
+  output_info: OutputBindings;
+}): SnippetInsertRequest {
+  const { renderScaffold } = output_info;
+
+  let snippet: string;
+
+  // TODO: Separate this into functions for the various use-cases and write basic tests for them.
+  if (typeof renderScaffold === "string") {
+    snippet =
+      language === "R"
+        ? `\noutput\\$${output_id} <- ${renderScaffold}`
+        : `#Not yet implemented`;
+  } else {
+    snippet =
+      language === "R"
+        ? `\noutput\\$${output_id} <- ${renderScaffold.render_fn_name}(${renderScaffold.render_fn_body})`
+        : `@output\n${renderScaffold.render_fn_name}\ndef ${output_id}():\n    ${renderScaffold.render_fn_body}`;
+  }
+
+  return {
+    snippet,
+    where_in_server: "end",
+  };
 }
 
 function GoToInputsBtn({

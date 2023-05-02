@@ -20,7 +20,10 @@ export const output_plot = nodeInfoFactory<{
     package: "shiny",
     output_bindings: {
       outputIdKey: "outputId",
-      renderScaffold: `#TO IMPLEMEMNT`,
+      renderScaffold: {
+        render_fn_name: `@render.plot(alt="A plot")`,
+        render_fn_body: `# Not yet implemented`,
+      },
     },
   },
   title: "Plot Output",
