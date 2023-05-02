@@ -1,5 +1,5 @@
 import type { App_Info } from "communication-types/src/AppInfo";
-import type { Script_Position } from "communication-types/src/MessageToBackend";
+import type { Script_Range } from "communication-types/src/MessageToBackend";
 
 import type {
   Branch_Node,
@@ -8,6 +8,7 @@ import type {
   R_AST_Node,
   Symbol_Node,
 } from ".";
+import { pos_to_script_range } from ".";
 
 import { is_ast_branch_node } from "./node_identity_checkers";
 import { Parsing_Error } from "./parsing_error_class";
@@ -109,7 +110,7 @@ function is_output_node(node: R_AST_Node): node is Output_Node {
   );
 }
 
-type Output_Server_Pos = Map<string, Script_Position[]>;
+type Output_Server_Pos = Map<string, Script_Range[]>;
 
 export function get_output_positions(
   all_asignments: Variable_Assignment[]
@@ -121,19 +122,21 @@ export function get_output_positions(
       if (pos) {
         const existing = by_name.get(name);
 
+        const range = pos_to_script_range(pos);
+
         // For some reason the start column needs to be shifted back by one here
         // to get the correct position in the editor.
-        pos[1] -= 1;
+        range.start.column -= 1;
 
         if (existing) {
-          existing.push(pos);
+          existing.push(range);
         } else {
-          by_name.set(name, [pos]);
+          by_name.set(name, [range]);
         }
       }
 
       return by_name;
-    }, new Map<string, Script_Position[]>());
+    }, new Map<string, Script_Range[]>());
 }
 
 export function get_known_outputs(
@@ -167,7 +170,7 @@ function is_ui_assignment_node(
 export function get_ui_assignment_node(all_asignments: Variable_Assignment[]): {
   ui_root_node: Branch_Node;
   ui_assignment_operator: Assignment_Operator;
-  ui_pos: Script_Position;
+  ui_pos: Script_Range;
 } {
   const ui_assignment = all_asignments.find(
     ({ name, is_output }) => name === "ui" && !is_output
@@ -189,7 +192,7 @@ export function get_ui_assignment_node(all_asignments: Variable_Assignment[]): {
   }
 
   return {
-    ui_pos: ui_node.pos,
+    ui_pos: pos_to_script_range(ui_node.pos),
     ui_root_node: ui_node.val[2],
     ui_assignment_operator: ui_node.val[0].val,
   };

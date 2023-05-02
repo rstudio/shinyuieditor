@@ -1,4 +1,4 @@
-import type { Script_Position } from "communication-types/src/MessageToBackend";
+import type { Script_Range } from "communication-types/src/MessageToBackend";
 
 export type Primatives = string | number | boolean;
 
@@ -20,6 +20,20 @@ export const ast_name_to_key = {
   unknown: "u",
   expression: "e",
 } as const;
+
+type Script_Position = [
+  start_row: number,
+  start_col: number,
+  end_row: number,
+  end_col: number
+];
+
+export function pos_to_script_range(pos: Script_Position): Script_Range {
+  return {
+    start: { row: pos[0], column: pos[1] },
+    end: { row: pos[2], column: pos[3] },
+  };
+}
 
 export type AST_Name_To_Key = typeof ast_name_to_key;
 

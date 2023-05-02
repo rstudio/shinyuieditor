@@ -15,7 +15,7 @@ export type MessageToBackendByPath = {
   "APP-PREVIEW-RESTART": null;
   "APP-PREVIEW-STOP": null;
   "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
-  "SHOW-APP-LINES": Script_Position[];
+  "SHOW-APP-LINES": Script_Range[];
   "INSERT-SNIPPET": SnippetInsertRequest;
   "FIND-SERVER-USES": InputSourceRequest | OutputSourceRequest;
 };
@@ -64,12 +64,20 @@ export type Generated_UI_Def = {
  */
 export type CompanionEditorPosition = "BESIDE";
 
-export type Script_Position = [
-  start_row: number,
-  start_col: number,
-  end_row: number,
-  end_col: number
-];
+/**
+ * Single location in a script
+ */
+export type Script_Position = {
+  row: number;
+  column: number;
+};
+/**
+ * Range within a script. For something like a function definition etc..
+ */
+export type Script_Range = {
+  start: Script_Position;
+  end: Script_Position;
+};
 
 export type ParsedAppInfo = {
   file_lines: string[];

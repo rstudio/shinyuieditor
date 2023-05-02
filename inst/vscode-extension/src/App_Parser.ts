@@ -1,13 +1,13 @@
 import type { App_Info, App_Type } from "communication-types/src/AppInfo";
-import type { Script_Position } from "communication-types/src/MessageToBackend";
+import type { Script_Range } from "communication-types/src/MessageToBackend";
 
 import type { CommandOutputGeneric } from "./R-Utils/runRCommand";
 
 export type Server_Info = {
   app_type: App_Type;
-  server_pos: Script_Position;
-  get_output_position: (outputId: string) => Script_Position[];
-  get_input_positions: (inputId: string) => Script_Position[];
+  server_pos: Script_Range;
+  get_output_position: (outputId: string) => Script_Range[];
+  get_input_positions: (inputId: string) => Script_Range[];
 };
 
 export type INFO_GET_RESULTS =

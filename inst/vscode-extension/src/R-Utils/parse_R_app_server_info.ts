@@ -1,5 +1,6 @@
-import type { Script_Position } from "communication-types/src/MessageToBackend";
+import type { Script_Range } from "communication-types/src/MessageToBackend";
 import type { R_AST } from "r-bindings";
+import { pos_to_script_range } from "r-bindings";
 import {
   get_assignment_nodes,
   get_server_assignment_node,
@@ -13,7 +14,9 @@ export function parse_R_app_server_info(
   app_text: string
 ): Server_Info {
   const assignment_nodes = get_assignment_nodes(ast);
-  const server_pos = get_server_assignment_node(assignment_nodes).pos;
+  const server_pos = pos_to_script_range(
+    get_server_assignment_node(assignment_nodes).pos
+  );
   const output_positions = get_output_positions(assignment_nodes);
 
   return {
@@ -58,10 +61,11 @@ function findRInputReferences({
     const startChar = match?.index ?? 0;
 
     const row = line;
-    const start_col = startChar;
-    const end_col = startChar + to_find.length;
 
-    return [row, start_col, row, end_col] as Script_Position;
+    return {
+      start: { row, column: startChar },
+      end: { row, column: startChar + to_find.length },
+    } as Script_Range;
   });
 }
 

@@ -1,5 +1,5 @@
 import type {
-  Script_Position,
+  Script_Range,
   SnippetInsertRequest,
 } from "communication-types/src/MessageToBackend";
 import { indent_text_block } from "util-functions/src/strings";
@@ -12,17 +12,19 @@ export async function insert_code_snippet({
   where_in_server,
 }: {
   editor: vscode.TextEditor;
-  server_pos: Script_Position;
+  server_pos: Script_Range;
 } & SnippetInsertRequest) {
   // This is an assumption that we should probably extract from the script
   // itself
   const INDENT_SPACES = 2;
-  const [start_row, , end_row] = server_pos;
+  // const  = server_pos;
 
   // Fill in the template at bottom of server
   const where_to_insert = editor.document.validatePosition(
     new vscode.Position(
-      where_in_server === "end" ? end_row - 2 : start_row - 2,
+      where_in_server === "end"
+        ? server_pos.end.row - 2
+        : server_pos.start.row - 2,
       Infinity
     )
   );
@@ -45,15 +47,13 @@ export function select_app_lines({
   selections,
 }: {
   editor: vscode.TextEditor;
-  selections: Script_Position[];
+  selections: Script_Range[];
 }) {
-  const selection_objs = selections.map(
-    ([start_row, start_col, end_row, end_col]) => {
-      const start = new vscode.Position(start_row - 1, start_col);
-      const end = new vscode.Position(end_row - 1, end_col);
-      return new vscode.Selection(start, end);
-    }
-  );
+  const selection_objs = selections.map((range) => {
+    const start = new vscode.Position(range.start.row - 1, range.start.column);
+    const end = new vscode.Position(range.end.row - 1, range.end.column);
+    return new vscode.Selection(start, end);
+  });
 
   // Set the selection to found outputs
   editor.selection = selection_objs[0];

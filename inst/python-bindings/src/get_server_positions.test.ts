@@ -58,7 +58,7 @@ test("Can find inputs in server code", async () => {
   const n_input_loc = n_inputs![0];
 
   // Expect the selection to include the calling parens
-  expect(n_input_loc[3] - n_input_loc[1]).toBe(9);
+  expect(n_input_loc.end.column - n_input_loc.start.column).toBe(9);
 
   // There is just one instance of input.bins
   expect((inputs.get("bins") ?? []).length).toBe(1);

@@ -2,7 +2,7 @@ import type {
   App_Info,
   Script_Generation_Template,
 } from "communication-types/src/AppInfo";
-import type { Script_Position } from "communication-types/src/MessageToBackend";
+import type { Script_Range } from "communication-types/src/MessageToBackend";
 import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 
 import type { Raw_R_Info } from ".";
@@ -87,7 +87,7 @@ function generate_R_ui_script_template(
     ui_pos,
     ui_assignment_operator,
   }: {
-    ui_pos: Script_Position;
+    ui_pos: Script_Range;
     ui_assignment_operator: string;
   },
   ui_script: string
@@ -131,11 +131,8 @@ function generate_R_ui_script_template(
   return { code: ui_template_by_line.join("\n"), packages: libraries };
 }
 
-function within_position(
-  line_number: number,
-  [ui_start_row, ui_start_col, ui_end_row, ui_end_col]: Script_Position
-): boolean {
-  return line_number >= ui_start_row - 1 && line_number <= ui_end_row - 1;
+function within_position(line_number: number, pos: Script_Range): boolean {
+  return line_number >= pos.start.row - 1 && line_number <= pos.end.row - 1;
 }
 
 type Line_Type = "Library" | "UI" | "Other";
@@ -146,7 +143,7 @@ function get_line_type({
 }: {
   line: string;
   line_number: number;
-  ui_pos: Script_Position;
+  ui_pos: Script_Range;
 }): Line_Type {
   if (within_position(line_number, ui_pos)) return "UI";
 
