@@ -1,4 +1,4 @@
-import type { R_AST_Node } from "../../r-bindings/src";
+import type { R_AST_Node } from "r-bindings";
 import type {
   Equal,
   Expand_Single,
@@ -215,12 +215,26 @@ export type OutputBindings<
    * Can use the [vscode snippet
    * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
    * */
-  renderScaffold:
-    | string
-    | {
-        render_fn_name: string;
-        render_fn_body: string;
-      };
+  renderScaffold: string | Omit<OutputBindingScaffold, "id">;
+};
+
+/**
+ * Object containing info needed to generate an output binding for the server
+ * code of an app
+ */
+export type OutputBindingScaffold = {
+  /**
+   * Id of the output
+   */
+  id: string;
+  /**
+   * Name of the function to be called in the server code to render the output
+   */
+  render_fn_name: string;
+  /**
+   * Body of the function to be called in the server code to render the output.
+   */
+  render_fn_body: string;
 };
 
 export type InputBindings<

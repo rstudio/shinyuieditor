@@ -3,6 +3,7 @@ import type {
   MessageToBackend,
   SnippetInsertRequest,
 } from "communication-types/src/MessageToBackend";
+import { generate_output_binding } from "python-bindings";
 import type {
   InputBindings,
   OutputBindings,
@@ -146,7 +147,7 @@ function buildOutputScaffold({
     snippet =
       language === "R"
         ? `\noutput\\$${output_id} <- ${renderScaffold.render_fn_name}(${renderScaffold.render_fn_body})`
-        : `@output\n${renderScaffold.render_fn_name}\ndef ${output_id}():\n    ${renderScaffold.render_fn_body}`;
+        : generate_output_binding({ id: output_id, ...renderScaffold });
   }
 
   return {
