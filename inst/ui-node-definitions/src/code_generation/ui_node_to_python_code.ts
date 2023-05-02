@@ -1,4 +1,4 @@
-import type { Primatives } from "r-ast-parsing";
+import type { Primatives } from "../../../r-bindings/src";
 
 import { NL_INDENT } from "./build_function_text";
 import { isNamedList, print_named_python_list } from "./print_named_list";

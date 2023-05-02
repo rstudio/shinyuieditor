@@ -1,9 +1,3 @@
-import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
-import {
-  is_function_node,
-  is_primative_node,
-  IsNodeOfType,
-} from "r-ast-parsing/src/node_identity_checkers";
 import { print_node_val } from "ui-node-definitions/src/code_generation/build_function_text";
 import type { StaticInputOptions } from "ui-node-definitions/src/inputFieldTypes";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
@@ -12,6 +6,8 @@ import { rFnNameToNodeId } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import { identify_fn } from "util-functions/src/TypescriptUtils";
 
+import type { Branch_Node, R_AST_Node } from ".";
+
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import {
   flatten_to_array,
@@ -19,6 +15,11 @@ import {
   get_node_is_array,
   get_node_is_list,
 } from "./flatten_arrays_and_lists";
+import {
+  is_primative_node,
+  IsNodeOfType,
+  is_function_node,
+} from "./node_identity_checkers";
 import { build_text_node } from "./text_nodes/build_text_node";
 import { is_text_node } from "./text_nodes/is_text_node";
 

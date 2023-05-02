@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "r-ast-parsing": "*",
     "tsconfig": "*",
     "util-functions": "*",
+    "r-bindings": "*",
     "typescript": "^5.0.4",
     "immer": "^9.0.12"
   },

@@ -2,8 +2,8 @@ import type {
   AST_Node_By_Name,
   Expression_Node,
   R_AST_Node,
-} from "r-ast-parsing";
-import { IsNodeOfType } from "r-ast-parsing/src/node_identity_checkers";
+} from "../../../r-bindings/src";
+import { IsNodeOfType } from "../../../r-bindings/src";
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
 type ToNameTagMap<T extends { name: string; tag: string | null }> = {

@@ -1,10 +1,10 @@
 import type { Script_Position } from "communication-types/src/MessageToBackend";
-import type { R_AST } from "r-ast-parsing";
+import type { R_AST } from "r-bindings";
 import {
   get_assignment_nodes,
-  get_output_positions,
   get_server_assignment_node,
-} from "r-ast-parsing/src/get_assignment_nodes";
+  get_output_positions,
+} from "r-bindings";
 
 import type { Server_Info } from "../App_Parser";
 

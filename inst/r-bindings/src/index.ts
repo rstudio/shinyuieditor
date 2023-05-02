@@ -71,3 +71,21 @@ export type Raw_R_Info =
       ui: Raw_Script_Info;
       server: Raw_Script_Info;
     };
+
+export {
+  IsNodeOfType,
+  is_ast_branch_node,
+  is_primative_node,
+  is_function_node,
+} from "./node_identity_checkers";
+export { text_node_to_code } from "./text_nodes/text_node_to_code";
+export { get_ast_is_array_or_list } from "./flatten_arrays_and_lists";
+export { make_character_node, name_node } from "./node_builders";
+export { is_function_call } from "./Function_Call_Node";
+export { Parsing_Error } from "./parsing_error_class";
+export { raw_R_info_to_app_info } from "./raw_R_info_to_app_info";
+export {
+  get_assignment_nodes,
+  get_output_positions,
+  get_server_assignment_node,
+} from "./get_assignment_nodes";

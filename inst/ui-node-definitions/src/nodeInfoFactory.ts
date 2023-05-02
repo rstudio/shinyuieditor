@@ -1,4 +1,4 @@
-import type { R_AST_Node } from "r-ast-parsing";
+import type { R_AST_Node } from "../../r-bindings/src";
 import type {
   Equal,
   Expand_Single,

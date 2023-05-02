@@ -1,4 +1,4 @@
-import type { Raw_R_Info } from "r-ast-parsing";
+import type { Raw_R_Info } from "../../r-bindings/src";
 
 import type { App_Type, App_Info } from "./AppInfo";
 import { isRecord } from "./isRecord";

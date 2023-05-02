@@ -1,9 +1,9 @@
-import type { R_AST_Node } from "r-ast-parsing";
-import { is_function_call } from "r-ast-parsing/src/Function_Call_Node";
+import type { R_AST_Node } from "../../../r-bindings/src";
 import {
-  make_character_node,
   name_node,
-} from "r-ast-parsing/src/node_builders";
+  make_character_node,
+  is_function_call,
+} from "../../../r-bindings/src";
 
 import { make_unknown_ui_function } from "../make_unknown_ui_function";
 import { nodeInfoFactory } from "../nodeInfoFactory";

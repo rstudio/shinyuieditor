@@ -1,11 +1,11 @@
 import type {
+  Symbol_Node,
   AST_Node_By_Name,
+  R_AST_Node,
   Expression_Node,
   R_AST,
-  R_AST_Node,
-  Symbol_Node,
-} from "r-ast-parsing";
-import { IsNodeOfType } from "r-ast-parsing/src/node_identity_checkers";
+} from "../../../r-bindings/src";
+import { IsNodeOfType } from "../../../r-bindings/src";
 
 type Function_Def_AST = [
   Symbol_Node<"function">,

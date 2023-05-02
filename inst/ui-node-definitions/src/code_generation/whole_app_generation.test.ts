@@ -1,5 +1,5 @@
-import type { Raw_R_Info } from "r-ast-parsing";
-import { raw_R_info_to_app_info } from "r-ast-parsing/src/raw_R_info_to_app_info";
+import type { Raw_R_Info } from "r-bindings";
+import { raw_R_info_to_app_info } from "r-bindings";
 
 import { generate_full_app_script } from "./generate_full_app_script";
 

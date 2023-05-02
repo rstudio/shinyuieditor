@@ -15,7 +15,7 @@
     "just-debounce-it": "^3.1.1",
     "just-omit": "^2.1.1",
     "lz-string": "^1.5.0",
-    "r-ast-parsing": "*",
+    "r-bindings": "*",
     "react": "^18.2.0",
     "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.2.0",

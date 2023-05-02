@@ -1,5 +1,5 @@
 {
-  "name": "r-ast-parsing",
+  "name": "r-bindings",
   "main": "./src/index.ts",
   "version": "0.1.0",
   "private": true,

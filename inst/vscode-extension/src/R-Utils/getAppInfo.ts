@@ -1,5 +1,5 @@
-import type { R_AST } from "r-ast-parsing";
-import { raw_R_info_to_app_info } from "r-ast-parsing/src/raw_R_info_to_app_info";
+import type { R_AST } from "r-bindings";
+import { raw_R_info_to_app_info } from "r-bindings";
 import { is_object } from "util-functions/src/is_object";
 import { makePortableString } from "util-functions/src/strings";
 

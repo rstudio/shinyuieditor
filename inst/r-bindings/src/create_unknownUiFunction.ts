@@ -1,10 +1,12 @@
-import type { R_AST_Node } from "r-ast-parsing";
-import { is_ast_branch_node } from "r-ast-parsing/src/node_identity_checkers";
 import {
   build_function_text,
   print_node_val,
 } from "ui-node-definitions/src/code_generation/build_function_text";
 import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
+
+import type { R_AST_Node } from ".";
+
+import { is_ast_branch_node } from "./node_identity_checkers";
 
 /**
  *

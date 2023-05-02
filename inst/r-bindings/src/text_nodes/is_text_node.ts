@@ -1,10 +1,7 @@
-import type {
-  AST_Node_By_Name,
-  Expression_Node,
-  R_AST_Node,
-} from "r-ast-parsing";
-import { IsNodeOfType } from "r-ast-parsing/src/node_identity_checkers";
 import type { Expand } from "util-functions/src/TypescriptUtils";
+
+import type { Expression_Node, AST_Node_By_Name, R_AST_Node } from "..";
+import { IsNodeOfType } from "../node_identity_checkers";
 
 type ToNameTagMap<T extends { name: string; tag: string | null }> = {
   [Pair in T as Pair["name"]]: Pair["tag"];

@@ -1,13 +1,10 @@
+import { text_node_to_code } from "../../../r-bindings/src";
 import { isTextUiNode } from "ui-node-definitions/src/internal/text_node";
 import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
 import { isUnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
-import type {
-  ShinyUiNodeInfo,
-  KnownShinyUiNode,
-} from "ui-node-definitions/src/uiNodeTypes";
-import type { ShinyUiNode } from "../ShinyUiNode";
 
-import { text_node_to_code } from "r-ast-parsing/src/text_nodes/text_node_to_code";
+import type { ShinyUiNode } from "../ShinyUiNode";
+import type { ShinyUiNodeInfo, KnownShinyUiNode } from "../uiNodeTypes";
 
 type InternalUiNodeNames = Extract<
   ShinyUiNodeInfo,
