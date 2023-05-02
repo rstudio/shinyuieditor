@@ -226,13 +226,6 @@ export async function editorLogic({
           await get_companion_editor();
           return;
         }
-        case "SHOW-APP-LINES": {
-          select_app_lines({
-            editor: await get_companion_editor(),
-            selections: msg.payload,
-          });
-          return;
-        }
         case "INSERT-SNIPPET": {
           const info_fetch = await get_app_info();
           if (
