@@ -124,10 +124,6 @@ export function get_output_positions(
 
         const range = pos_to_script_range(pos);
 
-        // For some reason the start column needs to be shifted back by one here
-        // to get the correct position in the editor.
-        range.start.column -= 1;
-
         if (existing) {
           existing.push(range);
         } else {

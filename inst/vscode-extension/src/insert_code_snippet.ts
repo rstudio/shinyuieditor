@@ -25,14 +25,23 @@ export async function insert_code_snippet({
   // Fill in the template either at bottom or top of server
   // Where exactly this will go depends on the language as R server functions have
   // the trailing curly brace we need to respect and python functions don't
-  const row_delta = language === "R" ? -2 : 2;
+  const row_delta = language === "R" ? -1 : 2;
   const row_to_place_snippet =
     where_in_server === "end"
       ? server_fn_range.end.row + row_delta
       : server_fn_range.start.row + row_delta;
 
+  // Flank with new lines to create space between snippet and end of function
+  let snippet_to_add = `${indent_text_block(snippet, indent, true)}\n`;
+
+  // R needs space added in front of the snippet to create separation from the
+  // last expression which is often right up against the closing parenthesis
+  if (language === "R") {
+    snippet_to_add = `\n${snippet_to_add}`;
+  }
+
   const successfull_template_add = await editor.insertSnippet(
-    new vscode.SnippetString(indent_text_block(snippet, indent, true)),
+    new vscode.SnippetString(snippet_to_add),
     new vscode.Position(row_to_place_snippet, 0)
   );
 

@@ -28,10 +28,16 @@ type Script_Position = [
   end_col: number
 ];
 
+/**
+ * Convert from R-provided position arrays to ui editor friendly format while
+ * also smoothing out some of the inconsitencies in R's `parse` position info
+ * @param pos Position of node in R_AST Script_Position arrray format
+ * @returns Position in the script in Ui-Editor friendly format
+ */
 export function pos_to_script_range(pos: Script_Position): Script_Range {
   return {
-    start: { row: pos[0], column: pos[1] },
-    end: { row: pos[2], column: pos[3] },
+    start: { row: pos[0] - 1, column: pos[1] - 1 },
+    end: { row: pos[2], column: pos[3] - 1 },
   };
 }
 

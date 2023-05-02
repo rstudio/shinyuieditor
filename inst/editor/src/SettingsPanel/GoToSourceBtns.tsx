@@ -137,16 +137,17 @@ function buildOutputScaffold({
 
   let snippet: string;
 
+  debugger;
   // TODO: Separate this into functions for the various use-cases and write basic tests for them.
   if (typeof renderScaffold === "string") {
     snippet =
       language === "R"
-        ? `\noutput\\$${output_id} <- ${renderScaffold}`
+        ? `output\\$${output_id} <- ${renderScaffold}`
         : `#Not yet implemented`;
   } else {
     snippet =
       language === "R"
-        ? `\noutput\\$${output_id} <- ${renderScaffold.render_fn_name}(${renderScaffold.render_fn_body})`
+        ? `output\\$${output_id} <- ${renderScaffold.render_fn_name}(${renderScaffold.render_fn_body})`
         : generate_output_binding({ id: output_id, ...renderScaffold });
   }
 
