@@ -7,13 +7,11 @@ import * as vscode from "vscode";
 
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
+import { insert_code_snippet } from "./insert_code_snippet";
 import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
 import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
-import {
-  insert_code_snippet,
-  select_app_lines,
-} from "./selectServerReferences";
+import { select_app_lines } from "./selectServerReferences";
 import { update_app_file } from "./update_app_file";
 
 const { showErrorMessage } = vscode.window;
@@ -243,8 +241,9 @@ export async function editorLogic({
             info_fetch.values.server
           ) {
             insert_code_snippet({
+              language,
               editor: await get_companion_editor(),
-              server_pos: info_fetch.values.server.server_pos,
+              server_info: info_fetch.values.server,
               ...msg.payload,
             });
           }

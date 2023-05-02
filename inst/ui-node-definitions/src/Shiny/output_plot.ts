@@ -22,7 +22,7 @@ export const output_plot = nodeInfoFactory<{
       outputIdKey: "outputId",
       renderScaffold: {
         render_fn_name: `@render.plot(alt="A plot")`,
-        render_fn_body: `# Not yet implemented`,
+        render_fn_body: `x = 100 + 15 * np.random.randn(437)\nplt.hist(x, input.n(), density=True)`,
       },
     },
   },

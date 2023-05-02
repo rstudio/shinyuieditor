@@ -9,7 +9,6 @@ import type { ParserNode } from "python-ts-parser";
 export function get_node_position(node: ParserNode): Script_Range {
   const { startPosition, endPosition } = node;
 
-  // Add one to the row because... well i'm not really sure why but we need to.
   return {
     start: startPosition,
     end: endPosition,

@@ -1,48 +1,5 @@
-import type {
-  Script_Range,
-  SnippetInsertRequest,
-} from "communication-types/src/MessageToBackend";
-import { indent_text_block } from "util-functions/src/strings";
+import type { Script_Range } from "communication-types/src/MessageToBackend";
 import * as vscode from "vscode";
-
-import type { Server_Info } from "./App_Parser";
-
-export async function insert_code_snippet({
-  editor,
-  snippet,
-  server_pos,
-  where_in_server,
-}: {
-  editor: vscode.TextEditor;
-  server_pos: Server_Info["server_pos"];
-} & SnippetInsertRequest) {
-  // This is an assumption that we should probably extract from the script
-  // itself
-  const INDENT_SPACES = 2;
-
-  const server_fn_range = server_pos.server_fn;
-  // Fill in the template at bottom of server
-  const where_to_insert = editor.document.validatePosition(
-    new vscode.Position(
-      where_in_server === "end"
-        ? server_fn_range.end.row - 2
-        : server_fn_range.start.row - 2,
-      Infinity
-    )
-  );
-
-  const successfull_template_add = await editor.insertSnippet(
-    new vscode.SnippetString(
-      `\n  ${indent_text_block(snippet, INDENT_SPACES)}`
-    ),
-    where_to_insert
-  );
-
-  if (!successfull_template_add) {
-    // Tell user there's nothing we can do.
-    vscode.window.showErrorMessage(`Failed to add output scaffold`);
-  }
-}
 
 export function select_app_lines({
   editor,
@@ -52,8 +9,8 @@ export function select_app_lines({
   selections: Script_Range[];
 }) {
   const selection_objs = selections.map((range) => {
-    const start = new vscode.Position(range.start.row - 1, range.start.column);
-    const end = new vscode.Position(range.end.row - 1, range.end.column);
+    const start = new vscode.Position(range.start.row, range.start.column);
+    const end = new vscode.Position(range.end.row, range.end.column);
     return new vscode.Selection(start, end);
   });
 
