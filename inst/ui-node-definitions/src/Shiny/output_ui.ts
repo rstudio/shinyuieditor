@@ -9,7 +9,10 @@ export const output_ui = nodeInfoFactory<{
     package: "shiny",
     output_bindings: {
       outputIdKey: "outputId",
-      renderScaffold: `renderUI({\n  h1("Hello, World")\n})`,
+      renderScaffold: {
+        fn_name: "renderUI",
+        fn_body: `h1("Hello, World")`,
+      },
     },
   },
   title: "Dynamic UI Output",

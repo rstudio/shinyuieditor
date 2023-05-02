@@ -12,7 +12,10 @@ export const output_dt = nodeInfoFactory<{
     package: "DT",
     output_bindings: {
       outputIdKey: "outputId",
-      renderScaffold: `renderDT({\n  iris\n})`,
+      renderScaffold: {
+        fn_name: "renderDT",
+        fn_body: `iris`,
+      },
     },
   },
   title: "DT Table",

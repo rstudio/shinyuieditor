@@ -215,7 +215,7 @@ export type OutputBindings<
    * Can use the [vscode snippet
    * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
    * */
-  renderScaffold: string | OutputBindingScaffold;
+  renderScaffold: OutputBindingScaffold;
 };
 
 /**
@@ -226,11 +226,11 @@ export type OutputBindingScaffold = {
   /**
    * Name of the function to be called in the server code to render the output
    */
-  render_fn_name: string;
+  fn_name: string;
   /**
    * Body of the function to be called in the server code to render the output.
    */
-  render_fn_body: string;
+  fn_body: string;
 };
 
 export type InputBindings<

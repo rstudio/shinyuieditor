@@ -12,7 +12,10 @@ export const output_plotly = nodeInfoFactory<{
     package: "plotly",
     output_bindings: {
       outputIdKey: "outputId",
-      renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
+      renderScaffold: {
+        fn_name: "renderPlotly",
+        fn_body: `plot_ly(z = ~volcano, type = "surface")`,
+      },
     },
   },
   title: "Plotly Plot",

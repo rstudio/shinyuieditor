@@ -7,14 +7,12 @@ import type { OutputBindings } from "ui-node-definitions/src/nodeInfoFactory";
 export function buildOutputScaffold({
   language,
   output_id,
-  output_info,
+  output_info: { renderScaffold },
 }: {
   language: Language_Mode;
   output_id: string;
   output_info: OutputBindings;
 }): SnippetInsertRequest {
-  const { renderScaffold } = output_info;
-
   return {
     snippet:
       language === "PYTHON"

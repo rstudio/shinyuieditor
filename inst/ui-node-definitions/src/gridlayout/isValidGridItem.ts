@@ -1,7 +1,7 @@
 import type { UnionToTuple } from "util-functions/src/TypescriptUtils";
 
-import type { NodeInfoByRPackage, KnownShinyUiNode } from "../uiNodeTypes";
 import type { ShinyUiNode } from "../ShinyUiNode";
+import type { NodeInfoByRPackage, KnownShinyUiNode } from "../uiNodeTypes";
 
 type GridItemNodeIds = Extract<
   NodeInfoByRPackage["gridlayout"],

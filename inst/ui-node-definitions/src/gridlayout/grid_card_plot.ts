@@ -13,7 +13,10 @@ export const grid_card_plot = nodeInfoFactory<{
     output_bindings: {
       // If the outputId is undefined we use the area as our id but otherwise we use the standard
       outputIdKey: (args) => (args.outputId ? "outputId" : "area"),
-      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
+      renderScaffold: {
+        fn_name: "renderPlot",
+        fn_body: "#Plot code goes here\n$0plot(rnorm(100))",
+      },
     },
   },
   title: "Grid Plot Card",

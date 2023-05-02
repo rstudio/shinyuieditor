@@ -10,8 +10,8 @@ export const output_text = nodeInfoFactory<{
     output_bindings: {
       outputIdKey: "outputId",
       renderScaffold: {
-        render_fn_name: "renderText",
-        render_fn_body: `"Hello, World"`,
+        fn_name: "renderText",
+        fn_body: `"Hello, World"`,
       },
     },
   },

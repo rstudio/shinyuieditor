@@ -9,8 +9,8 @@ def MyPlot():
 `;
   expect(
     generate_python_output_binding("MyPlot", {
-      render_fn_name: `@render.plot(alt="A plot")`,
-      render_fn_body: `# Not yet implemented\n# With a new line`,
+      fn_name: `@render.plot(alt="A plot")`,
+      fn_body: `# Not yet implemented\n# With a new line`,
     })
   ).toBe(expected_output);
 });

@@ -12,7 +12,10 @@ export const output_plot = nodeInfoFactory<{
     package: "shiny",
     output_bindings: {
       outputIdKey: "outputId",
-      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
+      renderScaffold: {
+        fn_name: "renderPlot",
+        fn_body: `#Plot code goes here\n$0plot(rnorm(100))`,
+      },
     },
   },
   py_info: {
@@ -21,8 +24,8 @@ export const output_plot = nodeInfoFactory<{
     output_bindings: {
       outputIdKey: "outputId",
       renderScaffold: {
-        render_fn_name: `@render.plot(alt="A plot")`,
-        render_fn_body: `x = 100 + 15 * np.random.randn(437)\nplt.hist(x, input.n(), density=True)`,
+        fn_name: `@render.plot(alt="A plot")`,
+        fn_body: `x = 100 + 15 * np.random.randn(437)\nplt.hist(x, input.n(), density=True)`,
       },
     },
   },

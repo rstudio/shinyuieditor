@@ -7,8 +7,8 @@ test("Can generate output bindings from simple text", () => {
 
   expect(
     generate_r_output_binding("MyText", {
-      render_fn_name: "renderText",
-      render_fn_body: `"Hello, World"`,
+      fn_name: "renderText",
+      fn_body: `"Hello, World"`,
     })
   ).toBe(expected_output);
 });
