@@ -132,7 +132,8 @@ function generate_R_ui_script_template(
 }
 
 function within_position(line_number: number, pos: Script_Range): boolean {
-  return line_number >= pos.start.row - 1 && line_number <= pos.end.row - 1;
+  // Not totally sure why the end row needs to be pulled back by one. But it does
+  return line_number >= pos.start.row && line_number <= pos.end.row - 1;
 }
 
 type Line_Type = "Library" | "UI" | "Other";
