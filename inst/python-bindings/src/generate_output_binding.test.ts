@@ -5,8 +5,7 @@ test("Can generate output bindings from simple text", () => {
 @render.plot(alt="A plot")
 def MyPlot():
     # Not yet implemented
-    # With a new line
-`;
+    # With a new line`;
   expect(
     generate_python_output_binding("MyPlot", {
       fn_name: `@render.plot(alt="A plot")`,
