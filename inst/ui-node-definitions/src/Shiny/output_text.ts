@@ -8,7 +8,6 @@ export const output_text = nodeInfoFactory<{
     fn_name: "textOutput",
     package: "shiny",
     output_bindings: {
-      outputIdKey: "outputId",
       renderScaffold: {
         fn_name: "renderText",
         fn_body: `"Hello, World"`,

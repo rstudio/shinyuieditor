@@ -11,7 +11,6 @@ export const output_dt = nodeInfoFactory<{
     fn_name: "DTOutput",
     package: "DT",
     output_bindings: {
-      outputIdKey: "outputId",
       renderScaffold: {
         fn_name: "renderDT",
         fn_body: `iris`,

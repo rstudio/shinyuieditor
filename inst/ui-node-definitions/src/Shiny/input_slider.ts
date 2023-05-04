@@ -14,16 +14,12 @@ export const input_slider = nodeInfoFactory<{
   r_info: {
     fn_name: "sliderInput",
     package: "shiny",
-    input_bindings: {
-      inputIdKey: "inputId",
-    },
+    input_bindings: true,
   },
   py_info: {
     fn_name: "ui.input_slider",
     package: "shiny",
-    input_bindings: {
-      inputIdKey: "inputId",
-    },
+    input_bindings: true,
   },
   title: "Slider Input",
   takesChildren: false,

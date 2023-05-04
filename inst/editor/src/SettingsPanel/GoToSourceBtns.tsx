@@ -73,7 +73,7 @@ function GoToOutputsBtn({
 
   const known_outputs = current_app_info.known_outputs;
 
-  const { outputIdKey } = serverOutputInfo;
+  const { outputIdKey = "outputId" } = serverOutputInfo;
 
   // I have no idea why I have to do this coercsian but for some reason this
   // keeps getting narrowed to never type for args unless I do it.
@@ -131,7 +131,8 @@ function GoToInputsBtn({
   serverInputInfo: InputBindings;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
-  const { inputIdKey } = serverInputInfo;
+  const inputIdKey =
+    typeof serverInputInfo === "boolean" ? "inputId" : serverInputInfo;
 
   // I have no idea why I have to do this coercsian but for some reason this
   // keeps getting narrowed to never type for args unless I do it.

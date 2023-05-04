@@ -8,7 +8,6 @@ export const output_ui = nodeInfoFactory<{
     fn_name: "uiOutput",
     package: "shiny",
     output_bindings: {
-      outputIdKey: "outputId",
       renderScaffold: {
         fn_name: "renderUI",
         fn_body: `h1("Hello, World")`,

@@ -11,9 +11,12 @@ export const input_checkbox = nodeInfoFactory<{
   r_info: {
     fn_name: "checkboxInput",
     package: "shiny",
-    input_bindings: {
-      inputIdKey: "inputId",
-    },
+    input_bindings: true,
+  },
+  py_info: {
+    fn_name: "ui.input_checkbox",
+    package: "shiny",
+    input_bindings: true,
   },
   title: "Checkbox Input",
   takesChildren: false,

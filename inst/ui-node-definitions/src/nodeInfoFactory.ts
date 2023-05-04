@@ -225,7 +225,12 @@ export type Named_Arg_Transformer<Args extends namedArgsObject> = (
 export type OutputBindings<
   NodeSettings extends namedArgsObject = namedArgsObject
 > = {
-  outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+  /**
+   * Name of the argument (in the language-agnostic arguments type) for the node
+   * that links it to the server output chunk. If omitted defaults to
+   * `outputId`.
+   */
+  outputIdKey?: keyof NodeSettings | PickKeyFn<NodeSettings>;
   /** Scaffold text to be inserted into the app server if the user requests.
    * Can use the [vscode snippet
    * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
@@ -250,6 +255,4 @@ export type OutputBindingScaffold = {
 
 export type InputBindings<
   NodeSettings extends namedArgsObject = namedArgsObject
-> = {
-  inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-};
+> = boolean | keyof NodeSettings | PickKeyFn<NodeSettings>;

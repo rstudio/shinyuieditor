@@ -12,9 +12,7 @@ export const input_text = nodeInfoFactory<{
   r_info: {
     fn_name: "textInput",
     package: "shiny",
-    input_bindings: {
-      inputIdKey: "inputId",
-    },
+    input_bindings: true,
   },
   title: "Text Input",
   takesChildren: false,

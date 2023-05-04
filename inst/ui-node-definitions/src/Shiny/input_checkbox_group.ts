@@ -12,9 +12,12 @@ export const input_checkbox_group = nodeInfoFactory<{
   r_info: {
     fn_name: "checkboxGroupInput",
     package: "shiny",
-    input_bindings: {
-      inputIdKey: "inputId",
-    },
+    input_bindings: true,
+  },
+  py_info: {
+    fn_name: "ui.input_checkbox_group",
+    package: "shiny",
+    input_bindings: true,
   },
   title: "Checkbox Group",
   takesChildren: false,

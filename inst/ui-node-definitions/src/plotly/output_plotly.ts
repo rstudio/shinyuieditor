@@ -11,7 +11,6 @@ export const output_plotly = nodeInfoFactory<{
     fn_name: "plotlyOutput",
     package: "plotly",
     output_bindings: {
-      outputIdKey: "outputId",
       renderScaffold: {
         fn_name: "renderPlotly",
         fn_body: `plot_ly(z = ~volcano, type = "surface")`,

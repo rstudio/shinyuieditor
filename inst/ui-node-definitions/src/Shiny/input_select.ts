@@ -12,9 +12,7 @@ export const input_select = nodeInfoFactory<ShinySelectInputProps>()({
   r_info: {
     fn_name: "selectInput",
     package: "shiny",
-    input_bindings: {
-      inputIdKey: "inputId",
-    },
+    input_bindings: true,
   },
   title: "Select Input",
   takesChildren: false,

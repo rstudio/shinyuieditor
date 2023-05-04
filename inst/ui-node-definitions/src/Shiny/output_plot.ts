@@ -11,7 +11,6 @@ export const output_plot = nodeInfoFactory<{
     fn_name: "plotOutput",
     package: "shiny",
     output_bindings: {
-      outputIdKey: "outputId",
       renderScaffold: {
         fn_name: "renderPlot",
         fn_body: `#Plot code goes here\n$0plot(rnorm(100))`,
@@ -22,7 +21,6 @@ export const output_plot = nodeInfoFactory<{
     fn_name: "ui.output_plot",
     package: "shiny",
     output_bindings: {
-      outputIdKey: "outputId",
       renderScaffold: {
         fn_name: `@render.plot(alt="A plot")`,
         fn_body: `x = 100 + 15 * np.random.randn(437)\nplt.hist(x, input.n(), density=True)`,

@@ -10,9 +10,12 @@ export const input_action_button = nodeInfoFactory<{
   r_info: {
     fn_name: "actionButton",
     package: "shiny",
-    input_bindings: {
-      inputIdKey: "inputId",
-    },
+    input_bindings: true,
+  },
+  py_info: {
+    fn_name: "ui.input_action_button",
+    package: "shiny",
+    input_bindings: true,
   },
   id: "actionButton",
   takesChildren: false,
