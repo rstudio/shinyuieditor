@@ -9,6 +9,7 @@ import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
   SET_APP_INFO,
   SET_ERROR,
+  SET_INFO_FROM_R,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
@@ -52,30 +53,26 @@ export function useSyncUiWithBackend() {
 
   // Subscribe to messages from the backend
   React.useEffect(() => {
-    const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
-      dispatch(SET_APP_INFO(info));
-    });
-
-    const templateChooserSubscription = backendMsgs.subscribe(
-      "TEMPLATE_CHOOSER",
-      (outputChoices) => {
-        dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }));
-      }
-    );
-
-    const backendErrorSubscription = backendMsgs.subscribe(
-      "BACKEND-ERROR",
-      (error_info) => dispatch(SET_ERROR(error_info))
-    );
+    const subscribe = backendMsgs.subscribe;
+    const subscriptions = [
+      subscribe("APP-INFO", (info) => dispatch(SET_APP_INFO(info))),
+      subscribe("RAW-R-INFO", (raw_info) =>
+        dispatch(SET_INFO_FROM_R(raw_info))
+      ),
+      subscribe("TEMPLATE_CHOOSER", (outputChoices) =>
+        dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }))
+      ),
+      subscribe("BACKEND-ERROR", (error_info) =>
+        dispatch(SET_ERROR(error_info))
+      ),
+    ];
 
     // Make sure to do this after subscriptions otherwise the response may be
     // received before subscribers are setup to receive
     sendMsg({ path: "READY-FOR-STATE" });
 
     return () => {
-      updatedAppSubscription.unsubscribe();
-      templateChooserSubscription.unsubscribe();
-      backendErrorSubscription.unsubscribe();
+      subscriptions.forEach((s) => s.unsubscribe());
     };
   }, [backendMsgs, dispatch, sendMsg]);
 

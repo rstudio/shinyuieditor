@@ -133,7 +133,7 @@ launch_editor <- function(app_loc,
     is_existing_app <- !identical(new_app_type, "MISSING")
     if (is_existing_app) {
       file_change_watcher$set_watched_files(app_type_to_files[[new_app_type]])
-    }         
+    }
     app_type <<- new_app_type
   }
 
@@ -147,7 +147,7 @@ launch_editor <- function(app_loc,
     send_app_info_to_client <- function() {
       tryCatch(
         {
-          send_msg("APP-INFO", get_app_info(app_loc))
+          send_msg("RAW-R-INFO", get_app_info(app_loc))
         },
         error = function(error) {
           send_msg(

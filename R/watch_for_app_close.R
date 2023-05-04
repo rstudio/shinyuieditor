@@ -5,7 +5,7 @@
 #' @param on_close A function to call when the app
 #' closes @return A list of functions to call when the app opens or closes
 #' @keywords internal
-#' 
+#'
 watch_for_app_close <- function(on_close) {
   timeout_fn <- NULL
 
