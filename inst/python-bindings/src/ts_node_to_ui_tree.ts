@@ -54,9 +54,22 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
     if (is_keyword_arg_node(arg)) {
       const kwarg = parse_keyword_arg_node(arg);
 
-      const sue_arg_name = known_info.py_arg_name_to_sue_arg_name.get(
-        kwarg.name
-      );
+      let sue_arg_name = known_info.py_arg_name_to_sue_arg_name.get(kwarg.name);
+
+      // If there isn't a argument name mapping that was explicitly defined in
+      // the node info, then we need to see if we're working with the id
+      // argument. If we have an ID argument and the node is an input or output,
+      // then swap it. This is because pyShiny uses just plain `id` for input
+      // and output ids as opposed to R which uses `inputId` or `outputId`. By
+      // detecting this we avoid needing to manually specify it in every node's
+      // definition
+      if (!sue_arg_name && kwarg.name === "id") {
+        if ("inputId" in known_info.settingsInfo) {
+          sue_arg_name = "inputId";
+        } else if ("outputId" in known_info.settingsInfo) {
+          sue_arg_name = "outputId";
+        }
+      }
 
       parsed_node.namedArgs[sue_arg_name ?? kwarg.name] = parse_arg_node(
         kwarg.value

@@ -36,7 +36,6 @@ export const output_plot = nodeInfoFactory<{
       inputType: "string",
       label: "Output ID for plot",
       defaultValue: "plot",
-      py_name: "id",
     },
     width: {
       label: "Width",

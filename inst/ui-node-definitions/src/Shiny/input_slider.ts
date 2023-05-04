@@ -32,8 +32,6 @@ export const input_slider = nodeInfoFactory<{
       label: "Input ID",
       inputType: "string",
       defaultValue: "inputId",
-      // Here we note that the python version of this function has a different argument for the input ID
-      py_name: "id",
     },
     label: {
       label: "Label text",

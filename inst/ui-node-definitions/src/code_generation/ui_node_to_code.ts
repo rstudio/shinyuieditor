@@ -123,6 +123,14 @@ function get_python_printed_name(
   ) {
     return info_for_arg.py_name;
   }
+
+  // Special case for inputId and outputId if they are not already mapped. This
+  // is because python's inputs and outputs use  a plain `id` argument instead
+  // of `inputId` and `outputId`
+  if (arg_name === "inputId" || arg_name === "outputId") {
+    return "id";
+  }
+
   return arg_name;
 }
 
