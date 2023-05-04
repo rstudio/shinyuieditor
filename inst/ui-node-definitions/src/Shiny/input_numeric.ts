@@ -16,6 +16,11 @@ export const input_numeric = nodeInfoFactory<{
     package: "shiny",
     input_bindings: true,
   },
+  py_info: {
+    fn_name: "ui.input_numeric",
+    package: "shiny",
+    input_bindings: true,
+  },
   title: "Numeric Input",
   takesChildren: false,
   settingsInfo: {

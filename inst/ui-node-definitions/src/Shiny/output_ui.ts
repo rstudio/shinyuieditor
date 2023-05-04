@@ -14,6 +14,16 @@ export const output_ui = nodeInfoFactory<{
       },
     },
   },
+  py_info: {
+    fn_name: "ui.output_ui",
+    package: "shiny",
+    output_bindings: {
+      renderScaffold: {
+        fn_name: "@render.ui",
+        fn_body: `ui.h1("Hello, World")`,
+      },
+    },
+  },
   title: "Dynamic UI Output",
   takesChildren: false,
   settingsInfo: {

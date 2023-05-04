@@ -46,15 +46,15 @@ export default function AppPreview() {
     [appLoc, restartApp]
   );
 
-  // if (language === "PYTHON") {
-  //   return <ShinyLivePreviewExperiment />;
-  // }
+  if (language === "PYTHON") {
+    return <ShinyLivePreviewExperiment />;
+  }
 
   // This is a custom environment variable that is set to "True" in the
   // development testing so we can see a fake app preview window. If we're not
   // in development mode we want to hide the preview window when there's no app
   // preview present to not confuse users
-  if (appLoc === "HIDDEN" || language === "PYTHON") {
+  if (appLoc === "HIDDEN") {
     return <ShowAppText />;
   }
 

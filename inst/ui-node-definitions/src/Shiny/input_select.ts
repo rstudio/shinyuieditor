@@ -14,6 +14,11 @@ export const input_select = nodeInfoFactory<ShinySelectInputProps>()({
     package: "shiny",
     input_bindings: true,
   },
+  py_info: {
+    fn_name: "ui.input_select",
+    package: "shiny",
+    input_bindings: true,
+  },
   title: "Select Input",
   takesChildren: false,
   settingsInfo: {

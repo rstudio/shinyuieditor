@@ -12,6 +12,10 @@ export const tabset_panel = nodeInfoFactory<{
     fn_name: "tabsetPanel",
     package: "shiny",
   },
+  py_info: {
+    fn_name: "ui.navset_tab",
+    package: "shiny",
+  },
   title: "Tabset Panel",
   takesChildren: true,
   settingsInfo: {

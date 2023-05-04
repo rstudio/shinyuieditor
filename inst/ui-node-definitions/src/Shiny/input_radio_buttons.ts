@@ -14,6 +14,11 @@ export const input_radio_buttons = nodeInfoFactory<{
     package: "shiny",
     input_bindings: true,
   },
+  py_info: {
+    fn_name: "ui.input_radio_buttons",
+    package: "shiny",
+    input_bindings: true,
+  },
   title: "Radio Buttons",
   takesChildren: false,
   settingsInfo: {

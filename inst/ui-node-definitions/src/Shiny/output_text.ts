@@ -14,6 +14,16 @@ export const output_text = nodeInfoFactory<{
       },
     },
   },
+  py_info: {
+    fn_name: "ui.output_text",
+    package: "shiny",
+    output_bindings: {
+      renderScaffold: {
+        fn_name: "@render.text",
+        fn_body: `"Hello, World"`,
+      },
+    },
+  },
   title: "Text Output",
   takesChildren: false,
   settingsInfo: {

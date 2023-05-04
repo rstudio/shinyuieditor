@@ -14,6 +14,11 @@ export const input_text = nodeInfoFactory<{
     package: "shiny",
     input_bindings: true,
   },
+  py_info: {
+    fn_name: "ui.input_text",
+    package: "shiny",
+    input_bindings: true,
+  },
   title: "Text Input",
   takesChildren: false,
   settingsInfo: {
