@@ -54,12 +54,21 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     const ordered_positional_args = get_ordered_positional_args(
       info.settingsInfo as DynamicArgumentInfo
     );
+
+    const py_arg_name_to_sue_arg_name = new Map<string, string>();
+    for (const [arg_name, arg_info] of Object.entries(info.settingsInfo)) {
+      if (arg_info.py_name) {
+        py_arg_name_to_sue_arg_name.set(arg_info.py_name, arg_name);
+      }
+    }
+
     return {
       id: id,
       ...(py_info ? { py_info } : {}),
       ...(r_info ? { r_info } : {}),
       category: category ?? "Uncategorized",
       ordered_positional_args,
+      py_arg_name_to_sue_arg_name,
       ...info,
     } as Expand_Single<
       {
@@ -133,6 +142,12 @@ type ComputedInfo = {
    * Ordered list of positional named arguments for this node in python.
    */
   ordered_positional_args: Set<string>;
+
+  /**
+   * Map from python argument name to shiny-ui-editor argument name for common
+   * situations like inputId => id in python
+   */
+  py_arg_name_to_sue_arg_name: Map<string, string>;
 };
 
 type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {

@@ -32,14 +32,6 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
 
   const named_arg_names = Object.keys(known_info.settingsInfo);
 
-  // TODO add this to preprocessing
-  const py_arg_name_to_sue_arg_name = new Map<string, string>();
-  for (const [arg_name, arg_info] of Object.entries(known_info.settingsInfo)) {
-    if (arg_info.py_name) {
-      py_arg_name_to_sue_arg_name.set(arg_info.py_name, arg_name);
-    }
-  }
-
   const parsed_node: ShinyUiNode = {
     id: known_info.id,
     namedArgs: {},
@@ -62,7 +54,9 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
     if (is_keyword_arg_node(arg)) {
       const kwarg = parse_keyword_arg_node(arg);
 
-      const sue_arg_name = py_arg_name_to_sue_arg_name.get(kwarg.name);
+      const sue_arg_name = known_info.py_arg_name_to_sue_arg_name.get(
+        kwarg.name
+      );
 
       parsed_node.namedArgs[sue_arg_name ?? kwarg.name] = parse_arg_node(
         kwarg.value
