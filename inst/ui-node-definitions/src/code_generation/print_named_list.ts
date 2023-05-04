@@ -4,10 +4,16 @@ type NamedList = Record<string, string>;
 
 function print_named_list(
   vals: NamedList,
-  open_list: string,
-  close_list: string
+  options: {
+    assignment_operator: string;
+    open_list: string;
+    close_list: string;
+  }
 ): string {
-  const values = Object.keys(vals).map((name) => `"${name}" = "${vals[name]}"`);
+  const { open_list, close_list, assignment_operator } = options;
+  const values = Object.keys(vals).map(
+    (name) => `"${name}" ${assignment_operator} "${vals[name]}"`
+  );
 
   // Add 6 for length of `list(` prefix and `)` postfix
   const total_list_length = values.reduce((l, a) => l + a.length, 0) + 6;
@@ -27,7 +33,11 @@ function print_named_list(
  * @returns A list in R syntax. E.g. list("a" = 1, "b" = 2, "c" = "d")
  */
 export function print_named_R_list(vals: NamedList): string {
-  return print_named_list(vals, "list(", ")");
+  return print_named_list(vals, {
+    open_list: "list(",
+    close_list: ")",
+    assignment_operator: "=",
+  });
 }
 
 /**
@@ -36,7 +46,11 @@ export function print_named_R_list(vals: NamedList): string {
  * @returns A dictionary in Python syntax. E.g. {"a": 1, "b": 2, "c": "d"}
  */
 export function print_named_python_list(vals: NamedList): string {
-  return print_named_list(vals, "{", "}");
+  return print_named_list(vals, {
+    open_list: "{",
+    close_list: "}",
+    assignment_operator: ":",
+  });
 }
 
 export function isNamedList(x: any): x is NamedList {
