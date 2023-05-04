@@ -48,7 +48,7 @@ const basicGridApp: ShinyUiNode = {
 };
 
 test("Can resize tracts of the layout by dragging", async ({ page }) => {
-  await mockBackendState(page, basicGridApp);
+  await mockBackendState(page, { ui_tree: basicGridApp, language: "R" });
 
   await page.goto("/");
 
@@ -77,7 +77,7 @@ test("Can resize tracts of the layout by dragging", async ({ page }) => {
 test("Can update the positions of cards by dragging edges", async ({
   page,
 }) => {
-  await mockBackendState(page, basicGridApp);
+  await mockBackendState(page, { ui_tree: basicGridApp, language: "R" });
 
   await page.goto("/");
 

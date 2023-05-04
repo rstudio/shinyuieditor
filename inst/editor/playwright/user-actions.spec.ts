@@ -67,7 +67,7 @@ const redoKeys = `${onMac ? "Meta" : "Control"}+Shift+z`;
 test("Can delete elements and undo/redo those changes with keyboard shortcuts", async ({
   page,
 }) => {
-  await mockBackendState(page, basicNavbarPage);
+  await mockBackendState(page, { ui_tree: basicNavbarPage, language: "R" });
 
   await page.goto("/");
 

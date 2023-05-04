@@ -5,6 +5,7 @@ import { makeMessageDispatcher } from "communication-types/src/BackendConnection
 import { basicNavbarPage as devModeTree } from "ui-node-definitions/src/sample_ui_trees/basicNavbarPage";
 import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
+import type { Minimal_App_Info } from "./backendCommunication/getClientsideOnlyTree";
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
@@ -13,7 +14,7 @@ import { runSUE } from "./runSUE";
 // import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
 // const devModeTree = "TEMPLATE_CHOOSER" as ShinyUiRootNode;
 
-const language: Language_Mode = "PYTHON";
+// const language: Language_Mode = "PYTHON";
 // const language: Language_Mode = "R";
 
 const container = document.getElementById("root");
@@ -29,6 +30,11 @@ const { pathToWebsocket, defaultTree } = DEV_MODE
       defaultTree: "TEMPLATE_CHOOSER" as ShinyUiRootNode,
     };
 
+const defaultInfo: Minimal_App_Info = {
+  language: "PYTHON",
+  ui_tree: defaultTree,
+};
+
 const showMessages = true;
 (async () => {
   try {
@@ -43,10 +49,9 @@ const showMessages = true;
     const backendDispatch: BackendConnection =
       websocketDispatch === "NO-WS-CONNECTION"
         ? setupStaticBackend({
-            language,
             messageDispatch,
             showMessages,
-            defaultTree,
+            defaultInfo,
           })
         : websocketDispatch;
 

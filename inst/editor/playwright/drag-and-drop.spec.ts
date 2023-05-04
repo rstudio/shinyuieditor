@@ -14,7 +14,7 @@ const testingUiTree: ShinyUiNode = {
 };
 
 test("Drag and drop an item onto the grid and name area", async ({ page }) => {
-  await mockBackendState(page, testingUiTree);
+  await mockBackendState(page, { ui_tree: testingUiTree, language: "R" });
 
   await page.goto("/");
 

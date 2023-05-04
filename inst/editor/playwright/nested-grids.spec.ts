@@ -66,7 +66,7 @@ const basicNavbarPage: ShinyUiNode = {
 test("Updating the area name of a grid item propigates through rest of app properly", async ({
   page,
 }) => {
-  await mockBackendState(page, basicNavbarPage);
+  await mockBackendState(page, { ui_tree: basicNavbarPage, language: "R" });
 
   await page.goto("/");
 

@@ -14,7 +14,7 @@ const testingUiTree: ShinyUiNode = {
 };
 
 test("Landing page visual regression", async ({ page }) => {
-  await mockBackendState(page, testingUiTree);
+  await mockBackendState(page, { ui_tree: testingUiTree, language: "R" });
 
   await page.goto("/");
 
@@ -25,7 +25,7 @@ test("Landing page visual regression", async ({ page }) => {
 });
 
 test("Template-Chooser visual regression", async ({ page }) => {
-  await mockBackendState(page, "TEMPLATE_CHOOSER");
+  await mockBackendState(page, { language: "R" });
 
   await page.goto("/");
 

@@ -62,7 +62,7 @@ const basicNavbarPage: ShinyUiNode = {
 };
 
 test("Basic usage of navbar page", async ({ page }) => {
-  await mockBackendState(page, basicNavbarPage);
+  await mockBackendState(page, { ui_tree: basicNavbarPage, language: "R" });
 
   await page.goto("/");
 

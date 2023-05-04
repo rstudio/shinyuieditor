@@ -25,7 +25,7 @@ test("Errors are caught and not allowed to propigate up beyond their local posit
     };
   });
 
-  await mockBackendState(page, errorTestingTree);
+  await mockBackendState(page, { ui_tree: errorTestingTree, language: "R" });
 
   await page.goto("/");
 

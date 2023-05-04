@@ -19,10 +19,12 @@ export default {
 
 function staticDispatchFromTree(defaultTree?: ShinyUiRootNode) {
   return setupStaticBackend({
-    language: "R",
     messageDispatch: makeMessageDispatcher(),
     showMessages: true,
-    defaultTree: defaultTree ?? "TEMPLATE_CHOOSER",
+    defaultInfo: {
+      language: "R",
+      ui_tree: defaultTree ?? "TEMPLATE_CHOOSER",
+    },
   });
 }
 

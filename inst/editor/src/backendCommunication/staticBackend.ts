@@ -1,20 +1,17 @@
 import type { BackendConnection, MessageDispatcher } from "communication-types";
-import type { Language_Mode } from "communication-types/src/AppInfo";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
+import type { Minimal_App_Info } from "./getClientsideOnlyTree";
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
 export function setupStaticBackend({
   messageDispatch,
   showMessages,
-  defaultTree,
-  language,
+  defaultInfo,
 }: {
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
-  defaultTree: ShinyUiRootNode;
-  language: Language_Mode;
+  defaultInfo: Minimal_App_Info;
 }) {
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
@@ -24,7 +21,7 @@ export function setupStaticBackend({
       logger("Static sendMsg()", msg);
       switch (msg.path) {
         case "READY-FOR-STATE": {
-          getClientsideOnlyTree(defaultTree).then((ui_tree) => {
+          getClientsideOnlyTree(defaultInfo).then(({ ui_tree, language }) => {
             if (ui_tree === "TEMPLATE_CHOOSER") {
               messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
             } else {
@@ -60,11 +57,13 @@ export function setupStaticBackend({
   return messagePassingMethods;
 }
 
-export function staticDispatchFromTree(defaultTree?: ShinyUiRootNode) {
+export function staticDispatchFromTree(defaultInfo?: Minimal_App_Info) {
   return setupStaticBackend({
-    language: "R",
     messageDispatch: makeMessageDispatcher(),
     showMessages: true,
-    defaultTree: defaultTree ?? "TEMPLATE_CHOOSER",
+    defaultInfo: defaultInfo ?? {
+      ui_tree: "TEMPLATE_CHOOSER",
+      language: "R",
+    },
   });
 }

@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { mockBackendState } from "./utils/mockBackend";
@@ -77,7 +76,7 @@ const shortCardTree: KnownShinyUiNode = {
 test("Make sure cards with too much content don't overflow visually", async ({
   page,
 }) => {
-  await mockBackendState(page, shortCardTree);
+  await mockBackendState(page, { ui_tree: shortCardTree, language: "R" });
 
   await page.goto("/");
 
