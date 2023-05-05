@@ -8,6 +8,7 @@ import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../../state/languageMode";
 import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
+import { PopoverButton } from "../Inputs/PopoverButton";
 import { TooltipButton } from "../PopoverEl/Tooltip";
 
 import classes from "./AppPreview.module.css";
@@ -26,6 +27,8 @@ export default function AppPreview() {
   const toggleFullscreen = React.useCallback(() => {
     setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
   }, []);
+
+  const [shinyLiveMode, setShinyLiveMode] = React.useState(false);
 
   const language = useLanguageMode();
 
@@ -46,7 +49,7 @@ export default function AppPreview() {
     [appLoc, restartApp]
   );
 
-  if (language === "PYTHON") {
+  if (language === "PYTHON" && shinyLiveMode) {
     return <ShinyLivePreviewExperiment />;
   }
 
@@ -77,7 +80,31 @@ export default function AppPreview() {
         }
       >
         {errors !== null ? (
-          <RestartPrompt onClick={restartApp} />
+          <div className={classes.appContainer}>
+            <p>
+              App preview crashed.<br></br> Try and restart?
+            </p>
+            <Button
+              className={classes.restartButton}
+              title="Restart app preview"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                spinReloadButton(e.currentTarget);
+                restartApp();
+              }}
+            >
+              Restart app preview <VscDebugRestart />
+            </Button>
+            {/* Experimental method to use ShinyLive in case of failure of local preview app */}
+            {/* {language === "PYTHON" ? (
+              <PopoverButton
+                popoverContent="Open in experimental ShinyLive Runtime"
+                placement="left"
+                onClick={() => setShinyLiveMode(true)}
+              >
+                Try ShinyLive Runtime
+              </PopoverButton>
+            ) : null} */}
+          </div>
         ) : (
           <>
             <ReloadButton isExpandedMode={true} onClick={reloadApp} />
@@ -131,26 +158,6 @@ export function ReloadButton({
       >
         <VscDebugRestart />
       </TooltipButton>
-    </div>
-  );
-}
-
-function RestartPrompt({ onClick }: { onClick: (metaKey: boolean) => void }) {
-  return (
-    <div className={classes.appContainer}>
-      <p>
-        App preview crashed.<br></br> Try and restart?
-      </p>
-      <Button
-        className={classes.restartButton}
-        title="Restart app preview"
-        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-          spinReloadButton(e.currentTarget);
-          onClick(e.metaKey);
-        }}
-      >
-        Restart app preview <VscDebugRestart />
-      </Button>
     </div>
   );
 }

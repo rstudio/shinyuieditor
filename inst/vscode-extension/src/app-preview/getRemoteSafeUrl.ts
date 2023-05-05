@@ -2,7 +2,7 @@ import * as fs from "fs";
 
 import * as vscode from "vscode";
 
-import { runShellCommand } from "./runShellCommand";
+import { runShellCommand } from "../extension-api-utils/runShellCommand";
 
 /**
  * Get a safe for hosted versions of vscode url for local server running on a

@@ -17,6 +17,9 @@
     "Data Science",
     "Other"
   ],
+  "extensionDependencies": [
+    "ms-python.python"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/rstudio/shinyuieditor/"

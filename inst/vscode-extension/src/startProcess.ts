@@ -1,38 +1,23 @@
 import type { ChildProcessWithoutNullStreams } from "child_process";
 import { spawn } from "child_process";
 
-import { getPathToR } from "./getPathToR";
-
-type StartRProcessOptions = Partial<{
-  onClose: () => void;
-  onError: (e: Error) => void;
-  onStdout: (out: string) => void;
-  onStderr: (out: string) => void;
-  timeout_ms: number;
-  verbose: boolean;
-}>;
-
-export type RProcess = {
+export type LangProcess = {
   proc: ChildProcessWithoutNullStreams;
   stop: () => boolean;
   getIsRunning: () => boolean;
 };
-
-export async function startRProcess(
+export async function startProcess(
+  path_to_executable: string,
   commands: string[],
-  opts: StartRProcessOptions = {}
-): Promise<RProcess> {
-  const pathToR = await getPathToR();
-  if (pathToR === undefined) {
-    throw new Error("Can't get R path");
-  }
+  opts: StartProcessOptions = {}
+): Promise<LangProcess> {
   let logs = "";
 
-  return new Promise<RProcess>((resolve) => {
+  return new Promise<LangProcess>((resolve) => {
     const controller = new AbortController();
     const { signal } = controller;
 
-    const spawnedProcess = spawn(pathToR, commands, { signal });
+    const spawnedProcess = spawn(path_to_executable, commands, { signal });
 
     spawnedProcess.on("spawn", onSpawn);
     spawnedProcess.on("error", onError);
@@ -123,3 +108,12 @@ export async function startRProcess(
     }, opts.timeout_ms ?? 5000);
   });
 }
+
+export type StartProcessOptions = Partial<{
+  onClose: () => void;
+  onError: (e: Error) => void;
+  onStdout: (out: string) => void;
+  onStderr: (out: string) => void;
+  timeout_ms: number;
+  verbose: boolean;
+}>;

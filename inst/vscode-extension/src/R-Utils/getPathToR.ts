@@ -5,7 +5,7 @@ import { removeQuotes } from "util-functions/src/strings";
 // import { getRPathFromConfig } from "./getRPathFromConfig";
 import { getRpathFromSystem } from "./getRpathFromSystem";
 
-export async function getPathToR(): Promise<string | undefined> {
+export async function getPathToR(): Promise<string> {
   // // First we check to see if the user has set a config for the R path
   // let pathToR = getRPathFromConfig();
 

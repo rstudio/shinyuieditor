@@ -34,3 +34,8 @@ inst/vscode-extension/media/build/
 inst/vscode-extension/*.vsix
 
 
+# Ignore virtual environment directory
+venv/
+
+# Ignore cache files from python apps 
+**/__pycache__/

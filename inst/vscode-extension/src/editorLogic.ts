@@ -5,12 +5,12 @@ import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
+import { startPreviewApp } from "./app-preview/startPreviewApp";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { insert_code_snippet } from "./insert_code_snippet";
 import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
 import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
-import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import { select_app_lines } from "./selectServerReferences";
 import { update_app_file } from "./update_app_file";
 
@@ -140,6 +140,7 @@ export async function editorLogic({
   };
 
   const previewAppInfo = startPreviewApp({
+    language,
     pathToApp: document.fileName,
     onInitiation: () => {
       sendMessage({
