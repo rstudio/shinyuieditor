@@ -1,6 +1,5 @@
 import type { CSSMeasure } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { ShinyUiNodeIds } from "../uiNodeTypes";
 
 export const sidebar = nodeInfoFactory<{
   title: string;
@@ -52,8 +51,7 @@ export const sidebar = nodeInfoFactory<{
       optional: true,
     },
   },
-  // iconSrc: icon,
   category: "layouts",
   description: "Collapsible sidebar",
-  allowedParents: ["navbarPage"] satisfies ShinyUiNodeIds[],
+  allowedParents: ["navbarPage"],
 });

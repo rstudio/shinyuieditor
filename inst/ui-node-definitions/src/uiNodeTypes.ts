@@ -5,6 +5,7 @@ import { card_body_fill } from "./Bslib/card_body_fill";
 import { card_footer } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
 import { page_navbar } from "./Bslib/page_navbar";
+import { sidebar } from "./Bslib/sidebar";
 import { value_box } from "./Bslib/value_box";
 import { output_dt } from "./DT/output_dt";
 import { grid_card } from "./gridlayout/grid_card";
@@ -41,6 +42,7 @@ export const all_node_info = [
   page_navbar,
   tab_panel,
   tabset_panel,
+  sidebar,
   grid_container,
   grid_card,
   grid_card_plot,
