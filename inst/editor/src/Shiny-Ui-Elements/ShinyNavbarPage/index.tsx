@@ -1,9 +1,6 @@
 // import icon from "../../assets/icons/tabsetPanel.png";
 
-import {
-  page_navbar,
-  getTabPanelTitle,
-} from "ui-node-definitions/src/Bslib/page_navbar";
+import { getTabPanelTitle } from "ui-node-definitions/src/Bslib/page_navbar";
 import {
   makeChildPath,
   pathToString,
@@ -12,11 +9,11 @@ import {
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./ShinyNavbarPage.module.css";
 
-export const shinyNavbarPageInfo = add_editor_info_to_ui_node(page_navbar, {
+export const shinyNavbarPageInfo = add_editor_info_by_id("navbarPage", {
   UiComponent: ({ namedArgs: { title }, children, path, wrapperProps }) => {
     const numChildren = children?.length ?? 0;
     const hasChildren = numChildren > 0;

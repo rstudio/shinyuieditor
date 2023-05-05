@@ -3,15 +3,14 @@ import {
   makeChildPath,
   pathToString,
 } from "ui-node-definitions/src/nodePathUtils";
-import { tabset_panel } from "ui-node-definitions/src/Shiny/tabset_panel";
 
 import icon from "../../assets/icons/tabsetPanel.png";
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
 
-export const shinyTabsetPanelInfo = add_editor_info_to_ui_node(tabset_panel, {
+export const shinyTabsetPanelInfo = add_editor_info_by_id("tabsetPanel", {
   UiComponent: ({ namedArgs, children, path, wrapperProps }) => {
     const numChildren = children?.length ?? 0;
 

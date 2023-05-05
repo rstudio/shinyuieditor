@@ -71,6 +71,19 @@ export const all_node_info = [
   unknown_code,
 ] as const;
 
+/**
+ * Object that maps node ids to node info objects
+ */
+export const node_info_by_id = all_node_info.reduce((acc, info) => {
+  acc[info.id] = info;
+  return acc;
+}, {} as Record<string, ShinyUiNodeInfo>) as {
+  [NodeInfo in ShinyUiNodeInfo["id"]]: Extract<
+    ShinyUiNodeInfo,
+    { id: NodeInfo }
+  >;
+};
+
 const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
   all_node_info.map((info) => [info.id, info])
 );
