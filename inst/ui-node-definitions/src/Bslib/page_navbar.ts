@@ -10,8 +10,8 @@ export const page_navbar = nodeInfoFactory<{
 }>()({
   id: "navbarPage",
   r_info: {
-    fn_name: "navbarPage",
-    package: "shiny",
+    fn_name: "page_navbar",
+    package: "bslib",
   },
   py_info: {
     fn_name: "ui.page_navbar",

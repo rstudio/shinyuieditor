@@ -1,8 +1,8 @@
+import { getTabPanelTitle } from "ui-node-definitions/src/Bslib/page_navbar";
 import {
   makeChildPath,
   pathToString,
 } from "ui-node-definitions/src/nodePathUtils";
-import { getTabPanelTitle } from "ui-node-definitions/src/Shiny/page_navbar";
 import { tabset_panel } from "ui-node-definitions/src/Shiny/tabset_panel";
 
 import icon from "../../assets/icons/tabsetPanel.png";

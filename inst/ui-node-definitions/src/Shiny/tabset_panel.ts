@@ -1,7 +1,6 @@
+import { getFirstTabName, getTabNames } from "../Bslib/page_navbar";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiParentNode } from "../ShinyUiNode";
-
-import { getFirstTabName, getTabNames } from "./page_navbar";
 
 export const tabset_panel = nodeInfoFactory<{
   id?: string;

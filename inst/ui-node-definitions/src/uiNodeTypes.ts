@@ -4,6 +4,7 @@ import { bslib_card } from "./Bslib/card";
 import { card_body_fill } from "./Bslib/card_body_fill";
 import { card_footer } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
+import { page_navbar } from "./Bslib/page_navbar";
 import { value_box } from "./Bslib/value_box";
 import { output_dt } from "./DT/output_dt";
 import { grid_card } from "./gridlayout/grid_card";
@@ -26,7 +27,6 @@ import { input_text } from "./Shiny/input_text";
 import { output_plot } from "./Shiny/output_plot";
 import { output_text } from "./Shiny/output_text";
 import { output_ui } from "./Shiny/output_ui";
-import { page_navbar } from "./Shiny/page_navbar";
 import { tab_panel } from "./Shiny/tab_panel";
 import { tabset_panel } from "./Shiny/tabset_panel";
 

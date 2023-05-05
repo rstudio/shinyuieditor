@@ -4,7 +4,6 @@ import {
   make_character_node,
   is_function_call,
 } from "../../../r-bindings/src";
-
 import { make_unknown_ui_function } from "../make_unknown_ui_function";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiNode } from "../ShinyUiNode";
