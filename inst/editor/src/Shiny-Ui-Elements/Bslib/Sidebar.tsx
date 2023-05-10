@@ -4,6 +4,7 @@ import { ChevronLeft } from "react-bootstrap-icons";
 import { getParentPath } from "ui-node-definitions/src/TreeManipulation/getParentPath";
 
 import { useSetCurrentSelection } from "../../state/selectedPath";
+import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./Sidebar.module.css";
@@ -16,7 +17,12 @@ export const bslibSidebar = add_editor_info_by_id("sidebar", {
         <div className={classes.sidebar}>
           <div className={classes.sidebarContent}>
             <h3>{namedArgs.title}</h3>
-            <p>Sidebar children will go here</p>
+            <ChildrenWithDropNodes
+              children={children}
+              parentPath={path}
+              parentid="sidebar"
+              messageOnHover="Add to card sidebar"
+            />
           </div>
           <CollapserTab
             onCollapse={() => {
