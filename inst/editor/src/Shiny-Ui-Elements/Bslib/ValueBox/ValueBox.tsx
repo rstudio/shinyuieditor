@@ -8,7 +8,7 @@ import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
-import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
+import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
@@ -46,9 +46,9 @@ const ValueBox: UiComponent_from_info<typeof value_box> = ({
               parentNodeType="value_box"
             />
           </div>
-          <CardChildrenWithDropNodes
+          <ChildrenWithDropNodes
             children={children}
-            path={path}
+            parentPath={path}
             parentid="value_box"
             messageOnHover="Add node to value box"
           />

@@ -9,15 +9,28 @@ import type {
   NodeInfoByRPackage,
 } from "ui-node-definitions/src/uiNodeTypes";
 
-import UiNode from "../../../components/UiNode/UiNode";
-import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
+import UiNode from "../components/UiNode/UiNode";
+import { DropWatcherPanel } from "../DragAndDropHelpers/DropWatcherPanel";
 
-import styles from "./CardUtils.module.css";
+import styles from "./ChildrenWithDropNodes.module.css";
 
-export function CardChildrenWithDropNodes({
+/**
+ * Render Ui Children along with drop nodes between children. Used in situations
+ * where nodes are sequentially rendered like in card bodies etc..
+ * @param args
+ *  @param args.parentid - The id of the parent node
+ *  @param args.children - The children to render
+ *  @param args.path - The path to the parent node
+ *  @param args.dropPanelClass - The class to apply to the drop panel
+ *  @param args.messageOnHover - The message to display when hovering over the drop panel
+ *  @param args.showOnEmpty - Element to show when there's no children
+ *
+ * @returns A react fragment containing the children and drop nodes
+ */
+export function ChildrenWithDropNodes({
   parentid,
   children = [],
-  path,
+  parentPath,
   dropPanelClass = styles.drop_watcher,
   messageOnHover,
   showOnEmpty,
@@ -26,7 +39,7 @@ export function CardChildrenWithDropNodes({
   messageOnHover: string;
   dropPanelClass?: string;
   children?: ShinyUiParentNode["children"];
-  path: NodePath;
+  parentPath: NodePath;
   showOnEmpty?: React.ReactNode;
 }) {
   return (
@@ -34,19 +47,19 @@ export function CardChildrenWithDropNodes({
       <DropWatcherPanel
         className={dropPanelClass}
         child_loc={0}
-        parentPath={path}
+        parentPath={parentPath}
         parentNodeType={parentid}
         messageOnHover={messageOnHover}
       >
         {children.length === 0 ? showOnEmpty : null}
       </DropWatcherPanel>
       {children.map((childNode, i) => (
-        <React.Fragment key={path.join(".") + i}>
-          <UiNode path={makeChildPath(path, i)} node={childNode} />
+        <React.Fragment key={parentPath.join(".") + i}>
+          <UiNode path={makeChildPath(parentPath, i)} node={childNode} />
           <DropWatcherPanel
             className={dropPanelClass}
             child_loc={i + 1}
-            parentPath={path}
+            parentPath={parentPath}
             parentNodeType={parentid}
             messageOnHover={messageOnHover}
           />
