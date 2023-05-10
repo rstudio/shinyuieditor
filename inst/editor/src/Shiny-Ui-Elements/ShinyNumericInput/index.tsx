@@ -17,8 +17,6 @@ const ShinyNumericInput: UiComponent_from_info<typeof input_numeric> = ({
 }) => {
   const settings = { ...namedArgs };
 
-  const width = settings.width ?? "200px";
-
   const [value, setValue] = React.useState(settings.value);
 
   React.useEffect(() => {
@@ -28,7 +26,11 @@ const ShinyNumericInput: UiComponent_from_info<typeof input_numeric> = ({
   return (
     <div
       className={mergeClasses(classes.container, "numericInput")}
-      style={{ width }}
+      style={{
+        width: settings.width ?? "200px",
+        // If we're using the default width, don't let it go over the width of its container
+        maxWidth: settings.width ? undefined : "100%",
+      }}
       {...wrapperProps}
     >
       <span>{settings.label}</span>

@@ -10,31 +10,33 @@ import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node"
 import classes from "./styles.module.css";
 
 const ShinyTextInput: UiComponent_from_info<typeof input_text> = ({
-  namedArgs: { width = "200px", ...inputArgs },
+  namedArgs,
   wrapperProps,
 }) => {
-  const height = "auto";
-  const settings = { ...inputArgs };
-
-  const [value, setValue] = React.useState(settings.value);
+  const [value, setValue] = React.useState(namedArgs.value);
 
   React.useEffect(() => {
-    setValue(settings.value);
-  }, [settings.value]);
+    setValue(namedArgs.value);
+  }, [namedArgs.value]);
 
   return (
     <div
       className={mergeClasses(classes.container, "textInput")}
-      style={{ height, width }}
+      style={{
+        height: "auto",
+        width: namedArgs.width ?? "200px",
+        // If we're using the default width, don't let it go over the width of its container
+        maxWidth: namedArgs.width ? undefined : "100%",
+      }}
       {...wrapperProps}
     >
-      <label htmlFor={settings.inputId}>{settings.label}</label>
+      <label htmlFor={namedArgs.inputId}>{namedArgs.label}</label>
       <input
-        id={settings.inputId}
+        id={namedArgs.inputId}
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder={settings.placeholder}
+        placeholder={namedArgs.placeholder}
       />
     </div>
   );
