@@ -1,0 +1,59 @@
+@value can_accept_drop from "../../DragAndDropHelpers/DropWatcherPanel.module.css";
+
+.sidebar,
+.sidebarDropWatcherPanel {
+  --bg-color: var(--light-grey);
+  --anim-settings: 0.2s ease-in-out;
+  --open-w: 150px;
+
+  grid-area: sidebar;
+  height: 100%;
+  position: relative;
+}
+
+.sidebar {
+  background-color: var(--bg-color);
+  width: var(--open-w);
+  transition: width var(--anim-settings);
+}
+
+.sidebar:empty {
+  background-color: blue;
+}
+
+.sidebar.collapsed .sidebarContent {
+  overflow: hidden;
+}
+
+.sidebar.collapsed {
+  width: 0px;
+}
+
+.sidebar .openToggle {
+  --w: 12px;
+  --h: 25px;
+  background-color: var(--bg-color);
+  /* outline: 1px solid black; */
+  width: var(--w);
+  height: var(--h);
+  position: absolute;
+  bottom: 25px;
+  right: calc(-1 * var(--w));
+  cursor: col-resize;
+  z-index: 10;
+  display: grid;
+  place-content: center;
+}
+
+.sidebar .openToggle svg {
+  transition: rotate var(--anim-settings);
+}
+.sidebar.collapsed .openToggle svg {
+  rotate: 180deg;
+}
+
+.sidebarDropWatcherPanel:global(.can_accept_drop) {
+  display: block;
+  background-color: pink;
+  width: var(--open-w);
+}

@@ -9,12 +9,19 @@ import {
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
+import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
+import { SidebarDropWatcherPanel } from "../Bslib/SidebarDropWatcherPanel";
 import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./ShinyNavbarPage.module.css";
 
 export const shinyNavbarPageInfo = add_editor_info_by_id("navbarPage", {
-  UiComponent: ({ namedArgs: { title }, children, path, wrapperProps }) => {
+  UiComponent: ({
+    namedArgs: { title, sidebar },
+    children,
+    path,
+    wrapperProps,
+  }) => {
     const numChildren = children?.length ?? 0;
     const hasChildren = numChildren > 0;
 
@@ -23,6 +30,13 @@ export const shinyNavbarPageInfo = add_editor_info_by_id("navbarPage", {
         path={path}
         title={title}
         className={classes.container}
+        sidebar={
+          sidebar ? (
+            <UiNode path={makeChildPath(path, "sidebar")} node={sidebar} />
+          ) : (
+            <SidebarDropWatcherPanel path={path} />
+          )
+        }
         {...wrapperProps}
       >
         {children ? (

@@ -10,9 +10,18 @@
   /* See the data-selected-tab="true" selector below for info on why we enter
   isolation more here. */
   isolation: isolate;
+
+  display: grid;
+  grid-template-areas:
+    "tabs    tabs"
+    "sidebar main";
+
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
 }
 
 .header {
+  grid-area: tabs;
   --h: 40px;
   background-color: var(--light-grey);
   display: flex;
@@ -21,6 +30,7 @@
 }
 
 .tabContents {
+  grid-area: main;
   flex-grow: 1;
   position: relative;
 }

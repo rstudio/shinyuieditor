@@ -5,6 +5,7 @@ import {
   bslibCardHeaderInfo,
   bslibCardInfo,
 } from "./Bslib";
+import { bslibSidebar } from "./Bslib/Sidebar";
 import { bslibValueBoxInfo } from "./Bslib/ValueBox/ValueBox";
 import { dtDTOutputInfo } from "./DtDtOutput";
 import {
@@ -63,6 +64,7 @@ export const registered_ui_nodes = [
   bslibCardBodyInfo,
   bslibCardHeaderInfo,
   bslibCardFooterInfo,
+  bslibSidebar,
   plotlyPlotlyOutputInfo,
   textNodeInfo,
   unknownUiFunctionInfo,
