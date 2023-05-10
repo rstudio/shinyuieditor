@@ -17,10 +17,6 @@
   transition: width var(--anim-settings);
 }
 
-.sidebar:empty {
-  background-color: blue;
-}
-
 .sidebar.collapsed .sidebarContent {
   overflow: hidden;
 }
@@ -29,8 +25,8 @@
   width: 0px;
 }
 
-.sidebar .openToggle {
-  --w: 12px;
+.openToggle {
+  --w: 16px;
   --h: 25px;
   background-color: var(--bg-color);
   /* outline: 1px solid black; */
@@ -39,17 +35,23 @@
   position: absolute;
   bottom: 25px;
   right: calc(-1 * var(--w));
-  cursor: col-resize;
+  cursor: w-resize;
   z-index: 10;
   display: grid;
   place-content: center;
 }
 
-.sidebar .openToggle svg {
+.openToggle svg {
   transition: rotate var(--anim-settings);
 }
 .sidebar.collapsed .openToggle svg {
   rotate: 180deg;
+  cursor: e-resize;
+}
+
+[data-is-selected-node="true"] > .sidebar > .openToggle {
+  border: var(--selected-outline);
+  border-left-color: var(--bg-color);
 }
 
 .sidebarDropWatcherPanel:global(.can_accept_drop) {
