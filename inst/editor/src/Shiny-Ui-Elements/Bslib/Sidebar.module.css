@@ -29,7 +29,6 @@
   --w: 16px;
   --h: 25px;
   background-color: var(--bg-color);
-  /* outline: 1px solid black; */
   width: var(--w);
   height: var(--h);
   position: absolute;

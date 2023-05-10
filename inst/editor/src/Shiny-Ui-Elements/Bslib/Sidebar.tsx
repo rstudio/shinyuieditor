@@ -14,7 +14,14 @@ export const bslibSidebar = add_editor_info_by_id("sidebar", {
     const setSelection = useSetCurrentSelection();
     return (
       <div {...wrapperProps}>
-        <div className={classes.sidebar}>
+        <div
+          className={classes.sidebar}
+          style={
+            {
+              "--open-w": namedArgs.width ?? "150px",
+            } as React.CSSProperties
+          }
+        >
           <div className={classes.sidebarContent}>
             <h3>{namedArgs.title}</h3>
             <ChildrenWithDropNodes

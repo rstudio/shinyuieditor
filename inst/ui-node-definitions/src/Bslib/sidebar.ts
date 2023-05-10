@@ -47,7 +47,7 @@ export const sidebar = nodeInfoFactory<{
       inputType: "cssMeasure",
       label: "Width",
       defaultValue: "250px",
-      units: ["%", "px"],
+      units: ["px", "rem"],
       optional: true,
     },
   },
