@@ -5,56 +5,131 @@
   --bg-color: var(--light-grey);
   --anim-settings: 0.2s ease-in-out;
   --open-w: 150px;
+  --pad: var(--size-md);
+
+  --border-color: var(--dark-grey);
+  --border-w: 1px;
+  --default-border: var(--border-w) solid var(--border-color);
 
   grid-area: sidebar;
   height: 100%;
   position: relative;
 }
 
+.title {
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--dark-grey);
+  margin-bottom: var(--pad);
+  padding-bottom: var(--pad);
+}
+
 .sidebar {
   background-color: var(--bg-color);
   width: var(--open-w);
-  transition: width var(--anim-settings);
+  transition: width var(--anim-settings), padding var(--anim-settings);
+  border: var(--default-border);
+  border-left: none;
+  border-bottom: none;
+  border-width: 1px;
+}
+
+.sidebarContent {
+  padding: var(--pad);
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar.collapsed .sidebarContent {
   overflow: hidden;
+  padding: 0px;
 }
 
 .sidebar.collapsed {
   width: 0px;
+  border-width: 0px;
+}
+
+/*
+ Turn off the default border when we're selected to avoid contrasting awkwardly
+ with the selected outline overlay
+*/
+[data-is-selected-node="true"] > .sidebar {
+  border: none;
+}
+
+.sidebarDropWatcherPanel:global(.can_accept_drop) {
+  display: block;
+  width: var(--open-w);
 }
 
 .openToggle {
-  --w: 16px;
-  --h: 25px;
-  background-color: var(--bg-color);
-  width: var(--w);
-  height: var(--h);
+  --toggle-w: calc(18px + var(--border-w));
+  width: var(--toggle-w);
+  height: calc(27px + var(--border-w) * 2);
+
   position: absolute;
-  bottom: 25px;
-  right: calc(-1 * var(--w));
+  bottom: calc(25px - var(--border-w));
+  right: calc(-1 * var(--toggle-w));
+
+  background-color: var(--bg-color);
+
   cursor: w-resize;
   z-index: 10;
   display: grid;
   place-content: center;
+
+  border: var(--default-border);
+  border-radius: 0 var(--corner-radius) var(--corner-radius) 0;
 }
 
+/* 
+  When the sidebar is selected we copy the outline styles to its border and also extend the 
+*/
+[data-is-selected-node="true"] > .sidebar > .openToggle {
+  --border-w: var(--selected-outline-w);
+  border: var(--selected-outline);
+}
+
+/* 
+  Place a small rectangle over the left border to make it look like the element
+  is extruding from the sidebar. We cover part of the border here instead of just
+  turning off the left border because the border edges are on angles and this
+  gives a smooth edge instead of a diagonal cut on the edge 
+*/
+.openToggle::after {
+  --w: calc(var(--selected-outline-w) + 2px);
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: var(--w);
+  background-color: var(--bg-color);
+  left: calc(-1 * var(--w) + 1px);
+}
+
+/*
+  When the sidebar is collapsed, we don't want the rectangle to show up
+  otherwise it will overlap the outline of the containing element
+*/
+.sidebar.collapsed .openToggle::after {
+  display: none;
+}
+
+/*
+  In this case we turn off the left border because the diagonal edge is not
+  noticible in a 1px width situation
+*/
+.sidebar.collapsed .openToggle {
+  border-left: none;
+}
+
+/*
+  Make the chevron that indicates the open or closed action swivel to match the
+  current state
+*/
 .openToggle svg {
   transition: rotate var(--anim-settings);
 }
 .sidebar.collapsed .openToggle svg {
   rotate: 180deg;
   cursor: e-resize;
-}
-
-[data-is-selected-node="true"] > .sidebar > .openToggle {
-  border: var(--selected-outline);
-  border-left-color: var(--bg-color);
-}
-
-.sidebarDropWatcherPanel:global(.can_accept_drop) {
-  display: block;
-  background-color: pink;
-  width: var(--open-w);
 }

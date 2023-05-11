@@ -23,7 +23,7 @@ export const bslibSidebar = add_editor_info_by_id("sidebar", {
           }
         >
           <div className={classes.sidebarContent}>
-            <h3>{namedArgs.title}</h3>
+            <h2 className={classes.title}>{namedArgs.title}</h2>
             <ChildrenWithDropNodes
               children={children}
               parentPath={path}
