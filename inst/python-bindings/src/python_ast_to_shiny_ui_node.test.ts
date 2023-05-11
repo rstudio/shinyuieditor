@@ -1,9 +1,7 @@
-import { setup_python_parser } from "python-ts-parser";
+import { get_assignment_nodes, setup_python_parser } from "python-ts-parser";
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { parse_python_script, treesitter_to_ui_tree } from ".";
-
-import { get_assignment_nodes } from "./get_assignment_nodes";
 
 export const basicNavbarPage = {
   id: "navbarPage",

@@ -16,11 +16,13 @@
   "scripts": {
     "build": "node build.mjs; yarn run gen-types",
     "gen-types": "tsc src/index.ts --esModuleInterop --declaration --emitDeclarationOnly --outDir dist",
-    "build-python-grammar": "tree-sitter build-wasm ../../node_modules/tree-sitter-python; mv tree-sitter-python.wasm assets/tree-sitter-python.wasm",
+    "build-python-grammar": "tree-sitter build-wasm ../../node_modules/tree-sitter-python; mv tree-sitter-python.wasm src/assets/tree-sitter-python.wasm",
+    "build-r-grammar": "tree-sitter build-wasm ../../node_modules/tree-sitter-r; mv tree-sitter-r.wasm src/assets/tree-sitter-r.wasm",
     "run-test-script": "node dist/index.js"
   },
   "dependencies": {
     "tree-sitter-python": "^0.20.1",
+    "tree-sitter-r": "https://github.com/r-lib/tree-sitter-r",
     "web-tree-sitter": "^0.20.8"
   }
 }

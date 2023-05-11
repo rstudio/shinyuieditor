@@ -1,26 +1,17 @@
-import Parser from "web-tree-sitter";
+import type Parser from "web-tree-sitter";
 
-// This imports the wasm binary as an inlined 8-bit integer array
-//@ts-ignore
-import python_grammar_wasm from "./assets/tree-sitter-python.wasm";
+export { setup_python_parser } from "./setup_python_parser";
+export { setup_r_parser } from "./setup_r_parser";
 
-/**
- * Setup a tree-sitter parser with the Python grammar
- * @returns A tree-sitter parser with the Python grammar loaded
- */
-export async function setup_python_parser() {
-  await Parser.init();
+export { get_assignment_nodes } from "./get_assignment_nodes";
+export { get_ui_assignment } from "./get_ui_assignment";
 
-  const parser = new Parser();
-  const PythonGrammar = await Parser.Language.load(python_grammar_wasm);
-  parser.setLanguage(PythonGrammar);
-  return parser;
-}
-
+export type { Node_Assignment_Map } from "./get_assignment_nodes";
 /**
  * Function to parse a python script into a tree-sitter syntax tree
  */
-export type PythonParser = Parser;
+export type TSParser = Parser;
+
 /**
  * A node within the tree-sitter syntax tree.
  */

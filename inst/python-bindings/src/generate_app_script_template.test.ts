@@ -1,10 +1,13 @@
-import { setup_python_parser } from "python-ts-parser";
+import {
+  get_assignment_nodes,
+  get_ui_assignment,
+  setup_python_parser,
+} from "python-ts-parser";
 import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 
-import { get_ui_assignment, parse_python_script } from ".";
+import { parse_python_script } from ".";
 
 import { generate_app_script_template } from "./generate_app_script_template";
-import { get_assignment_nodes } from "./get_assignment_nodes";
 
 test("Can generate templates for filling in app from ", async () => {
   const navbar_page_app = `from shiny import *

@@ -2,12 +2,10 @@ import { setup_python_parser } from "python-ts-parser";
 
 import { get_imported_pkgs, parse_python_script } from ".";
 
-import { get_assignment_nodes } from "./get_assignment_nodes";
 import { get_known_inputs } from "./get_known_inputs";
 import { get_known_outputs } from "./get_known_outputs";
 import { get_server_node } from "./get_server_node";
 import { get_server_node_position } from "./get_server_node_position";
-import type { get_ui_assignment } from "./get_ui_assignment";
 import { treesitter_to_ui_tree } from "./ts_node_to_ui_tree";
 
 const app_script = `

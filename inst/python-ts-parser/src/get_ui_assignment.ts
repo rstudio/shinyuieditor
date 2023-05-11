@@ -1,4 +1,4 @@
-import type { Node_Assignment_Map } from "./get_assignment_nodes";
+import type { Node_Assignment_Map } from ".";
 
 /**
  *

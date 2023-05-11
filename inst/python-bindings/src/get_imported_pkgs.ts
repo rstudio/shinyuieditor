@@ -1,4 +1,4 @@
-import type Parser from "web-tree-sitter";
+import type { ParserTree } from "python-ts-parser";
 
 /**
  * Get names of all packages that an app star imports
@@ -6,7 +6,7 @@ import type Parser from "web-tree-sitter";
  * @returns An array of package names of packages that were imported with a star
  * import (aka they can be used without a prefix).
  */
-export function get_imported_pkgs(app_tree: Parser.Tree): string[] {
+export function get_imported_pkgs(app_tree: ParserTree): string[] {
   const import_nodes = app_tree.rootNode.descendantsOfType(
     "import_from_statement"
   );
