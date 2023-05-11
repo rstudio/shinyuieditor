@@ -10,6 +10,21 @@ export const basicNavbarPage = {
   namedArgs: {
     title: "My Navbar Page",
     collapsible: false,
+    sidebar: {
+      id: "sidebar",
+      namedArgs: {
+        title: "My Sidebar",
+      },
+      children: [
+        {
+          id: "actionButton",
+          namedArgs: {
+            inputId: "myButton",
+            label: "My Button",
+          },
+        },
+      ],
+    },
   },
   children: [
     {
