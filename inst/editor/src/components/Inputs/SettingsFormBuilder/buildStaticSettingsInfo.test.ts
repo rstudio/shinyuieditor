@@ -1,7 +1,7 @@
 import {
   getFirstTabName,
   getTabNames,
-} from "ui-node-definitions/src/Shiny/page_navbar";
+} from "ui-node-definitions/src/Bslib/page_navbar";
 import type { ShinyUiParentNode } from "ui-node-definitions/src/ShinyUiNode";
 import type { Equal, Expect } from "util-functions/src/TypescriptUtils";
 
