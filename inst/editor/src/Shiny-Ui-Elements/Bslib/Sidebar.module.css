@@ -7,7 +7,7 @@
   --open-w: 150px;
   --pad: var(--size-md);
 
-  --border-color: var(--dark-grey);
+  --border-color: var(--divider-color);
   --border-w: 1px;
   --default-border: var(--border-w) solid var(--border-color);
 
@@ -18,7 +18,7 @@
 
 .title {
   font-size: 0.95rem;
-  border-bottom: 1px solid var(--dark-grey);
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: var(--pad);
   padding-bottom: var(--pad);
 }
@@ -36,6 +36,7 @@
 .sidebarContent {
   padding: var(--pad);
   display: flex;
+  height: 100%;
   flex-direction: column;
 }
 

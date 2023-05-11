@@ -18,7 +18,7 @@ export const bslibSidebar = add_editor_info_by_id("sidebar", {
           className={classes.sidebar}
           style={
             {
-              "--open-w": namedArgs.width ?? "150px",
+              "--open-w": namedArgs.width ?? "180px",
             } as React.CSSProperties
           }
         >
