@@ -6,9 +6,9 @@ import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsS
 import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
+import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
 import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
-import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
