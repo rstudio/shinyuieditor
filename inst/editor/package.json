@@ -5,11 +5,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "r-bindings": "*",
-    "python-bindings": "*",
-    "tsconfig": "*",
-    "util-functions": "*",
-    "ui-node-definitions": "*",
     "@floating-ui/react": "^0.22.0",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -20,6 +15,8 @@
     "just-debounce-it": "^3.1.1",
     "just-omit": "^2.1.1",
     "lz-string": "^1.5.0",
+    "python-bindings": "*",
+    "r-bindings": "*",
     "react": "^18.2.0",
     "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.2.0",
@@ -29,7 +26,10 @@
     "react-markdown": "^8.0.3",
     "react-redux": "^8.0.2",
     "react-sortablejs": "^6.1.4",
-    "sortablejs": "^1.15.0"
+    "sortablejs": "^1.15.0",
+    "tsconfig": "*",
+    "ui-node-definitions": "*",
+    "util-functions": "*"
   },
   "devDependencies": {
     "@playwright/experimental-ct-react": "^1.32.1",
@@ -62,7 +62,7 @@
     "storybook": "^7.0.0-beta.47",
     "tsx": "^3.11.0",
     "typescript": "^5.0.4",
-    "typescript-plugin-css-modules": "^4.1.1",
+    "typescript-plugin-css-modules": "^5.0.1",
     "vite": "^4.2.1",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.30.1",
