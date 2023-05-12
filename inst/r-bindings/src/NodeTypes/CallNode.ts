@@ -1,11 +1,13 @@
+import type { ParserNode } from "treesitter-parsers";
 import type { Brand } from "util-functions/src/TypescriptUtils";
-import type Parser from "web-tree-sitter";
 
-type TSCallNode = Brand<Parser.SyntaxNode, "CallNode">;
+type TSCallNode = Brand<ParserNode, "CallNode">;
 
-export function is_call_node(node: Parser.SyntaxNode): node is TSCallNode {
+export function is_call_node(node: ParserNode): node is TSCallNode {
   return (
-    node.type === "call" && Boolean(node.child(0)) && Boolean(node.child(1))
+    node.type === "call" &&
+    Boolean(node.namedChild(0)) &&
+    Boolean(node.namedChild(1))
   );
 }
 
@@ -17,7 +19,7 @@ export function is_call_node(node: Parser.SyntaxNode): node is TSCallNode {
 export function extract_call_content(node: TSCallNode) {
   // We already validated above, so we can be dangerous with the ! here
   return {
-    fn_name: node.child(0)!.text,
-    fn_args: node.child(1)!.namedChildren,
+    fn_name: node.namedChild(0)!.text,
+    fn_args: node.namedChild(1)!.namedChildren,
   };
 }

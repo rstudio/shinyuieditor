@@ -158,6 +158,21 @@ export const rFnNameToNodeId = new Map<string, string>([
   ...(all_node_info.map(({ id }) => [id, id]) as [string, string][]),
 ]);
 
+type R_Aware_NodeInfo = Extract<ShinyUiNodeInfo, { r_info: any }>;
+
+/**
+ * Go from either an unnamespaced name (e.g. `sliderInput`) or a already
+ * namespaced name (`shiny::sliderInput`)  to the ui node id. Also acts as
+ * a check for if a node is in known R functions
+ * */
+export const rFnNameToNodeInfo = (fn_name: string) => {
+  const id = rFnNameToNodeId.get(fn_name);
+  if (!id) {
+    return undefined;
+  }
+  return getUiNodeInfo(id) as R_Aware_NodeInfo;
+};
+
 type Python_Aware_NodeInfo = Extract<ShinyUiNodeInfo, { py_info: any }>;
 /**
  * Go from python function name (e.g. `ui.input_slider`) to the ui node id. Also

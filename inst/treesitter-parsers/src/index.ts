@@ -5,6 +5,7 @@ export { setup_r_parser } from "./setup_r_parser";
 
 export { get_assignment_nodes } from "./get_assignment_nodes";
 export { get_ui_assignment } from "./get_ui_assignment";
+export { is_call_node, extract_call_content } from "./CallNode";
 
 export type { Node_Assignment_Map } from "./get_assignment_nodes";
 /**

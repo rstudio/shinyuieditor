@@ -1,13 +1,13 @@
+import type { ParserNode } from "treesitter-parsers";
+import { extract_call_content, is_call_node } from "treesitter-parsers";
 import { make_unknown_ui_function } from "ui-node-definitions/src/make_unknown_ui_function";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { pyFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
-import type Parser from "web-tree-sitter";
 
 import {
   extract_boolean_content,
   is_boolean_node,
 } from "./NodeTypes/BooleanNode";
-import { extract_call_content, is_call_node } from "./NodeTypes/CallNode";
 import {
   is_keyword_arg_node,
   parse_keyword_arg_node,
@@ -15,7 +15,7 @@ import {
 import { extract_number_content, is_number_node } from "./NodeTypes/NumberNode";
 import { extract_string_content, is_string_node } from "./NodeTypes/StringNode";
 
-export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
+export function treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
   if (!is_call_node(node)) {
     return make_unknown_ui_function(node.text);
   }
@@ -117,7 +117,7 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
   return parsed_node;
 }
 
-function parse_arg_node(node: Parser.SyntaxNode) {
+function parse_arg_node(node: ParserNode) {
   if (is_string_node(node)) {
     return extract_string_content(node);
   }

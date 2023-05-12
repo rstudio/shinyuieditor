@@ -62,6 +62,17 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       }
     }
 
+    const r_arg_name_to_sue_arg_name = new Map<string, string>();
+    for (const [arg_name, arg_info] of Object.entries(info.settingsInfo)) {
+      if (arg_info.r_name) {
+        r_arg_name_to_sue_arg_name.set(arg_info.r_name, arg_name);
+      }
+    }
+
+    const required_arg_names = Object.entries(info.settingsInfo)
+      .filter(([_, arg_info]) => !arg_info.optional)
+      .map(([arg_name, _]) => arg_name);
+
     return {
       id: id,
       ...(py_info ? { py_info } : {}),
@@ -69,6 +80,8 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       category: category ?? "Uncategorized",
       ordered_positional_args,
       py_arg_name_to_sue_arg_name,
+      r_arg_name_to_sue_arg_name,
+      required_arg_names,
       ...info,
     } as Expand_Single<
       {
@@ -148,6 +161,17 @@ type ComputedInfo = {
    * situations like inputId => id in python
    */
   py_arg_name_to_sue_arg_name: Map<string, string>;
+
+  /**
+   * Map from R argument name to shiny-ui-editor argument name
+   */
+  r_arg_name_to_sue_arg_name: Map<string, string>;
+
+  /**
+   * Array of names for required arguments. Used to check to make sure the full
+   * set of arguments is provided when parsing
+   */
+  required_arg_names: string[];
 };
 
 type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
