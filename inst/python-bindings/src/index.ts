@@ -1,4 +1,4 @@
-import type { TSParser } from "python-ts-parser";
+import type { TSParser } from "treesitter-parsers";
 
 export function parse_python_script(parser: TSParser, script_text: string) {
   // Parse the current script

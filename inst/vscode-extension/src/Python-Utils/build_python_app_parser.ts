@@ -1,14 +1,16 @@
 import type { App_Info } from "communication-types/src/AppInfo";
 import {
   generate_app_script_template,
-  get_assignment_nodes,
   get_known_inputs,
   get_known_outputs,
   get_server_node_position,
-  get_ui_assignment,
   treesitter_to_ui_tree,
 } from "python-bindings";
-import { setup_python_parser } from "python-ts-parser";
+import {
+  get_ui_assignment,
+  setup_python_parser,
+  get_assignment_nodes,
+} from "treesitter-parsers";
 import type * as vscode from "vscode";
 
 import type { App_Parser, INFO_GET_RESULTS } from "../App_Parser";

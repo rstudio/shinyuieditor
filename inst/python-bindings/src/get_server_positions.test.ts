@@ -1,4 +1,4 @@
-import { setup_python_parser } from "python-ts-parser";
+import { setup_python_parser } from "treesitter-parsers";
 
 import { parse_python_script } from ".";
 

@@ -145,7 +145,7 @@
     "just-debounce-it": "^3.1.1",
     "r-bindings": "*",
     "python-bindings": "*",
-    "python-ts-parser": "*",
+    "treesitter-parsers": "*",
     "util-functions": "*",
     "winreg": "^1.2.4"
   }

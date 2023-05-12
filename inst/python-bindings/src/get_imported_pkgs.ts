@@ -1,4 +1,4 @@
-import type { ParserTree } from "python-ts-parser";
+import type { ParserTree } from "treesitter-parsers";
 
 /**
  * Get names of all packages that an app star imports

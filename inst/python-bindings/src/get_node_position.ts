@@ -1,5 +1,5 @@
 import type { Script_Range } from "communication-types/src/MessageToBackend";
-import type { ParserNode } from "python-ts-parser";
+import type { ParserNode } from "treesitter-parsers";
 
 /**
  * Get position of node in the script in Ui-Editor friendly format

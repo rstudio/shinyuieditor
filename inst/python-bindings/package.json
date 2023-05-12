@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "ui-node-definitions": "*",
-    "python-ts-parser": "*"
+    "treesitter-parsers": "*"
   }
 }

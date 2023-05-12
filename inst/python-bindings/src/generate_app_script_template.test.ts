@@ -2,7 +2,7 @@ import {
   get_assignment_nodes,
   get_ui_assignment,
   setup_python_parser,
-} from "python-ts-parser";
+} from "treesitter-parsers";
 import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 
 import { parse_python_script } from ".";
