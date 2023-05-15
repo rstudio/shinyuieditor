@@ -1,5 +1,3 @@
-import { collapseText } from "util-functions/src/strings";
-
 import { get_path_to_python } from "../Python-Utils/get_path_to_python";
 
 import type { App_Loc_Info, App_Startup_Info } from "./get_app_startup_info";

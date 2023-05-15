@@ -1,16 +1,12 @@
 import {
-  Node_Assignment_Map,
-  get_ui_assignment,
-} from "../../treesitter-parsers/dist";
-import {
-  ParserNode,
-  ParserTree,
+  setup_r_parser,
   get_assignment_nodes,
-} from "../../treesitter-parsers/dist";
-import { setup_r_parser } from "../../treesitter-parsers/dist";
+  get_ui_assignment,
+} from "treesitter-parsers";
 
 import { get_imported_pkgs } from "./get_imported_pkgs";
 import { extract_array_contents, is_array_node } from "./NodeTypes/ArrayNode";
+import { is_text_node } from "./NodeTypes/TextNode";
 import { parse_r_script } from "./parse_r_script";
 import { r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";
 
@@ -21,7 +17,7 @@ library(bslib)
 
 # Here's a comment about this app
 ui <- grid_page(
-  layout = c(
+  layout = c( 
     "header   header ",
     "sidebar  vbox   ",
     "cardDemo redPlot"
@@ -43,7 +39,7 @@ ui <- grid_page(
         inputId = "bins",
         label = "Number of Bins ",
         min = 12,
-        max = 100,
+        max = 100,       
         value = 30,
         width = "100%"
       ),
@@ -129,6 +125,16 @@ shinyApp(ui, server)
 `;
 
 const my_parser = await setup_r_parser();
+const parse_test = parse_r_script(
+  my_parser,
+  `value_box(
+    title = "Look at me!",
+    value = "Big number!",
+    showcase = bsicons::bs_icon("database")
+  )`
+).rootNode;
+
+const test_node = r_treesitter_to_ui_tree(parse_test.firstNamedChild!);
 
 // const parse_test = parse_r_script(
 //   my_parser,
@@ -144,17 +150,17 @@ const my_parser = await setup_r_parser();
 //   console.log(array_contents);
 // }
 
-const parsed_app = parse_r_script(my_parser, app_script);
+// const parsed_app = parse_r_script(my_parser, app_script);
 
-const imports = get_imported_pkgs(parsed_app);
+// const imports = get_imported_pkgs(parsed_app);
 
-const assignments = get_assignment_nodes(parsed_app);
+// const assignments = get_assignment_nodes(parsed_app);
 
-// // console.log(my_parser);
+// // // console.log(my_parser);
 
-const ui_node = get_ui_assignment(assignments, "ui");
+// const ui_node = get_ui_assignment(assignments, "ui");
 
-const ui_tree = r_treesitter_to_ui_tree(ui_node!);
+// const ui_tree = r_treesitter_to_ui_tree(ui_node!);
 
-console.log(ui_tree);
+// console.log(ui_tree);
 // // console.log(ui_tree);

@@ -13,3 +13,5 @@
 
 # Avoid subfolders of repo root
 ../../*/
+
+**/tree-sitter-r/

@@ -103,10 +103,10 @@ export { get_ast_is_array_or_list } from "./flatten_arrays_and_lists";
 export { make_character_node, name_node } from "./node_builders";
 export { is_function_call } from "./Function_Call_Node";
 export { Parsing_Error } from "./parsing_error_class";
-export { raw_R_info_to_app_info } from "./raw_R_info_to_app_info";
 export {
   get_assignment_nodes,
   get_output_positions,
   get_server_assignment_node,
 } from "./get_assignment_nodes";
 export { generate_r_output_binding } from "./generate_output_binding";
+export { r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";

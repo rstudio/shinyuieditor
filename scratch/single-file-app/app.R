@@ -6,16 +6,16 @@ library(bslib)
 ui <- grid_page(
   layout = c(
     "header   header ",
-    "sidebar  vbox   ",
-    "cardDemo redPlot"
+    "cardDemo vbox   ",
+    "sidebar  redPlot"
   ),
   row_sizes = c(
     "110px",
-    "0.97fr",
-    "1.03fr"
+    "1.22fr",
+    "0.78fr"
   ),
   col_sizes = c(
-    "300px",
+    "145px",
     "1fr"
   ),
   gap_size = "1rem",
@@ -68,7 +68,7 @@ ui <- grid_page(
     card_body_fill(
       value_box(
         title = "Look at me!",
-        value = "Big number!",
+        value = "Big number with more",
         showcase = bsicons::bs_icon("database")
       )
     )

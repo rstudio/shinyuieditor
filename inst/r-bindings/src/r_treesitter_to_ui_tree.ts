@@ -7,17 +7,22 @@ import { inANotInB } from "util-functions/src/arrays";
 
 import { extract_array_contents, is_array_node } from "./NodeTypes/ArrayNode";
 import {
-  is_boolean_node,
   extract_boolean_content,
+  is_boolean_node,
 } from "./NodeTypes/BooleanNode";
 import {
   is_keyword_arg_node,
   parse_keyword_arg_node,
 } from "./NodeTypes/KeywordArgNode";
-import { is_number_node, extract_number_content } from "./NodeTypes/NumberNode";
-import { is_string_node, extract_string_content } from "./NodeTypes/StringNode";
+import { extract_number_content, is_number_node } from "./NodeTypes/NumberNode";
+import { extract_string_content, is_string_node } from "./NodeTypes/StringNode";
+import { is_text_node, parse_text_node } from "./NodeTypes/TextNode";
 
 export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
+  if (is_text_node(node)) {
+    return parse_text_node(node);
+  }
+
   if (!is_call_node(node)) {
     return make_unknown_ui_function(node.text);
   }
@@ -39,13 +44,34 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
 
   const named_arg_nodes = fn_args.filter(is_keyword_arg_node);
 
+  const arg_preprocessor =
+    "preprocess_raw_ast_arg" in known_info.r_info
+      ? known_info.r_info.preprocess_raw_ast_arg
+      : (_: unknown) => null;
+
   named_arg_nodes.forEach((arg) => {
     const kwarg = parse_keyword_arg_node(arg);
-    let sue_arg_name = known_info.r_arg_name_to_sue_arg_name.get(kwarg.name);
+    const sue_arg_name =
+      known_info.r_arg_name_to_sue_arg_name.get(kwarg.name) ?? kwarg.name;
 
-    parsed_node.namedArgs[sue_arg_name ?? kwarg.name] = parse_arg_node(
-      kwarg.value
-    );
+    // If we have a preprocessor for this argument, use that to build the parsed
+    // argument
+    const preprocessed = arg_preprocessor(kwarg);
+    if (preprocessed) {
+      parsed_node.namedArgs[preprocessed.name] = preprocessed.value;
+      return;
+    }
+
+    // If we're dealing with a ui-node argument, then run the full parser on it
+    if (known_info.get_arg_info(sue_arg_name)?.inputType === "ui-node") {
+      parsed_node.namedArgs[sue_arg_name] = r_treesitter_to_ui_tree(
+        kwarg.value
+      );
+      return;
+    }
+
+    // ...otherwise we just parse the argument as normal
+    parsed_node.namedArgs[sue_arg_name] = parse_arg_node(kwarg.value);
   });
 
   const missing_required_args = inANotInB(

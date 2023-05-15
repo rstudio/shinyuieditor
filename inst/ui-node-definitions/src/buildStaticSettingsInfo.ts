@@ -4,6 +4,7 @@ import type {
   InputOptions,
   MakeDynamicArguments,
   MakeOmittedOption,
+  NonDynamicArgs,
   StaticInputOptions,
   StaticInputOptionsByInputType,
 } from "./inputFieldTypes";
@@ -31,11 +32,23 @@ type AllStaticOptions =
       | { defaultValue?: unknown; optional: true }
     ));
 
-type AllDynamicOptions = {
+export type AllDynamicOptions = {
   [StaticOption in AllStaticOptions as StaticOption["inputType"]]: MakeDynamicArguments<StaticOption>;
 }[AllStaticOptions["inputType"]];
 
 export type DynamicArgumentInfo = Record<string, AllDynamicOptions>;
+
+/**
+ * Type that contains just the properties for a settings object that we know are
+ * static and not dependent upon the node's current named arguments
+ */
+export type OnlyStaticSettingsInfo = {
+  [StaticOption in AllStaticOptions as StaticOption["inputType"]]: {
+    [Key in keyof StaticOption]: Key extends NonDynamicArgs
+      ? StaticOption[Key]
+      : never;
+  };
+}[AllStaticOptions["inputType"]];
 
 /**
  * Convert a whole settings info object from dynamic callback form to static

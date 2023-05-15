@@ -107,6 +107,19 @@ export type StaticInputOptions = AddOptionalCase<
   | { inputType: "omitted"; defaultValue: unknown }
 >;
 
+type CommonStaticFieldNames = keyof Common_Static_Fields;
+
+/**
+ * Object is filled with either values or callbacks to get those values from a
+ * ui node
+ */
+export type NonDynamicArgs =
+  | "inputType"
+  | "useDefaultIfOptional"
+  | "label"
+  | "optional"
+  | CommonStaticFieldNames;
+
 /**
  * Every input type including ommitted and ui nodes
  */
@@ -145,18 +158,6 @@ export type MakeOmittedOption<Options extends Record<string, unknown>> =
   | ({ inputType: "omitted" } & (Options["optional"] extends true
       ? { optional: true; defaultValue?: Options["value"] }
       : { defaultValue: Options["value"] }));
-
-type CommonStaticFieldNames = keyof Common_Static_Fields;
-/**
- * Object is filled with either values or callbacks to get those values from a
- * ui node
- */
-type NonDynamicArgs =
-  | "inputType"
-  | "useDefaultIfOptional"
-  | "label"
-  | "optional"
-  | CommonStaticFieldNames;
 
 export type MakeDynamicArguments<Obj extends Record<string, unknown>> = {
   [Key in keyof Obj]: Key extends NonDynamicArgs

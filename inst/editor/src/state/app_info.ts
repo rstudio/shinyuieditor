@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
 import type { App_Info } from "communication-types/src/AppInfo";
 import type { Raw_R_Info } from "r-bindings";
-import { raw_R_info_to_app_info } from "r-bindings";
 import { useSelector } from "react-redux";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import type { PlaceNodeArguments } from "ui-node-definitions/src/TreeManipulation/placeNode";
@@ -58,11 +57,12 @@ export const mainStateSlice = createSlice({
       action.payload.state,
 
     SET_INFO_FROM_R: (tree, action: PayloadAction<Raw_R_Info>) => {
-      const full_info = raw_R_info_to_app_info(action.payload);
-      return {
-        mode: "MAIN",
-        ...full_info,
-      };
+      // const full_info = raw_R_info_to_app_info(action.payload);
+      throw new Error("Temporarily disabled");
+      // return {
+      //   mode: "MAIN",
+      //   ...full_info,
+      // };
     },
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app

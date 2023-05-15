@@ -1,4 +1,5 @@
-import type { R_AST_Node } from "r-bindings";
+import type { Primatives } from "r-bindings";
+import type { Parsed_Kwarg_Node } from "r-bindings/src/NodeTypes/KeywordArgNode";
 import type {
   Equal,
   Expand_Single,
@@ -6,7 +7,10 @@ import type {
   PickKeyFn,
 } from "util-functions/src/TypescriptUtils";
 
-import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
+import type {
+  DynamicArgumentInfo,
+  OnlyStaticSettingsInfo,
+} from "./buildStaticSettingsInfo";
 import { get_ordered_positional_args } from "./get_ordered_positional_args";
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type { input_action_button } from "./Shiny/input_action_button";
@@ -73,6 +77,16 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       .filter(([_, arg_info]) => !arg_info.optional)
       .map(([arg_name, _]) => arg_name);
 
+    const get_arg_info: Static_Arg_Info_Getter = (arg_name) => {
+      if (arg_name in info.settingsInfo) {
+        return info.settingsInfo[
+          arg_name as keyof typeof info.settingsInfo
+        ] as OnlyStaticSettingsInfo;
+      } else {
+        return null;
+      }
+    };
+
     return {
       id: id,
       ...(py_info ? { py_info } : {}),
@@ -82,6 +96,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       py_arg_name_to_sue_arg_name,
       r_arg_name_to_sue_arg_name,
       required_arg_names,
+      get_arg_info,
       ...info,
     } as Expand_Single<
       {
@@ -117,12 +132,17 @@ export type Lang_Info<
    * it to some new form. E.g. adding, removing, or renaming args.
    */
   transform_named_args?: Named_Arg_Transformer<Args>;
+
   /**
-   * Pre-process an argument to the ui node before it's converted to a ShinyUiNode type
+   * Pre-process an argument to the ui node before it's converted to a
+   * ShinyUiNode type
    * @param arg_node - AST node of the argument to the node
-   * @returns Processed version of the AST argument node
+   * @returns Processed version of the AST argument node or `null` if the node
+   * should be processed as is
    */
-  preprocess_raw_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
+  preprocess_raw_ast_arg?: (
+    kwarg_node: Parsed_Kwarg_Node
+  ) => Preprocessed_Arg_Node | null;
 
   /**
    * Does this node have outputs code it connects to in the server side of
@@ -135,6 +155,23 @@ export type Lang_Info<
 
   input_bindings?: InputBindings<Args>;
 };
+
+/**
+ * Represents a node that has been preprocessed from the TreeSitter AST.
+ */
+export type Preprocessed_Arg_Node = {
+  name: string;
+  value: Primatives;
+};
+
+/**
+ * Lookup info for a given argument name
+ * @param arg_name Name of argument to look up
+ * @returns Info for that argument in the settings info, or null if it isn't found
+ */
+type Static_Arg_Info_Getter = (
+  arg_name: string
+) => OnlyStaticSettingsInfo | null;
 
 // Sanity tests for types
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -166,6 +203,11 @@ type ComputedInfo = {
    * Map from R argument name to shiny-ui-editor argument name
    */
   r_arg_name_to_sue_arg_name: Map<string, string>;
+
+  /**
+   * Lookup info for a given argument name
+   */
+  get_arg_info: Static_Arg_Info_Getter;
 
   /**
    * Array of names for required arguments. Used to check to make sure the full

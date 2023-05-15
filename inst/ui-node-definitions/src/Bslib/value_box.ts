@@ -1,10 +1,12 @@
-import type { R_AST_Node } from "../../../r-bindings/src";
 import {
-  name_node,
-  make_character_node,
-  is_function_call,
-} from "../../../r-bindings/src";
+  extract_string_content,
+  is_string_node,
+} from "r-bindings/src/NodeTypes/StringNode";
+import type { ParserNode } from "treesitter-parsers";
+import { extract_call_content, is_call_node } from "treesitter-parsers";
+
 import { make_unknown_ui_function } from "../make_unknown_ui_function";
+import type { Preprocessed_Arg_Node } from "../nodeInfoFactory";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiNode } from "../ShinyUiNode";
 import type { namedArgsObject } from "../uiNodeTypes";
@@ -43,14 +45,14 @@ export const value_box = nodeInfoFactory<{
 
       return to_return;
     },
-    preprocess_raw_ast_arg: (arg) => {
-      switch (arg.name) {
+    preprocess_raw_ast_arg: ({ name, value }) => {
+      switch (name) {
         case "showcase":
-          return convertShowcaseArg(arg);
+          return convertShowcaseArg(value);
         case "showcase_layout":
-          return convertShowcaseLayoutArg(arg);
+          return convertShowcaseLayoutArg(value);
         default:
-          return arg;
+          return null;
       }
     },
   },
@@ -100,17 +102,21 @@ export const value_box = nodeInfoFactory<{
  * icon name. If the passed value doesn't match an icon format. Then the
  * original is returned.
  */
-function convertShowcaseArg(arg: R_AST_Node) {
-  const is_icon_call =
-    is_function_call(arg, "bsicons::bs_icon") ||
-    is_function_call(arg, "bs_icon");
+function convertShowcaseArg(value: ParserNode): Preprocessed_Arg_Node | null {
+  if (!is_call_node(value)) {
+    return null;
+  }
+  const { fn_name, fn_args } = extract_call_content(value);
+  const is_icon_call = fn_name === "bsicons::bs_icon" || fn_name === "bs_icon";
 
-  if (is_icon_call) {
-    const icon = arg.val[1].val as string;
-    return name_node(make_character_node(icon), "showcase_icon");
+  if (is_icon_call && is_string_node(fn_args[0])) {
+    return {
+      name: "showcase_icon",
+      value: extract_string_content(fn_args[0]),
+    };
   }
 
-  return arg;
+  return null;
 }
 
 /**
@@ -120,12 +126,26 @@ function convertShowcaseArg(arg: R_AST_Node) {
  * @returns Updated argument, converting the function call to a character node
  * of left or right based on the original passed function.
  */
-function convertShowcaseLayoutArg(arg: R_AST_Node) {
-  if (is_function_call(arg, "showcase_left_center")) {
-    return name_node(make_character_node("left"), "showcase_layout");
-  } else if (is_function_call(arg, "showcase_top_right")) {
-    return name_node(make_character_node("right"), "showcase_layout");
+function convertShowcaseLayoutArg(
+  value: ParserNode
+): Preprocessed_Arg_Node | null {
+  if (!is_call_node(value)) {
+    return null;
+  }
+  const { fn_name, fn_args } = extract_call_content(value);
+
+  if (fn_name === "showcase_left_center") {
+    return {
+      name: "showcase_layout",
+      value: "left",
+    };
+  }
+  if (fn_name === "showcase_top_right") {
+    return {
+      name: "showcase_layout",
+      value: "right",
+    };
   }
 
-  return arg;
+  return null;
 }

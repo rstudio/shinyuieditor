@@ -1,12 +1,11 @@
 import * as esbuild from "esbuild";
 import { copyFileSync } from "fs";
 
-
 const args = process.argv.slice(2);
-const isDev = args.includes('--dev');
+const isDev = args.includes("--dev");
 
 if (isDev) {
-  console.log("Building with dev mode")
+  console.log("Building with dev mode");
 }
 
 await esbuild.build({
@@ -23,6 +22,6 @@ await esbuild.build({
 
 // Copy over wasm binary for tree sitter parser to the build folder
 copyFileSync(
-  "../python-ts-parser/src/assets/tree-sitter.wasm",
+  "../treesitter-parsers/src/assets/tree-sitter.wasm",
   "./build/tree-sitter.wasm"
 );
