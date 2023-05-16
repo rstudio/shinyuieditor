@@ -16,7 +16,7 @@ export const bslibCards = {
       namedArgs: { area: "empty" },
       children: [
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {
@@ -52,7 +52,7 @@ export const bslibCards = {
       },
       children: [
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {
@@ -122,7 +122,7 @@ export const bslibCards = {
           ],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [],
         },

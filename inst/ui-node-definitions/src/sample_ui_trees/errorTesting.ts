@@ -21,7 +21,7 @@ export const errorTestingTree = {
       },
       children: [
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {

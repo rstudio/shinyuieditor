@@ -18,7 +18,7 @@ const shortCardTree: KnownShinyUiNode = {
       },
       children: [
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {

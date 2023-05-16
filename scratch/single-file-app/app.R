@@ -11,8 +11,8 @@ ui <- grid_page(
   ),
   row_sizes = c(
     "110px",
-    "1.22fr",
-    "0.78fr"
+    "0.83fr",
+    "1.17fr"
   ),
   col_sizes = c(
     "145px",
@@ -21,7 +21,7 @@ ui <- grid_page(
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    card_body_fill(
+    card_body(
       sliderInput(
         inputId = "bins",
         label = "Number of Bins ",
@@ -48,7 +48,7 @@ ui <- grid_page(
   grid_card(
     area = "cardDemo",
     card_header(h2("My Card header")),
-    card_body_fill(
+    card_body(
       numericInput(
         inputId = "myNumericInput",
         label = "Numeric Input",
@@ -65,7 +65,7 @@ ui <- grid_page(
   ),
   grid_card(
     area = "vbox",
-    card_body_fill(
+    card_body(
       value_box(
         title = "Look at me!",
         value = "Big number with more",

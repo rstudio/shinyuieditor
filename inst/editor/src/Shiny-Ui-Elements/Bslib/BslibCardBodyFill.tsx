@@ -12,7 +12,7 @@ export const bslibCardBodyInfo = add_editor_info_to_ui_node(card_body_fill, {
         <ChildrenWithDropNodes
           children={children}
           parentPath={path}
-          parentid="card_body_fill"
+          parentid="card_body"
           messageOnHover="Add to card body"
         />
       </CardBodyFill>

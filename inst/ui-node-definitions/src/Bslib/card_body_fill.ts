@@ -11,10 +11,15 @@ type CardBodyFillSettings = {
 type CardBodyFillNode = MakeShinyUiNode<CardBodyFillSettings>;
 
 export const card_body_fill = nodeInfoFactory<CardBodyFillSettings>()({
-  id: "card_body_fill",
+  id: "card_body",
   r_info: {
-    fn_name: "card_body_fill",
+    fn_name: "card_body",
     package: "bslib",
+    fn_aliases: [
+      {
+        fn_name: "card_body_fill",
+      },
+    ],
   },
   title: "Card Body",
   takesChildren: true,

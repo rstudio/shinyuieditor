@@ -1,6 +1,6 @@
 import { isBslibCard } from "../Bslib/card";
-import type { KnownShinyUiNode } from "../uiNodeTypes";
 import type { ShinyUiNode } from "../ShinyUiNode";
+import type { KnownShinyUiNode } from "../uiNodeTypes";
 
 import type { GridlayoutCardNode } from "./grid_card";
 import type { GridItemNode } from "./isValidGridItem";
@@ -14,7 +14,7 @@ import { isValidGridItem } from "./isValidGridItem";
  * @returns If the node is a valid grid item already, it is returned as is with
  * the area argument set to `area`. If the node is a bslib card, it is wrapped
  * in a grid_card with the area argument set to `area`. Otherwise, the node is
- * wrapped as a child of a `grid_card` within the `bslib::card_body_fill`
+ * wrapped as a child of a `grid_card` within the `bslib::card_body`
  * element.
  */
 export function makeGridFriendlyNode(
@@ -42,7 +42,7 @@ export function makeGridFriendlyNode(
     namedArgs: { area },
     children: [
       {
-        id: "card_body_fill",
+        id: "card_body",
         namedArgs: {},
         children: [node as KnownShinyUiNode],
       },

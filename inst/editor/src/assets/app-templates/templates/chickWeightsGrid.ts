@@ -20,7 +20,7 @@ const navbarTree: ShinyUiParentNode = {
           children: [{ id: "textNode", namedArgs: { contents: "Settings" } }],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {

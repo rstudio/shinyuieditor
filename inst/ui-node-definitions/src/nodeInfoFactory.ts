@@ -122,6 +122,22 @@ export type Lang_Info<
   fn_name: Name;
 
   /**
+   * Other names that should map to this same node. This is used for things like
+   * backward compatibility when an api updates
+   */
+  fn_aliases?: {
+    /**
+     * Name of other function
+     */
+    fn_name: string;
+    /**
+     * Optional function to remap the arguments from this function to the root
+     * functions argument format
+     */
+    argument_remapping?: Named_Arg_Transformer<Args>;
+  }[];
+
+  /**
    * What is the name of the package that this node resides in, if it does. If
    * left blank will default to "none"
    */

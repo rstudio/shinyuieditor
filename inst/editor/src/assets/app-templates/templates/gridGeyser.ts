@@ -32,7 +32,7 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {
@@ -89,7 +89,7 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {
@@ -126,7 +126,7 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {

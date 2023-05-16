@@ -32,4 +32,16 @@ describe("Can go from treesitter to UI tree", async () => {
       })
     );
   });
+  test("Can remap new api's automatically", () => {
+    const parse_test = parse_r_script(
+      my_parser,
+      `card_body_fill(
+        actionButton(inputId = "redraw", label = "Redraw")
+      )`
+    ).rootNode;
+
+    const parsed_node = r_treesitter_to_ui_tree(parse_test.firstNamedChild!);
+
+    expect(parsed_node.id).toEqual("card_body");
+  });
 });
