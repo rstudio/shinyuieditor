@@ -1,5 +1,6 @@
 import { resolve } from "path";
 
+import inject from "@rollup/plugin-inject";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -15,11 +16,13 @@ const setup = ({ mode }) => {
         fileName: "extension-editor",
         formats: ["es"],
       },
-      rollupOptions: { external: ["vscode-webview"] },
+      rollupOptions: {
+        external: ["vscode-webview"],
+        plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
+      },
       emptyOutDir: true,
       sourcemap: mode === "dev",
       minify: mode !== "dev",
-      target: "es2015",
       chunkSizeWarningLimit: 1000,
     },
     plugins: [react(), tsconfigPaths()],
