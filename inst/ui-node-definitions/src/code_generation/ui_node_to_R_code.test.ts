@@ -1,5 +1,6 @@
 import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+
 import type { ShinyUiNode } from "../ShinyUiNode";
 
 import { ui_node_to_code } from "./ui_node_to_code";

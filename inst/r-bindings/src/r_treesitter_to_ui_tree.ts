@@ -56,10 +56,12 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
 
     // If we have a preprocessor for this argument, use that to build the parsed
     // argument
-    const preprocessed = arg_preprocessor(kwarg);
-    if (preprocessed) {
-      parsed_node.namedArgs[preprocessed.name] = preprocessed.value;
-      return;
+    if (arg_preprocessor) {
+      const preprocessed = arg_preprocessor(kwarg);
+      if (preprocessed) {
+        parsed_node.namedArgs[preprocessed.name] = preprocessed.value;
+        return;
+      }
     }
 
     // If we're dealing with a ui-node argument, then run the full parser on it

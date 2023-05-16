@@ -1,6 +1,5 @@
-import type { R_AST, R_AST_Node } from "../../../r-bindings/src";
-import { get_ast_is_array_or_list } from "../../../r-bindings/src";
-import { IsNodeOfType } from "../../../r-bindings/src";
+import type { R_AST, R_AST_Node } from "r-bindings";
+import { IsNodeOfType, get_ast_is_array_or_list } from "r-bindings";
 import { indent_text_block } from "util-functions/src/strings";
 
 import {

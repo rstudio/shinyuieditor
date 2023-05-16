@@ -108,6 +108,14 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
         "extension-editor.js"
       )
     );
+    const treesitterUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(
+        this.context.extensionUri,
+        "media",
+        "build",
+        "treesitter.wasm"
+      )
+    );
 
     const styleMainUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
@@ -134,14 +142,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 				// webpack
 				var global = window;
 			  </script>
-				<!--
-				Use a content security policy to only allow loading images from https or from our extension directory,
-				and only allow scripts that have a specific nonce.
-				-->
-				<meta 
-          http-equiv="Content-Security-Policy" 
-          content="default-src 'none'; frame-src http://localhost:*/ ${cspSource} https:; img-src ${cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
-
+				
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 				

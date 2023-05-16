@@ -22,7 +22,7 @@ const setup = ({ mode }) => {
           : undefined,
       emptyOutDir: true,
       sourcemap: mode === "dev",
-      target: "es2015",
+      // target: "es2015",
       chunkSizeWarningLimit: 1000,
     },
     plugins: [react(), tsconfigPaths()],

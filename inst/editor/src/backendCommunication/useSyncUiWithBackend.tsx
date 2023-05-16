@@ -17,6 +17,7 @@ import { useLanguageMode } from "../state/languageMode";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
+import { parse_single_file_r_app } from "./parse_single_file_r_app";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
@@ -59,6 +60,18 @@ export function useSyncUiWithBackend() {
       subscribe("RAW-R-INFO", (raw_info) =>
         dispatch(SET_INFO_FROM_R(raw_info))
       ),
+      subscribe("APP-SCRIPT-TEXT", (scripts) => {
+        if ("app" in scripts) {
+          parse_single_file_r_app(scripts.app)
+            .then((info) => {
+              parse_single_file_r_app(scripts.app);
+              dispatch(SET_APP_INFO(info));
+            })
+            .catch((e) => {
+              console.error("Failed to parse app script", e);
+            });
+        }
+      }),
       subscribe("TEMPLATE_CHOOSER", (outputChoices) =>
         dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }))
       ),

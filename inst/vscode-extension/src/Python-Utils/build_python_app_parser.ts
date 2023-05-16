@@ -65,6 +65,10 @@ function makePyAppInfoGetter(parser: Parser) {
     const app_info: App_Info = {
       language: "PYTHON",
       app_type: "SINGLE-FILE",
+      scripts: {
+        app_type: "SINGLE-FILE",
+        app: text,
+      },
       ui_tree: treesitter_to_ui_tree(ui_node),
       known_outputs: [...output_positions.keys()],
       app: generate_app_script_template(ui_node),

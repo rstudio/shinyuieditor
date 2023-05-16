@@ -27,7 +27,7 @@ export function SUE({
         incomingMsgs: {
           subscribe: (on, callback) => {
             // eslint-disable-next-line no-console
-            console.log(`backendMsgs.subscribe("${on}", ...)`);
+            // console.log(`backendMsgs.subscribe("${on}", ...)`);
             return incomingMsgs.subscribe(on, callback);
           },
         },

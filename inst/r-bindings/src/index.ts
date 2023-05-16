@@ -110,3 +110,5 @@ export {
 } from "./get_assignment_nodes";
 export { generate_r_output_binding } from "./generate_output_binding";
 export { r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";
+export { parse_r_script } from "./parse_r_script";
+export { generate_app_script_template } from "./generate_app_script_template";

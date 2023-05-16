@@ -147,7 +147,7 @@ launch_editor <- function(app_loc,
     send_app_info_to_client <- function() {
       tryCatch(
         {
-          send_msg("RAW-R-INFO", get_app_info(app_loc))
+          send_msg("APP-SCRIPT-TEXT", get_app_scripts(app_loc))
         },
         error = function(error) {
           send_msg(

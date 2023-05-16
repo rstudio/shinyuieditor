@@ -1,24 +1,21 @@
-import type {
-  App_Info,
-  Script_Generation_Template,
-} from "communication-types/src/AppInfo";
+import type { App_Info } from "communication-types/src/AppInfo";
 import type { Script_Range } from "communication-types/src/MessageToBackend";
-import { r_treesitter_to_ui_tree } from "r-bindings";
+import {
+  generate_app_script_template,
+  r_treesitter_to_ui_tree,
+} from "r-bindings";
 import type { ParserNode, ParserTree, TSParser } from "treesitter-parsers";
 import {
   get_assignment_nodes,
   get_ui_assignment,
   setup_r_parser,
 } from "treesitter-parsers";
-import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 import type * as vscode from "vscode";
 
 import type { App_Parser, INFO_GET_RESULTS } from "../App_Parser";
 import { make_cached_info_getter } from "../make_cached_info_getter";
 
-// import { makeRAppInfoGetter } from "./getAppInfo";
 import type { CommandOutputGeneric } from "./runRCommand";
-import { startBackgroundRProcess } from "./startBackgroundRProcess";
 
 export async function build_R_app_parser(
   document: vscode.TextDocument
@@ -32,18 +29,7 @@ export async function build_R_app_parser(
     throw e;
   }
 
-  // Startup background R process
-  const RProcess = await startBackgroundRProcess();
-  if (!RProcess) {
-    throw new Error("Don't have an R Process to pass to editor backend!");
-  }
-
   const check_if_pkgs_installed = async (pkgs: string) => {
-    // const pkgsLoaded = await checkIfPkgAvailable(RProcess, pkgs);
-
-    // if (pkgsLoaded.status === "error") {
-    //   return { success: false, msg: pkgsLoaded.msg } as const;
-    // }
     //  TODO: Implement this
 
     return { success: true } as const;
@@ -80,6 +66,10 @@ function makRAppInfoGetter(parser: TSParser) {
     const app_info: App_Info = {
       language: "R",
       app_type: "SINGLE-FILE",
+      scripts: {
+        app_type: "SINGLE-FILE",
+        app: text,
+      },
       ui_tree: r_treesitter_to_ui_tree(ui_node),
       known_outputs: [...output_positions.keys()],
       app: generate_app_script_template(ui_node),
@@ -100,31 +90,6 @@ function makRAppInfoGetter(parser: TSParser) {
       },
     };
   };
-}
-function generate_app_script_template(
-  ui_node: ParserNode
-): Script_Generation_Template {
-  let packages: string[] = ["shiny"];
-
-  const full_app_script = ui_node.tree.rootNode.text;
-
-  let templated_app_script = full_app_script
-    .replace(ui_node.text, SCRIPT_LOC_KEYS.ui)
-    .replace("from shiny import *", SCRIPT_LOC_KEYS.packages);
-
-  // Remove all the other packages completely. This may cause reordering of
-  // imports if the ones we find are not inline with shiny but that's okay
-  for (const pkg of packages.filter((p) => p !== "shiny")) {
-    templated_app_script = templated_app_script.replace(
-      // Fancy regex also removes newline so we don't just end up with empty
-      // lines where the old imports were
-      new RegExp(`from ${pkg} import \\*\\s*\\n`),
-      ""
-    );
-  }
-
-  // We need to add a newline in here because the parser seems to remove it
-  return { code: templated_app_script, packages };
 }
 
 /**

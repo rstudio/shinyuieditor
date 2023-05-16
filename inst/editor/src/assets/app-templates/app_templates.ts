@@ -34,15 +34,18 @@ export function template_to_app_contents(
   return generate_full_app_script(app_info, { include_info: true, language });
 }
 
-function template_to_single_file_info({
-  uiTree,
-  otherCode: {
-    uiExtra = "",
-    serverExtra = "",
-    serverFunctionBody = "",
-    serverLibraries = [],
-  },
-}: Single_File_Template_Selection): App_Info {
+function template_to_single_file_info(
+  template_info: Single_File_Template_Selection
+): App_Info {
+  const {
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = [],
+    },
+  } = template_info;
   const code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
@@ -59,6 +62,7 @@ shinyApp(ui, server)
 
   return {
     ui_tree: uiTree,
+    scripts: template_to_app_contents(template_info, "R"),
     language: "R",
     app_type: "SINGLE-FILE",
     known_outputs: [],
@@ -69,15 +73,18 @@ shinyApp(ui, server)
   };
 }
 
-function template_to_multi_file_info({
-  uiTree,
-  otherCode: {
-    uiExtra = "",
-    serverExtra = "",
-    serverFunctionBody = "",
-    serverLibraries = [],
-  },
-}: Multi_File_Template_Selection): App_Info {
+function template_to_multi_file_info(
+  template_info: Multi_File_Template_Selection
+): App_Info {
+  const {
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = [],
+    },
+  } = template_info;
   const ui_code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
@@ -93,6 +100,7 @@ server <- function(input, output) {
 
   return {
     app_type: "MULTI-FILE",
+    scripts: template_to_app_contents(template_info, "R"),
     language: "R",
     ui_tree: uiTree,
     known_outputs: [],

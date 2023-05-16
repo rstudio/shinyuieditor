@@ -27,6 +27,10 @@ export function setupStaticBackend({
             } else {
               messageDispatch.dispatch("APP-INFO", {
                 ui_tree,
+                scripts: {
+                  app_type: "SINGLE-FILE",
+                  app: "",
+                },
                 language,
                 app_type: "SINGLE-FILE",
                 known_outputs: [],

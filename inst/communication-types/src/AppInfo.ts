@@ -13,6 +13,7 @@ export type Language_Mode = "R" | "PYTHON";
 // Shared by both single and multi-file apps.
 export type App_Info = {
   ui_tree: ShinyUiNode;
+  scripts: App_Script_Info;
   language: Language_Mode;
   known_outputs: string[];
 } & (

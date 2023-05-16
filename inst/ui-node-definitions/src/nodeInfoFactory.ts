@@ -98,15 +98,13 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       required_arg_names,
       get_arg_info,
       ...info,
-    } as Expand_Single<
-      {
-        id: ID;
-        py_info: undefined extends PyInfo ? never : PyInfo;
-        r_info: undefined extends RInfo ? never : RInfo;
-        category: Cat;
-      } & Required<CommonInfo<Args, TakesChildren>> &
-        ComputedInfo
-    >;
+    } as {
+      id: ID;
+      py_info: undefined extends PyInfo ? never : PyInfo;
+      r_info: undefined extends RInfo ? never : RInfo;
+      category: Cat;
+    } & Required<CommonInfo<Args, TakesChildren>> &
+      ComputedInfo;
   };
 }
 

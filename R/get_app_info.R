@@ -32,7 +32,6 @@ get_app_info <- function(app_loc) {
   }
 }
 
-
 parse_app_script <- function(script_loc) {
   file_lines <- readLines(script_loc)
   parsed <- parse(text = file_lines, keep.source = TRUE)
@@ -41,4 +40,31 @@ parse_app_script <- function(script_loc) {
     script = paste(file_lines, collapse = "\n"),
     ast = serialize_ast(parsed)
   )
+}
+
+get_app_scripts <- function(app_loc) {
+  app_type <- get_app_file_type(app_loc)
+
+  if (identical(app_type, "SINGLE-FILE")) {
+    list(
+      language = "R",
+      app_type = "SINGLE-FILE",
+      app = get_script(fs::path(app_loc, "app.R"))
+    )
+  } else {
+    list(
+      language = "R",
+      app_type = "MULTI-FILE",
+      ui = get_script(fs::path(app_loc, "ui.R")),
+      server = get_script(fs::path(app_loc, "server.R"))
+    )
+  }
+}
+
+
+get_script <- function(script_loc) {
+  file_lines <- readLines(script_loc)
+  # parsed <- parse(text = file_lines, keep.source = TRUE)
+
+  paste(file_lines, collapse = "\n")
 }

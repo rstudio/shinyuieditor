@@ -12,6 +12,7 @@ import { removeNodeMutating } from "ui-node-definitions/src/TreeManipulation/rem
 import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
 import { updateNodeMutating } from "ui-node-definitions/src/TreeManipulation/updateNode";
 
+import { parse_single_file_r_app } from "../backendCommunication/parse_single_file_r_app";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 
 import {
