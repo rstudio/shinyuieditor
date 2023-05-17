@@ -1,7 +1,7 @@
 import type { Script_Range } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
+import { get_node_position } from "treesitter-parsers";
 
-import { get_node_position } from "./get_node_position";
 import { get_server_node } from "./get_server_node";
 
 /**

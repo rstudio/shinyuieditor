@@ -1,7 +1,6 @@
 import type { Script_Range } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
-
-import { get_node_position } from "./get_node_position";
+import { get_node_position } from "treesitter-parsers";
 
 export type Server_Position_Map = Map<string, Script_Range[]>;
 

@@ -7,6 +7,8 @@ export { get_assignment_nodes } from "./get_assignment_nodes";
 export { get_ui_assignment } from "./get_ui_assignment";
 export { is_call_node, extract_call_content } from "./CallNode";
 
+export { get_node_position } from "./get_node_positions";
+
 export type { Node_Assignment_Map } from "./get_assignment_nodes";
 /**
  * Function to parse a python script into a tree-sitter syntax tree
