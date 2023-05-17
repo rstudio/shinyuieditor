@@ -17,9 +17,11 @@ import { write_library_calls } from "../../ast_parsing/generate_ui_script";
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
 import { gridGeyserTemplate } from "./templates/gridGeyser";
+import { sidebarPlotGridTemplate } from "./templates/sidebarPlotGrid";
 
 export const app_templates: TemplateInfo[] = [
   gridGeyserTemplate,
+  sidebarPlotGridTemplate,
   chickWeightsNavbar,
   chickWeightsGridTemplate,
 ];
