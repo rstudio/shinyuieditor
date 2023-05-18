@@ -30,7 +30,6 @@ export function template_to_app_contents(
     selection.outputType === "SINGLE-FILE"
       ? template_to_single_file_info(selection)
       : template_to_multi_file_info(selection);
-
   return generate_full_app_script(app_info, { include_info: true, language });
 }
 
@@ -62,7 +61,10 @@ shinyApp(ui, server)
 
   return {
     ui_tree: uiTree,
-    scripts: template_to_app_contents(template_info, "R"),
+    scripts: {
+      app_type: "SINGLE-FILE",
+      app: code,
+    },
     language: "R",
     app_type: "SINGLE-FILE",
     known_outputs: [],
@@ -100,7 +102,11 @@ server <- function(input, output) {
 
   return {
     app_type: "MULTI-FILE",
-    scripts: template_to_app_contents(template_info, "R"),
+    scripts: {
+      app_type: "MULTI-FILE",
+      ui: ui_code,
+      server: server_code,
+    },
     language: "R",
     ui_tree: uiTree,
     known_outputs: [],
