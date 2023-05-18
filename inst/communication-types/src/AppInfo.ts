@@ -10,7 +10,9 @@ export type App_Type = Single_File_App_Type | Multi_File_App_Type;
  * */
 export type Language_Mode = "R" | "PYTHON";
 
-// Shared by both single and multi-file apps.
+// TODO: Simplify this interface to reflect that we now have tree-sitter
+
+// Shared  by both single and multi-file apps.
 export type App_Info = {
   ui_tree: ShinyUiNode;
   scripts: App_Script_Info;
