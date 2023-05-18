@@ -1,36 +1,36 @@
 from shiny import App, ui
 import shiny.experimental as x
 from shinywidgets import output_widget, render_widget
-import altair as alt
-from vega_datasets import data
 
-# Part 1: ui ----
-app_ui = ui.page_fluid(
-    x.ui.card(
-        x.ui.card_header("Altair plot"),
-        output_widget("plot", width="100%", height="100%"),
-        height="550px",
+app_ui = ui.page_navbar(
+  ui.nav(
+    "It's Alive!",
+    ui.input_slider(
+      id = "n",
+      label = "Slider Input",
+      min = 5,
+      max = 100,
+      value = 25,
+      width = "100%"
     )
+  ),
+  ui.nav(
+    "Plot 1",
+    ui.output_plot(
+      id = "MyPlot",
+      width = "100%",
+      height = "400px"
+    )
+  ),
+  title = "My cool app",
+  collapsible = False
 )
 
 
-# Part 2: server ----
 def server(input, output, session):
-    @output(id="plot")
-    @render_widget
-    def _():
-        cars = data.cars()
-        fig = (
-            alt.Chart(cars)
-            .mark_point()
-            .encode(
-                x="Horsepower",
-                y="Miles_per_Gallon",
-                color="Origin",
-            )
-        )
-        fig.properties(height=100, width="container")
-        return fig
-
-
-app = App(app_ui, server)
+    @output
+    @render.plot(alt="A histogram")
+    def MyPlot():
+        np.random.seed(19680801)
+        x = 100 + 15 * np.random.randn(437)
+        plt.hist(x, input.n(), density=True)
