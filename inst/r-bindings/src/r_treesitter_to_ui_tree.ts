@@ -1,10 +1,9 @@
 import type { ParserNode } from "treesitter-parsers";
-import { extract_call_content, is_call_node } from "treesitter-parsers";
 import { make_unknown_ui_function } from "ui-node-definitions/src/make_unknown_ui_function";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { rFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import { inANotInB } from "util-functions/src/arrays";
 
+import { get_r_info_if_known } from "./get_r_info_if_known";
 import { extract_array_contents, is_array_node } from "./NodeTypes/ArrayNode";
 import {
   extract_boolean_content,
@@ -23,19 +22,20 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
     return parse_text_node(node);
   }
 
-  if (!is_call_node(node)) {
+  const r_fn_info = get_r_info_if_known(node);
+
+  if (r_fn_info === null) {
     return make_unknown_ui_function(node.text);
   }
 
-  const { fn_name, fn_args } = extract_call_content(node);
+  const { fn_args, info } = r_fn_info;
 
-  const known_info = rFnNameToNodeInfo(fn_name);
-  if (!known_info) {
+  if (!info) {
     return make_unknown_ui_function(node.text);
   }
 
   const parsed_node: ShinyUiNode = {
-    id: known_info.id,
+    id: info.id,
     namedArgs: {},
   };
 
@@ -45,14 +45,14 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
   const named_arg_nodes = fn_args.filter(is_keyword_arg_node);
 
   const arg_preprocessor =
-    "preprocess_raw_ast_arg" in known_info.r_info
-      ? known_info.r_info.preprocess_raw_ast_arg
+    "preprocess_raw_ast_arg" in info.r_info
+      ? info.r_info.preprocess_raw_ast_arg
       : (_: unknown) => null;
 
   named_arg_nodes.forEach((arg) => {
     const kwarg = parse_keyword_arg_node(arg);
     const sue_arg_name =
-      known_info.r_arg_name_to_sue_arg_name.get(kwarg.name) ?? kwarg.name;
+      info.r_arg_name_to_sue_arg_name.get(kwarg.name) ?? kwarg.name;
 
     // If we have a preprocessor for this argument, use that to build the parsed
     // argument
@@ -65,7 +65,7 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
     }
 
     // If we're dealing with a ui-node argument, then run the full parser on it
-    if (known_info.get_arg_info(sue_arg_name)?.inputType === "ui-node") {
+    if (info.get_arg_info(sue_arg_name)?.inputType === "ui-node") {
       parsed_node.namedArgs[sue_arg_name] = r_treesitter_to_ui_tree(
         kwarg.value
       );
@@ -77,7 +77,7 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
   });
 
   const missing_required_args = inANotInB(
-    known_info.required_arg_names,
+    info.required_arg_names,
     Object.keys(parsed_node.namedArgs)
   );
 

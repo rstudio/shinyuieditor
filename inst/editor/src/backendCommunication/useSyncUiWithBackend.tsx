@@ -17,7 +17,7 @@ import { useLanguageMode } from "../state/languageMode";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
-import { parse_single_file_r_app } from "./parse_single_file_r_app";
+import { parse_multi_file_r_app, parse_single_file_r_app } from "./parse_r_app";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
@@ -69,6 +69,14 @@ export function useSyncUiWithBackend() {
             })
             .catch((e) => {
               console.error("Failed to parse app script", e);
+            });
+        } else {
+          parse_multi_file_r_app(scripts.ui, scripts.server)
+            .then((info) => {
+              dispatch(SET_APP_INFO(info));
+            })
+            .catch((e) => {
+              console.error("Failed to parse multi-file app scripts", e);
             });
         }
       }),
