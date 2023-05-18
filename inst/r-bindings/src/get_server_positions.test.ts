@@ -2,25 +2,29 @@ import { setup_r_parser } from "treesitter-parsers";
 
 import { find_ui_and_server_in_singlefile_app } from "./find_ui_and_server_in_singlefile_app";
 import { get_server_positions } from "./get_server_positions";
-import { get_server_node_from_r_multifile_app } from "./parse_multifile_r_apps";
+import { find_server_def_in_r_app } from "./parse_multifile_r_apps";
+import { parse_r_app } from "./parse_r_app";
+import { parse_r_script } from "./parse_r_script";
 
 describe("Can find output positions in server of multifile app", async () => {
   const my_parser = await setup_r_parser();
-  const server_node = get_server_node_from_r_multifile_app(
-    my_parser,
-    `library(ggplot2)
-    
-    server <- function(input, output) {
-      output$dists <- renderPlot({
-        ggplot(
-          ChickWeight,
-          aes(x = weight)
-        ) +
-          facet_wrap(input$distFacet) +
-          geom_density(fill = "#fa551b", color = "#ee6331") +
-          ggtitle(paste("Distribution of weights by", input$name)))
-      })
-    }`
+  const server_node = find_server_def_in_r_app(
+    parse_r_script(
+      my_parser,
+      `library(ggplot2)
+        
+        server <- function(input, output) {
+          output$dists <- renderPlot({
+            ggplot(
+              ChickWeight,
+              aes(x = weight)
+            ) +
+              facet_wrap(input$distFacet) +
+              geom_density(fill = "#fa551b", color = "#ee6331") +
+              ggtitle(paste("Distribution of weights by", input$name)))
+          })
+        }`
+    ).rootNode
   );
 
   const { input_positions, output_positions } =
@@ -39,7 +43,7 @@ describe("Can find output positions in server of multifile app", async () => {
 });
 
 describe("Can find output positions in server of single file app", async () => {
-  const { server_node } = find_ui_and_server_in_singlefile_app(
+  const { server_node } = parse_r_app(
     await setup_r_parser(),
     `library(ggplot2)
 

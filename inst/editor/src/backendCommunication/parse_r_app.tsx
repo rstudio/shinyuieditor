@@ -1,29 +1,17 @@
 import type { App_Info } from "communication-types/src/AppInfo";
 import {
-  find_ui_and_server_in_singlefile_app,
   generate_app_script_template,
-  get_server_positions,
-  get_ui_node_from_r_multifile_app,
-  parse_r_script,
+  parse_r_app,
   r_treesitter_to_ui_tree,
 } from "r-bindings";
-import { get_server_node_from_r_multifile_app } from "r-bindings/src/parse_multifile_r_apps";
-import {
-  get_assignment_nodes,
-  get_ui_assignment,
-  setup_r_parser,
-} from "treesitter-parsers";
+import { find_ui_and_server_in_multifile_r_app } from "r-bindings/src/parse_multifile_r_apps";
+import { setup_r_parser } from "treesitter-parsers";
 
 const my_parser = setup_r_parser();
 
 export async function parse_single_file_r_app(app: string): Promise<App_Info> {
-  const { server_node, ui_node } = find_ui_and_server_in_singlefile_app(
-    await my_parser,
-    app
-  );
-
-  const { input_positions, output_positions } =
-    get_server_positions(server_node);
+  const { server_node, ui_node, input_positions, output_positions } =
+    parse_r_app(await my_parser, app);
 
   const app_info: App_Info = {
     language: "R",
@@ -47,15 +35,8 @@ export async function parse_multi_file_r_app(
   console.time("parse_r_script");
 
   const parser = await my_parser;
-  const ui_node = get_ui_node_from_r_multifile_app(parser, ui);
-  const server_node = get_server_node_from_r_multifile_app(parser, server);
-
-  if (!server_node) {
-    throw new Error("No server node found");
-  }
-
-  const { input_positions, output_positions } =
-    get_server_positions(server_node);
+  const { ui_node, server_node, input_positions, output_positions } =
+    parse_r_app(parser, ui, server);
 
   const app_info: App_Info = {
     language: "R",

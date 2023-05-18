@@ -1,21 +1,32 @@
 import type { ParserNode, TSParser } from "treesitter-parsers";
 
+import { get_ui_node_from_r_multifile_app } from ".";
+
 import { get_r_info_if_known } from "./get_r_info_if_known";
 import { parse_r_script } from "./parse_r_script";
 
+export function find_ui_and_server_in_multifile_r_app(
+  parser: TSParser,
+  ui_script: string,
+  server_script: string
+) {
+  const parsed_ui = parse_r_script(parser, ui_script).rootNode;
+  const parsed_server = parse_r_script(parser, server_script).rootNode;
+
+  return {
+    ui_node: get_ui_node_from_r_multifile_app(parsed_ui),
+    server_node: find_server_def_in_r_app(parsed_server),
+  };
+}
 /**
  * Find the ui node definition from a `ui.R` script
- * @param ui_script Script from the ui.R file for a given app
+ * @param root_node Root node of a parsed R script
  * @returns The node that contains the ui declaration.
  * @throws If no ui declaration is found in the script
  */
-export function get_ui_node_from_r_multifile_app(
-  parser: TSParser,
-  ui_script: string
-) {
+export function find_ui_def_in_r_app(root_node: ParserNode) {
   const ui_node = search_for_node(
-    parser,
-    ui_script,
+    root_node,
     (node) => get_r_info_if_known(node) !== null
   );
 
@@ -27,16 +38,12 @@ export function get_ui_node_from_r_multifile_app(
 
 /**
  * Find the server node definition from a `server.R` script
- * @param parser Parser to use to parse the script
- * @param server_script Script from the ui.R file for a given app
+ * @param root_node Root node of a parsed R script
  * @returns The node that contains the server declaration.
  * @throws If no server declaration is found in the script
  */
-export function get_server_node_from_r_multifile_app(
-  parser: TSParser,
-  server_script: string
-): ParserNode {
-  const server_node = search_for_node(parser, server_script, fn_def_is_server);
+export function find_server_def_in_r_app(root_node: ParserNode): ParserNode {
+  const server_node = search_for_node(root_node, fn_def_is_server);
 
   if (server_node) {
     return server_node;
@@ -60,19 +67,15 @@ function fn_def_is_server(node: ParserNode) {
 /**
  * Search through a script in reverse for a node satisfiying some search
  * function condition
- * @param parser Parser to use to parse the script
- * @param script Script to search through
+ * @param root_node Root node of a parsed R script
  * @param search_fn Callback that returns true if the node is the one we're
  * looking for
  * @returns Node if found, null otherwise
  */
 function search_for_node(
-  parser: TSParser,
-  script: string,
+  root_node: ParserNode,
   search_fn: (node: ParserNode) => boolean
 ): ParserNode | null {
-  const root_node = parse_r_script(parser, script).rootNode;
-
   // Search through the root-level nodes in reverse order, so we find the last
   // returned valid function definition
   for (let i = root_node.namedChildren.length - 1; i >= 0; i--) {

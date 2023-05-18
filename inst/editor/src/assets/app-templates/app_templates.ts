@@ -15,9 +15,11 @@ import {
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
 import { gridGeyserTemplate } from "./templates/gridGeyser";
+import { sidebarPlotGridTemplate } from "./templates/sidebarPlotGrid";
 
 export const app_templates: TemplateInfo[] = [
   gridGeyserTemplate,
+  sidebarPlotGridTemplate,
   chickWeightsNavbar,
   chickWeightsGridTemplate,
 ];

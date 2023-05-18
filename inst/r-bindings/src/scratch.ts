@@ -13,8 +13,8 @@ import { get_name_of_accessed_property } from "./get_name_of_accessed_property";
 import { extract_array_contents, is_array_node } from "./NodeTypes/ArrayNode";
 import { is_text_node } from "./NodeTypes/TextNode";
 import {
-  get_server_node_from_r_multifile_app,
-  get_ui_node_from_r_multifile_app,
+  find_server_def_in_r_app,
+  find_ui_def_in_r_app,
 } from "./parse_multifile_r_apps";
 import { r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";
 
@@ -34,30 +34,3 @@ server <- function(input, output) {
   })
 }
 `;
-
-const server_node = get_server_node_from_r_multifile_app(
-  my_parser,
-  server_script
-);
-
-const input_positions = new Map<string, Script_Range[]>();
-
-const dollar_accesses = server_node
-  .descendantsOfType("dollar")
-  .forEach((node) => {
-    const input_name = get_name_of_accessed_property(node, "input");
-
-    if (input_name === null) return;
-    const input_loc = get_node_position(node);
-
-    if (input_positions.has(input_name)) {
-      input_positions.set(
-        input_name,
-        input_positions.get(input_name)!.concat(input_loc)
-      );
-    } else {
-      input_positions.set(input_name, [input_loc]);
-    }
-  });
-
-console.log(server_node);
