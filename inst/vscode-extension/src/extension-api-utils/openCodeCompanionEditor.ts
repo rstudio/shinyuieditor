@@ -6,10 +6,10 @@ import * as vscode from "vscode";
  * @returns Handle to the text file opened
  */
 export async function openCodeCompanionEditor({
-  appFile,
+  document,
   existingEditor,
 }: {
-  appFile: vscode.TextDocument;
+  document: vscode.TextDocument;
   existingEditor?: vscode.TextEditor;
 }): Promise<vscode.TextEditor> {
   const alreadyHaveOpenEditor =
@@ -18,7 +18,7 @@ export async function openCodeCompanionEditor({
   // Avoid opening secondary companion editor
   const companionEditor = alreadyHaveOpenEditor
     ? existingEditor
-    : await vscode.window.showTextDocument(appFile.uri, {
+    : await vscode.window.showTextDocument(document.uri, {
         viewColumn: vscode.ViewColumn.Beside,
         preview: true,
       });

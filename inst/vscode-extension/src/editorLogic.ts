@@ -25,6 +25,18 @@ export type App_Location = {
   end_col: number;
 };
 
+/**
+ * The main logic source for the UI editor. This is loaded by the extension.ts
+ * file and is responsible for handling all of the communication between the UI
+ * editor and the VSCode extension.
+ *
+ * @param language Mode of the app (`R` or `PYTHON`)
+ * @param document The vscode document that is being edited
+ * @param sendMessage Function used to send messages to the UI editor.
+ *
+ * @returns An object with functions that should be called when the document is
+ * changed, saved, or a message is received from the UI editor.
+ */
 export async function editorLogic({
   language,
   document,
@@ -34,67 +46,85 @@ export async function editorLogic({
   document: vscode.TextDocument;
   sendMessage: (msg: MessageToClient) => Thenable<boolean>;
 }) {
-  // TODO: Come up with a better name for this
-  const app_info_getter =
-    language === "R"
-      ? await build_R_app_parser(document)
-      : await build_python_app_parser(document);
+  // Start by initializing some state variables
 
-  const get_app_info = app_info_getter.getInfo;
-
+  // Whether or not we've initialized the app. This is used to make sure we
+  // don't try to run script validation checks etc mode than once.
   let hasInitialized: boolean = false;
 
   // Can probably replace this with the vscode.TextDocument's version field
   let latestAppWrite: string | null = null;
 
-  /**
-   * Plain text editor with apps code side-by-side with custom editor
-   */
+  // Plain text editor with apps code side-by-side with custom editor
   let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
+
+  // The last parsed app info. This is used to make sure we don't send the same
+  // app info to the UI editor multiple times.
   let previous_parsed_info: Parsed_App_Info | undefined;
 
+  // The app info parser. This is used to parse the app for things like the UI
+  // tree and server info.
+  const appInfoParser = await (language === "R"
+    ? build_R_app_parser(document)
+    : build_python_app_parser(document));
+
+  // On the first time connecting to the viewer, load our libraries and
+  // let the user know if this failed and they need to fix it.
+  async function initializeUiEditor() {
+    const pkgsLoaded = await appInfoParser.check_if_pkgs_installed(
+      "shinyuieditor"
+    );
+
+    if (!pkgsLoaded.success) {
+      sendMessage({
+        path: "BACKEND-ERROR",
+        payload: {
+          context: "checking for shinyuieditor package",
+          msg: pkgsLoaded.msg,
+        },
+      });
+      showErrorMessage(pkgsLoaded.msg);
+      throw new Error(pkgsLoaded.msg);
+    }
+  }
+
+  function requestTemplateChooser() {
+    sendMessage({
+      path: "TEMPLATE_CHOOSER",
+      payload: "SINGLE-FILE",
+    });
+  }
+
+  // Function to keep the app info as represented by the file in sync with the
+  // app info as represented by the UI editor. This runs every time a change in the file
+  // is detected by vscode.
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
 
-    // Check to make sure we're not just picking up a change that we made
+    // Check to make sure we're not just picking up a change that we made so we can skip
+    // unnecessary parsing.
     const updateWeMade =
       latestAppWrite !== null && appFileText.includes(latestAppWrite);
-
-    // Skip unneccesary app file parsing
     if (updateWeMade) return;
 
-    // If it's our first time connecting to the viewer, load our libraries and
-    // let the user know if this failed and they need to fix it.
+    // If we haven't initialized the app yet, do so now.
     if (!hasInitialized) {
-      const pkgsLoaded = await app_info_getter.check_if_pkgs_installed(
-        "shinyuieditor"
-      );
-
-      if (!pkgsLoaded.success) {
-        sendMessage({
-          path: "BACKEND-ERROR",
-          payload: {
-            context: "checking for shinyuieditor package",
-            msg: pkgsLoaded.msg,
-          },
-        });
-        showErrorMessage(pkgsLoaded.msg);
-        throw new Error(pkgsLoaded.msg);
-      }
-
+      await initializeUiEditor();
       hasInitialized = true;
     }
 
+    // Empty app scripts are interpreted as us needing to open the template
+    // chooser interface.
     if (appFileText === "") {
-      sendMessage({
-        path: "TEMPLATE_CHOOSER",
-        payload: "SINGLE-FILE",
-      });
+      requestTemplateChooser();
       return;
     }
 
+    // Main parsing logic is wrapped in a try/catch so that invalid app scripts
+    // etc don't bring down the whole editor but instead just show an error
+    // message that can be recovered from
     try {
-      const app_info_fetch = await get_app_info();
+      const app_info_fetch = await appInfoParser.getInfo();
 
       if (app_info_fetch.status === "error") {
         sendMessage({
@@ -112,11 +142,9 @@ export async function editorLogic({
       }
 
       const app_info = app_info_fetch.values;
+
       if (app_info === "EMPTY") {
-        sendMessage({
-          path: "TEMPLATE_CHOOSER",
-          payload: "SINGLE-FILE",
-        });
+        requestTemplateChooser();
         return;
       }
 
@@ -145,6 +173,8 @@ export async function editorLogic({
     }
   };
 
+  // Debounce the sync function so that we don't try to sync the app file to the
+  // UI editor too when the user is doing something like typing.
   const syncFileToClientStateDebounced = debounce(syncFileToClientState, 500);
 
   const onDocumentChanged = () => {
@@ -191,16 +221,18 @@ export async function editorLogic({
     },
   });
 
+  // Request a companionm editor if one doesn't exist, otherwise return the
+  // existing one.
   const get_companion_editor = async () => {
     codeCompanionEditor = await openCodeCompanionEditor({
-      appFile: document,
+      document,
       existingEditor: codeCompanionEditor,
     });
 
     return codeCompanionEditor;
   };
 
-  // Receive message from the webview.
+  // Handle messages from the client
   const onDidReceiveMessage = async (msg: MessageToBackend) => {
     if (isMessageToBackend(msg)) {
       switch (msg.path) {
@@ -245,7 +277,7 @@ export async function editorLogic({
           return;
         }
         case "INSERT-SNIPPET": {
-          const info_fetch = await get_app_info();
+          const info_fetch = await appInfoParser.getInfo();
           if (
             info_fetch.status === "success" &&
             info_fetch.values !== "EMPTY" &&
@@ -262,7 +294,7 @@ export async function editorLogic({
         }
 
         case "FIND-SERVER-USES": {
-          const app_info_fetch = await get_app_info();
+          const app_info_fetch = await appInfoParser.getInfo();
           if (
             app_info_fetch.status !== "success" ||
             app_info_fetch.values === "EMPTY"
