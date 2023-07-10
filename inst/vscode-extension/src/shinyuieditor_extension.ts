@@ -4,7 +4,6 @@ import * as vscode from "vscode";
 
 import { appScriptStatus } from "./appScriptStatus";
 import { editorLogic } from "./editorLogic";
-import { getNonce } from "./util";
 
 /**
  * Provider for custom editor.
@@ -108,14 +107,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
         "extension-editor.js"
       )
     );
-    const treesitterUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(
-        this.context.extensionUri,
-        "media",
-        "build",
-        "treesitter.wasm"
-      )
-    );
 
     const styleMainUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
@@ -128,8 +119,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     // Use a nonce to whitelist which scripts can be run
     const nonce = getNonce();
-
-    const cspSource = webview.cspSource;
 
     return /* html */ `
 			<!DOCTYPE html>
@@ -157,4 +146,16 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 			</body>
 			</html>`;
   }
+}
+
+// Create a unique nonce for this session so we can whitelist which scripts can
+// be run
+function getNonce() {
+  let text = "";
+  const possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < 32; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 }
