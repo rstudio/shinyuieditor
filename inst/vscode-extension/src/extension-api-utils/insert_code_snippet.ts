@@ -3,7 +3,7 @@ import type { SnippetInsertRequest } from "communication-types/src/MessageToBack
 import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
 
-import type { Server_Info } from "./App_Parser";
+import type { Server_Info } from "../App_Parser";
 
 export async function insert_code_snippet({
   language,

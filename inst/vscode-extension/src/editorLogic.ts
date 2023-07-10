@@ -6,15 +6,15 @@ import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
 import { startPreviewApp } from "./app-preview/startPreviewApp";
-import { clearAppFile } from "./clearAppFile";
+import { clearAppFile } from "./extension-api-utils/clearAppFile";
+import { insert_code_snippet } from "./extension-api-utils/insert_code_snippet";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
-import { insert_code_snippet } from "./insert_code_snippet";
+import { update_app_file } from "./extension-api-utils/update_app_file";
 import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
 import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
 import { select_app_lines } from "./selectServerReferences";
 import type { Parsed_App_Info } from "./ui_tree_has_changed";
 import { ui_tree_has_changed } from "./ui_tree_has_changed";
-import { update_app_file } from "./update_app_file";
 
 const { showErrorMessage } = vscode.window;
 
