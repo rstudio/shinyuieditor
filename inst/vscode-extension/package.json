@@ -142,9 +142,10 @@
     "vite-tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
+    "just-compare": "^2.3.0",
     "just-debounce-it": "^3.1.1",
-    "r-bindings": "*",
     "python-bindings": "*",
+    "r-bindings": "*",
     "treesitter-parsers": "*",
     "util-functions": "*",
     "winreg": "^1.2.4"

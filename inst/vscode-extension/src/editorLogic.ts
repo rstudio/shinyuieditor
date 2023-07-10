@@ -12,6 +12,8 @@ import { insert_code_snippet } from "./insert_code_snippet";
 import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
 import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
 import { select_app_lines } from "./selectServerReferences";
+import type { Parsed_App_Info } from "./ui_tree_has_changed";
+import { ui_tree_has_changed } from "./ui_tree_has_changed";
 import { update_app_file } from "./update_app_file";
 
 const { showErrorMessage } = vscode.window;
@@ -49,6 +51,7 @@ export async function editorLogic({
    * Plain text editor with apps code side-by-side with custom editor
    */
   let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
+  let previous_parsed_info: Parsed_App_Info | undefined;
 
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
@@ -118,7 +121,21 @@ export async function editorLogic({
       }
 
       latestAppWrite = appFileText;
+      // If the app info hasn't changed since the last time we parsed it, skip
+      // the rest of the logic
+      const have_new_app_info = ui_tree_has_changed(
+        previous_parsed_info,
+        app_info_fetch
+      );
 
+      previous_parsed_info = app_info_fetch;
+
+      if (!have_new_app_info) {
+        console.log("No syntactical change, ending-early");
+        return;
+      } else {
+        console.log("Updating");
+      }
       sendMessage({
         path: "APP-INFO",
         payload: app_info.ui,
