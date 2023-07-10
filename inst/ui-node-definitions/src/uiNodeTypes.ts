@@ -26,6 +26,7 @@ import { input_radio_buttons } from "./Shiny/input_radio_buttons";
 import { input_select } from "./Shiny/input_select";
 import { input_slider } from "./Shiny/input_slider";
 import { input_text } from "./Shiny/input_text";
+import { layout_sidebar } from "./Shiny/layout_sidebar";
 import { output_plot } from "./Shiny/output_plot";
 import { output_text } from "./Shiny/output_text";
 import { output_ui } from "./Shiny/output_ui";
@@ -43,6 +44,7 @@ export const all_node_info = [
   page_navbar,
   tab_panel,
   tabset_panel,
+  layout_sidebar,
   sidebar,
   grid_container,
   grid_card,
