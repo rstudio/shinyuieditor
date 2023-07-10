@@ -2,7 +2,7 @@
 import type { BackendConnection } from "communication-types";
 import type { Language_Mode } from "communication-types/src/AppInfo";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
-import { basicNavbarPage as devModeTree } from "ui-node-definitions/src/sample_ui_trees/basicNavbarPage";
+import { pythonSidebarAndTabs as devModeTree } from "ui-node-definitions/src/sample_ui_trees/pythonSidebarAndTabs";
 import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { Minimal_App_Info } from "./backendCommunication/getClientsideOnlyTree";

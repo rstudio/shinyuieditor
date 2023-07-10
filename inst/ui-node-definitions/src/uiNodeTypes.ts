@@ -30,6 +30,7 @@ import { layout_sidebar } from "./Shiny/layout_sidebar";
 import { output_plot } from "./Shiny/output_plot";
 import { output_text } from "./Shiny/output_text";
 import { output_ui } from "./Shiny/output_ui";
+import { panel_main } from "./Shiny/panel_main";
 import { tab_panel } from "./Shiny/tab_panel";
 import { tabset_panel } from "./Shiny/tabset_panel";
 
@@ -45,6 +46,7 @@ export const all_node_info = [
   tab_panel,
   tabset_panel,
   layout_sidebar,
+  panel_main,
   sidebar,
   grid_container,
   grid_card,

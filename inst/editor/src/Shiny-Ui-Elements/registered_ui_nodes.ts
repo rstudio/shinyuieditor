@@ -19,6 +19,10 @@ import { plotlyPlotlyOutputInfo } from "./PlotlyPlotlyOutput";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
+import {
+  shinyLayoutSidebarInfo,
+  shinyPanelMainInfo,
+} from "./ShinyLayoutSidebar/LayoutSidebar";
 import { shinyNavbarPageInfo } from "./ShinyNavbarPage";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
@@ -51,6 +55,8 @@ export const registered_ui_nodes = [
   shinyTextOutputInfo,
   shinyUiOutputInfo,
   shinyNavbarPageInfo,
+  shinyLayoutSidebarInfo,
+  shinyPanelMainInfo,
   shinyTabPanelInfo,
   shinyTabsetPanelInfo,
   gridlayoutGridPageInfo,
