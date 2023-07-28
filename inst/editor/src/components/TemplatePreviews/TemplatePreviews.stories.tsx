@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { app_templates } from "../../assets/app-templates/app_templates";
 import ReduxProvider from "../../state/ReduxProvider";
 
@@ -10,6 +11,7 @@ export default {
   title: "AppTemplatePreview",
   component: AppTemplatePreview,
 };
+
 export const SoloPreview = () => {
   return (
     <ReduxProvider>

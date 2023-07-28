@@ -89,10 +89,10 @@ export function useTooltip({
 
 type ContextType = ReturnType<typeof useTooltip> | null;
 
-const TooltipContext = React.createContext<ContextType>(null);
+const tooltipContext = React.createContext<ContextType>(null);
 
 export const useTooltipContext = () => {
-  const context = React.useContext(TooltipContext);
+  const context = React.useContext(tooltipContext);
 
   if (context == null) {
     throw new Error("Tooltip components must be wrapped in <Tooltip />");
@@ -109,9 +109,9 @@ export function Tooltip({
   // or other positioning options.
   const tooltip = useTooltip(options);
   return (
-    <TooltipContext.Provider value={tooltip}>
+    <tooltipContext.Provider value={tooltip}>
       {children}
-    </TooltipContext.Provider>
+    </tooltipContext.Provider>
   );
 }
 

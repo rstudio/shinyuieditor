@@ -4,6 +4,7 @@ import { emptyCell } from "ui-node-definitions/src/gridlayout/gridTemplates/item
 import type { GridContainerNode } from "ui-node-definitions/src/gridlayout/isValidGridItem";
 import { isValidGridContainer } from "ui-node-definitions/src/gridlayout/isValidGridItem";
 import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
 import {
   getChildIndex,
@@ -11,7 +12,6 @@ import {
 } from "ui-node-definitions/src/TreeManipulation/getParentPath";
 import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { gridLayoutReducer } from "./GridContainerElement/gridLayoutReducer";
 

@@ -7,14 +7,14 @@ import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilde
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
-import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
+import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
 import styles from "./ValueBox.module.css";
 
-const ValueBox: UiComponent_from_info<typeof value_box> = ({
+const ValueBox: UiComponentFromInfo<typeof value_box> = ({
   namedArgs,
   children,
   path,

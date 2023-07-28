@@ -68,6 +68,7 @@ export function useSyncUiWithBackend() {
               dispatch(SET_APP_INFO(info));
             })
             .catch((e) => {
+              // eslint-disable-next-line no-console
               console.error("Failed to parse app script", e);
             });
         } else {
@@ -76,6 +77,7 @@ export function useSyncUiWithBackend() {
               dispatch(SET_APP_INFO(info));
             })
             .catch((e) => {
+              // eslint-disable-next-line no-console
               console.error("Failed to parse multi-file app scripts", e);
             });
         }

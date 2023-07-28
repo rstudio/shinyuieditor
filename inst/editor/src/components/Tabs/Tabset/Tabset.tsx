@@ -176,10 +176,6 @@ function selectActiveTab(children: React.ReactNode, activeTab: number) {
   });
 }
 
-const ButtonStyle: React.CSSProperties = {
-  display: "block",
-};
-
 function PlusButton({
   label,
   onClick,
@@ -198,7 +194,11 @@ function PlusButton({
       popoverContent={label}
       onClick={onClick}
     >
-      <FaPlus style={ButtonStyle} />
+      <FaPlus
+        style={{
+          display: "block",
+        }}
+      />
     </PopoverButton>
   );
 }

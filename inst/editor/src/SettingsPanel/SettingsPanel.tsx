@@ -13,8 +13,8 @@ import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilde
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
 import {
-  generate_gh_issue_url,
-  generate_serialized_state_for_error,
+  generateGhIssueURL,
+  generateSerializedStateForError,
 } from "../utils/generate_issue_reports";
 
 import { GoToSourceBtns } from "./GoToSourceBtns";
@@ -101,9 +101,9 @@ const SettingsPanelErrorFallback = (fallbackProps: FallbackProps) => {
     <GeneralErrorView
       header="Error rendering settings panel"
       generateIssueLink={(state_at_error) =>
-        generate_gh_issue_url({
+        generateGhIssueURL({
           title: "Error rendering settings panel",
-          body: `Error rendering settings panel:\n${generate_serialized_state_for_error(
+          body: `Error rendering settings panel:\n${generateSerializedStateForError(
             state_at_error
           )}`,
           labels: ["Settings-Panel"],

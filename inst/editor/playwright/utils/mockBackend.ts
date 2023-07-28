@@ -1,10 +1,10 @@
 import type { Page } from "@playwright/test";
 
-import type { Minimal_App_Info } from "../../src/backendCommunication/getClientsideOnlyTree";
+import type { MinimalAppInfo } from "../../src/backendCommunication/getClientsideOnlyTree";
 
 export async function mockBackendState(
   page: Page,
-  info: Minimal_App_Info | Omit<Minimal_App_Info, "ui_tree">
+  info: MinimalAppInfo | Omit<MinimalAppInfo, "ui_tree">
 ) {
   // If we only have the language passed then we are in the template chooser mode
   if (!("ui_tree" in info)) {

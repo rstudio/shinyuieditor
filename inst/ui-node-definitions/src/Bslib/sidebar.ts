@@ -51,7 +51,7 @@ export const sidebar = nodeInfoFactory<{
       optional: true,
     },
   },
-  category: "layouts",
+  category: "Layout",
   description: "Collapsible sidebar",
   allowedParents: ["navbarPage"],
 });

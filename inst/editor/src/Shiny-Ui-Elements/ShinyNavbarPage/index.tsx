@@ -9,7 +9,6 @@ import {
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
-import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
 import { useLanguageMode } from "../../state/languageMode";
 import { SidebarDropWatcherPanel } from "../Bslib/SidebarDropWatcherPanel";
 import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";

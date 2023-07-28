@@ -9,8 +9,8 @@ import { EditorContainer } from "./EditorContainer/EditorContainer";
 import ReduxProvider from "./state/ReduxProvider";
 import styles from "./SUE.module.css";
 import {
-  generate_gh_issue_url,
-  generate_serialized_state_for_error,
+  generateGhIssueURL,
+  generateSerializedStateForError,
 } from "./utils/generate_issue_reports";
 import { mergeClasses } from "./utils/mergeClasses";
 
@@ -58,9 +58,9 @@ const WholeAppErrorFallback = (fallbackProps: FallbackProps) => {
         <GeneralErrorView
           header="ShinyUiEditor encountered an error"
           generateIssueLink={(state_at_error) =>
-            generate_gh_issue_url({
+            generateGhIssueURL({
               title: "Error in ShinyUiEditor at root",
-              body: `Error at root of editor:\n${generate_serialized_state_for_error(
+              body: `Error at root of editor:\n${generateSerializedStateForError(
                 state_at_error
               )}`,
             })

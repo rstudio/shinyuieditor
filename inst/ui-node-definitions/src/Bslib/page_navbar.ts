@@ -60,7 +60,7 @@ export const page_navbar = nodeInfoFactory<{
     theme: { inputType: "omitted", optional: true },
   },
   // iconSrc: icon,
-  category: "layouts",
+  category: "Layout",
   description: "Layout an app with tab-based navigation",
 });
 

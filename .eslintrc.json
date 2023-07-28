@@ -7,6 +7,16 @@
       "rules": {
         "no-console": "warn",
         "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/naming-convention": [
+          "error",
+
+          {
+            "selector": "typeLike",
+            "format": ["PascalCase"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow"
+          }
+        ],
         "import/order": [
           "error",
           {

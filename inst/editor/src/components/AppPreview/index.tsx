@@ -8,7 +8,6 @@ import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../../state/languageMode";
 import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
-import { PopoverButton } from "../Inputs/PopoverButton";
 import { TooltipButton } from "../PopoverEl/Tooltip";
 
 import classes from "./AppPreview.module.css";
@@ -28,6 +27,7 @@ export default function AppPreview() {
     setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [shinyLiveMode, setShinyLiveMode] = React.useState(false);
 
   const language = useLanguageMode();

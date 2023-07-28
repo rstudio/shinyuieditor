@@ -1,7 +1,7 @@
 import type { NodePath } from "ui-node-definitions/src/NodePath";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
-import { generate_ui_node_github_error_link } from "../../utils/generate_issue_reports";
+import { generateUiNodeGithubErrorLink } from "../../utils/generate_issue_reports";
 import { GeneralErrorView } from "../ErrorCatcher/GeneralErrorView";
 
 export function UiNodeErrorView({
@@ -21,7 +21,7 @@ export function UiNodeErrorView({
       error={error}
       resetErrorBoundary={resetErrorBoundary}
       generateIssueLink={(state_at_error) =>
-        generate_ui_node_github_error_link({
+        generateUiNodeGithubErrorLink({
           node,
           path,
           app_state: state_at_error,

@@ -4,7 +4,6 @@ import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 
 import UiNode from "../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 

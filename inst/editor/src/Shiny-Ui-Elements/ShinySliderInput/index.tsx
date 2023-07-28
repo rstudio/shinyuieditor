@@ -5,13 +5,13 @@ import { input_slider } from "ui-node-definitions/src/Shiny/input_slider";
 import sliderIcon from "../../assets/icons/shinySlider.png";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import { mergeClasses } from "../../utils/mergeClasses";
-import type { UiComponent_from_info } from "../utils/add_editor_info_to_ui_node";
+import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 import { InputOutputTitle } from "../utils/InputOutputTitle";
 
 import classes from "./styles.module.css";
 
-const ShinySliderInput: UiComponent_from_info<typeof input_slider> = ({
+const ShinySliderInput: UiComponentFromInfo<typeof input_slider> = ({
   namedArgs,
   wrapperProps,
 }) => {

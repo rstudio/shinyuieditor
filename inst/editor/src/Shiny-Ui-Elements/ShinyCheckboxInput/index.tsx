@@ -3,12 +3,12 @@ import React from "react";
 import { input_checkbox } from "ui-node-definitions/src/Shiny/input_checkbox";
 
 import icon from "../../assets/icons/shinycheckbox.png";
-import type { UiComponent_from_info } from "../utils/add_editor_info_to_ui_node";
+import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 
-const ShinyCheckboxInput: UiComponent_from_info<typeof input_checkbox> = ({
+const ShinyCheckboxInput: UiComponentFromInfo<typeof input_checkbox> = ({
   namedArgs,
   wrapperProps,
 }) => {

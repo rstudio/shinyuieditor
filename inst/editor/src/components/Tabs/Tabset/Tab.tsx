@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { isKnownShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
 import { samePath } from "ui-node-definitions/src/TreeManipulation/samePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";
@@ -38,7 +38,8 @@ function useGetNode(path: NodePath) {
 
   return node;
 }
-export const Tab = ({ name, isActive, index, parentPath }: TabProps) => {
+
+export function Tab({ name, isActive, index, parentPath }: TabProps) {
   const pathToTabPanel = makeChildPath(parentPath, index);
 
   const selectedPath = useCurrentSelection();
@@ -63,4 +64,4 @@ export const Tab = ({ name, isActive, index, parentPath }: TabProps) => {
       {name}
     </div>
   );
-};
+}

@@ -22,7 +22,7 @@ type StateUpdateSubscribers = {
  * @param type Key of subscription type
  * @returns Function to lazy get a list of subscriptions.
  */
-function create_subscriber_getter<T extends keyof StateUpdateSubscribers>(
+function createSubscriberGetter<T extends keyof StateUpdateSubscribers>(
   type: T
 ): () => Set<StateUpdateSubscribers[T]> {
   let subscriptions: Set<StateUpdateSubscribers[T]> | null = null;
@@ -46,7 +46,6 @@ function create_subscriber_getter<T extends keyof StateUpdateSubscribers>(
 }
 
 // Gather subscriptions into a non-duplicated set
-export const get_deletion_subscriptions =
-  create_subscriber_getter("DELETE_NODE");
+export const get_deletion_subscriptions = createSubscriberGetter("DELETE_NODE");
 
-export const get_update_subscriptions = create_subscriber_getter("UPDATE_NODE");
+export const get_update_subscriptions = createSubscriberGetter("UPDATE_NODE");

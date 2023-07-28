@@ -1,7 +1,7 @@
 import type { BackendConnection, MessageDispatcher } from "communication-types";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 
-import type { Minimal_App_Info } from "./getClientsideOnlyTree";
+import type { MinimalAppInfo } from "./getClientsideOnlyTree";
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
 export function setupStaticBackend({
@@ -11,7 +11,7 @@ export function setupStaticBackend({
 }: {
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
-  defaultInfo: Minimal_App_Info;
+  defaultInfo: MinimalAppInfo;
 }) {
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
@@ -61,7 +61,7 @@ export function setupStaticBackend({
   return messagePassingMethods;
 }
 
-export function staticDispatchFromTree(defaultInfo?: Minimal_App_Info) {
+export function staticDispatchFromTree(defaultInfo?: MinimalAppInfo) {
   return setupStaticBackend({
     messageDispatch: makeMessageDispatcher(),
     showMessages: true,

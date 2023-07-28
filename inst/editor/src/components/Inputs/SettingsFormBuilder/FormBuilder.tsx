@@ -4,9 +4,8 @@ import type { namedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
-
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
-import type { All_Input_Types } from "./inputFieldTypes";
+import type { AllInputTypes } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -61,10 +60,7 @@ const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 /**
  * Input types that should not be rendered in the form
  */
-const non_rendered_input_types = new Set<All_Input_Types>([
-  "omitted",
-  "ui-node",
-]);
+const non_rendered_input_types = new Set<AllInputTypes>(["omitted", "ui-node"]);
 
 function knownArgumentInputs({
   settings,

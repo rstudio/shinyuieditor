@@ -61,7 +61,7 @@ export type InputTypeNames = InputOptions["inputType"];
 export type KnownInputFieldTypes = InputOptions["value"];
 
 /** Fields that are appended to every argument option regardless of type.  */
-type Common_Static_Fields = {
+type CommonStaticFields = {
   /** What should the label be above the input for this field? */
   label?: string;
 
@@ -89,7 +89,7 @@ export type StaticInputOptionsByInputType = Expand<{
     /** Should the default value be given to a new instance of a settings object
      * if that field is optional?  */
     useDefaultIfOptional?: true;
-  } & Common_Static_Fields;
+  } & CommonStaticFields;
 }>;
 
 type AddOptionalCase<Obj extends { defaultValue: unknown }> =
@@ -107,7 +107,7 @@ export type StaticInputOptions = AddOptionalCase<
 /**
  * Every input type including ommitted and ui nodes
  */
-export type All_Input_Types = StaticInputOptions["inputType"];
+export type AllInputTypes = StaticInputOptions["inputType"];
 
 type KeysOfKnownArgs<Args extends Record<string, unknown>> = {
   [Key in keyof Args]-?: Required<Args>[Key] extends KnownInputFieldTypes
@@ -143,7 +143,7 @@ export type MakeOmittedOption<Options extends Record<string, unknown>> =
       ? { optional: true; defaultValue?: Options["value"] }
       : { defaultValue: Options["value"] }));
 
-type CommonStaticFieldNames = keyof Common_Static_Fields;
+type CommonStaticFieldNames = keyof CommonStaticFields;
 /**
  * Object is filled with either values or callbacks to get those values from a
  * ui node

@@ -110,10 +110,10 @@ export function getDefaultSettings<DynArgs extends DynamicArgumentInfo>(
   }
 
   return static_args as {
-    [Key in __KeysInDefaultArgs<DynArgs>]: __ArgFromInfo<DynArgs[Key]>;
+    [Key in _KeysInDefaultArgs<DynArgs>]: _ArgFromInfo<DynArgs[Key]>;
   };
 }
-type __KeysInDefaultArgs<Info extends DynamicArgumentInfo> = {
+type _KeysInDefaultArgs<Info extends DynamicArgumentInfo> = {
   [ArgName in keyof Info]: Info[ArgName] extends { optional: true }
     ? Info[ArgName] extends { useDefaultIfOptional: true }
       ? ArgName
@@ -122,7 +122,7 @@ type __KeysInDefaultArgs<Info extends DynamicArgumentInfo> = {
 }[keyof Info];
 
 // Helper types
-type __DynamicInputOptions = Expand<
+type _DynamicInputOptions = Expand<
   {
     [StaticOptions in StaticInputOptions as StaticOptions["inputType"]]: MakeOmittedOption<
       MakeDynamicArguments<StaticOptions>
@@ -130,10 +130,10 @@ type __DynamicInputOptions = Expand<
   }[InputOptions["inputType"]]
 >;
 
-type __ArgFromInfo<Info extends __DynamicInputOptions> = __GetArgType<
+type _ArgFromInfo<Info extends _DynamicInputOptions> = _GetArgType<
   Info["defaultValue"]
 >;
 
-type __GetArgType<TArg> = TArg extends (...args: any[]) => infer TRet
+type _GetArgType<TArg> = TArg extends (...args: any[]) => infer TRet
   ? TRet
   : TArg;

@@ -20,8 +20,10 @@ export type UiNodeProps = {
 /**
  * Recursively render the nodes in a UI Tree
  */
-const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
+
+function UiNode({ path, node, canDrag = true }: UiNodeProps) {
   // Bit ugly here.
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const Comp = getUiNodeComponent(node.id) as UiNodeComponent<
     typeof node.namedArgs,
     { TakesChildren: true }
@@ -45,6 +47,6 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
       />
     </ErrorBoundary>
   );
-};
+}
 
 export default UiNode;

@@ -3,11 +3,11 @@ import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { BslibCardContainer } from "../../Bslib/BslibCardContainer";
 import { render_card_elements } from "../../Bslib/Utils/render_card_elements";
-import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
+import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
-const GridlayoutGridCard: UiComponent_from_info<typeof grid_card> = (node) => {
+const GridlayoutGridCard: UiComponentFromInfo<typeof grid_card> = (node) => {
   const {
     namedArgs: { area, ...card_args },
     children = [],

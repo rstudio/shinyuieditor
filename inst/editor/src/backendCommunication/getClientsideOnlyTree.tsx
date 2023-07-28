@@ -1,7 +1,7 @@
 import type { Language_Mode } from "communication-types/src/AppInfo";
 import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
-export type Minimal_App_Info = {
+export type MinimalAppInfo = {
   ui_tree: ShinyUiRootNode;
   language: Language_Mode;
 };
@@ -10,8 +10,8 @@ export type Minimal_App_Info = {
  * (typically mocked) `/testing-tree` api endpoint
  * @returns Promise containing a ui tree to use as initial state for app
  */
-export async function getClientsideOnlyTree(defaultInfo: Minimal_App_Info) {
-  return new Promise<Minimal_App_Info>((resolve, reject) => {
+export async function getClientsideOnlyTree(defaultInfo: MinimalAppInfo) {
+  return new Promise<MinimalAppInfo>((resolve, reject) => {
     // If we're in testing mode we first attempt to get the tree from a testing
     // url if that fails due to the test not mocking the tree then just give the
     // default testing tree

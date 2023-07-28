@@ -6,11 +6,11 @@ import type { DraggedNodeInfo } from "../DragAndDropHelpers/DragAndDropHelpers";
 
 import type { RootState } from "./store";
 
-type Current_Dragged_Node_Info = DraggedNodeInfo | null;
+type CurrentDraggedNodeInfo = DraggedNodeInfo | null;
 
 export const currentlyDraggedNodeSlice = createSlice({
   name: "currentlyDraggedNode",
-  initialState: null as Current_Dragged_Node_Info,
+  initialState: null as CurrentDraggedNodeInfo,
   reducers: {
     SET_DRAGGED: (
       currentDragInfo,

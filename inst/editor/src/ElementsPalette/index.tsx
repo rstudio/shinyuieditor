@@ -14,7 +14,7 @@ const categoryOrder = Object.keys({
   Utilities: 1,
   Inputs: 1,
   Outputs: 1,
-  layouts: 1,
+  Layout: 1,
   gridlayout: 1,
   Tabs: 1,
   Containers: 1,
@@ -23,16 +23,16 @@ const categoryOrder = Object.keys({
   Uncategorized: 1,
 } satisfies Record<Exclude<ShinyUiNodeInfo["category"], "TESTING">, 1>);
 
-type Node_Info = (typeof registered_ui_nodes)[number];
+type NodeInfo = (typeof registered_ui_nodes)[number];
 
-function sortByCategory(info_a: Node_Info, info_b: Node_Info): number {
+function sortByCategory(info_a: NodeInfo, info_b: NodeInfo): number {
   const cat_a = categoryOrder.indexOf(info_a.category);
   const cat_b = categoryOrder.indexOf(info_b.category);
 
   return cat_a < cat_b ? -1 : cat_a > cat_b ? 1 : 0;
 }
 
-function filterToLanguage(info: Node_Info, language: Language_Mode): boolean {
+function filterToLanguage(info: NodeInfo, language: Language_Mode): boolean {
   switch (language) {
     case "R":
       return info.r_info !== undefined;

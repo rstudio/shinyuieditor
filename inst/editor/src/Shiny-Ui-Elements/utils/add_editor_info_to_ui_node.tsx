@@ -17,7 +17,7 @@ export function add_editor_info_to_ui_node<
      * not provided then the node will not show up in the element palette.
      */
     iconSrc?: string;
-    UiComponent: UiComponent_from_info<Info>;
+    UiComponent: UiComponentFromInfo<Info>;
     settingsFormRender?: CustomFormRenderFn<Required<Info["example_args"]>>;
     /**
      * Optional update subscribers
@@ -54,7 +54,7 @@ export function add_editor_info_by_id<Id extends keyof Node_Info_By_Id>(
      * not provided then the node will not show up in the element palette.
      */
     iconSrc?: string;
-    UiComponent: UiComponent_from_info<Node_Info_By_Id[Id]>;
+    UiComponent: UiComponentFromInfo<Node_Info_By_Id[Id]>;
     settingsFormRender?: CustomFormRenderFn<
       Required<Node_Info_By_Id[Id]["example_args"]>
     >;
@@ -73,7 +73,7 @@ export function add_editor_info_by_id<Id extends keyof Node_Info_By_Id>(
   };
 }
 
-export type args_from_info<Info extends { example_args?: unknown }> =
+export type ArgsFromInfo<Info extends { example_args?: unknown }> =
   Info extends {
     example_args?: infer Args;
   }
@@ -96,7 +96,7 @@ export type UiNodeComponent<
     : {})
 ) => JSX.Element;
 
-export type UiComponent_from_info<
+export type UiComponentFromInfo<
   Info extends { example_args?: unknown; takesChildren: boolean }
 > = UiNodeComponent<
   Required<Info["example_args"]>,
