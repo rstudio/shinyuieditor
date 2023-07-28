@@ -1,11 +1,11 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
 import { get_node_position } from "treesitter-parsers";
 
 import { get_name_of_accessed_property } from "./get_name_of_accessed_property";
 
 export function get_output_positions_from_server(server_node: ParserNode) {
-  const output_positions = new Map<string, Script_Range[]>();
+  const output_positions = new Map<string, ScriptRange[]>();
 
   const assignments = server_node.descendantsOfType("left_assignment");
 
@@ -37,7 +37,7 @@ export function get_output_positions_from_server(server_node: ParserNode) {
 }
 
 export function get_input_positions_from_server(server_node: ParserNode) {
-  const input_positions = new Map<string, Script_Range[]>();
+  const input_positions = new Map<string, ScriptRange[]>();
 
   server_node.descendantsOfType("dollar").forEach((node) => {
     const input_name = get_name_of_accessed_property(node, "input");

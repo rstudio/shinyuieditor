@@ -1,6 +1,6 @@
 import type {
-  Language_Mode,
-  Script_Generation_Template,
+  LanguageMode,
+  ScriptGenerationTemplate,
 } from "communication-types/src/AppInfo";
 
 import type { ShinyUiNode } from "../ShinyUiNode";
@@ -19,8 +19,8 @@ export function generate_ui_script({
   code,
 }: {
   ui_tree: ShinyUiNode;
-  language: Language_Mode;
-} & Script_Generation_Template): string {
+  language: LanguageMode;
+} & ScriptGenerationTemplate): string {
   const ui_def = ui_node_to_code(ui_tree, language);
 
   // We need to check to make sure there aren't any libraries used in the ui

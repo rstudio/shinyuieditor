@@ -1,5 +1,5 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
-import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
+import type { LanguageMode } from "communication-types/src/AppInfo";
+import type { GeneratedUiDef } from "communication-types/src/MessageToBackend";
 import type { DynamicArgumentInfo } from "ui-node-definitions/src/buildStaticSettingsInfo";
 import { isShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import type { Lang_Info } from "ui-node-definitions/src/nodeInfoFactory";
@@ -23,9 +23,9 @@ import { print_R_argument_value } from "./ui_node_to_R_code";
 
 export function ui_node_to_code(
   node: ShinyUiNode,
-  language: Language_Mode,
+  language: LanguageMode,
   opts?: { remove_namespace?: boolean }
-): Generated_UI_Def {
+): GeneratedUiDef {
   const removed_namespaces: Set<string> = new Set<string>();
 
   const remove_namespaces = opts?.remove_namespace ?? true;

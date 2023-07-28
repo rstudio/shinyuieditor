@@ -1,4 +1,4 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 
 export type Primatives = string | number | boolean;
 
@@ -34,7 +34,7 @@ type Script_Position = [
  * @param pos Position of node in R_AST Script_Position arrray format
  * @returns Position in the script in Ui-Editor friendly format
  */
-export function pos_to_script_range(pos: Script_Position): Script_Range {
+export function pos_to_script_range(pos: Script_Position): ScriptRange {
   return {
     start: { row: pos[0] - 1, column: pos[1] - 1 },
     end: { row: pos[2], column: pos[3] - 1 },

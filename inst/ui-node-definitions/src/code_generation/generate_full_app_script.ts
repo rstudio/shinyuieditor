@@ -1,7 +1,4 @@
-import type {
-  App_Info,
-  App_Script_Info,
-} from "communication-types/src/AppInfo";
+import type { AppInfo, AppScriptInfo } from "communication-types/src/AppInfo";
 
 import { generate_ui_script } from "./generate_ui_script";
 
@@ -11,9 +8,9 @@ type Script_Generation_Options = {
 };
 
 export function generate_full_app_script(
-  info: App_Info,
+  info: AppInfo,
   { include_info, language }: Script_Generation_Options
-): App_Script_Info {
+): AppScriptInfo {
   const { app_type, ui_tree } = info;
   switch (app_type) {
     case "SINGLE-FILE": {

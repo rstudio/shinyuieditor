@@ -1,11 +1,6 @@
 import type { Raw_R_Info } from "r-bindings";
 
-import type {
-  App_Type,
-  App_Info,
-  Language_Mode,
-  App_Script_Info,
-} from "./AppInfo";
+import type { AppType, AppInfo, LanguageMode, AppScriptInfo } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -19,8 +14,8 @@ import type { MessageUnion } from "./MessageUnion";
  */
 export type MessageToClientByPath = {
   "RAW-R-INFO": Raw_R_Info;
-  "APP-SCRIPT-TEXT": { language: Language_Mode } & App_Script_Info;
-  "APP-INFO": App_Info;
+  "APP-SCRIPT-TEXT": { language: LanguageMode } & AppScriptInfo;
+  "APP-INFO": AppInfo;
   "BACKEND-ERROR": {
     context: string;
     msg: string;
@@ -28,7 +23,7 @@ export type MessageToClientByPath = {
   "APP-PREVIEW-STATUS": "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];
-  TEMPLATE_CHOOSER: App_Type | "USER-CHOICE";
+  TEMPLATE_CHOOSER: AppType | "USER-CHOICE";
 };
 
 /**

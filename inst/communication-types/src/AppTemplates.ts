@@ -1,21 +1,21 @@
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
-import type { App_Type } from "./AppInfo";
-import type { Generated_UI_Def } from "./MessageToBackend";
+import type { AppType } from "./AppInfo";
+import type { GeneratedUiDef } from "./MessageToBackend";
 
-export type Single_File_Template_Selection = {
-  outputType: Extract<App_Type, "SINGLE-FILE">;
+export type SingleFileTemplateSelection = {
+  outputType: Extract<AppType, "SINGLE-FILE">;
 } & Omit<TemplateInfo, "title" | "description"> &
-  Generated_UI_Def;
+  GeneratedUiDef;
 
-export type Multi_File_Template_Selection = {
-  outputType: Extract<App_Type, "MULTI-FILE">;
+export type MultiFileTemplateSelection = {
+  outputType: Extract<AppType, "MULTI-FILE">;
 } & Omit<TemplateInfo, "title" | "description"> &
-  Generated_UI_Def;
+  GeneratedUiDef;
 
 export type TemplateSelection =
-  | Single_File_Template_Selection
-  | Multi_File_Template_Selection;
+  | SingleFileTemplateSelection
+  | MultiFileTemplateSelection;
 
 /**
  * Defines basic information needed to build an app template for the template viewer

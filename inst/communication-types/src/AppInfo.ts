@@ -1,32 +1,32 @@
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
-type Single_File_App_Type = "SINGLE-FILE";
-type Multi_File_App_Type = "MULTI-FILE";
-export type App_Type = Single_File_App_Type | Multi_File_App_Type;
+type SingleFileAppType = "SINGLE-FILE";
+type MultiFileAppType = "MULTI-FILE";
+export type AppType = SingleFileAppType | MultiFileAppType;
 
 /**
  * What mode is the editor currently in. This will influence what code is
  * generated and elements are visible in the elements palette
  * */
-export type Language_Mode = "R" | "PYTHON";
+export type LanguageMode = "R" | "PYTHON";
 
 // TODO: Simplify this interface to reflect that we now have tree-sitter
 
 // Shared  by both single and multi-file apps.
-export type App_Info = {
+export type AppInfo = {
   ui_tree: ShinyUiNode;
-  scripts: App_Script_Info;
-  language: Language_Mode;
+  scripts: AppScriptInfo;
+  language: LanguageMode;
   known_outputs: string[];
 } & (
   | {
-      app_type: Single_File_App_Type;
-      app: Script_Generation_Template;
+      app_type: SingleFileAppType;
+      app: ScriptGenerationTemplate;
     }
   | {
-      app_type: Multi_File_App_Type;
-      ui: Script_Generation_Template;
-      server: Pick<Script_Generation_Template, "code">;
+      app_type: MultiFileAppType;
+      ui: ScriptGenerationTemplate;
+      server: Pick<ScriptGenerationTemplate, "code">;
     }
 );
 
@@ -34,7 +34,7 @@ export type App_Info = {
  * Contextual information neccesary to produce a full ui definition for an
  * application.
  */
-export type Script_Generation_Template = {
+export type ScriptGenerationTemplate = {
   /**
    * Code template for the app. If this is omitted very simple templates with
    * no server will be used instead
@@ -47,15 +47,15 @@ export type Script_Generation_Template = {
   packages: string[];
 };
 
-export type App_Script_Info =
+export type AppScriptInfo =
   | {
-      app_type: Single_File_App_Type;
+      app_type: SingleFileAppType;
       app: string;
-      info?: App_Info;
+      info?: AppInfo;
     }
   | {
-      app_type: Multi_File_App_Type;
+      app_type: MultiFileAppType;
       ui: string;
       server: string;
-      info?: App_Info;
+      info?: AppInfo;
     };

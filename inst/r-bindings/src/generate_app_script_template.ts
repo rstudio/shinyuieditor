@@ -1,10 +1,10 @@
-import type { Script_Generation_Template } from "communication-types/src/AppInfo";
+import type { ScriptGenerationTemplate } from "communication-types/src/AppInfo";
 import type { ParserNode } from "treesitter-parsers";
 import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 
 export function generate_app_script_template(
   ui_node: ParserNode
-): Script_Generation_Template {
+): ScriptGenerationTemplate {
   let packages: string[] = ["shiny"];
 
   const full_app_script = ui_node.tree.rootNode.text;
@@ -31,7 +31,7 @@ export function generate_app_script_template(
 export function generate_multifile_app_script_template(
   ui_node: ParserNode,
   server_node: ParserNode
-): Script_Generation_Template {
+): ScriptGenerationTemplate {
   let packages: string[] = ["shiny"];
 
   const full_app_script = ui_node.tree.rootNode.text;

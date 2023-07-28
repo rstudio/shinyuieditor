@@ -1,5 +1,5 @@
-import type { App_Info } from "communication-types/src/AppInfo";
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { AppInfo } from "communication-types/src/AppInfo";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 
 import type {
   Branch_Node,
@@ -110,7 +110,7 @@ function is_output_node(node: R_AST_Node): node is Output_Node {
   );
 }
 
-type Output_Server_Pos = Map<string, Script_Range[]>;
+type Output_Server_Pos = Map<string, ScriptRange[]>;
 
 export function get_output_positions(
   all_asignments: Variable_Assignment[]
@@ -132,12 +132,12 @@ export function get_output_positions(
       }
 
       return by_name;
-    }, new Map<string, Script_Range[]>());
+    }, new Map<string, ScriptRange[]>());
 }
 
 export function get_known_outputs(
   all_asignments: Variable_Assignment[]
-): App_Info["known_outputs"] {
+): AppInfo["known_outputs"] {
   const output_nodes = all_asignments.filter(({ is_output }) => is_output);
 
   const known_names = new Set<string>();
@@ -166,7 +166,7 @@ function is_ui_assignment_node(
 export function get_ui_assignment_node(all_asignments: Variable_Assignment[]): {
   ui_root_node: Branch_Node;
   ui_assignment_operator: Assignment_Operator;
-  ui_pos: Script_Range;
+  ui_pos: ScriptRange;
 } {
   const ui_assignment = all_asignments.find(
     ({ name, is_output }) => name === "ui" && !is_output

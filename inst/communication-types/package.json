@@ -9,6 +9,7 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "type-check": "tsc -p ./ --noEmit"
+    "type-check": "tsc -p ./ --noEmit",
+    "lint": "eslint src --fix"
   }
 }

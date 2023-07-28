@@ -1,6 +1,6 @@
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
-import type { App_Script_Info, App_Type } from "./AppInfo";
+import type { AppScriptInfo, AppType } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -9,7 +9,7 @@ import type { MessageUnion } from "./MessageUnion";
  */
 export type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
-  "UPDATED-APP": App_Script_Info;
+  "UPDATED-APP": AppScriptInfo;
   "ENTERED-TEMPLATE-SELECTOR": null;
   "APP-PREVIEW-REQUEST": null;
   "APP-PREVIEW-RESTART": null;
@@ -46,7 +46,7 @@ export type OutputSourceRequest = {
  * as a function call in the `code` field and the  and the packages that were
  * used in that code in the `packages` field.
  */
-export type Generated_UI_Def = {
+export type GeneratedUiDef = {
   /**
    * String with formatted R or Python code defining a shiny ui
    *
@@ -66,22 +66,22 @@ export type CompanionEditorPosition = "BESIDE";
 /**
  * Single location in a script
  */
-export type Script_Position = {
+export type ScriptPosition = {
   row: number;
   column: number;
 };
 /**
  * Range within a script. For something like a function definition etc..
  */
-export type Script_Range = {
-  start: Script_Position;
-  end: Script_Position;
+export type ScriptRange = {
+  start: ScriptPosition;
+  end: ScriptPosition;
 };
 
 export type ParsedAppInfo = {
   file_lines: string[];
   loaded_libraries: string[];
-  type: App_Type;
+  type: AppType;
   ui_bounds: { start: number; end: number };
   ui_tree: ShinyUiNode;
 };
