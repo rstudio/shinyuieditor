@@ -3,7 +3,7 @@ import type { ChildProcessWithoutNullStreams } from "child_process";
 import type { StartProcessOptions } from "../startProcess";
 import { startProcess } from "../startProcess";
 
-import { get_path_to_python } from "./get_path_to_python";
+import { getPathToPython } from "./get_path_to_python";
 
 export type RProcess = {
   proc: ChildProcessWithoutNullStreams;
@@ -15,7 +15,7 @@ export async function startPythonProcess(
   commands: string[],
   opts: StartProcessOptions = {}
 ): Promise<RProcess> {
-  const pathToPython = await get_path_to_python();
+  const pathToPython = await getPathToPython();
 
   return startProcess(pathToPython, commands, opts);
 }

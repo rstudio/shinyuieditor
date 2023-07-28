@@ -1,14 +1,14 @@
 import type { Language_Mode } from "communication-types/src/AppInfo";
 
-import { get_python_app_startup_info } from "./get_python_app_startup_info";
-import { get_r_app_startup_info } from "./get_r_app_startup_info";
+import { getPythonAppStartupInfo } from "./get_python_app_startup_info";
+import { getRAppStartupInfo } from "./get_r_app_startup_info";
 import { getRemoteSafeUrl } from "./getRemoteSafeUrl";
 
 /**
  * Information about where the preview app is located and where we want it to
  * listen to on the network
  */
-export type App_Loc_Info = {
+export type AppLocInfo = {
   /**
    * Path to the app directory
    */
@@ -26,7 +26,7 @@ export type App_Loc_Info = {
 /**
  * Information about how to start the preview app using the `startProcess()` function
  */
-export type App_Startup_Info = {
+export type AppStartupInfo = {
   /**
    * Path to the executable for the language.
    */
@@ -49,15 +49,15 @@ export type App_Startup_Info = {
  * @param app_loc_info Information about where the preview app is located and where we want it to
  * @returns Information about how to start the preview app using the `startProcess()` function
  */
-export async function get_app_startup_info(
+export async function getAppStartupInfo(
   language: Language_Mode,
-  app_loc_info: App_Loc_Info
+  app_loc_info: AppLocInfo
 ) {
   const [previewAppUri, startup_info] = await Promise.all([
     getRemoteSafeUrl(app_loc_info.port),
     language === "R"
-      ? get_r_app_startup_info(app_loc_info)
-      : get_python_app_startup_info(app_loc_info),
+      ? getRAppStartupInfo(app_loc_info)
+      : getPythonAppStartupInfo(app_loc_info),
   ]);
 
   return {

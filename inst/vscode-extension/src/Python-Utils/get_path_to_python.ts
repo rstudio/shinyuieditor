@@ -5,7 +5,7 @@ import * as vscode from "vscode";
  * @returns The path to the current Python interpreter
  * @throws If the Python extension is not installed
  */
-export async function get_path_to_python(): Promise<string> {
+export async function getPathToPython(): Promise<string> {
   // Get the Python extension api
   const pythonAPI = vscode.extensions.getExtension("ms-python.python");
 

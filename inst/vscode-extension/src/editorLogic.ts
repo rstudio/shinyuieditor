@@ -7,18 +7,18 @@ import * as vscode from "vscode";
 
 import { startPreviewApp } from "./app-preview/startPreviewApp";
 import { clearAppFile } from "./extension-api-utils/clearAppFile";
-import { insert_code_snippet } from "./extension-api-utils/insert_code_snippet";
+import { insertCodeSnippet } from "./extension-api-utils/insert_code_snippet";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
-import { update_app_file } from "./extension-api-utils/update_app_file";
-import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
-import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
-import { select_app_lines } from "./selectServerReferences";
-import type { Parsed_App_Info } from "./ui_tree_has_changed";
-import { ui_tree_has_changed } from "./ui_tree_has_changed";
+import { updateAppFile } from "./extension-api-utils/update_app_file";
+import { buildPythonAppParser } from "./Python-Utils/build_python_app_parser";
+import { buildRAppParser } from "./R-Utils/build_R_app_parser";
+import { selectAppLines } from "./selectServerReferences";
+import type { ParsedAppInfo } from "./ui_tree_has_changed";
+import { uiTreeHasChanged } from "./ui_tree_has_changed";
 
 const { showErrorMessage } = vscode.window;
 
-export type App_Location = {
+export type AppLocation = {
   start_row: number;
   end_row: number;
   start_col: number;
@@ -60,13 +60,13 @@ export async function editorLogic({
 
   // The last parsed app info. This is used to make sure we don't send the same
   // app info to the UI editor multiple times.
-  let previous_parsed_info: Parsed_App_Info | undefined;
+  let previous_parsed_info: ParsedAppInfo | undefined;
 
   // The app info parser. This is used to parse the app for things like the UI
   // tree and server info.
   const appInfoParser = await (language === "R"
-    ? build_R_app_parser(document)
-    : build_python_app_parser(document));
+    ? buildRAppParser(document)
+    : buildPythonAppParser(document));
 
   // On the first time connecting to the viewer, load our libraries and
   // let the user know if this failed and they need to fix it.
@@ -151,7 +151,7 @@ export async function editorLogic({
       latestAppWrite = appFileText;
       // If the app info hasn't changed since the last time we parsed it, skip
       // the rest of the logic
-      const have_new_app_info = ui_tree_has_changed(
+      const have_new_app_info = uiTreeHasChanged(
         previous_parsed_info,
         app_info_fetch
       );
@@ -159,16 +159,16 @@ export async function editorLogic({
       previous_parsed_info = app_info_fetch;
 
       if (!have_new_app_info) {
-        console.log("No syntactical change, ending-early");
+        // No syntactical change, ending-early
         return;
-      } else {
-        console.log("Updating");
       }
+
       sendMessage({
         path: "APP-INFO",
         payload: app_info.ui,
       });
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error("Failed to parse", e);
     }
   };
@@ -243,7 +243,7 @@ export async function editorLogic({
         case "UPDATED-APP": {
           if (msg.payload.app_type === "MULTI-FILE") return;
 
-          const app_file_was_updated = await update_app_file({
+          const app_file_was_updated = await updateAppFile({
             script_text: msg.payload.app,
             document,
           });
@@ -283,7 +283,7 @@ export async function editorLogic({
             info_fetch.values !== "EMPTY" &&
             info_fetch.values.server
           ) {
-            insert_code_snippet({
+            insertCodeSnippet({
               language,
               editor: await get_companion_editor(),
               server_info: info_fetch.values.server,
@@ -309,7 +309,7 @@ export async function editorLogic({
               ? server_info.get_input_positions(msg.payload.inputId)
               : server_info.get_output_position(msg.payload.outputId);
 
-          select_app_lines({
+          selectAppLines({
             editor: await get_companion_editor(),
             selections: server_locations,
           });
@@ -317,10 +317,12 @@ export async function editorLogic({
           return;
         }
         default:
+          // eslint-disable-next-line no-console
           console.warn("Unhandled message from client", msg);
       }
     } else {
-      console.log("Unknown message from webview", msg);
+      // eslint-disable-next-line no-console
+      console.warn("Unknown message from webview", msg);
     }
   };
 

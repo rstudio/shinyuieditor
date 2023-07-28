@@ -1,7 +1,7 @@
 import type { Script_Range } from "communication-types/src/MessageToBackend";
 import * as vscode from "vscode";
 
-export function select_app_lines({
+export function selectAppLines({
   editor,
   selections,
 }: {

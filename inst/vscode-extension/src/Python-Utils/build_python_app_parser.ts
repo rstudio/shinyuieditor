@@ -13,14 +13,14 @@ import {
 } from "treesitter-parsers";
 import type * as vscode from "vscode";
 
-import type { App_Parser, INFO_GET_RESULTS } from "../App_Parser";
-import { make_cached_info_getter } from "../make_cached_info_getter";
+import type { AppParser, InfoGetResults } from "../App_Parser";
+import { makeCachedInfoGetter } from "../make_cached_info_getter";
 import type { CommandOutputGeneric } from "../R-Utils/runRCommand";
 
 type Parser = Awaited<ReturnType<typeof setup_python_parser>>;
-export async function build_python_app_parser(
+export async function buildPythonAppParser(
   document: vscode.TextDocument
-): Promise<App_Parser> {
+): Promise<AppParser> {
   // Startup parser
 
   // Wrap initialization of parser into a try catch to catch and display potential errors
@@ -28,6 +28,7 @@ export async function build_python_app_parser(
   try {
     parser = await setup_python_parser();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error("Failed to initialise parser", e);
     throw e;
   }
@@ -38,7 +39,7 @@ export async function build_python_app_parser(
   };
 
   return {
-    getInfo: make_cached_info_getter(document, makePyAppInfoGetter(parser)),
+    getInfo: makeCachedInfoGetter(document, makePyAppInfoGetter(parser)),
     check_if_pkgs_installed,
   };
 }
@@ -46,7 +47,7 @@ export async function build_python_app_parser(
 function makePyAppInfoGetter(parser: Parser) {
   return async function (
     text: string
-  ): Promise<CommandOutputGeneric<INFO_GET_RESULTS>> {
+  ): Promise<CommandOutputGeneric<InfoGetResults>> {
     const parsed_app = parser.parse(text);
 
     const assignment_nodes = get_assignment_nodes(parsed_app);

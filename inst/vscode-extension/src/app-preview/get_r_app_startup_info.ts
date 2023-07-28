@@ -2,13 +2,13 @@ import { collapseText } from "util-functions/src/strings";
 
 import { getPathToR } from "../R-Utils/getPathToR";
 
-import type { App_Loc_Info, App_Startup_Info } from "./get_app_startup_info";
+import type { AppLocInfo, AppStartupInfo } from "./get_app_startup_info";
 
-export async function get_r_app_startup_info({
+export async function getRAppStartupInfo({
   pathToApp,
   port,
   host,
-}: App_Loc_Info): Promise<App_Startup_Info> {
+}: AppLocInfo): Promise<AppStartupInfo> {
   const listen_for_ready_regex = new RegExp(`listening on .+${port}`, "i");
   const pathToR = await getPathToR();
   return {

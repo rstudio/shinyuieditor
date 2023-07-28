@@ -1,8 +1,8 @@
 import compare from "just-compare";
 
-import type { App_Parser } from "./App_Parser";
+import type { AppParser } from "./App_Parser";
 
-export type Parsed_App_Info = Awaited<ReturnType<App_Parser["getInfo"]>>;
+export type ParsedAppInfo = Awaited<ReturnType<AppParser["getInfo"]>>;
 /**
  * Check if info pertaining the the apps UI has changed since the last time it
  * was parsed. This avoids re-writing changes etc if the user has just updated
@@ -13,9 +13,9 @@ export type Parsed_App_Info = Awaited<ReturnType<App_Parser["getInfo"]>>;
  * @returns Whether the app has changed since the last time it was parsed in a
  * way meaningful to the UI editor state.
  */
-export function ui_tree_has_changed(
-  prev_info: Parsed_App_Info | undefined,
-  updated_info: Parsed_App_Info
+export function uiTreeHasChanged(
+  prev_info: ParsedAppInfo | undefined,
+  updated_info: ParsedAppInfo
 ): boolean {
   if (prev_info === undefined) {
     return true;

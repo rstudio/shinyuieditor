@@ -5,7 +5,7 @@ import * as vscode from "vscode";
  * @param script_text_and_document
  * @returns Promise of boolean indicating if the document text was actually changed
  */
-export async function update_app_file({
+export async function updateAppFile({
   script_text,
   document,
 }: {

@@ -30,9 +30,11 @@ export async function startBackgroundRProcess(): Promise<ActiveRSession | null> 
     async runCmd(cmd: string, opts?: CommandExecOptions) {
       if (!rProc.getIsRunning()) {
         // If the process crashed for some reason we need to restart it
+        // eslint-disable-next-line no-console
         console.warn("Background R Process has crashed. Restarting...");
         rProc.stop();
         rProc = await startProc();
+        // eslint-disable-next-line no-console
         console.warn("Background R Process restarted");
       }
       return runRCommand(rProc.proc, cmd, opts);

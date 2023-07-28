@@ -3,9 +3,9 @@ import type { SnippetInsertRequest } from "communication-types/src/MessageToBack
 import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
 
-import type { Server_Info } from "../App_Parser";
+import type { ServerInfo } from "../App_Parser";
 
-export async function insert_code_snippet({
+export async function insertCodeSnippet({
   language,
   editor,
   snippet,
@@ -14,7 +14,7 @@ export async function insert_code_snippet({
 }: {
   language: Language_Mode;
   editor: vscode.TextEditor;
-  server_info: Server_Info;
+  server_info: ServerInfo;
 } & SnippetInsertRequest) {
   // This is an assumption that we should probably extract from the script
   // itself

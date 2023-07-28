@@ -3,7 +3,7 @@ import type { Language_Mode } from "communication-types/src/AppInfo";
 import type { LangProcess } from "../startProcess";
 import { startProcess } from "../startProcess";
 
-import { get_app_startup_info } from "./get_app_startup_info";
+import { getAppStartupInfo } from "./get_app_startup_info";
 import { getFreePort } from "./getFreePort";
 
 export function startPreviewApp({
@@ -39,7 +39,7 @@ export function startPreviewApp({
 
     try {
       const { path_to_executable, startup_cmds, get_is_ready, previewAppUri } =
-        await get_app_startup_info(language, {
+        await getAppStartupInfo(language, {
           host: "0.0.0.0",
           pathToApp,
           port: await getFreePort(),

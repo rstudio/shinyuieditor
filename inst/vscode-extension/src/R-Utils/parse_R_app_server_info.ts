@@ -7,12 +7,9 @@ import {
   get_output_positions,
 } from "r-bindings";
 
-import type { Server_Info } from "../App_Parser";
+import type { ServerInfo } from "../App_Parser";
 
-export function parse_R_app_server_info(
-  ast: R_AST,
-  app_text: string
-): Server_Info {
+export function parseRAppServerInfo(ast: R_AST, app_text: string): ServerInfo {
   const assignment_nodes = get_assignment_nodes(ast);
   const server_fn_range = pos_to_script_range(
     get_server_assignment_node(assignment_nodes).pos

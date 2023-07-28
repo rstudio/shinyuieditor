@@ -12,19 +12,20 @@ import {
 } from "treesitter-parsers";
 import type * as vscode from "vscode";
 
-import type { App_Parser, INFO_GET_RESULTS } from "../App_Parser";
-import { make_cached_info_getter } from "../make_cached_info_getter";
+import type { AppParser, InfoGetResults } from "../App_Parser";
+import { makeCachedInfoGetter } from "../make_cached_info_getter";
 
 import type { CommandOutputGeneric } from "./runRCommand";
 
-export async function build_R_app_parser(
+export async function buildRAppParser(
   document: vscode.TextDocument
-): Promise<App_Parser> {
+): Promise<AppParser> {
   let parser: TSParser;
 
   try {
     parser = await setup_r_parser();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error("Failed to initialise parser", e);
     throw e;
   }
@@ -36,7 +37,7 @@ export async function build_R_app_parser(
   };
 
   return {
-    getInfo: make_cached_info_getter(document, makRAppInfoGetter(parser)),
+    getInfo: makeCachedInfoGetter(document, makRAppInfoGetter(parser)),
     check_if_pkgs_installed,
   };
 }
@@ -44,7 +45,7 @@ export async function build_R_app_parser(
 function makRAppInfoGetter(parser: TSParser) {
   return async function (
     text: string
-  ): Promise<CommandOutputGeneric<INFO_GET_RESULTS>> {
+  ): Promise<CommandOutputGeneric<InfoGetResults>> {
     const parsed_app = parser.parse(text);
 
     const assignment_nodes = get_assignment_nodes(parsed_app);
@@ -84,7 +85,7 @@ function makRAppInfoGetter(parser: TSParser) {
             output_positions.get(name) ?? [],
           get_input_positions: (name: string) =>
             input_positions.get(name) ?? [],
-          server_pos: get_server_node_position(parsed_app),
+          server_pos: getServerNodePosition(parsed_app),
           app_type: "SINGLE-FILE",
         },
       },
@@ -97,7 +98,7 @@ function makRAppInfoGetter(parser: TSParser) {
  * @param parsed_app Parsed app tree object. As returned from `parse_python_script`
  * @returns Location of the server node in the script
  */
-export function get_server_node_position(parsed_app: ParserTree): {
+export function getServerNodePosition(parsed_app: ParserTree): {
   server_fn: Script_Range;
   indent: number;
 } {
@@ -113,7 +114,7 @@ export function get_server_node_position(parsed_app: ParserTree): {
   const indent = server_node.lastNamedChild?.startPosition.column ?? 2;
 
   return {
-    server_fn: get_node_position(server_node),
+    server_fn: getNodePosition(server_node),
     indent,
   };
 }
@@ -124,7 +125,7 @@ export function get_server_node_position(parsed_app: ParserTree): {
  * @param node Node from the tree sitter tree
  * @returns Position of that node in the script
  */
-export function get_node_position(node: ParserNode): Script_Range {
+export function getNodePosition(node: ParserNode): Script_Range {
   const { startPosition, endPosition } = node;
 
   return {
