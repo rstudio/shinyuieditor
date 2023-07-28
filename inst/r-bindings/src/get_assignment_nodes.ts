@@ -8,10 +8,10 @@ import type {
   R_AST_Node,
   Symbol_Node,
 } from ".";
-import { pos_to_script_range } from ".";
+import { posToScriptRange } from ".";
 
 import { is_ast_branch_node } from "./node_identity_checkers";
-import { Parsing_Error } from "./parsing_error_class";
+import { ParsingError } from "./parsing_error_class";
 
 export type Assignment_Operator = "<-" | "=";
 
@@ -122,7 +122,7 @@ export function get_output_positions(
       if (pos) {
         const existing = by_name.get(name);
 
-        const range = pos_to_script_range(pos);
+        const range = posToScriptRange(pos);
 
         if (existing) {
           existing.push(range);
@@ -173,7 +173,7 @@ export function get_ui_assignment_node(all_asignments: Variable_Assignment[]): {
   );
 
   if (!ui_assignment) {
-    throw new Parsing_Error({
+    throw new ParsingError({
       message: "No ui assignment node was found in provided ast",
     });
   }
@@ -181,14 +181,14 @@ export function get_ui_assignment_node(all_asignments: Variable_Assignment[]): {
   const { node: ui_node } = ui_assignment;
 
   if (!is_ui_assignment_node(ui_node)) {
-    throw new Parsing_Error({
+    throw new ParsingError({
       message: "No position info attached to the ui assignment node",
       cause: ui_node,
     });
   }
 
   return {
-    ui_pos: pos_to_script_range(ui_node.pos),
+    ui_pos: posToScriptRange(ui_node.pos),
     ui_root_node: ui_node.val[2],
     ui_assignment_operator: ui_node.val[0].val,
   };
@@ -205,7 +205,7 @@ export function get_server_assignment_node(
   );
 
   if (!server_assignment) {
-    throw new Parsing_Error({
+    throw new ParsingError({
       message: "No server assignment node was found in provided ast",
     });
   }
@@ -213,7 +213,7 @@ export function get_server_assignment_node(
   const { node: server } = server_assignment;
 
   if (!server.pos) {
-    throw new Parsing_Error({
+    throw new ParsingError({
       message: "No position info attached to the ui assignment node",
       cause: server,
     });

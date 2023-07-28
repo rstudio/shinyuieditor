@@ -1,7 +1,7 @@
 import { setup_r_parser } from "treesitter-parsers";
 
 import { parse_r_script } from "./parse_r_script";
-import { r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";
+import { rTreesitterToUiTree } from "./r_treesitter_to_ui_tree";
 
 describe("Can go from treesitter to UI tree", async () => {
   const my_parser = await setup_r_parser();
@@ -15,7 +15,7 @@ describe("Can go from treesitter to UI tree", async () => {
       )`
     ).rootNode;
 
-    const parsed_node = r_treesitter_to_ui_tree(parse_test.firstNamedChild!);
+    const parsed_node = rTreesitterToUiTree(parse_test.firstNamedChild!);
 
     expect(parsed_node.id).toEqual("value_box");
 
@@ -40,7 +40,7 @@ describe("Can go from treesitter to UI tree", async () => {
       )`
     ).rootNode;
 
-    const parsed_node = r_treesitter_to_ui_tree(parse_test.firstNamedChild!);
+    const parsed_node = rTreesitterToUiTree(parse_test.firstNamedChild!);
 
     expect(parsed_node.id).toEqual("card_body");
   });

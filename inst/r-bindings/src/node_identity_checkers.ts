@@ -1,7 +1,7 @@
 import { is_object } from "util-functions/src/is_object";
 
 import type {
-  AST_Name_To_Key,
+  AstNameToKey,
   AST_Node_By_Name,
   Branch_Node,
   Function_Node,
@@ -9,15 +9,15 @@ import type {
 } from ".";
 import { ast_name_to_key } from ".";
 
-import { Parsing_Error } from "./parsing_error_class";
+import { ParsingError } from "./parsing_error_class";
 
 export function assert_is_ast_node(x: unknown): asserts x is R_AST_Node {
   if (!is_object(x) || !("type" in x) || !("val" in x)) {
-    throw new Parsing_Error({ message: "Invalid AST node passed", cause: x });
+    throw new ParsingError({ message: "Invalid AST node passed", cause: x });
   }
 }
 
-export function IsNodeOfType<TypeName extends keyof AST_Name_To_Key>(
+export function IsNodeOfType<TypeName extends keyof AstNameToKey>(
   node: R_AST_Node,
   type: TypeName
 ): node is AST_Node_By_Name[TypeName] {

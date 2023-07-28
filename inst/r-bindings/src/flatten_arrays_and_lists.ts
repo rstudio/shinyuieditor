@@ -4,7 +4,7 @@ import type { Primatives, Leaf_Node, R_AST, R_AST_Node } from ".";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import { is_ast_branch_node } from "./node_identity_checkers";
-import { Parsing_Error } from "./parsing_error_class";
+import { ParsingError } from "./parsing_error_class";
 
 type Primative_Map = Record<string, Primatives>;
 
@@ -37,7 +37,7 @@ export function flatten_to_array(
   try {
     return flatten_array_internal(node);
   } catch (e) {
-    if (!(e instanceof Parsing_Error)) {
+    if (!(e instanceof ParsingError)) {
       throw e;
     }
     // If there's problems parsing the list then we just return it as an unknown
@@ -49,7 +49,7 @@ export function flatten_to_array(
 // Internal array flattening that we can use recursively.
 function flatten_array_internal(node: R_AST_Node): Primative_Array {
   if (!is_ast_branch_node(node)) {
-    throw new Parsing_Error({
+    throw new ParsingError({
       message: "Tried to flatten a leaf/primative node",
     });
   }
@@ -57,7 +57,7 @@ function flatten_array_internal(node: R_AST_Node): Primative_Array {
   const [call, ...vals] = node.val;
 
   if (call.val !== "c") {
-    throw new Parsing_Error({
+    throw new ParsingError({
       message: "Tried to flatten non array as array",
     });
   }
@@ -70,7 +70,7 @@ export function flatten_to_list(
   node: R_AST_Node
 ): Primative_Map | UnknownUiNode {
   if (!is_ast_branch_node(node)) {
-    throw new Parsing_Error({
+    throw new ParsingError({
       message: "Tried to flatten a leaf/primative node",
     });
   }
@@ -79,7 +79,7 @@ export function flatten_to_list(
     const [call, ...vals] = node.val;
 
     if (call.val !== "list") {
-      throw new Parsing_Error({
+      throw new ParsingError({
         message: "Tried to flatten non array as array",
         cause: node,
       });
@@ -89,13 +89,13 @@ export function flatten_to_list(
 
     vals.forEach(({ name, val }) => {
       if (typeof name !== "string") {
-        throw new Parsing_Error({
+        throw new ParsingError({
           message: "All elements in list must have a name",
           cause: node,
         });
       }
       if (!is_primative(val)) {
-        throw new Parsing_Error({
+        throw new ParsingError({
           message: "Nested lists are not supported",
           cause: node,
         });
@@ -104,7 +104,7 @@ export function flatten_to_list(
     });
     return res;
   } catch (e) {
-    if (!(e instanceof Parsing_Error)) {
+    if (!(e instanceof ParsingError)) {
       throw e;
     }
     // If there's problems parsing the list then we just return it as an unknown

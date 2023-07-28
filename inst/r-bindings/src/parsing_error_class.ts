@@ -1,4 +1,4 @@
-export class Parsing_Error extends Error {
+export class ParsingError extends Error {
   name: "AST_PARSING_ERROR";
   message: string;
   cause: any;

@@ -1,4 +1,5 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
 import { get_node_position } from "treesitter-parsers";
 import {
@@ -16,7 +17,7 @@ import {
   find_server_def_in_r_app,
   find_ui_def_in_r_app,
 } from "./parse_multifile_r_apps";
-import { r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";
+import { rTreesitterToUiTree } from "./r_treesitter_to_ui_tree";
 
 const my_parser = await setup_r_parser();
 const server_script = `

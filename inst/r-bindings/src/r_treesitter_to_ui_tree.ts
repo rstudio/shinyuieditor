@@ -17,7 +17,7 @@ import { extract_number_content, is_number_node } from "./NodeTypes/NumberNode";
 import { extract_string_content, is_string_node } from "./NodeTypes/StringNode";
 import { is_text_node, parse_text_node } from "./NodeTypes/TextNode";
 
-export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
+export function rTreesitterToUiTree(node: ParserNode): ShinyUiNode {
   if (is_text_node(node)) {
     return parse_text_node(node);
   }
@@ -66,9 +66,7 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
 
     // If we're dealing with a ui-node argument, then run the full parser on it
     if (info.get_arg_info(sue_arg_name)?.inputType === "ui-node") {
-      parsed_node.namedArgs[sue_arg_name] = r_treesitter_to_ui_tree(
-        kwarg.value
-      );
+      parsed_node.namedArgs[sue_arg_name] = rTreesitterToUiTree(kwarg.value);
       return;
     }
 
@@ -93,7 +91,7 @@ export function r_treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
         return;
       }
 
-      children_nodes.push(r_treesitter_to_ui_tree(node));
+      children_nodes.push(rTreesitterToUiTree(node));
     });
 
   // throw new Error(
@@ -131,5 +129,5 @@ function parse_arg_node(node: ParserNode) {
     return extract_array_contents(node);
   }
 
-  return r_treesitter_to_ui_tree(node);
+  return rTreesitterToUiTree(node);
 }

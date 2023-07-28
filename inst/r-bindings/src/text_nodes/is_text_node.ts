@@ -61,46 +61,46 @@ export type TextNodeSettings = {
   size?: TextSizeMappings["name"];
 };
 
-export type Text_Node_Size_Tag = TextSizeMappingsNoDefault["tag"];
+export type TextNodeSizeTag = TextSizeMappingsNoDefault["tag"];
 
-type Sized_Text_Node = Expression_Node<
-  [{ val: Text_Node_Size_Tag; type: "s" }, AST_Node_By_Name["character"]]
+type SizedTextNode = Expression_Node<
+  [{ val: TextNodeSizeTag; type: "s" }, AST_Node_By_Name["character"]]
 >;
 
-type Decorated_Text_Node = Expression_Node<
+type DecoratedTextNode = Expression_Node<
   [{ val: TextDecorationTags; type: "s" }, AST_Node_By_Name["character"]]
 >;
 
-type Sized_And_Decorated_Text_Node = Expression_Node<
-  [{ val: Text_Node_Size_Tag; type: "s" }, Decorated_Text_Node]
+type SizedAndDecoratedTextNode = Expression_Node<
+  [{ val: TextNodeSizeTag; type: "s" }, DecoratedTextNode]
 >;
 
-export type Text_Node = Expand<
+export type TextNode = Expand<
   | AST_Node_By_Name["character"]
-  | Sized_Text_Node
-  | Decorated_Text_Node
-  | Sized_And_Decorated_Text_Node
+  | SizedTextNode
+  | DecoratedTextNode
+  | SizedAndDecoratedTextNode
 >;
 
-export function is_text_node(node: R_AST_Node): node is Text_Node {
+export function isTextNode(node: R_AST_Node): node is TextNode {
   if (IsNodeOfType(node, "character")) return true;
 
-  if (is_text_decoration_tag_node(node)) return true;
+  if (isTextDecorationTagNode(node)) return true;
 
-  if (is_text_size_tag_node(node)) return true;
+  if (isTextSizeTagNode(node)) return true;
 
   return false;
 }
-export function parse_text_decoration_tag_node(node: Decorated_Text_Node) {
+export function parseTextDecorationTagNode(node: DecoratedTextNode) {
   return {
     contents: node.val[1].val,
     decoration: decoration_wrapper_to_value[node.val[0].val],
   };
 }
 
-export function is_text_decoration_tag_node(
+export function isTextDecorationTagNode(
   node: R_AST_Node
-): node is Decorated_Text_Node {
+): node is DecoratedTextNode {
   if (!IsNodeOfType(node, "expression")) return false;
 
   const tag_node = node.val[0];
@@ -118,16 +118,16 @@ export function is_text_decoration_tag_node(
   return IsNodeOfType(content_node, "character");
 }
 
-export function is_text_size_tag_node(
+export function isTextSizeTagNode(
   node: R_AST_Node
-): node is Sized_Text_Node | Sized_And_Decorated_Text_Node {
+): node is SizedTextNode | SizedAndDecoratedTextNode {
   if (!IsNodeOfType(node, "expression")) return false;
 
   const tag_node = node.val[0];
 
   const tag_node_is_size_tag =
     IsNodeOfType(tag_node, "symbol") &&
-    (tag_node.val as Text_Node_Size_Tag) in size_tag_to_name;
+    (tag_node.val as TextNodeSizeTag) in size_tag_to_name;
 
   if (!tag_node_is_size_tag) return false;
 
@@ -135,6 +135,6 @@ export function is_text_size_tag_node(
 
   return (
     IsNodeOfType(content_node, "character") ||
-    is_text_decoration_tag_node(content_node)
+    isTextDecorationTagNode(content_node)
   );
 }

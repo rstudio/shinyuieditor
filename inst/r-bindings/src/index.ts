@@ -2,7 +2,7 @@ import type { ScriptRange } from "communication-types/src/MessageToBackend";
 
 export type Primatives = string | number | boolean;
 
-type Node_Vals_By_Key = {
+type NodeValsByKey = {
   s: string; // Symbol
   c: string; // Characters/ strings
   b: boolean;
@@ -21,7 +21,7 @@ export const ast_name_to_key = {
   expression: "e",
 } as const;
 
-type Script_Position = [
+type ScriptPosition = [
   start_row: number,
   start_col: number,
   end_row: number,
@@ -34,45 +34,45 @@ type Script_Position = [
  * @param pos Position of node in R_AST Script_Position arrray format
  * @returns Position in the script in Ui-Editor friendly format
  */
-export function pos_to_script_range(pos: Script_Position): ScriptRange {
+export function posToScriptRange(pos: ScriptPosition): ScriptRange {
   return {
     start: { row: pos[0] - 1, column: pos[1] - 1 },
     end: { row: pos[2], column: pos[3] - 1 },
   };
 }
 
-export type AST_Name_To_Key = typeof ast_name_to_key;
+export type AstNameToKey = typeof ast_name_to_key;
 
-export type AST_Node_By_Key = {
-  [key in keyof Node_Vals_By_Key]: {
-    val: Node_Vals_By_Key[key];
+export type AstNodeByKey = {
+  [key in keyof NodeValsByKey]: {
+    val: NodeValsByKey[key];
     type: key;
     name?: string;
-    pos?: Script_Position;
+    pos?: ScriptPosition;
   };
 };
 
 export type AST_Node_By_Name = {
-  [Name in keyof AST_Name_To_Key]: AST_Node_By_Key[AST_Name_To_Key[Name]];
+  [Name in keyof AstNameToKey]: AstNodeByKey[AstNameToKey[Name]];
 };
 
 export type Expression_Node<T extends R_AST> = {
   val: T;
   type: "e";
-  pos?: Script_Position;
+  pos?: ScriptPosition;
 };
 export type Symbol_Node<Sym extends string> = {
   val: Sym;
   type: "s";
-  pos?: Script_Position;
+  pos?: ScriptPosition;
 };
-export type Branch_Node = AST_Node_By_Key["e"];
+export type Branch_Node = AstNodeByKey["e"];
 export type Function_Node = Expression_Node<
   [AST_Node_By_Name["symbol"], ...R_AST_Node[]]
 >;
-export type Leaf_Node = AST_Node_By_Key["c" | "b" | "n"];
-export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
-export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];
+export type Leaf_Node = AstNodeByKey["c" | "b" | "n"];
+export type Unparsable_Node = AstNodeByKey["s" | "m" | "u"];
+export type R_AST_Node = AstNodeByKey[keyof NodeValsByKey];
 
 export type R_AST = Array<R_AST_Node>;
 
@@ -102,14 +102,14 @@ export { text_node_to_code } from "./text_nodes/text_node_to_code";
 export { get_ast_is_array_or_list } from "./flatten_arrays_and_lists";
 export { make_character_node, name_node } from "./node_builders";
 export { is_function_call } from "./Function_Call_Node";
-export { Parsing_Error } from "./parsing_error_class";
+export { ParsingError as Parsing_Error } from "./parsing_error_class";
 export {
   get_assignment_nodes,
   get_output_positions,
   get_server_assignment_node,
 } from "./get_assignment_nodes";
 export { generate_r_output_binding } from "./generate_output_binding";
-export { r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";
+export { rTreesitterToUiTree as r_treesitter_to_ui_tree } from "./r_treesitter_to_ui_tree";
 export { parse_r_script } from "./parse_r_script";
 export { generate_app_script_template } from "./generate_app_script_template";
 export { find_ui_def_in_r_app as get_ui_node_from_r_multifile_app } from "./parse_multifile_r_apps";

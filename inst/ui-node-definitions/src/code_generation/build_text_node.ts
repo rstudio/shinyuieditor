@@ -8,10 +8,10 @@ import {
   parse_text_decoration_tag_node,
 } from "../internal/is_text_node";
 
-export function build_text_node(text: string): TextUiNode;
-export function build_text_node(node: Text_Node): TextUiNode;
+export function buildTextNode(text: string): TextUiNode;
+export function buildTextNode(node: Text_Node): TextUiNode;
 
-export function build_text_node(node: Text_Node | string): TextUiNode {
+export function buildTextNode(node: Text_Node | string): TextUiNode {
   const text_node: TextUiNode = {
     id: "textNode",
     namedArgs: {
