@@ -1,16 +1,16 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
 import { get_node_position } from "treesitter-parsers";
 
-import type { Server_Position_Map } from "./get_known_inputs";
+import type { ServerPositionMap } from "./get_known_inputs";
 
 /**
  * Grab all known outputs in the PyShiny app
  * @param app_tree A tree-sitter tree of the whole app script
  * @returns Mapping of the output's `id` its position in app script
  */
-export function get_known_outputs(app_tree: ParserTree): Server_Position_Map {
-  const outputs = new Map<string, Script_Range[]>();
+export function getKnownOutputs(app_tree: ParserTree): ServerPositionMap {
+  const outputs = new Map<string, ScriptRange[]>();
 
   // Get all the nodes that represent decorated functions in the script
   const decorated_fns = app_tree.rootNode.descendantsOfType(

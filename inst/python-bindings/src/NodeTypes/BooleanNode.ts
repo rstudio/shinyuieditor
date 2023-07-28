@@ -3,9 +3,7 @@ import type Parser from "web-tree-sitter";
 
 type TSBooleanNode = Brand<Parser.SyntaxNode, "BooleanNode">;
 
-export function is_boolean_node(
-  node: Parser.SyntaxNode
-): node is TSBooleanNode {
+export function isBooleanNode(node: Parser.SyntaxNode): node is TSBooleanNode {
   return node.type === "false" || node.type === "true";
 }
 
@@ -14,7 +12,7 @@ export function is_boolean_node(
  * @param node String node to extract the content from
  * @returns The text of the string node with the quotes removed
  */
-export function extract_boolean_content(node: TSBooleanNode): boolean {
+export function extractBooleanContent(node: TSBooleanNode): boolean {
   let value: boolean;
 
   // Better safe than sorry here. We want to make sure we're not accidentally

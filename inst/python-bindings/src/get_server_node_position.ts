@@ -1,19 +1,19 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
 import { get_node_position } from "treesitter-parsers";
 
-import { get_server_node } from "./get_server_node";
+import { getServerNode } from "./get_server_node";
 
 /**
  * Get position of the server node in the script in Ui-Editor friendly format
  * @param parsed_app Parsed app tree object. As returned from `parse_python_script`
  * @returns Location of the server node in the script
  */
-export function get_server_node_position(parsed_app: ParserTree): {
-  server_fn: Script_Range;
+export function getServerNodePosition(parsed_app: ParserTree): {
+  server_fn: ScriptRange;
   indent: number;
 } {
-  const server_node = get_server_node(parsed_app);
+  const server_node = getServerNode(parsed_app);
 
   if (!server_node) {
     throw new Error("No server node found");

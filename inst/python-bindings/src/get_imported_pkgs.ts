@@ -6,7 +6,7 @@ import type { ParserTree } from "treesitter-parsers";
  * @returns An array of package names of packages that were imported with a star
  * import (aka they can be used without a prefix).
  */
-export function get_imported_pkgs(app_tree: ParserTree): string[] {
+export function getImportedPkgs(app_tree: ParserTree): string[] {
   const import_nodes = app_tree.rootNode.descendantsOfType(
     "import_from_statement"
   );

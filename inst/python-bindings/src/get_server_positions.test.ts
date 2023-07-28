@@ -1,9 +1,9 @@
 import { setup_python_parser } from "treesitter-parsers";
 
-import { parse_python_script } from ".";
+import { parsePythonScript } from ".";
 
-import { get_known_inputs } from "./get_known_inputs";
-import { get_known_outputs } from "./get_known_outputs";
+import { getKnownInputs } from "./get_known_inputs";
+import { getKnownOutputs } from "./get_known_outputs";
 
 const app_script = `
 import matplotlib.pyplot as plt
@@ -30,23 +30,17 @@ def server(input, output, session):
 app = App(app_ui, server)  
 `;
 test("Can find outputs in server code", async () => {
-  const parsed_app = parse_python_script(
-    await setup_python_parser(),
-    app_script
-  );
+  const parsed_app = parsePythonScript(await setup_python_parser(), app_script);
 
-  const outputs = get_known_outputs(parsed_app);
+  const outputs = getKnownOutputs(parsed_app);
 
   expect(outputs.has("histogram")).toBe(true);
   expect(outputs.has("second_plot")).toBe(true);
 });
 test("Can find inputs in server code", async () => {
-  const parsed_app = parse_python_script(
-    await setup_python_parser(),
-    app_script
-  );
+  const parsed_app = parsePythonScript(await setup_python_parser(), app_script);
 
-  const inputs = get_known_inputs(parsed_app);
+  const inputs = getKnownInputs(parsed_app);
 
   expect(inputs.size).toBe(2);
 

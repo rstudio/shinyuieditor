@@ -3,7 +3,7 @@ import type Parser from "web-tree-sitter";
 
 type TSStringNode = Brand<Parser.SyntaxNode, "TextNode">;
 
-export function is_string_node(node: Parser.SyntaxNode): node is TSStringNode {
+export function isStringNode(node: Parser.SyntaxNode): node is TSStringNode {
   return node.type === "string";
 }
 /**
@@ -11,6 +11,6 @@ export function is_string_node(node: Parser.SyntaxNode): node is TSStringNode {
  * @param node String node to extract the content from
  * @returns The text of the string node with the quotes removed
  */
-export function extract_string_content(node: TSStringNode): string {
+export function extractStringContent(node: TSStringNode): string {
   return node.text.slice(1, -1);
 }

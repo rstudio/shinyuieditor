@@ -20,7 +20,8 @@
   "scripts": {
     "type-check": "tsc -p ./ --noEmit",
     "test": "vitest run --no-threads",
-    "test-watch": "vitest --no-threads"
+    "test-watch": "vitest --no-threads",
+    "lint": "eslint src --fix"
   },
   "dependencies": {
     "ui-node-definitions": "*",

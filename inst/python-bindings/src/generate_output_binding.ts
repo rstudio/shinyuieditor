@@ -1,7 +1,7 @@
 import type { OutputBindingScaffold } from "ui-node-definitions/src/nodeInfoFactory";
 import { collapseText, indent_text_block } from "util-functions/src/strings";
 
-export function generate_python_output_binding(
+export function generatePythonOutputBinding(
   id: string,
   { fn_name, fn_body }: OutputBindingScaffold
 ): string {

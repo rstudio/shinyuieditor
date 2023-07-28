@@ -3,7 +3,7 @@ import type Parser from "web-tree-sitter";
 
 type TSNumberNode = Brand<Parser.SyntaxNode, "NumberNode">;
 
-export function is_number_node(node: Parser.SyntaxNode): node is TSNumberNode {
+export function isNumberNode(node: Parser.SyntaxNode): node is TSNumberNode {
   return node.type === "integer" || node.type === "float";
 }
 
@@ -12,7 +12,7 @@ export function is_number_node(node: Parser.SyntaxNode): node is TSNumberNode {
  * @param node String node to extract the content from
  * @returns The text of the string node with the quotes removed
  */
-export function extract_number_content(node: TSNumberNode): number {
+export function extractNumberContent(node: TSNumberNode): number {
   // Parse text as number or error if parsing fails
   const number = Number(node.text);
   if (isNaN(number)) {

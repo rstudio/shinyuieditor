@@ -1,4 +1,4 @@
-import type { Script_Generation_Template } from "communication-types/src/AppInfo";
+import type { ScriptGenerationTemplate } from "communication-types/src/AppInfo";
 import { SCRIPT_LOC_KEYS } from "ui-node-definitions/src/code_generation/generate_ui_script";
 import type Parser from "web-tree-sitter";
 
@@ -10,9 +10,9 @@ import type Parser from "web-tree-sitter";
  * app scripts from new ui on the client by just regexing away the markers for
  * packages and ui
  */
-export function generate_app_script_template(
+export function generateAppScriptTemplate(
   ui_node: Parser.SyntaxNode
-): Script_Generation_Template {
+): ScriptGenerationTemplate {
   let packages: string[] = ["shiny"];
 
   const full_app_script = ui_node.tree.rootNode.text;
@@ -33,5 +33,5 @@ export function generate_app_script_template(
   }
 
   // We need to add a newline in here because the parser seems to remove it
-  return { code:  templated_app_script, packages };
+  return { code: templated_app_script, packages };
 }

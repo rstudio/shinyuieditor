@@ -1,7 +1,7 @@
 import { get_assignment_nodes, setup_python_parser } from "treesitter-parsers";
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import { parse_python_script, treesitter_to_ui_tree } from ".";
+import { parsePythonScript, treesitter_to_ui_tree } from ".";
 
 export const basicNavbarPage = {
   id: "navbarPage",
@@ -64,7 +64,7 @@ my_slider = ui.input_slider(
 `;
 
     const assigned_nodes = get_assignment_nodes(
-      parse_python_script(parser, sliderInputDef)
+      parsePythonScript(parser, sliderInputDef)
     );
 
     const slider_node = assigned_nodes.get("my_slider");
@@ -94,7 +94,7 @@ my_slider = ui.input_slider(
     )
     `;
     const assigned_nodes = get_assignment_nodes(
-      parse_python_script(parser, navDef)
+      parsePythonScript(parser, navDef)
     );
 
     const nav_node = assigned_nodes.get("my_nav");
@@ -122,7 +122,7 @@ my_slider = ui.input_slider(
   test("Handle when a leaf node has all its argument passed positionally", () => {
     const nodeCode = `my_node =  ui.input_slider("n", "N", 0, 100, 20)`;
     const assigned_nodes = get_assignment_nodes(
-      parse_python_script(parser, nodeCode)
+      parsePythonScript(parser, nodeCode)
     );
 
     const converted_node = treesitter_to_ui_tree(

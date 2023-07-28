@@ -3,9 +3,7 @@ import type Parser from "web-tree-sitter";
 
 type TSKwargNode = Brand<Parser.SyntaxNode, "KwargNode">;
 
-export function is_keyword_arg_node(
-  node: Parser.SyntaxNode
-): node is TSKwargNode {
+export function isKeywordArgNode(node: Parser.SyntaxNode): node is TSKwargNode {
   return (
     node.type === "keyword_argument" &&
     Boolean(node.children[0]) &&
@@ -21,7 +19,7 @@ export function is_keyword_arg_node(
  * the name of the keyword argument as a string and the value as its own syntax
  * node
  */
-export function parse_keyword_arg_node(node: TSKwargNode): {
+export function parseKeywordArgNode(node: TSKwargNode): {
   name: string;
   value: Parser.SyntaxNode;
 } {

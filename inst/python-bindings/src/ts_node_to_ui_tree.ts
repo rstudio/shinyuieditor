@@ -4,18 +4,15 @@ import { make_unknown_ui_function } from "ui-node-definitions/src/make_unknown_u
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { pyFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
+import { extractBooleanContent, isBooleanNode } from "./NodeTypes/BooleanNode";
 import {
-  extract_boolean_content,
-  is_boolean_node,
-} from "./NodeTypes/BooleanNode";
-import {
-  is_keyword_arg_node,
-  parse_keyword_arg_node,
+  isKeywordArgNode,
+  parseKeywordArgNode,
 } from "./NodeTypes/KeywordArgNode";
-import { extract_number_content, is_number_node } from "./NodeTypes/NumberNode";
-import { extract_string_content, is_string_node } from "./NodeTypes/StringNode";
+import { extractNumberContent, isNumberNode } from "./NodeTypes/NumberNode";
+import { extractStringContent, isStringNode } from "./NodeTypes/StringNode";
 
-export function treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
+export function treesitterToUiTree(node: ParserNode): ShinyUiNode {
   if (!is_call_node(node)) {
     return make_unknown_ui_function(node.text);
   }
@@ -47,12 +44,12 @@ export function treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
     if (i < num_of_positional_args) {
       // This is a positional argument so we need to gather it into the named
       // args
-      parsed_node.namedArgs[positional_args[i]] = parse_arg_node(arg);
+      parsed_node.namedArgs[positional_args[i]] = parseArgNode(arg);
       continue;
     }
 
-    if (is_keyword_arg_node(arg)) {
-      const kwarg = parse_keyword_arg_node(arg);
+    if (isKeywordArgNode(arg)) {
+      const kwarg = parseKeywordArgNode(arg);
 
       let sue_arg_name = known_info.py_arg_name_to_sue_arg_name.get(kwarg.name);
 
@@ -71,7 +68,7 @@ export function treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
         }
       }
 
-      parsed_node.namedArgs[sue_arg_name ?? kwarg.name] = parse_arg_node(
+      parsed_node.namedArgs[sue_arg_name ?? kwarg.name] = parseArgNode(
         kwarg.value
       );
       continue;
@@ -80,7 +77,7 @@ export function treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
     if (known_info.takesChildren) {
       // Must be a child node, so add it to the children array. This may be an
       // issue with simple nodes like strings that can be children
-      children_nodes.push(treesitter_to_ui_tree(arg));
+      children_nodes.push(treesitterToUiTree(arg));
       continue;
     }
 
@@ -89,7 +86,7 @@ export function treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
     const arg_name = named_arg_names[i];
     if (arg_name) {
       // TODO: Check to make sure the type matches what we are supposed to get
-      parsed_node.namedArgs[arg_name] = parse_arg_node(arg);
+      parsed_node.namedArgs[arg_name] = parseArgNode(arg);
       continue;
     }
 
@@ -117,18 +114,18 @@ export function treesitter_to_ui_tree(node: ParserNode): ShinyUiNode {
   return parsed_node;
 }
 
-function parse_arg_node(node: ParserNode) {
-  if (is_string_node(node)) {
-    return extract_string_content(node);
+function parseArgNode(node: ParserNode) {
+  if (isStringNode(node)) {
+    return extractStringContent(node);
   }
 
-  if (is_number_node(node)) {
-    return extract_number_content(node);
+  if (isNumberNode(node)) {
+    return extractNumberContent(node);
   }
 
-  if (is_boolean_node(node)) {
-    return extract_boolean_content(node);
+  if (isBooleanNode(node)) {
+    return extractBooleanContent(node);
   }
 
-  return treesitter_to_ui_tree(node);
+  return treesitterToUiTree(node);
 }

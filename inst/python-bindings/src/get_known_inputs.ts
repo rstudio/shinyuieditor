@@ -1,16 +1,16 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
 import { get_node_position } from "treesitter-parsers";
 
-export type Server_Position_Map = Map<string, Script_Range[]>;
+export type ServerPositionMap = Map<string, ScriptRange[]>;
 
 /**
  * Get a mapping of all known inputs in the app script to output positions
  * @param app_tree Parsed app script as returned by `parse_python_script()`
  * @returns A map of the input's `id` to the positions it appears in the app script
  */
-export function get_known_inputs(app_tree: ParserTree): Server_Position_Map {
-  const inputs = new Map<string, Script_Range[]>();
+export function getKnownInputs(app_tree: ParserTree): ServerPositionMap {
+  const inputs = new Map<string, ScriptRange[]>();
 
   app_tree.rootNode.descendantsOfType("attribute").forEach((node) => {
     const { firstNamedChild, lastNamedChild } = node;
