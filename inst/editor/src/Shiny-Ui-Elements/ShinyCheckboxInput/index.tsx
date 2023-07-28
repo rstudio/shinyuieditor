@@ -4,7 +4,7 @@ import { input_checkbox } from "ui-node-definitions/src/Shiny/input_checkbox";
 
 import icon from "../../assets/icons/shinycheckbox.png";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 
@@ -41,10 +41,7 @@ const ShinyCheckboxInput: UiComponentFromInfo<typeof input_checkbox> = ({
   );
 };
 
-export const shinyCheckboxInputInfo = add_editor_info_to_ui_node(
-  input_checkbox,
-  {
-    iconSrc: icon,
-    UiComponent: ShinyCheckboxInput,
-  }
-);
+export const shinyCheckboxInputInfo = addEditorInfoToUiNode(input_checkbox, {
+  iconSrc: icon,
+  UiComponent: ShinyCheckboxInput,
+});

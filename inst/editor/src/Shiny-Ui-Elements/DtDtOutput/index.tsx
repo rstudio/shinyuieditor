@@ -3,10 +3,10 @@ import { seqArray } from "util-functions/src/arrays";
 
 import "./styles.scss";
 import icon from "../../assets/icons/shinyTable.png";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 import { InputOutputTitle } from "../utils/InputOutputTitle";
 
-export const dtDTOutputInfo = add_editor_info_to_ui_node(output_dt, {
+export const dtDTOutputInfo = addEditorInfoToUiNode(output_dt, {
   iconSrc: icon,
   UiComponent: ({ namedArgs, path, wrapperProps }) => {
     return (

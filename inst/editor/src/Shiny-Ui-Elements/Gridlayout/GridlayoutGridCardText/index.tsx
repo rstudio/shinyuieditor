@@ -3,7 +3,7 @@ import { grid_card_text } from "ui-node-definitions/src/gridlayout/Grid_Card_Tex
 import textIcon from "../../../assets/icons/shinyText.png";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { BsCard } from "../Utils/BsCard";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
@@ -30,10 +30,7 @@ const GridlayoutGridCardText: UiComponentFromInfo<typeof grid_card_text> = ({
   );
 };
 
-export const gridlayoutTextPanelInfo = add_editor_info_to_ui_node(
-  grid_card_text,
-  {
-    iconSrc: textIcon,
-    UiComponent: GridlayoutGridCardText,
-  }
-);
+export const gridlayoutTextPanelInfo = addEditorInfoToUiNode(grid_card_text, {
+  iconSrc: textIcon,
+  UiComponent: GridlayoutGridCardText,
+});

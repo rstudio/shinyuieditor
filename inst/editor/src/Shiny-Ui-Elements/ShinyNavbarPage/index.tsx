@@ -11,11 +11,11 @@ import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
 import { useLanguageMode } from "../../state/languageMode";
 import { SidebarDropWatcherPanel } from "../Bslib/SidebarDropWatcherPanel";
-import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./ShinyNavbarPage.module.css";
 
-export const shinyNavbarPageInfo = add_editor_info_by_id("navbarPage", {
+export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {
   UiComponent: ({
     namedArgs: { title, sidebar },
     children,

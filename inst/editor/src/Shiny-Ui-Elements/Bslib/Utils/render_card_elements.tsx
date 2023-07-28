@@ -24,7 +24,7 @@ const footerScaffold = {
   namedArgs: {},
 } as const;
 
-export function render_card_elements(
+export function renderCardElements(
   children: ShinyUiParentNode["children"] = [],
   path: NodePath
 ): React.ReactNode {

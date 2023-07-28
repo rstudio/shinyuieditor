@@ -54,7 +54,7 @@ export function buildStaticFormInfo<DynArgs extends DynamicArgumentInfo>(
   const static_args: Record<string, unknown> = {};
 
   for (const arg_key in dynamic_args) {
-    static_args[arg_key] = convert_dynamic_info_to_static(
+    static_args[arg_key] = convertDynamicInfoToStatic(
       dynamic_args[arg_key],
       node
     );
@@ -63,10 +63,10 @@ export function buildStaticFormInfo<DynArgs extends DynamicArgumentInfo>(
   return static_args as ConvertToStatic<DynArgs>;
 }
 
-function convert_dynamic_info_to_static<
-  DynInfo extends AllDynamicOptions,
-  UiNode
->(dyn_info: DynInfo, node?: UiNode): MakeStaticArguments<DynInfo> {
+function convertDynamicInfoToStatic<DynInfo extends AllDynamicOptions, UiNode>(
+  dyn_info: DynInfo,
+  node?: UiNode
+): MakeStaticArguments<DynInfo> {
   const info_copy = { ...dyn_info };
 
   for (const key in info_copy) {

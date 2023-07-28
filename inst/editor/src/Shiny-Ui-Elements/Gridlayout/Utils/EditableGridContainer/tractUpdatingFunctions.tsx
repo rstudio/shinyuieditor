@@ -28,7 +28,7 @@ export const roundPixel = roundTo(PX_ROUND_PRECISION);
 const FR_ROUND_PRECISION = 0.01;
 export const roundFr = roundTo(FR_ROUND_PRECISION);
 
-export function drag_both_relative(
+export function dragBothRelative(
   delta: number,
   {
     pixelToFrRatio,
@@ -55,7 +55,7 @@ export function drag_both_relative(
   };
 }
 
-export function drag_both_pixel(
+export function dragBothPixel(
   delta: number,
   { beforeInfo, afterInfo }: Omit<DragBothPixel, "type">
 ): TractUpdateValues {
@@ -72,7 +72,7 @@ export function drag_both_pixel(
   };
 }
 
-export function drag_pixel_before(
+export function dragPixelBefore(
   delta: number,
   { beforeInfo }: Omit<DragPixelBefore, "type">
 ): TractUpdateValues {
@@ -84,7 +84,7 @@ export function drag_pixel_before(
   };
 }
 
-export function drag_pixel_after(
+export function dragPixelAfter(
   delta: number,
   { afterInfo }: Omit<DragPixelAfter, "type">
 ): TractUpdateValues {

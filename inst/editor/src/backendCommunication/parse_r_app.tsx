@@ -8,7 +8,7 @@ import { setup_r_parser } from "treesitter-parsers";
 
 const my_parser = setup_r_parser();
 
-export async function parse_single_file_r_app(app: string): Promise<App_Info> {
+export async function parseSingleFileRApp(app: string): Promise<App_Info> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { server_node, ui_node, input_positions, output_positions } =
     parse_r_app(await my_parser, app);
@@ -28,7 +28,7 @@ export async function parse_single_file_r_app(app: string): Promise<App_Info> {
   return app_info;
 }
 
-export async function parse_multi_file_r_app(
+export async function parseMultiFileRApp(
   ui: string,
   server: string
 ): Promise<App_Info> {

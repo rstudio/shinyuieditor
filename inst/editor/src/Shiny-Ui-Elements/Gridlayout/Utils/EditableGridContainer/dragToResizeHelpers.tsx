@@ -1,11 +1,11 @@
 import type { TractDirection } from "util-functions/src/matrix-helpers";
 
 import type { TractUpdateValues } from "./tractUpdatingFunctions";
-import { drag_pixel_after } from "./tractUpdatingFunctions";
+import { dragPixelAfter } from "./tractUpdatingFunctions";
 import {
-  drag_pixel_before,
-  drag_both_pixel,
-  drag_both_relative,
+  dragPixelBefore,
+  dragBothPixel,
+  dragBothRelative,
 } from "./tractUpdatingFunctions";
 import { getTractSizesInPx } from "./utils";
 
@@ -243,16 +243,16 @@ export function updateDragState({
   let updatedSizes: TractUpdateValues;
   switch (drag.type) {
     case "before-pixel":
-      updatedSizes = drag_pixel_before(delta, drag);
+      updatedSizes = dragPixelBefore(delta, drag);
       break;
     case "after-pixel":
-      updatedSizes = drag_pixel_after(delta, drag);
+      updatedSizes = dragPixelAfter(delta, drag);
       break;
     case "both-pixel":
-      updatedSizes = drag_both_pixel(delta, drag);
+      updatedSizes = dragBothPixel(delta, drag);
       break;
     case "both-relative":
-      updatedSizes = drag_both_relative(delta, drag);
+      updatedSizes = dragBothRelative(delta, drag);
       break;
   }
 

@@ -5,11 +5,11 @@ import { getParentPath } from "ui-node-definitions/src/TreeManipulation/getParen
 
 import { useSetCurrentSelection } from "../../state/selectedPath";
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
-import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./Sidebar.module.css";
 
-export const bslibSidebar = add_editor_info_by_id("sidebar", {
+export const bslibSidebar = addEditorInfoById("sidebar", {
   UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
     const setSelection = useSetCurrentSelection();
     return (

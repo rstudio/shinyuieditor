@@ -3,7 +3,7 @@ import { input_checkbox_group } from "ui-node-definitions/src/Shiny/input_checkb
 import icon from "../../assets/icons/shinyCheckgroup.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 
@@ -14,7 +14,7 @@ export type ShinyCheckboxGroupInputProps = {
   width?: CSSMeasure;
 };
 
-export const shinyCheckboxGroupInputInfo = add_editor_info_to_ui_node(
+export const shinyCheckboxGroupInputInfo = addEditorInfoToUiNode(
   input_checkbox_group,
   {
     iconSrc: icon,

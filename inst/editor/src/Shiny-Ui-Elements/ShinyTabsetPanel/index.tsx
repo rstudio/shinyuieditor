@@ -8,9 +8,9 @@ import icon from "../../assets/icons/tabsetPanel.png";
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
-import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
-export const shinyTabsetPanelInfo = add_editor_info_by_id("tabsetPanel", {
+export const shinyTabsetPanelInfo = addEditorInfoById("tabsetPanel", {
   UiComponent: ({ namedArgs, children, path, wrapperProps }) => {
     const numChildren = children?.length ?? 0;
 

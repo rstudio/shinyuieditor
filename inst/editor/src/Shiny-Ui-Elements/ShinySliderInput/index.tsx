@@ -6,7 +6,7 @@ import sliderIcon from "../../assets/icons/shinySlider.png";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 import { InputOutputTitle } from "../utils/InputOutputTitle";
 
 import classes from "./styles.module.css";
@@ -53,7 +53,7 @@ const ShinySliderInput: UiComponentFromInfo<typeof input_slider> = ({
   );
 };
 
-export const shinySliderInputInfo = add_editor_info_to_ui_node(input_slider, {
+export const shinySliderInputInfo = addEditorInfoToUiNode(input_slider, {
   settingsFormRender: ({ inputs }) => {
     return (
       <>

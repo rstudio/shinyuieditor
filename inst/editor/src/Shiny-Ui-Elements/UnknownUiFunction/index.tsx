@@ -4,13 +4,13 @@ import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { unknown_code } from "ui-node-definitions/src/internal/unknown_code";
 
 import CategoryDivider from "../../components/CategoryDivider";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { formatFunctionText } from "./formatFunctionText";
 
 const num_preview_chars = 20;
 
-export const unknownUiFunctionInfo = add_editor_info_to_ui_node(unknown_code, {
+export const unknownUiFunctionInfo = addEditorInfoToUiNode(unknown_code, {
   UiComponent: ({ namedArgs, wrapperProps }) => {
     const functionName =
       namedArgs.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";

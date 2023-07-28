@@ -3,7 +3,7 @@ import type { ShinyUiNodeIds } from "ui-node-definitions/src/uiNodeTypes";
 
 import icon from "../../assets/icons/tabPanel.png";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import classes from "./ShinyTabPanel.module.css";
@@ -20,7 +20,7 @@ const dropFilters = {
   rejected: invalidTabPanelContents,
 };
 
-export const shinyTabPanelInfo = add_editor_info_to_ui_node(tab_panel, {
+export const shinyTabPanelInfo = addEditorInfoToUiNode(tab_panel, {
   UiComponent: ({ namedArgs, children, path, wrapperProps }) => {
     const hasChildren = children && children.length > 0;
 

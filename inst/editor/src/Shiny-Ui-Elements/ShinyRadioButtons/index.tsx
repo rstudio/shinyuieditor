@@ -4,7 +4,7 @@ import { input_radio_buttons } from "ui-node-definitions/src/Shiny/input_radio_b
 
 import icon from "../../assets/icons/shinyRadioButtons.png";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 
@@ -53,7 +53,7 @@ const ShinyRadioButtons: UiComponentFromInfo<typeof input_radio_buttons> = ({
   );
 };
 
-export const shinyRadioButtonsInfo = add_editor_info_to_ui_node(
+export const shinyRadioButtonsInfo = addEditorInfoToUiNode(
   input_radio_buttons,
   {
     UiComponent: ShinyRadioButtons,

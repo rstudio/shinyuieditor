@@ -4,7 +4,7 @@ import icon from "../../../assets/icons/shinyPlot.png";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { StaticPlotPlaceholder } from "../../ShinyPlotOutput/StaticPlotPlaceholder";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { BsCard } from "../Utils/BsCard";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
@@ -29,7 +29,7 @@ const GridlayoutGridCardPlot: UiComponentFromInfo<typeof grid_card_plot> = ({
   );
 };
 
-export const gridlayoutGridCardPlotInfo = add_editor_info_to_ui_node(
+export const gridlayoutGridCardPlotInfo = addEditorInfoToUiNode(
   grid_card_plot,
   {
     iconSrc: icon,

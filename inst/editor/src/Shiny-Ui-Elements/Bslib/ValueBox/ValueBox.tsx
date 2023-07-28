@@ -8,7 +8,7 @@ import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
@@ -58,7 +58,7 @@ const ValueBox: UiComponentFromInfo<typeof value_box> = ({
   );
 };
 
-export const bslibValueBoxInfo = add_editor_info_to_ui_node(value_box, {
+export const bslibValueBoxInfo = addEditorInfoToUiNode(value_box, {
   iconSrc: icon,
   UiComponent: ValueBox,
   settingsFormRender: ({ settings, onSettingsChange, inputs }) => {

@@ -4,7 +4,7 @@ import LZString from "lz-string";
  * Create a ShinyLive editor Url from a given app script
  */
 
-export function python_app_to_shinylive_url(
+export function pythonAppToShinyliveUrl(
   app_text: string,
   mode: "app" | "editor"
 ): string {

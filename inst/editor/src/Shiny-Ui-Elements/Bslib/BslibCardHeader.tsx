@@ -1,11 +1,11 @@
 import { card_header } from "ui-node-definitions/src/Bslib/card_header";
 
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { CardHeader } from "./Utils/CardElements";
 
-export const bslibCardHeaderInfo = add_editor_info_to_ui_node(card_header, {
+export const bslibCardHeaderInfo = addEditorInfoToUiNode(card_header, {
   UiComponent: (node) => {
     const { children, path, wrapperProps } = node;
 

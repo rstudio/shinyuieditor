@@ -2,7 +2,7 @@ import React from "react";
 
 import type { TemplateSelection } from "communication-types";
 
-import { template_to_app_contents } from "../../assets/app-templates/app_templates";
+import { templateToAppContents } from "../../assets/app-templates/app_templates";
 import { useBackendConnection } from "../../backendCommunication/useBackendMessageCallbacks";
 import { useLanguageMode } from "../../state/languageMode";
 
@@ -14,7 +14,7 @@ export function useRequestTemplate() {
     (template: TemplateSelection) => {
       sendMsg({
         path: "UPDATED-APP",
-        payload: template_to_app_contents(template, language),
+        payload: templateToAppContents(template, language),
       });
     },
     [sendMsg, language]

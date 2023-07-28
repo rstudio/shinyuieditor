@@ -13,7 +13,7 @@ import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";
 
 import classes from "./AppPreview.module.css";
-import { python_app_to_shinylive_url } from "./python_app_to_shinylive_url";
+import { pythonAppToShinyliveUrl } from "./python_app_to_shinylive_url";
 import styles from "./ShowAppText.module.css";
 
 function AppFilesViewer({ info }: { info: App_Info }) {
@@ -38,7 +38,7 @@ function AppFilesViewer({ info }: { info: App_Info }) {
             <span>Want to start coding your app? </span>
             <Button
               onClick={() => {
-                const editor_url = python_app_to_shinylive_url(
+                const editor_url = pythonAppToShinyliveUrl(
                   app_scripts.app,
                   "editor"
                 );

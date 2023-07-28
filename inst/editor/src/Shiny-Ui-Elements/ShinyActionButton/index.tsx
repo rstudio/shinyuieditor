@@ -2,11 +2,11 @@ import { input_action_button } from "ui-node-definitions/src/Shiny/input_action_
 
 import buttonIcon from "../../assets/icons/shinyButton.png";
 import Button from "../../components/Inputs/Button/Button";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 
-export const shinyActionButtonInfo = add_editor_info_to_ui_node(
+export const shinyActionButtonInfo = addEditorInfoToUiNode(
   input_action_button,
   {
     UiComponent: ({ namedArgs, wrapperProps }) => {

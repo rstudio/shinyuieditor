@@ -15,6 +15,13 @@
             "format": ["PascalCase"],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow"
+          },
+          {
+            "selector": "function",
+            // Allow PascalCase for React components.
+            "format": ["camelCase", "PascalCase"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow"
           }
         ],
         "import/order": [

@@ -2,9 +2,9 @@ import { grid_card } from "ui-node-definitions/src/gridlayout/Grid_Card";
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { BslibCardContainer } from "../../Bslib/BslibCardContainer";
-import { render_card_elements } from "../../Bslib/Utils/render_card_elements";
+import { renderCardElements } from "../../Bslib/Utils/render_card_elements";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
 const GridlayoutGridCard: UiComponentFromInfo<typeof grid_card> = (node) => {
@@ -24,12 +24,12 @@ const GridlayoutGridCard: UiComponentFromInfo<typeof grid_card> = (node) => {
       card_args={card_args}
       {...wrapperProps}
     >
-      {render_card_elements(children, path)}
+      {renderCardElements(children, path)}
     </BslibCardContainer>
   );
 };
 
-export const gridlayoutCardInfo = add_editor_info_to_ui_node(grid_card, {
+export const gridlayoutCardInfo = addEditorInfoToUiNode(grid_card, {
   UiComponent: GridlayoutGridCard,
 });
 export type GridlayoutCardNode = Extract<KnownShinyUiNode, { id: "grid_card" }>;

@@ -1,11 +1,11 @@
 import { output_ui } from "ui-node-definitions/src/Shiny/output_ui";
 
 import uiIcon from "../../assets/icons/shinyImage.png";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 
-export const shinyUiOutputInfo = add_editor_info_to_ui_node(output_ui, {
+export const shinyUiOutputInfo = addEditorInfoToUiNode(output_ui, {
   iconSrc: uiIcon,
   UiComponent: ({ namedArgs, wrapperProps }) => {
     const { outputId = "shiny-ui-output" } = namedArgs;

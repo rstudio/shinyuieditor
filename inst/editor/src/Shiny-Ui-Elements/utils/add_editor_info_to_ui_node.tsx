@@ -7,7 +7,7 @@ import type { CustomFormRenderFn } from "../../components/Inputs/SettingsFormBui
 import type { useMakeWrapperProps } from "../../components/UiNode/useMakeWrapperProps";
 import type { UpdateAction, DeleteAction } from "../../state/app_info";
 
-export function add_editor_info_to_ui_node<
+export function addEditorInfoToUiNode<
   Info extends { example_args?: unknown; takesChildren: boolean }
 >(
   info: Info,
@@ -46,7 +46,7 @@ export function add_editor_info_to_ui_node<
  *
  * @returns
  */
-export function add_editor_info_by_id<Id extends keyof Node_Info_By_Id>(
+export function addEditorInfoById<Id extends keyof Node_Info_By_Id>(
   id: Id,
   editor_info: {
     /**

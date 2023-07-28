@@ -7,7 +7,7 @@ import { NumberInputSimple } from "../../components/Inputs/NumberInput/NumberInp
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 
@@ -46,7 +46,7 @@ const ShinyNumericInput: UiComponentFromInfo<typeof input_numeric> = ({
   );
 };
 
-export const shinyNumericInputInfo = add_editor_info_to_ui_node(input_numeric, {
+export const shinyNumericInputInfo = addEditorInfoToUiNode(input_numeric, {
   iconSrc: icon,
   UiComponent: ShinyNumericInput,
   settingsFormRender: ({ inputs }) => {

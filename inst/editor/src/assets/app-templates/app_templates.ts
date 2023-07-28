@@ -24,18 +24,18 @@ export const app_templates: TemplateInfo[] = [
   chickWeightsGridTemplate,
 ];
 
-export function template_to_app_contents(
+export function templateToAppContents(
   selection: Single_File_Template_Selection | Multi_File_Template_Selection,
   language: Language_Mode
 ): MessageToBackendByPath["UPDATED-APP"] {
   const app_info =
     selection.outputType === "SINGLE-FILE"
-      ? template_to_single_file_info(selection)
-      : template_to_multi_file_info(selection);
+      ? templateToSingleFileInfo(selection)
+      : templateToMultiFileInfo(selection);
   return generate_full_app_script(app_info, { include_info: true, language });
 }
 
-function template_to_single_file_info(
+function templateToSingleFileInfo(
   template_info: Single_File_Template_Selection
 ): App_Info {
   const {
@@ -77,7 +77,7 @@ shinyApp(ui, server)
   };
 }
 
-function template_to_multi_file_info(
+function templateToMultiFileInfo(
   template_info: Multi_File_Template_Selection
 ): App_Info {
   const {

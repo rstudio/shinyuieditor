@@ -17,7 +17,7 @@ import {
 } from ".";
 
 import classes from "./AppPreview.module.css";
-import { python_app_to_shinylive_url } from "./python_app_to_shinylive_url";
+import { pythonAppToShinyliveUrl } from "./python_app_to_shinylive_url";
 import { usePreviewScale } from "./usePreviewScale";
 
 const DEBOUNCE_INTERVAL_MS = 500;
@@ -112,7 +112,7 @@ function AppStateToShinyLiveUrl(state: MainStateOption): string {
     language: "PYTHON",
   });
 
-  const url = python_app_to_shinylive_url(
+  const url = pythonAppToShinyliveUrl(
     script_text.app_type === "SINGLE-FILE" ? script_text.app : "",
     "app"
   );

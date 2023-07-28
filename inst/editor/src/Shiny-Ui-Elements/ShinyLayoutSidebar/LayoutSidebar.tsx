@@ -4,12 +4,12 @@ import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 
 import UiNode from "../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import { add_editor_info_by_id } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import classes from "./ShinyLayoutSidebar.module.css";
 
-export const shinyLayoutSidebarInfo = add_editor_info_by_id("layout_sidebar", {
+export const shinyLayoutSidebarInfo = addEditorInfoById("layout_sidebar", {
   UiComponent: ({
     namedArgs: { position, sidebar, main },
     children,
@@ -25,7 +25,7 @@ export const shinyLayoutSidebarInfo = add_editor_info_by_id("layout_sidebar", {
   },
 });
 
-export const shinyPanelMainInfo = add_editor_info_by_id("panel_main", {
+export const shinyPanelMainInfo = addEditorInfoById("panel_main", {
   UiComponent: ({ namedArgs, children, path, wrapperProps }) => {
     const hasChildren = children && children.length > 0;
 
