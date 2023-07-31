@@ -13,7 +13,7 @@ export const bslibSidebar = addEditorInfoById("sidebar", {
   UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
     const setSelection = useSetCurrentSelection();
     return (
-      <div {...wrapperProps}>
+      <div {...wrapperProps} className={classes.outerWrapper}>
         <div
           className={classes.sidebar}
           style={

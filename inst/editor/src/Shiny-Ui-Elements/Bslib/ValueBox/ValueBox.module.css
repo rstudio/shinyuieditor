@@ -1,10 +1,12 @@
 .container {
   position: relative;
-  height: 100%;
   width: 100%;
   /* Update font color variable so children are visible on primary colored
   background */
   --font-color: var(--rstudio-white);
+
+  /* Allow flexing when placed inside a flex container */
+  flex: 1 1 auto;
 }
 
 /* Make sure that the selection outline isn't impossible to see due to the color
@@ -14,7 +16,6 @@ of the card */
 }
 
 .value_box {
-  height: 100%;
   display: grid;
   grid-template-rows: 100%;
   padding: var(--size-md);

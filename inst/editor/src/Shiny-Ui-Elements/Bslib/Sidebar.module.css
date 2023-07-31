@@ -1,9 +1,14 @@
 @value can_accept_drop from "../../DragAndDropHelpers/DropWatcherPanel.module.css";
 
+.outerWrapper {
+  min-height: 0;
+}
+
 .sidebar,
 .sidebarDropWatcherPanel {
   --bg-color: var(--light-grey);
-  --anim-settings: 0.2s ease-in-out;
+  --anim-speed: 0.2s;
+  --anim-settings: var(--anim-speed) ease-in-out;
   --open-w: 150px;
   --pad: var(--size-md);
 
@@ -36,13 +41,22 @@
 .sidebarContent {
   padding: var(--pad);
   display: flex;
-  height: 100%;
+  min-height: 0;
+  max-height: 100%;
   flex-direction: column;
+  gap: var(--size-sm);
+
+  opacity: 1;
+  transition: opacity var(--anim-settings) var(--anim-speed);
 }
 
 .sidebar.collapsed .sidebarContent {
   overflow: hidden;
   padding: 0px;
+  opacity: 0;
+  /* Turn off delay */
+  transition-duration: 0s;
+  transition-delay: 0s;
 }
 
 .sidebar.collapsed {
