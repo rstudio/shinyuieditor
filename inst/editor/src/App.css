@@ -1,8 +1,13 @@
+
 /* establish a layer order up-front, from lowest to highest priority */
 @layer reset, frameworks, user;
 
 /* import bootstrap into layer lower than user styles */
 @import url("bootstrap/dist/css/bootstrap.css") layer(frameworks);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --bg-color: #edf2f7;

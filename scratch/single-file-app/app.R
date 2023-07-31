@@ -11,11 +11,11 @@ ui <- grid_page(
   ),
   row_sizes = c(
     "130px",
-    "1.17fr",
-    "0.83fr"
+    "0.92fr",
+    "1.08fr"
   ),
   col_sizes = c(
-    "425px",
+    "520px",
     "1fr"
   ),
   gap_size = "1rem",
@@ -66,10 +66,40 @@ ui <- grid_page(
   grid_card(
     area = "vbox",
     card_body(
-      value_box(
-        title = "Look at me!",
-        value = "Big number with more",
-        showcase = bsicons::bs_icon("database")
+      grid_container(
+        layout = c(
+          "a .",
+          ". b"
+        ),
+        row_sizes = c(
+          "1fr",
+          "1fr"
+        ),
+        col_sizes = c(
+          "1fr",
+          "1fr"
+        ),
+        gap_size = "10px",
+        grid_card(
+          area = "a",
+          card_body(
+            value_box(
+              title = "Look at me!",
+              value = "My value",
+              showcase = bsicons::bs_icon("database")
+            )
+          )
+        ),
+        grid_card(
+          area = "b",
+          card_body(
+            value_box(
+              title = "Look at me!",
+              value = "My value",
+              showcase = bsicons::bs_icon("chat-dots")
+            )
+          )
+        )
       )
     )
   )
