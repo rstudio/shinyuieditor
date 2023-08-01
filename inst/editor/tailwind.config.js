@@ -5,7 +5,16 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "light-grey": "#e9edf3", 
+        "rstudio-grey": "#333333",
+        "rstudio-blue": "#75aadb",
+      },
+      borderRadius: {
+        standard: "8px",
+      }
+    },
   },
   plugins: [],
 }
