@@ -5,7 +5,9 @@
 /* import bootstrap into layer lower than user styles */
 @import url("bootstrap/dist/css/bootstrap.css") layer(frameworks);
 
-@tailwind base;
+/* Disable the resets provided by tailwind because they currently mess with too
+much stuff */
+/* @tailwind base;  */
 @tailwind components;
 @tailwind utilities;
 
