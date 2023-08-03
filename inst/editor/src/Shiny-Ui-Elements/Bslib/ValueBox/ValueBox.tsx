@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { value_box } from "ui-node-definitions/src/Bslib/value_box";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
@@ -12,7 +14,6 @@ import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
-import styles from "./ValueBox.module.css";
 
 const ValueBox: UiComponentFromInfo<typeof value_box> = ({
   namedArgs,
@@ -20,23 +21,47 @@ const ValueBox: UiComponentFromInfo<typeof value_box> = ({
   path,
   wrapperProps,
 }) => {
+  const showcase_right = namedArgs.showcase_layout === "right";
   return (
-    <div className={styles.container} {...wrapperProps}>
+    <div
+      className="flex-1 relative"
+      style={
+        {
+          "--font-color": "var(--rstudio-white",
+          "--selected-outline-color": "black",
+        } as CSSProperties
+      }
+      {...wrapperProps}
+    >
       <div
         className={mergeClasses(
-          "bg-primary",
-          "text-white",
-          styles.value_box,
-          namedArgs.showcase_layout === "right" ? styles.showcase_right : null
+          "bg-primary text-white h-100 grid gap-md p-md overflow-auto",
+          showcase_right ? "grid-cols-[7fr_3fr]" : "grid-cols-[3fr_7fr]"
         )}
       >
-        <div className={styles.showcase}>
-          <BsIcon icon_name={namedArgs.showcase_icon ?? "question-circle"} />
+        <div
+          className={mergeClasses(
+            "p-sm col-start-1 row-start-1 min-w-0",
+            showcase_right ? "col-start-2" : "col-start-1"
+          )}
+        >
+          <BsIcon
+            className="w-100 h-100"
+            icon_name={namedArgs.showcase_icon ?? "question-circle"}
+          />
         </div>
-        <div className={styles.content}>
-          <h5 className={styles.card_title}>{namedArgs.title}</h5>
-          <div className={styles.card_value}>
+        <div
+          className={mergeClasses(
+            "flex flex-col justify-center row-start-1 min-w-0",
+            showcase_right ? "col-start-1" : "col-start-2"
+          )}
+        >
+          <h5 className="">{namedArgs.title}</h5>
+          <div>
             <DropWatcherPanel
+              className={
+                namedArgs.value.id === "textNode" ? "text-[1.5rem]" : ""
+              }
               existing_node={namedArgs.value}
               child_loc={"value"}
               parentPath={path}
@@ -80,7 +105,7 @@ export const bslibValueBoxInfo = addEditorInfoToUiNode(value_box, {
               />
             ) : (
               <PopoverButton
-                className={styles.replace_showcase_btn}
+                className="w-100 h-[25px]"
                 use_markdown={true}
                 popoverContent="Replace current showcase value with an icon from the
                   bsicons package."
