@@ -29,7 +29,6 @@
 }
 
 .sidebar {
-  background-color: var(--bg-color);
   width: var(--open-w);
   transition: width var(--anim-settings), padding var(--anim-settings);
   border: var(--default-border);
@@ -86,8 +85,6 @@
   bottom: calc(25px - var(--border-w));
   right: calc(-1 * var(--toggle-w));
 
-  background-color: var(--bg-color);
-
   cursor: w-resize;
   z-index: 10;
   display: grid;
@@ -117,7 +114,7 @@
   position: absolute;
   height: 100%;
   width: var(--w);
-  background-color: var(--bg-color);
+  background-color: inherit;
   left: calc(-1 * var(--w) + 1px);
 }
 

@@ -4,6 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background: {
+          light: "#f1f5f9",
+          main: "#edf2f7",
+        },
         "light-grey": "#e9edf3",
         "rstudio-grey": "#333333",
         "rstudio-blue": "#75aadb",

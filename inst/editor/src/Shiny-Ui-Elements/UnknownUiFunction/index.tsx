@@ -1,4 +1,3 @@
-
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { unknown_code } from "ui-node-definitions/src/internal/unknown_code";
 
@@ -14,10 +13,14 @@ export const unknownUiFunctionInfo = addEditorInfoToUiNode(unknown_code, {
     const functionName =
       namedArgs.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
     return (
-      <div className="my-2 grid place-content-center rounded-standard relative min-w-0 " {...wrapperProps}>
-          <div>unknown ui output:</div>
-          <code className="block bg-light-grey font-mono overflow-hidden text-elipses whitespace-nowrap">{functionName}</code>
-        
+      <div
+        className="my-2 grid place-content-center rounded-standard relative min-w-0 "
+        {...wrapperProps}
+      >
+        <div>unknown ui output:</div>
+        <code className="block bg-light-grey font-mono overflow-hidden text-elipses whitespace-nowrap border shadow-inner p-1">
+          {functionName}
+        </code>
       </div>
     );
   },
@@ -34,7 +37,9 @@ export const unknownUiFunctionInfo = addEditorInfoToUiNode(unknown_code, {
           <span>Code</span>
         </CategoryDivider>
         <div className="SUE-SettingsInput">
-          <pre className=" bg-white overflow-auto font-mono border border-rstudio-grey p-1">{formatFunctionText(settings.text)}</pre>
+          <pre className=" bg-white overflow-auto font-mono border border-rstudio-grey p-1">
+            {formatFunctionText(settings.text)}
+          </pre>
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import { ChevronLeft } from "react-bootstrap-icons";
 import { getParentPath } from "ui-node-definitions/src/TreeManipulation/getParentPath";
 
 import { useSetCurrentSelection } from "../../state/selectedPath";
+import { mergeClasses } from "../../utils/mergeClasses";
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
@@ -15,7 +16,7 @@ export const bslibSidebar = addEditorInfoById("sidebar", {
     return (
       <div {...wrapperProps} className={classes.outerWrapper}>
         <div
-          className={classes.sidebar}
+          className={mergeClasses("bg-background-light", classes.sidebar)}
           style={
             {
               "--open-w": namedArgs.width ?? "180px",
@@ -56,7 +57,7 @@ function CollapserTab({
 
   return (
     <div
-      className={classes.openToggle}
+      className={mergeClasses("bg-background-light", classes.openToggle)}
       title={`${collapsed ? "Expand" : "Collapse"} sidebar`}
       onClick={(e) => {
         e.preventDefault();
