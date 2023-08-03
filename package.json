@@ -15,6 +15,6 @@
     "watch": "turbo run watch --parallel --continue"
   },
   "devDependencies": {
-    "turbo": "^1.9.3"
+    "turbo": "^1.10.12"
   }
 }

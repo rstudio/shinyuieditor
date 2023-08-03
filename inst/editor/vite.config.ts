@@ -9,6 +9,11 @@ const setup = ({ mode }) => {
   return defineConfig({
     base: "./",
     server: { port: 3000 },
+    resolve: {
+      alias: {
+        fs: require.resolve("rollup-plugin-node-builtins"),
+      },
+    },
     build: {
       outDir: mode === "vscode" ? "../vscode-extension/media/build" : "build",
       lib:
@@ -29,6 +34,9 @@ const setup = ({ mode }) => {
     define: {
       "process.env.NODE_ENV": `"${mode}"`,
     },
+    // optimizeDeps: {
+    //   exclude: ["fs"],
+    // },
     test: {
       include: [`src/**/*.test.{ts,tsx}`],
       globals: true,
