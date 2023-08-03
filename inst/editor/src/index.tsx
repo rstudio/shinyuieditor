@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import type { BackendConnection } from "communication-types";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
-import { pythonSidebarAndTabs as devModeTree } from "ui-node-definitions/src/sample_ui_trees/pythonSidebarAndTabs";
+// import { pythonSidebarAndTabs as devModeTree } from "ui-node-definitions/src/sample_ui_trees/pythonSidebarAndTabs";
+import { basicNavbarPage as devModeTree } from "ui-node-definitions/src/sample_ui_trees/basicNavbarPage";
 import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { MinimalAppInfo } from "./backendCommunication/getClientsideOnlyTree";
@@ -30,7 +31,7 @@ const { pathToWebsocket, defaultTree } = DEV_MODE
     };
 
 const defaultInfo: MinimalAppInfo = {
-  language: "PYTHON",
+  language: "R",
   ui_tree: defaultTree,
 };
 
