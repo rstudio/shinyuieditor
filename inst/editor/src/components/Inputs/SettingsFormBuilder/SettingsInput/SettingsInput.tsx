@@ -1,3 +1,4 @@
+import { mergeClasses } from "../../../../utils/mergeClasses";
 import Button from "../../Button/Button";
 import type {
   InputOptions,
@@ -100,11 +101,13 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
 
 export function InputLabelWrapper({
   argumentIsUnset = false,
+  className,
   optionalField,
   label,
   labelId,
   mainInput,
 }: {
+  className?: string;
   argumentIsUnset?: boolean;
   optionalField?: React.ReactNode;
   label: string;
@@ -112,7 +115,7 @@ export function InputLabelWrapper({
   mainInput: React.ReactNode;
 }) {
   return (
-    <div className="SUE-SettingsInput">
+    <div className={mergeClasses("SUE-SettingsInput", className)}>
       <div className="info" data-unset={argumentIsUnset}>
         {optionalField}
         <label id={labelId}>{label}</label>
