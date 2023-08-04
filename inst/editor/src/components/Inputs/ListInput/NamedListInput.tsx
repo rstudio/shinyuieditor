@@ -7,8 +7,8 @@ import { sameObject } from "util-functions/src/equalityCheckers";
 
 import { Trash } from "../../Icons";
 import Button from "../Button/Button";
-import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
-import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
+import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTypes";
+import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
 
 import classes from "./styles.module.css";
 

@@ -49,8 +49,9 @@ export const markdown_node = nodeInfoFactory<{
       label: "Text",
       defaultValue: "hello _world_",
       longform: true,
+      fill_space: true,
     },
   },
-  category: "text",
+  category: "Utilities",
   description: "Write markdown text that will be rendered as HTML.",
 });

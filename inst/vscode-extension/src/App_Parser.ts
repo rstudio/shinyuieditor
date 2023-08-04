@@ -1,10 +1,10 @@
-import type { App_Info, App_Type } from "communication-types/src/AppInfo";
+import type { AppInfo, AppType } from "communication-types/src/AppInfo";
 import type { Script_Range } from "communication-types/src/MessageToBackend";
 
 import type { CommandOutputGeneric } from "./R-Utils/runRCommand";
 
 export type ServerInfo = {
-  app_type: App_Type;
+  app_type: AppType;
   server_pos: {
     server_fn: Script_Range;
     indent: number;
@@ -15,7 +15,7 @@ export type ServerInfo = {
 
 export type InfoGetResults =
   | {
-      ui: App_Info;
+      ui: AppInfo;
       server: ServerInfo;
     }
   | "EMPTY";

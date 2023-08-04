@@ -64,7 +64,7 @@ export type InputTypeNames = InputOptions["inputType"];
 export type KnownInputFieldTypes = InputOptions["value"];
 
 /** Fields that are appended to every argument option regardless of type.  */
-type Common_Static_Fields = {
+type CommonStaticFields = {
   /** What should the label be above the input for this field? */
   label?: string;
 
@@ -81,6 +81,9 @@ type Common_Static_Fields = {
 
   /** Optional mapping for printing the name of the argument in R code */
   r_name?: string;
+
+  /** Should the argument input take up free space if it's available? */
+  fill_space?: boolean;
 };
 
 export type StaticInputOptionsByInputType = Expand<{
@@ -92,7 +95,7 @@ export type StaticInputOptionsByInputType = Expand<{
     /** Should the default value be given to a new instance of a settings object
      * if that field is optional?  */
     useDefaultIfOptional?: true;
-  } & Common_Static_Fields;
+  } & CommonStaticFields;
 }>;
 
 type AddOptionalCase<Obj extends { defaultValue: unknown }> =
@@ -107,7 +110,7 @@ export type StaticInputOptions = AddOptionalCase<
   | { inputType: "omitted"; defaultValue: unknown }
 >;
 
-type CommonStaticFieldNames = keyof Common_Static_Fields;
+type CommonStaticFieldNames = keyof CommonStaticFields;
 
 /**
  * Object is filled with either values or callbacks to get those values from a
@@ -123,7 +126,7 @@ export type NonDynamicArgs =
 /**
  * Every input type including ommitted and ui nodes
  */
-export type All_Input_Types = StaticInputOptions["inputType"];
+export type AllInputTypes = StaticInputOptions["inputType"];
 
 type KeysOfKnownArgs<Args extends Record<string, unknown>> = {
   [Key in keyof Args]-?: Required<Args>[Key] extends KnownInputFieldTypes
@@ -190,3 +193,5 @@ export function makeLabelId(id: string) {
 // 1. Generate default settings: arg_info => args
 // 2. Generate static values to feed into form builder: arg_info => static_arg_info
 // 3. Get out of form builder a new instance of args: static_arg_info => args
+
+//

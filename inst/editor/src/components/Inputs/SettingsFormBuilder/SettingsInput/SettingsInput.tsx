@@ -1,12 +1,13 @@
-import { mergeClasses } from "../../../../utils/mergeClasses";
-import Button from "../../Button/Button";
 import type {
   InputOptions,
   InputTypeNames,
   KnownInputFieldTypes,
   StaticInputOptionsByInputType,
-} from "../inputFieldTypes";
-import { makeLabelId } from "../inputFieldTypes";
+} from "ui-node-definitions/src/inputFieldTypes";
+import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
+
+import { mergeClasses } from "../../../../utils/mergeClasses";
+import Button from "../../Button/Button";
 
 import "./SettingsInput.scss";
 
@@ -81,6 +82,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   return (
     <InputLabelWrapper
       argumentIsUnset={argumentIsUnset}
+      className={opts.fill_space ? "bg-red-400" : ""}
       optionalField={
         argumentIsOptional ? (
           <input

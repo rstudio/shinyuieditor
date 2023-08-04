@@ -1,8 +1,12 @@
+import type {
+  InputTypeNames,
+  KnownInputFieldTypes,
+} from "ui-node-definitions/src/inputFieldTypes";
 import { isShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 
 import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import { isNamedList } from "../../ListInput/NamedListInput";
-import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
+// import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
 
 export function valueIsType(
   value: KnownInputFieldTypes | undefined,

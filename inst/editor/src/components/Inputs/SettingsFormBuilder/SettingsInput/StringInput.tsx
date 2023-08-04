@@ -1,5 +1,5 @@
-import type { InputComponentByType } from "../inputFieldTypes";
-import { makeLabelId } from "../inputFieldTypes";
+import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
+import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTypes";
 
 export function StringInput({
   id,

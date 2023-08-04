@@ -1,13 +1,12 @@
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import type { Expand } from "util-functions/src/TypescriptUtils";
-
 import type {
   InputOptions,
   MakeDynamicArguments,
   MakeOmittedOption,
-  StaticInputOptions,
   StaticInputOptionsByInputType,
-} from "./inputFieldTypes";
+  StaticInputOptions,
+} from "ui-node-definitions/src/inputFieldTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
+import type { Expand } from "util-functions/src/TypescriptUtils";
 
 type ConvertToStatic<ArgsInfo extends Record<string, Record<string, unknown>>> =
   {

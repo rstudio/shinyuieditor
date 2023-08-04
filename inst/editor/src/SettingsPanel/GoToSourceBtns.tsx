@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
 import type {
   InputBindings,
@@ -59,7 +59,7 @@ function GoToOutputsBtn({
   node: { namedArgs },
   sendMsg,
 }: {
-  language: Language_Mode;
+  language: LanguageMode;
   node: ShinyUiNode;
   serverOutputInfo: OutputBindings;
   sendMsg: (msg: MessageToBackend) => void;

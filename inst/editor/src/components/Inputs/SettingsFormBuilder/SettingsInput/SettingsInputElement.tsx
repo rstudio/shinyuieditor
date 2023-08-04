@@ -1,10 +1,14 @@
+import type {
+  InputOptions,
+  KnownInputFieldTypes,
+} from "ui-node-definitions/src/inputFieldTypes";
+
 import { BooleanInput } from "../../BooleanInput/BooleanInputSimple";
 import { CSSUnitInput } from "../../CSSUnitInput/CSSUnitInput";
 import { NamedListInput } from "../../ListInput/NamedListInput";
 import { NumberInput } from "../../NumberInput/NumberInput";
 import { DropdownSelect } from "../../OptionsDropdown/DropdownSelect";
 import { RadioInputs } from "../../RadioInputs/RadioInputsSimple";
-import type { InputOptions, KnownInputFieldTypes } from "../inputFieldTypes";
 
 import { StringInput } from "./StringInput";
 

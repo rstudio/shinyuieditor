@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { ShinyUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
 import { PanelHeader } from "../EditorLayout/PanelHeader";
@@ -32,7 +32,7 @@ function sortByCategory(info_a: NodeInfo, info_b: NodeInfo): number {
   return cat_a < cat_b ? -1 : cat_a > cat_b ? 1 : 0;
 }
 
-function filterToLanguage(info: NodeInfo, language: Language_Mode): boolean {
+function filterToLanguage(info: NodeInfo, language: LanguageMode): boolean {
   switch (language) {
     case "R":
       return info.r_info !== undefined;

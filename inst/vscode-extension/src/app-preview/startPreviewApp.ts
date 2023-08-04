@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 
 import type { LangProcess } from "../startProcess";
 import { startProcess } from "../startProcess";
@@ -15,7 +15,7 @@ export function startPreviewApp({
   onFailToStart,
   onLogs,
 }: {
-  language: Language_Mode;
+  language: LanguageMode;
   pathToApp: string;
   onInitiation: () => void;
   onReady: (url: string) => void;

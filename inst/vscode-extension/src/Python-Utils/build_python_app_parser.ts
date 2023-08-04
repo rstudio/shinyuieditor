@@ -1,4 +1,4 @@
-import type { App_Info } from "communication-types/src/AppInfo";
+import type { AppInfo } from "communication-types/src/AppInfo";
 import {
   generate_app_script_template,
   get_known_inputs,
@@ -63,7 +63,7 @@ function makePyAppInfoGetter(parser: Parser) {
     const input_positions = get_known_inputs(parsed_app);
     const output_positions = get_known_outputs(parsed_app);
 
-    const app_info: App_Info = {
+    const app_info: AppInfo = {
       language: "PYTHON",
       app_type: "SINGLE-FILE",
       scripts: {

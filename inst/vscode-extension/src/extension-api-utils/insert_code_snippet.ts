@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
 import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
@@ -12,7 +12,7 @@ export async function insertCodeSnippet({
   server_info,
   where_in_server,
 }: {
-  language: Language_Mode;
+  language: LanguageMode;
   editor: vscode.TextEditor;
   server_info: ServerInfo;
 } & SnippetInsertRequest) {

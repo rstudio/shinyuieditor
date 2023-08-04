@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 
 import { getPythonAppStartupInfo } from "./get_python_app_startup_info";
 import { getRAppStartupInfo } from "./get_r_app_startup_info";
@@ -50,7 +50,7 @@ export type AppStartupInfo = {
  * @returns Information about how to start the preview app using the `startProcess()` function
  */
 export async function getAppStartupInfo(
-  language: Language_Mode,
+  language: LanguageMode,
   app_loc_info: AppLocInfo
 ) {
   const [previewAppUri, startup_info] = await Promise.all([

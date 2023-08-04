@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import type * as vscode from "vscode";
 
 type AppScriptStatus =
@@ -8,10 +8,10 @@ type AppScriptStatus =
     }
   | {
       status: "empty" | "valid";
-      lang: Language_Mode;
+      lang: LanguageMode;
     };
 
-function getLanguageMode(lang_id: string): Language_Mode | "OTHER" {
+function getLanguageMode(lang_id: string): LanguageMode | "OTHER" {
   if (lang_id === "python") return "PYTHON";
   if (lang_id === "r") return "R";
   return "OTHER";

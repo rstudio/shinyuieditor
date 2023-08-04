@@ -14,8 +14,8 @@ import { runSUE } from "./runSUE";
 // import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
 // const devModeTree = "TEMPLATE_CHOOSER" as ShinyUiRootNode;
 
-// const language: Language_Mode = "PYTHON";
-// const language: Language_Mode = "R";
+// const language: LanguageMode = "PYTHON";
+// const language: LanguageMode = "R";
 
 const container = document.getElementById("root");
 

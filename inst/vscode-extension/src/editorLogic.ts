@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
 import { isMessageToBackend } from "communication-types/src/MessageToBackend";
 import type { MessageToClient } from "communication-types/src/MessageToClient";
@@ -42,7 +42,7 @@ export async function editorLogic({
   document,
   sendMessage,
 }: {
-  language: Language_Mode;
+  language: LanguageMode;
   document: vscode.TextDocument;
   sendMessage: (msg: MessageToClient) => Thenable<boolean>;
 }) {

@@ -5,7 +5,6 @@ import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
-import type { AllInputTypes } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -13,6 +12,8 @@ import type {
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import "./styles.scss";
 import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
+
+import type { AllInputTypes } from "ui-node-definitions/src/inputFieldTypes";
 
 type SettingsObj = Record<string, unknown>;
 
@@ -38,7 +39,10 @@ export function FormBuilder(args: FormBuilderProps) {
   } = args;
 
   return (
-    <form className="FormBuilder" onSubmit={disableDefaultSubmit}>
+    <form
+      className="FormBuilder flex flex-grow flex-shrink-0 flex-col"
+      onSubmit={disableDefaultSubmit}
+    >
       {renderInputs({
         inputs: knownArgumentInputs({
           settings,

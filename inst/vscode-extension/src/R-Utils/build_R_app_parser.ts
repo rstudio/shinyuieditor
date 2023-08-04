@@ -1,4 +1,4 @@
-import type { App_Info } from "communication-types/src/AppInfo";
+import type { AppInfo } from "communication-types/src/AppInfo";
 import type { Script_Range } from "communication-types/src/MessageToBackend";
 import {
   generate_app_script_template,
@@ -64,7 +64,7 @@ function makRAppInfoGetter(parser: TSParser) {
     const input_positions = new Map<string, Script_Range[]>();
     const output_positions = new Map<string, Script_Range[]>();
 
-    const app_info: App_Info = {
+    const app_info: AppInfo = {
       language: "R",
       app_type: "SINGLE-FILE",
       scripts: {

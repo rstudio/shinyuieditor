@@ -1,8 +1,8 @@
 import type { MessageToBackendByPath } from "communication-types";
-import type { App_Info, Language_Mode } from "communication-types/src/AppInfo";
+import type { AppInfo, LanguageMode } from "communication-types/src/AppInfo";
 import type {
-  Multi_File_Template_Selection,
-  Single_File_Template_Selection,
+  MultiFileTemplateSelection,
+  SingleFileTemplateSelection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
 import { indent_line_breaks } from "ui-node-definitions/src/code_generation/build_function_text";
@@ -25,8 +25,8 @@ export const app_templates: TemplateInfo[] = [
 ];
 
 export function templateToAppContents(
-  selection: Single_File_Template_Selection | Multi_File_Template_Selection,
-  language: Language_Mode
+  selection: SingleFileTemplateSelection | MultiFileTemplateSelection,
+  language: LanguageMode
 ): MessageToBackendByPath["UPDATED-APP"] {
   const app_info =
     selection.outputType === "SINGLE-FILE"
@@ -36,8 +36,8 @@ export function templateToAppContents(
 }
 
 function templateToSingleFileInfo(
-  template_info: Single_File_Template_Selection
-): App_Info {
+  template_info: SingleFileTemplateSelection
+): AppInfo {
   const {
     uiTree,
     otherCode: {
@@ -78,8 +78,8 @@ shinyApp(ui, server)
 }
 
 function templateToMultiFileInfo(
-  template_info: Multi_File_Template_Selection
-): App_Info {
+  template_info: MultiFileTemplateSelection
+): AppInfo {
   const {
     uiTree,
     otherCode: {

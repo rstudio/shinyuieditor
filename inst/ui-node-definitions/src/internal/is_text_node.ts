@@ -15,17 +15,17 @@ type ToTagNameMap<T extends { name: string; tag: string }> = {
 };
 
 type TextDecorationMappings =
-  | { name: "plain"; tag: null }
+  | { name: "default"; tag: null }
   | { name: "bold"; tag: "strong" }
   | { name: "italic"; tag: "em" };
 
 type TextDecorationMappingsNoDefault = Exclude<
   TextDecorationMappings,
-  { name: "plain" }
+  { name: "default" }
 >;
 
 export const decoration_to_wrapper: ToNameTagMap<TextDecorationMappings> = {
-  plain: null,
+  default: null,
   bold: "strong",
   italic: "em",
 };

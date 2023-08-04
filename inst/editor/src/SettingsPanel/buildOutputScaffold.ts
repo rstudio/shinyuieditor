@@ -1,4 +1,4 @@
-import type { Language_Mode } from "communication-types/src/AppInfo";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
 import { generate_python_output_binding } from "python-bindings";
 import { generate_r_output_binding } from "r-bindings";
@@ -9,7 +9,7 @@ export function buildOutputScaffold({
   output_id,
   output_info: { renderScaffold },
 }: {
-  language: Language_Mode;
+  language: LanguageMode;
   output_id: string;
   output_info: OutputBindings;
 }): SnippetInsertRequest {

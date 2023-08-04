@@ -2,7 +2,6 @@ import type { Primatives } from "r-bindings";
 import type { Parsed_Kwarg_Node } from "r-bindings/src/NodeTypes/KeywordArgNode";
 import type {
   Equal,
-  Expand_Single,
   Expect,
   PickKeyFn,
 } from "util-functions/src/TypescriptUtils";

@@ -32,7 +32,7 @@ export const text_node = nodeInfoFactory<TextNodeSettings>()({
       inputType: "radio",
       defaultValue: "plain",
       choices: {
-        plain: { label: "Plain" },
+        default: { label: "Plain" },
         italic: { label: "Italic" },
         bold: { label: "Bold" },
       } satisfies Record<

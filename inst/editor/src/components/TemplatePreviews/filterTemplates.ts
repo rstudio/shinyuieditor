@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { App_Type } from "communication-types/src/AppInfo";
+import type { AppType } from "communication-types/src/AppInfo";
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 import { ui_node_to_code } from "ui-node-definitions/src/code_generation/ui_node_to_code";
 
@@ -17,7 +17,7 @@ export type TemplateFilterState = {
   layoutTypes: LayoutType[];
 };
 export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
-  outputType: App_Type;
+  outputType: AppType;
 };
 
 function filteredTemplates(filters: TemplateFilterState): TemplateInfo[] {
@@ -42,7 +42,7 @@ export function useFilteredTemplates({
     null
   );
 
-  const [selectedOutput, setSelectedOutput] = React.useState<App_Type>(
+  const [selectedOutput, setSelectedOutput] = React.useState<AppType>(
     outputChoices === "USER-CHOICE" ? "SINGLE-FILE" : outputChoices
   );
 
