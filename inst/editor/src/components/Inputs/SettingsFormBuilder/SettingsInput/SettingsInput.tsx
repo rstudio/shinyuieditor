@@ -82,7 +82,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   return (
     <InputLabelWrapper
       argumentIsUnset={argumentIsUnset}
-      className={opts.fill_space ? "bg-red-400" : ""}
+      className={opts.fill_space ? "flex flex-col flex-grow" : ""}
       optionalField={
         argumentIsOptional ? (
           <input

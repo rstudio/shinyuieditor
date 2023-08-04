@@ -22,7 +22,7 @@ export function StringInput({
     },
   };
   if (longform) {
-    return <textarea {...common_props} className="h-24 w-100" />;
+    return <textarea {...common_props} className="h-24 w-100 flex-grow" />;
   }
   return <input {...common_props} type="text" />;
 }
