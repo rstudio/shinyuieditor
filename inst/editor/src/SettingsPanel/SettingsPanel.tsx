@@ -1,12 +1,11 @@
-import React from "react";
-
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
-import DeleteNodeButton from "../components/DeleteNodeButton";
 import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
+import { Trash } from "../components/Icons";
+import Button from "../components/Inputs/Button/Button";
 import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
@@ -20,7 +19,6 @@ import {
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
-import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
 export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
@@ -30,6 +28,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     deleteArgumentByName,
     selectedPath,
     setNodeSelection,
+    deleteNode,
   } = useUpdateSettings(tree);
 
   if (selectedPath === null) {
@@ -57,8 +56,8 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     <>
       <PanelHeader>Properties</PanelHeader>
       <ErrorBoundary fallbackRender={SettingsPanelErrorFallback}>
-        <div className={classes.settingsPanel}>
-          <div className={classes.currentElementAbout}>
+        <div className="flex flex-col py-vertical-spacing px-horizontal-spacing h-100 overflow-auto">
+          <div className="flex-shrink-0">
             <PathBreadcrumb
               tree={tree}
               path={selectedPath}
@@ -88,8 +87,25 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
             }}
           />
           <GoToSourceBtns node={currentNode} />
-          <div className={classes.buttonsHolder}>
-            {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+          <div className="mt-auto py-vertical-spacing flex flex-col justify-around items-center gap-vertical-spacing">
+            {!isRootNode && (
+              <Button
+                className="text-danger flex items-center justify-start h-[40px] w-100 border-0"
+                onClick={(e) => {
+                  // Stop propigation of click event in case we have other click listeners
+                  // that try and do things like set selection
+                  e.stopPropagation();
+                  deleteNode();
+                }}
+                aria-label="Delete Selected Node"
+                title="Delete Selected Node"
+                variant="delete"
+                type="button"
+              >
+                <Trash className="text-2xl" />
+                Delete Element
+              </Button>
+            )}
           </div>
         </div>
       </ErrorBoundary>

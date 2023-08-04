@@ -4,7 +4,6 @@ import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
-import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
 import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
   SET_APP_INFO,
@@ -15,6 +14,7 @@ import {
 } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
 import { useCurrentSelection } from "../state/selectedPath";
+import { useDeleteNode } from "../state/useDeleteNode";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
 import { parseMultiFileRApp, parseSingleFileRApp } from "./parse_r_app";

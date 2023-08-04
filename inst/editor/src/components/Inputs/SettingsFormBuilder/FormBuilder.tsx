@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { AllInputTypes } from "ui-node-definitions/src/inputFieldTypes";
 import type { namedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
@@ -12,8 +13,6 @@ import type {
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import "./styles.scss";
 import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
-
-import type { AllInputTypes } from "ui-node-definitions/src/inputFieldTypes";
 
 type SettingsObj = Record<string, unknown>;
 

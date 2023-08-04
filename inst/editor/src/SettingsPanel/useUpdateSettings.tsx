@@ -11,12 +11,14 @@ import {
   useCurrentSelection,
   useSetCurrentSelection,
 } from "../state/selectedPath";
+import { useDeleteNode } from "../state/useDeleteNode";
 
 export function useUpdateSettings(tree: ShinyUiNode) {
   const dispatch = useDispatch();
 
   const selectedPath = useCurrentSelection();
   const setNodeSelection = useSetCurrentSelection();
+  const deleteNode = useDeleteNode(selectedPath);
 
   const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
     selectedPath !== null ? safeGetNode(tree, selectedPath) : null
@@ -92,6 +94,7 @@ export function useUpdateSettings(tree: ShinyUiNode) {
     deleteArgumentByName,
     selectedPath,
     setNodeSelection,
+    deleteNode,
   };
 }
 
