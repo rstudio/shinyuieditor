@@ -1,7 +1,8 @@
+import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+
 import type { BslibCardArguments } from "../Bslib/card";
 import { bslib_card } from "../Bslib/card";
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 export type GridItemSettings = {
   area: string;

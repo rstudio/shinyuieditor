@@ -9,7 +9,7 @@ import type { ParserNode } from "treesitter-parsers";
  * @returns Name of the accessed property if the node is an access to the
  * requested object, otherwise null
  */
-export function get_name_of_accessed_property(
+export function getNameOfAccessedProperty(
   node: ParserNode,
   obj_name: string
 ): string | null {

@@ -1,6 +1,6 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
-import type { R_AST } from "r-bindings";
-import { pos_to_script_range } from "r-bindings";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
+import type { RAST } from "r-bindings";
+import { posToScriptRange } from "r-bindings";
 import {
   get_assignment_nodes,
   get_server_assignment_node,
@@ -9,9 +9,9 @@ import {
 
 import type { ServerInfo } from "../App_Parser";
 
-export function parseRAppServerInfo(ast: R_AST, app_text: string): ServerInfo {
+export function parseRAppServerInfo(ast: RAST, app_text: string): ServerInfo {
   const assignment_nodes = get_assignment_nodes(ast);
-  const server_fn_range = pos_to_script_range(
+  const server_fn_range = posToScriptRange(
     get_server_assignment_node(assignment_nodes).pos
   );
   const output_positions = get_output_positions(assignment_nodes);
@@ -65,7 +65,7 @@ function findRInputReferences({
     return {
       start: { row, column: startChar },
       end: { row, column: startChar + to_find.length },
-    } as Script_Range;
+    } as ScriptRange;
   });
 }
 

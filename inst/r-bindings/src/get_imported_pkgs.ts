@@ -6,7 +6,7 @@ import type { ParserTree } from "treesitter-parsers";
  * @returns An array of package names of packages that were imported
  */
 
-export function get_imported_pkgs(app_tree: ParserTree): string[] {
+export function getImportedPkgs(app_tree: ParserTree): string[] {
   const call_nodes = app_tree.rootNode.descendantsOfType("call");
   let imported_pkg_names: string[] = [];
   call_nodes.forEach((node) => {

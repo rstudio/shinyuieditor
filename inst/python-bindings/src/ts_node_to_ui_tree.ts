@@ -1,6 +1,6 @@
 import type { ParserNode } from "treesitter-parsers";
 import { extract_call_content, is_call_node } from "treesitter-parsers";
-import { make_unknown_ui_function } from "ui-node-definitions/src/make_unknown_ui_function";
+import { makeUnknownUiFunction } from "ui-node-definitions/src/make_unknown_ui_function";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { pyFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
@@ -14,14 +14,14 @@ import { extractStringContent, isStringNode } from "./NodeTypes/StringNode";
 
 export function treesitterToUiTree(node: ParserNode): ShinyUiNode {
   if (!is_call_node(node)) {
-    return make_unknown_ui_function(node.text);
+    return makeUnknownUiFunction(node.text);
   }
 
   const { fn_name, fn_args } = extract_call_content(node);
 
   const known_info = pyFnNameToNodeInfo.get(fn_name);
   if (!known_info) {
-    return make_unknown_ui_function(node.text);
+    return makeUnknownUiFunction(node.text);
   }
 
   const positional_args = [...known_info.ordered_positional_args];

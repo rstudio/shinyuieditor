@@ -2,9 +2,9 @@ import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
 import { get_node_position } from "treesitter-parsers";
 
-import { get_name_of_accessed_property } from "./get_name_of_accessed_property";
+import { getNameOfAccessedProperty } from "./get_name_of_accessed_property";
 
-export function get_output_positions_from_server(server_node: ParserNode) {
+function getOutputPositionsFromServer(server_node: ParserNode) {
   const output_positions = new Map<string, ScriptRange[]>();
 
   const assignments = server_node.descendantsOfType("left_assignment");
@@ -15,7 +15,7 @@ export function get_output_positions_from_server(server_node: ParserNode) {
     if (!lhs) {
       return;
     }
-    const output_name = get_name_of_accessed_property(lhs, "output");
+    const output_name = getNameOfAccessedProperty(lhs, "output");
 
     if (!output_name) {
       return;
@@ -36,11 +36,11 @@ export function get_output_positions_from_server(server_node: ParserNode) {
   return output_positions;
 }
 
-export function get_input_positions_from_server(server_node: ParserNode) {
+function getInputPositionsFromServer(server_node: ParserNode) {
   const input_positions = new Map<string, ScriptRange[]>();
 
   server_node.descendantsOfType("dollar").forEach((node) => {
-    const input_name = get_name_of_accessed_property(node, "input");
+    const input_name = getNameOfAccessedProperty(node, "input");
 
     if (input_name === null) return;
     const input_loc = get_node_position(node);
@@ -64,9 +64,9 @@ export function get_input_positions_from_server(server_node: ParserNode) {
  * @returns Object with the positions of the input and output declarations as
  * maps from the name of the input/output to the position of the declaration
  */
-export function get_server_positions(server_node: ParserNode) {
-  const input_positions = get_input_positions_from_server(server_node);
-  const output_positions = get_output_positions_from_server(server_node);
+export function getServerPositions(server_node: ParserNode) {
+  const input_positions = getInputPositionsFromServer(server_node);
+  const output_positions = getOutputPositionsFromServer(server_node);
 
   return { input_positions, output_positions };
 }

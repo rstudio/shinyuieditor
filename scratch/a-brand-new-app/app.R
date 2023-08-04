@@ -13,22 +13,11 @@ ui <- page_navbar(
     title = "Settings",
     "Find me at ",
     a(href="www.google.com", "my website"),
-    " for more infomation!"
-  ),
-  tabPanel(
-    title = "Line Plots",
-    grid_container(
-      layout = c(
-        "linePlots"
-      ),
-      gap_size = "10px",
-      col_sizes = c(
-        "1fr"
-      ),
-      row_sizes = c(
-        "1fr"
-      ),
-      grid_card_plot(area = "linePlots")
+    " for more infomation!",
+    markdown(
+      mds = c(
+        "hello _world_"
+      )
     )
   ),
   tabPanel(
@@ -58,6 +47,22 @@ ui <- page_navbar(
           )
         )
       )
+    )
+  ),
+  tabPanel(
+    title = "Line Plots",
+    grid_container(
+      layout = c(
+        "linePlots"
+      ),
+      gap_size = "10px",
+      col_sizes = c(
+        "1fr"
+      ),
+      row_sizes = c(
+        "1fr"
+      ),
+      grid_card_plot(area = "linePlots")
     )
   )
 )

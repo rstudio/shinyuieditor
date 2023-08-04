@@ -2,7 +2,7 @@ import * as React from "react";
 
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
-import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
+import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
 import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
@@ -122,7 +122,7 @@ export function useSyncUiWithBackend() {
 
     debouncedSendMsg({
       path: "UPDATED-APP",
-      payload: generate_full_app_script(state, {
+      payload: generateFullAppScript(state, {
         include_info: false,
         language,
       }),

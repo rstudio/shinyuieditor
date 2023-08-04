@@ -1,4 +1,4 @@
-import type { namedArgsObject } from "./uiNodeTypes";
+import type { NamedArgsObject } from "./uiNodeTypes";
 import { containerNodes } from "./uiNodeTypes";
 
 /**
@@ -12,7 +12,7 @@ export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
 
 export type ShinyUiLeafNode = {
   id: string;
-  namedArgs: namedArgsObject;
+  namedArgs: NamedArgsObject;
 };
 /**
  * Ui Node with children
@@ -24,7 +24,7 @@ export type ShinyUiParentNode = ShinyUiLeafNode & {
 export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 
 export type MakeShinyUiNode<
-  Args extends namedArgsObject,
+  Args extends NamedArgsObject,
   TakesChildren extends boolean = false
 > = {
   id: string;

@@ -67,7 +67,7 @@ export function buildStaticFormInfo<DynArgs extends DynamicArgumentInfo>(
   const static_args: Record<string, unknown> = {};
 
   for (const arg_key in dynamic_args) {
-    static_args[arg_key] = convert_dynamic_info_to_static(
+    static_args[arg_key] = convertDynamicInfoToStatic(
       dynamic_args[arg_key],
       node
     );
@@ -76,10 +76,10 @@ export function buildStaticFormInfo<DynArgs extends DynamicArgumentInfo>(
   return static_args as ConvertToStatic<DynArgs>;
 }
 
-function convert_dynamic_info_to_static<
-  DynInfo extends AllDynamicOptions,
-  UiNode
->(dyn_info: DynInfo, node?: UiNode): MakeStaticArguments<DynInfo> {
+function convertDynamicInfoToStatic<DynInfo extends AllDynamicOptions, UiNode>(
+  dyn_info: DynInfo,
+  node?: UiNode
+): MakeStaticArguments<DynInfo> {
   const info_copy = { ...dyn_info };
 
   for (const key in info_copy) {
@@ -126,6 +126,8 @@ export function getDefaultSettings<DynArgs extends DynamicArgumentInfo>(
     [Key in __KeysInDefaultArgs<DynArgs>]: __ArgFromInfo<DynArgs[Key]>;
   };
 }
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
 type __KeysInDefaultArgs<Info extends DynamicArgumentInfo> = {
   [ArgName in keyof Info]: Info[ArgName] extends { optional: true }
     ? Info[ArgName] extends { useDefaultIfOptional: true }
@@ -135,6 +137,7 @@ type __KeysInDefaultArgs<Info extends DynamicArgumentInfo> = {
 }[keyof Info];
 
 // Helper types
+// eslint-disable-next-line @typescript-eslint/naming-convention
 type __DynamicInputOptions = Expand<
   {
     [StaticOptions in StaticInputOptions as StaticOptions["inputType"]]: MakeOmittedOption<
@@ -143,10 +146,12 @@ type __DynamicInputOptions = Expand<
   }[InputOptions["inputType"]]
 >;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 type __ArgFromInfo<Info extends __DynamicInputOptions> = __GetArgType<
   Info["defaultValue"]
 >;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 type __GetArgType<TArg> = TArg extends (...args: any[]) => infer TRet
   ? TRet
   : TArg;

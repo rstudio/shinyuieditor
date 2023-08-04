@@ -1,7 +1,7 @@
 import type { ShinyUiNode, ShinyUiLeafNode } from "../ShinyUiNode";
 
 type Wrapper = Pick<ShinyUiNode, "id" | "namedArgs">;
-export type Wrapping_Node = Wrapper | ((child: ShinyUiNode) => Wrapper | null);
+export type WrappingNode = Wrapper | ((child: ShinyUiNode) => Wrapper | null);
 
 type ChildToWrapperFunction = (child: ShinyUiNode) => ShinyUiLeafNode | null;
 export function wrapInNode({

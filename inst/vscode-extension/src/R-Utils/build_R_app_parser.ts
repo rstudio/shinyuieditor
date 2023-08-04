@@ -1,5 +1,5 @@
 import type { AppInfo } from "communication-types/src/AppInfo";
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import {
   generate_app_script_template,
   r_treesitter_to_ui_tree,
@@ -61,8 +61,8 @@ function makRAppInfoGetter(parser: TSParser) {
     // const input_positions = get_known_inputs(parsed_app);
     // const output_positions = get_known_outputs(parsed_app);
 
-    const input_positions = new Map<string, Script_Range[]>();
-    const output_positions = new Map<string, Script_Range[]>();
+    const input_positions = new Map<string, ScriptRange[]>();
+    const output_positions = new Map<string, ScriptRange[]>();
 
     const app_info: AppInfo = {
       language: "R",
@@ -99,7 +99,7 @@ function makRAppInfoGetter(parser: TSParser) {
  * @returns Location of the server node in the script
  */
 export function getServerNodePosition(parsed_app: ParserTree): {
-  server_fn: Script_Range;
+  server_fn: ScriptRange;
   indent: number;
 } {
   const assignment_nodes = get_assignment_nodes(parsed_app);
@@ -125,7 +125,7 @@ export function getServerNodePosition(parsed_app: ParserTree): {
  * @param node Node from the tree sitter tree
  * @returns Position of that node in the script
  */
-export function getNodePosition(node: ParserNode): Script_Range {
+export function getNodePosition(node: ParserNode): ScriptRange {
   const { startPosition, endPosition } = node;
 
   return {

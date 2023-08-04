@@ -1,29 +1,30 @@
 import type { AppInfo, AppScriptInfo } from "communication-types/src/AppInfo";
 
-import { generate_ui_script } from "./generate_ui_script";
+import { generateUiScript } from "./generate_ui_script";
 
-type Script_Generation_Options = {
-  language: "R" | "PYTHON";
-  include_info: boolean;
-};
-
-export function generate_full_app_script(
+export function generateFullAppScript(
   info: AppInfo,
-  { include_info, language }: Script_Generation_Options
+  {
+    include_info,
+    language,
+  }: {
+    language: "R" | "PYTHON";
+    include_info: boolean;
+  }
 ): AppScriptInfo {
   const { app_type, ui_tree } = info;
   switch (app_type) {
     case "SINGLE-FILE": {
       return {
         app_type,
-        app: generate_ui_script({ ui_tree, language, ...info.app }),
+        app: generateUiScript({ ui_tree, language, ...info.app }),
         ...(include_info && { info }),
       };
     }
     case "MULTI-FILE": {
       return {
         app_type,
-        ui: generate_ui_script({ ui_tree, language, ...info.ui }),
+        ui: generateUiScript({ ui_tree, language, ...info.ui }),
         server: info.server.code,
         ...(include_info && { info }),
       };

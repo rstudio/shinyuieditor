@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { AllInputTypes } from "ui-node-definitions/src/inputFieldTypes";
-import type { namedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
+import type { NamedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
@@ -23,7 +23,7 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (x: {
 }) => JSX.Element;
 
 export type FormBuilderProps = {
-  settings: namedArgsObject;
+  settings: NamedArgsObject;
   settingsInfo: DynamicArgumentInfo;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;

@@ -1,12 +1,12 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { parse_r_script } from "./parse_r_script";
+import { parseRScript } from "./parse_r_script";
 import { rTreesitterToUiTree } from "./r_treesitter_to_ui_tree";
 
 describe("Can go from treesitter to UI tree", async () => {
   const my_parser = await setup_r_parser();
   test("Nodes with ui nodes as named arguments work", () => {
-    const parse_test = parse_r_script(
+    const parse_test = parseRScript(
       my_parser,
       `value_box(
         title = "Look at me!",
@@ -33,7 +33,7 @@ describe("Can go from treesitter to UI tree", async () => {
     );
   });
   test("Can remap new api's automatically", () => {
-    const parse_test = parse_r_script(
+    const parse_test = parseRScript(
       my_parser,
       `card_body_fill(
         actionButton(inputId = "redraw", label = "Redraw")

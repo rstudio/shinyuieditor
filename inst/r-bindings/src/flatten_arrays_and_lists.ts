@@ -1,38 +1,38 @@
 import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
 
-import type { Primatives, Leaf_Node, R_AST, R_AST_Node } from ".";
+import type { Primatives, LeafNode, RAST, RASTNode } from ".";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
-import { is_ast_branch_node } from "./node_identity_checkers";
+import { isAstBranchNode } from "./node_identity_checkers";
 import { ParsingError } from "./parsing_error_class";
 
 type Primative_Map = Record<string, Primatives>;
 
 type Primative_Array = (Primatives | Primative_Array)[];
 
-type Array_Or_List_AST = [{ val: "c" | "list"; type: "s" }, ...Leaf_Node[]];
+type Array_Or_List_AST = [{ val: "c" | "list"; type: "s" }, ...LeafNode[]];
 
-type Array_AST = [{ val: "c"; type: "s" }, ...Leaf_Node[]];
+type Array_AST = [{ val: "c"; type: "s" }, ...LeafNode[]];
 
-function get_ast_is_array(x: R_AST): x is Array_AST {
+function get_ast_is_array(x: RAST): x is Array_AST {
   return x[0].val === "c";
 }
-export function get_ast_is_array_or_list(x: R_AST): x is Array_Or_List_AST {
+export function get_ast_is_array_or_list(x: RAST): x is Array_Or_List_AST {
   const call_val = x[0].val;
 
   return call_val === "c" || call_val === "list";
 }
 
-export function get_node_is_array(node: R_AST_Node): boolean {
-  return is_ast_branch_node(node) && get_ast_is_array(node.val);
+export function get_node_is_array(node: RASTNode): boolean {
+  return isAstBranchNode(node) && get_ast_is_array(node.val);
 }
 
-export function get_node_is_list(node: R_AST_Node): boolean {
-  return is_ast_branch_node(node) && node.val[0].val === "list";
+export function get_node_is_list(node: RASTNode): boolean {
+  return isAstBranchNode(node) && node.val[0].val === "list";
 }
 
 export function flatten_to_array(
-  node: R_AST_Node
+  node: RASTNode
 ): Primative_Array | UnknownUiNode {
   try {
     return flatten_array_internal(node);
@@ -47,8 +47,8 @@ export function flatten_to_array(
 }
 
 // Internal array flattening that we can use recursively.
-function flatten_array_internal(node: R_AST_Node): Primative_Array {
-  if (!is_ast_branch_node(node)) {
+function flatten_array_internal(node: RASTNode): Primative_Array {
+  if (!isAstBranchNode(node)) {
     throw new ParsingError({
       message: "Tried to flatten a leaf/primative node",
     });
@@ -66,10 +66,8 @@ function flatten_array_internal(node: R_AST_Node): Primative_Array {
   );
 }
 
-export function flatten_to_list(
-  node: R_AST_Node
-): Primative_Map | UnknownUiNode {
-  if (!is_ast_branch_node(node)) {
+export function flatten_to_list(node: RASTNode): Primative_Map | UnknownUiNode {
+  if (!isAstBranchNode(node)) {
     throw new ParsingError({
       message: "Tried to flatten a leaf/primative node",
     });

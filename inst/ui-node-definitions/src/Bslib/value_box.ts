@@ -5,11 +5,11 @@ import {
 import type { ParserNode } from "treesitter-parsers";
 import { extract_call_content, is_call_node } from "treesitter-parsers";
 
-import { make_unknown_ui_function } from "../make_unknown_ui_function";
-import type { Preprocessed_Arg_Node } from "../nodeInfoFactory";
+import { makeUnknownUiFunction } from "../make_unknown_ui_function";
+import type { PreprocessedArgNode } from "../nodeInfoFactory";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiNode } from "../ShinyUiNode";
-import type { namedArgsObject } from "../uiNodeTypes";
+import type { NamedArgsObject } from "../uiNodeTypes";
 
 const layout_dir_to_code = {
   left: "showcase_left_center()",
@@ -30,15 +30,15 @@ export const value_box = nodeInfoFactory<{
     transform_named_args: (args) => {
       const { showcase_icon, showcase_layout, ...others } = args;
 
-      const to_return = others as namedArgsObject;
+      const to_return = others as NamedArgsObject;
       if (showcase_icon) {
-        to_return.showcase = make_unknown_ui_function(
+        to_return.showcase = makeUnknownUiFunction(
           `bsicons::bs_icon("${showcase_icon}")`
         );
       }
 
       if (showcase_layout) {
-        to_return.showcase_layout = make_unknown_ui_function(
+        to_return.showcase_layout = makeUnknownUiFunction(
           layout_dir_to_code[showcase_layout]
         );
       }
@@ -102,7 +102,7 @@ export const value_box = nodeInfoFactory<{
  * icon name. If the passed value doesn't match an icon format. Then the
  * original is returned.
  */
-function convertShowcaseArg(value: ParserNode): Preprocessed_Arg_Node | null {
+function convertShowcaseArg(value: ParserNode): PreprocessedArgNode | null {
   if (!is_call_node(value)) {
     return null;
   }
@@ -128,11 +128,11 @@ function convertShowcaseArg(value: ParserNode): Preprocessed_Arg_Node | null {
  */
 function convertShowcaseLayoutArg(
   value: ParserNode
-): Preprocessed_Arg_Node | null {
+): PreprocessedArgNode | null {
   if (!is_call_node(value)) {
     return null;
   }
-  const { fn_name, fn_args } = extract_call_content(value);
+  const { fn_name } = extract_call_content(value);
 
   if (fn_name === "showcase_left_center") {
     return {

@@ -5,11 +5,11 @@ import type {
   SingleFileTemplateSelection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
-import { indent_line_breaks } from "ui-node-definitions/src/code_generation/build_function_text";
-import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
+import { indentLineBreaks } from "ui-node-definitions/src/code_generation/build_function_text";
+import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 import {
   SCRIPT_LOC_KEYS,
-  write_R_library_calls,
+  writeRLibraryCalls,
 } from "ui-node-definitions/src/code_generation/generate_ui_script";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
@@ -32,7 +32,7 @@ export function templateToAppContents(
     selection.outputType === "SINGLE-FILE"
       ? templateToSingleFileInfo(selection)
       : templateToMultiFileInfo(selection);
-  return generate_full_app_script(app_info, { include_info: true, language });
+  return generateFullAppScript(app_info, { include_info: true, language });
 }
 
 function templateToSingleFileInfo(
@@ -54,7 +54,7 @@ ui <- ${SCRIPT_LOC_KEYS.ui}
 
 ${serverExtra}
 server <- function(input, output) {
-  ${indent_line_breaks(serverFunctionBody)}
+  ${indentLineBreaks(serverFunctionBody)}
 }
 
 shinyApp(ui, server)
@@ -94,11 +94,11 @@ function templateToMultiFileInfo(
 ${uiExtra}
 ui <- ${SCRIPT_LOC_KEYS.ui}
 `;
-  const server_code = `${write_R_library_calls(serverLibraries)}
+  const server_code = `${writeRLibraryCalls(serverLibraries)}
 
 ${serverExtra}
 server <- function(input, output) {
-  ${indent_line_breaks(serverFunctionBody)}
+  ${indentLineBreaks(serverFunctionBody)}
 }
 `;
 

@@ -1,10 +1,10 @@
-import type { R_AST_Node } from ".";
+import type { RASTNode } from ".";
 
 import { flatten_to_list, flatten_to_array } from "./flatten_arrays_and_lists";
 
 describe("Can flatten arrays", () => {
   test("1d arrays", () => {
-    const array_node: R_AST_Node = {
+    const array_node: RASTNode = {
       val: [
         { val: "c", type: "s" },
         { val: "a", type: "c" },
@@ -18,7 +18,7 @@ describe("Can flatten arrays", () => {
   });
 
   test("2d arrays", () => {
-    const array_node: R_AST_Node = {
+    const array_node: RASTNode = {
       val: [
         { val: "c", type: "s" },
         {
@@ -59,7 +59,7 @@ describe("Can flatten arrays", () => {
 
 describe("Can flatten lists", () => {
   test("1d arrays", () => {
-    const array_node: R_AST_Node = {
+    const array_node: RASTNode = {
       val: [
         { val: "list", type: "s" },
         { name: "a", val: 1, type: "n" },

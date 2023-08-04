@@ -9,7 +9,7 @@ import { rFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
  * node. Otherwise return null.
  */
 
-export function get_r_info_if_known(node: ParserNode) {
+export function getRInfoIfKnown(node: ParserNode) {
   if (!is_call_node(node)) {
     return null;
   }

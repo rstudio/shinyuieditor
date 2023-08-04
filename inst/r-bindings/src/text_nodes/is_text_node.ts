@@ -1,6 +1,6 @@
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
-import type { Expression_Node, AST_Node_By_Name, R_AST_Node } from "..";
+import type { ExpressionNode, ASTNodeByName, RASTNode } from "..";
 import { IsNodeOfType } from "../node_identity_checkers";
 
 type ToNameTagMap<T extends { name: string; tag: string | null }> = {
@@ -63,26 +63,26 @@ export type TextNodeSettings = {
 
 export type TextNodeSizeTag = TextSizeMappingsNoDefault["tag"];
 
-type SizedTextNode = Expression_Node<
-  [{ val: TextNodeSizeTag; type: "s" }, AST_Node_By_Name["character"]]
+type SizedTextNode = ExpressionNode<
+  [{ val: TextNodeSizeTag; type: "s" }, ASTNodeByName["character"]]
 >;
 
-type DecoratedTextNode = Expression_Node<
-  [{ val: TextDecorationTags; type: "s" }, AST_Node_By_Name["character"]]
+type DecoratedTextNode = ExpressionNode<
+  [{ val: TextDecorationTags; type: "s" }, ASTNodeByName["character"]]
 >;
 
-type SizedAndDecoratedTextNode = Expression_Node<
+type SizedAndDecoratedTextNode = ExpressionNode<
   [{ val: TextNodeSizeTag; type: "s" }, DecoratedTextNode]
 >;
 
 export type TextNode = Expand<
-  | AST_Node_By_Name["character"]
+  | ASTNodeByName["character"]
   | SizedTextNode
   | DecoratedTextNode
   | SizedAndDecoratedTextNode
 >;
 
-export function isTextNode(node: R_AST_Node): node is TextNode {
+export function isTextNode(node: RASTNode): node is TextNode {
   if (IsNodeOfType(node, "character")) return true;
 
   if (isTextDecorationTagNode(node)) return true;
@@ -99,7 +99,7 @@ export function parseTextDecorationTagNode(node: DecoratedTextNode) {
 }
 
 export function isTextDecorationTagNode(
-  node: R_AST_Node
+  node: RASTNode
 ): node is DecoratedTextNode {
   if (!IsNodeOfType(node, "expression")) return false;
 
@@ -119,7 +119,7 @@ export function isTextDecorationTagNode(
 }
 
 export function isTextSizeTagNode(
-  node: R_AST_Node
+  node: RASTNode
 ): node is SizedTextNode | SizedAndDecoratedTextNode {
   if (!IsNodeOfType(node, "expression")) return false;
 

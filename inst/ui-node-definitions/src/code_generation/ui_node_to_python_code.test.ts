@@ -1,11 +1,11 @@
-import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
+import type { GeneratedUiDef } from "communication-types/src/MessageToBackend";
 
 import type { ShinyUiNode } from "../ShinyUiNode";
 
-import { ui_node_to_code } from "./ui_node_to_code";
+import { uiNodeTocode } from "./ui_node_to_code";
 
-function ui_node_to_python_code(node: ShinyUiNode): Generated_UI_Def {
-  return ui_node_to_code(node, "PYTHON");
+function uiNodeToPythonCode(node: ShinyUiNode): GeneratedUiDef {
+  return uiNodeTocode(node, "PYTHON");
 }
 
 describe("Can turn ShinyUiNode into function call text with formatting", () => {
@@ -21,7 +21,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      ui_node_to_python_code({
+      uiNodeToPythonCode({
         id: "sliderInput",
         namedArgs: {
           inputId: "obs",
@@ -49,7 +49,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      ui_node_to_python_code({
+      uiNodeToPythonCode({
         id: "tabPanel",
         namedArgs: {
           title: "Tab A",
@@ -80,7 +80,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
   // )`;
 
   //     expect(
-  //       ui_node_to_R_code(
+  //       uiNodeToRCode(
   //         {
   //           id: "selectInput",
   //           namedArgs: {
@@ -117,7 +117,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
   // )`;
 
   //     expect(
-  //       ui_node_to_R_code(
+  //       uiNodeToRCode(
   //         {
   //           id: "grid_page",
   //           namedArgs: {

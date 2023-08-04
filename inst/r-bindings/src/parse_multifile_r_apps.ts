@@ -2,20 +2,20 @@ import type { ParserNode, TSParser } from "treesitter-parsers";
 
 import { get_ui_node_from_r_multifile_app } from ".";
 
-import { get_r_info_if_known } from "./get_r_info_if_known";
-import { parse_r_script } from "./parse_r_script";
+import { getRInfoIfKnown } from "./get_r_info_if_known";
+import { parseRScript } from "./parse_r_script";
 
-export function find_ui_and_server_in_multifile_r_app(
+export function findUiAndServerInMultifileRApp(
   parser: TSParser,
   ui_script: string,
   server_script: string
 ) {
-  const parsed_ui = parse_r_script(parser, ui_script).rootNode;
-  const parsed_server = parse_r_script(parser, server_script).rootNode;
+  const parsed_ui = parseRScript(parser, ui_script).rootNode;
+  const parsed_server = parseRScript(parser, server_script).rootNode;
 
   return {
     ui_node: get_ui_node_from_r_multifile_app(parsed_ui),
-    server_node: find_server_def_in_r_app(parsed_server),
+    server_node: findServerDefInRApp(parsed_server),
   };
 }
 /**
@@ -24,10 +24,10 @@ export function find_ui_and_server_in_multifile_r_app(
  * @returns The node that contains the ui declaration.
  * @throws If no ui declaration is found in the script
  */
-export function find_ui_def_in_r_app(root_node: ParserNode) {
-  const ui_node = search_for_node(
+export function findUiDefInRApp(root_node: ParserNode) {
+  const ui_node = searchForNode(
     root_node,
-    (node) => get_r_info_if_known(node) !== null
+    (node) => getRInfoIfKnown(node) !== null
   );
 
   if (ui_node) {
@@ -42,8 +42,8 @@ export function find_ui_def_in_r_app(root_node: ParserNode) {
  * @returns The node that contains the server declaration.
  * @throws If no server declaration is found in the script
  */
-export function find_server_def_in_r_app(root_node: ParserNode): ParserNode {
-  const server_node = search_for_node(root_node, fn_def_is_server);
+export function findServerDefInRApp(root_node: ParserNode): ParserNode {
+  const server_node = searchForNode(root_node, fnDefIsServer);
 
   if (server_node) {
     return server_node;
@@ -52,7 +52,7 @@ export function find_server_def_in_r_app(root_node: ParserNode): ParserNode {
   throw new Error("No server function found in script");
 }
 
-function fn_def_is_server(node: ParserNode) {
+function fnDefIsServer(node: ParserNode) {
   if (node.type !== "function_definition") return false;
 
   const fn_params = node.firstNamedChild;
@@ -72,7 +72,7 @@ function fn_def_is_server(node: ParserNode) {
  * looking for
  * @returns Node if found, null otherwise
  */
-function search_for_node(
+function searchForNode(
   root_node: ParserNode,
   search_fn: (node: ParserNode) => boolean
 ): ParserNode | null {

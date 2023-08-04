@@ -1,15 +1,14 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { find_ui_and_server_in_singlefile_app } from "./find_ui_and_server_in_singlefile_app";
-import { get_server_positions } from "./get_server_positions";
-import { find_server_def_in_r_app } from "./parse_multifile_r_apps";
-import { parse_r_app } from "./parse_r_app";
-import { parse_r_script } from "./parse_r_script";
+import { getServerPositions } from "./get_server_positions";
+import { findServerDefInRApp } from "./parse_multifile_r_apps";
+import { parseRApp } from "./parse_r_app";
+import { parseRScript } from "./parse_r_script";
 
 describe("Can find output positions in server of multifile app", async () => {
   const my_parser = await setup_r_parser();
-  const server_node = find_server_def_in_r_app(
-    parse_r_script(
+  const server_node = findServerDefInRApp(
+    parseRScript(
       my_parser,
       `library(ggplot2)
         
@@ -27,8 +26,7 @@ describe("Can find output positions in server of multifile app", async () => {
     ).rootNode
   );
 
-  const { input_positions, output_positions } =
-    get_server_positions(server_node);
+  const { input_positions, output_positions } = getServerPositions(server_node);
 
   test("Output bindings", () => {
     expect(output_positions.has("dists")).toBe(true);
@@ -43,7 +41,7 @@ describe("Can find output positions in server of multifile app", async () => {
 });
 
 describe("Can find output positions in server of single file app", async () => {
-  const { server_node } = parse_r_app(
+  const { server_node } = parseRApp(
     await setup_r_parser(),
     `library(ggplot2)
 
@@ -71,8 +69,7 @@ describe("Can find output positions in server of single file app", async () => {
     shinyApp(ui, server)`
   );
 
-  const { input_positions, output_positions } =
-    get_server_positions(server_node);
+  const { input_positions, output_positions } = getServerPositions(server_node);
 
   test("Output bindings", () => {
     expect(output_positions.has("dists")).toBe(true);

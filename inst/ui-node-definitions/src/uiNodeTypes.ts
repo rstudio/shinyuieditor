@@ -16,7 +16,7 @@ import { grid_page } from "./gridlayout/grid_page";
 import { testing_error_node } from "./internal/testing_error_node";
 import { text_node } from "./internal/text_node";
 import { unknown_code } from "./internal/unknown_code";
-import type { Lang_Info } from "./nodeInfoFactory";
+import type { LangInfo } from "./nodeInfoFactory";
 import { output_plotly } from "./plotly/output_plotly";
 import { input_action_button } from "./Shiny/input_action_button";
 import { input_checkbox } from "./Shiny/input_checkbox";
@@ -35,7 +35,7 @@ import { panel_main } from "./Shiny/panel_main";
 import { tab_panel } from "./Shiny/tab_panel";
 import { tabset_panel } from "./Shiny/tabset_panel";
 
-export type namedArgsObject = Record<string, unknown | undefined>;
+export type NamedArgsObject = Record<string, unknown | undefined>;
 
 /**
  * This is the main object that contains the info about a given uiNode. Once the
@@ -154,13 +154,13 @@ export type NodeInfoByRPackage = {
  */
 export const shinyids = new Set<string>(all_node_info.map(({ id }) => id));
 
-type R_Aware_NodeInfo = Extract<ShinyUiNodeInfo, { r_info: any }>;
+type RAwareNodeInfo = Extract<ShinyUiNodeInfo, { r_info: any }>;
 
 const r_aware_nodes = all_node_info.filter(({ r_info }) =>
   Boolean(r_info)
-) as R_Aware_NodeInfo[];
+) as RAwareNodeInfo[];
 
-function namespace_r_fn(fn_name: string, pkg_name: string) {
+function namespaceRFn(fn_name: string, pkg_name: string) {
   return `${pkg_name}::${fn_name}`;
 }
 const all_r_aware_node_names = r_aware_nodes.flatMap(({ id, r_info }) => {
@@ -168,15 +168,15 @@ const all_r_aware_node_names = r_aware_nodes.flatMap(({ id, r_info }) => {
 
   let names: [string, string][] = [
     [r_info.fn_name, id],
-    [namespace_r_fn(r_info.fn_name, pkg_name), id],
+    [namespaceRFn(r_info.fn_name, pkg_name), id],
   ];
   if ("fn_aliases" in r_info) {
     (
-      r_info.fn_aliases as Required<Lang_Info<namedArgsObject>>["fn_aliases"]
+      r_info.fn_aliases as Required<LangInfo<NamedArgsObject>>["fn_aliases"]
     ).forEach((alias) => {
       names.push(
         [alias.fn_name, id],
-        [namespace_r_fn(alias.fn_name, pkg_name), id]
+        [namespaceRFn(alias.fn_name, pkg_name), id]
       );
     });
   }
@@ -201,20 +201,20 @@ export const rFnNameToNodeInfo = (fn_name: string) => {
   if (!id) {
     return undefined;
   }
-  return getUiNodeInfo(id) as R_Aware_NodeInfo;
+  return getUiNodeInfo(id) as RAwareNodeInfo;
 };
 
-type Python_Aware_NodeInfo = Extract<ShinyUiNodeInfo, { py_info: any }>;
+type PythonAwareNodeInfo = Extract<ShinyUiNodeInfo, { py_info: any }>;
 /**
  * Go from python function name (e.g. `ui.input_slider`) to the ui node id. Also
  * acts as a check for if a node is in known python functions
  * */
-export const pyFnNameToNodeInfo = new Map<string, Python_Aware_NodeInfo>(
+export const pyFnNameToNodeInfo = new Map<string, PythonAwareNodeInfo>(
   all_node_info
     .filter((info) => info.py_info)
     .map((info) => [info.py_info.fn_name, info]) as [
     string,
-    Python_Aware_NodeInfo
+    PythonAwareNodeInfo
   ][]
 );
 

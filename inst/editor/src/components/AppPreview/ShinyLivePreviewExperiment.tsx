@@ -3,7 +3,7 @@ import React from "react";
 import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
-import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
+import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import type { MainStateOption } from "../../state/app_info";
@@ -107,7 +107,7 @@ function AppStateToShinyLiveUrl(state: MainStateOption): string {
     return "";
   }
 
-  const script_text = generate_full_app_script(state, {
+  const script_text = generateFullAppScript(state, {
     include_info: false,
     language: "PYTHON",
   });

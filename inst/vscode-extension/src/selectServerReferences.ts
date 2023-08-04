@@ -1,4 +1,4 @@
-import type { Script_Range } from "communication-types/src/MessageToBackend";
+import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import * as vscode from "vscode";
 
 export function selectAppLines({
@@ -6,7 +6,7 @@ export function selectAppLines({
   selections,
 }: {
   editor: vscode.TextEditor;
-  selections: Script_Range[];
+  selections: ScriptRange[];
 }) {
   const selection_objs = selections.map((range) => {
     const start = new vscode.Position(range.start.row, range.start.column);

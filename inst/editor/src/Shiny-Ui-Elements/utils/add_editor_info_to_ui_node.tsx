@@ -1,4 +1,4 @@
-import type { Node_Info_By_Id } from "ui-node-definitions";
+import type { NodeInfoById } from "ui-node-definitions";
 import { node_info_by_id } from "ui-node-definitions";
 import type { NodePath } from "ui-node-definitions/src/NodePath";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
@@ -46,7 +46,7 @@ export function addEditorInfoToUiNode<
  *
  * @returns
  */
-export function addEditorInfoById<Id extends keyof Node_Info_By_Id>(
+export function addEditorInfoById<Id extends keyof NodeInfoById>(
   id: Id,
   editor_info: {
     /**
@@ -54,9 +54,9 @@ export function addEditorInfoById<Id extends keyof Node_Info_By_Id>(
      * not provided then the node will not show up in the element palette.
      */
     iconSrc?: string;
-    UiComponent: UiComponentFromInfo<Node_Info_By_Id[Id]>;
+    UiComponent: UiComponentFromInfo<NodeInfoById[Id]>;
     settingsFormRender?: CustomFormRenderFn<
-      Required<Node_Info_By_Id[Id]["example_args"]>
+      Required<NodeInfoById[Id]["example_args"]>
     >;
     /**
      * Optional update subscribers

@@ -1,4 +1,4 @@
-import type { Raw_R_Info } from "r-bindings";
+import type { RawRInfo } from "r-bindings";
 
 import type { AppType, AppInfo, LanguageMode, AppScriptInfo } from "./AppInfo";
 import { isRecord } from "./isRecord";
@@ -13,7 +13,7 @@ import type { MessageUnion } from "./MessageUnion";
  * backend
  */
 export type MessageToClientByPath = {
-  "RAW-R-INFO": Raw_R_Info;
+  "RAW-R-INFO": RawRInfo;
   "APP-SCRIPT-TEXT": { language: LanguageMode } & AppScriptInfo;
   "APP-INFO": AppInfo;
   "BACKEND-ERROR": {

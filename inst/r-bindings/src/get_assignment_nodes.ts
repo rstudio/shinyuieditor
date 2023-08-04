@@ -1,21 +1,15 @@
 import type { AppInfo } from "communication-types/src/AppInfo";
 import type { ScriptRange } from "communication-types/src/MessageToBackend";
 
-import type {
-  Branch_Node,
-  Expression_Node,
-  R_AST,
-  R_AST_Node,
-  Symbol_Node,
-} from ".";
+import type { BranchNode, ExpressionNode, RAST, RASTNode, SymbolNode } from ".";
 import { posToScriptRange } from ".";
 
-import { is_ast_branch_node } from "./node_identity_checkers";
+import { isAstBranchNode } from "./node_identity_checkers";
 import { ParsingError } from "./parsing_error_class";
 
-export type Assignment_Operator = "<-" | "=";
+type AssignmentOperator = "<-" | "=";
 
-type Output_Node = Expression_Node<
+type OutputNode = ExpressionNode<
   [
     { val: "$"; type: "s" },
     { val: "output"; type: "s" },
@@ -23,20 +17,20 @@ type Output_Node = Expression_Node<
   ]
 >;
 
-type Assignment_Node_Gen<
-  VALUE extends R_AST_Node,
-  NAME extends R_AST_Node = R_AST_Node
-> = Expression_Node<
-  [assignment: Symbol_Node<Assignment_Operator>, name: NAME, value: VALUE]
+type AssignmentNodeGen<
+  VALUE extends RASTNode,
+  NAME extends RASTNode = RASTNode
+> = ExpressionNode<
+  [assignment: SymbolNode<AssignmentOperator>, name: NAME, value: VALUE]
 >;
 
-export type Assignment_Node = Assignment_Node_Gen<R_AST_Node>;
+type AssignmentNode = AssignmentNodeGen<RASTNode>;
 
-function is_assignment_node(
-  node: R_AST_Node,
+function isAssignmentNode(
+  node: RASTNode,
   var_name?: string
-): node is Assignment_Node {
-  if (!is_ast_branch_node(node)) return false;
+): node is AssignmentNode {
+  if (!isAstBranchNode(node)) return false;
 
   const { val } = node;
 
@@ -47,32 +41,26 @@ function is_assignment_node(
   return var_name ? val[1].val === var_name : true;
 }
 
-export function get_assignment_lhs<Node extends Assignment_Node>(
+function getAssignmentLhs<Node extends AssignmentNode>(
   node: Node
 ): Node["val"][1] {
   return node.val[1];
 }
 
-export function get_assignment_rhs<Node extends Assignment_Node>(
-  node: Node
-): Node["val"][2] {
-  return node.val[2];
-}
-
-export type Variable_Assignment = {
+type VariableAssignment = {
   name: string;
   is_output: boolean;
-  node: Assignment_Node;
+  node: AssignmentNode;
 };
 
-export function get_assignment_nodes(ast: R_AST): Variable_Assignment[] {
-  let assignment_nodes: Variable_Assignment[] = [];
+export function getAssignmentNodes(ast: RAST): VariableAssignment[] {
+  let assignment_nodes: VariableAssignment[] = [];
 
   ast.forEach((node) => {
-    if (is_assignment_node(node)) {
-      const assigned_name = get_assignment_lhs(node);
+    if (isAssignmentNode(node)) {
+      const assigned_name = getAssignmentLhs(node);
 
-      if (is_output_node(assigned_name)) {
+      if (isOutputNode(assigned_name)) {
         assignment_nodes.push({
           name: assigned_name.val[2].val,
           is_output: true,
@@ -90,8 +78,8 @@ export function get_assignment_nodes(ast: R_AST): Variable_Assignment[] {
       }
     }
 
-    if (is_ast_branch_node(node)) {
-      const sub_assignments = get_assignment_nodes(node.val);
+    if (isAstBranchNode(node)) {
+      const sub_assignments = getAssignmentNodes(node.val);
       assignment_nodes.push(...sub_assignments);
     }
   });
@@ -99,8 +87,8 @@ export function get_assignment_nodes(ast: R_AST): Variable_Assignment[] {
   return assignment_nodes;
 }
 
-function is_output_node(node: R_AST_Node): node is Output_Node {
-  if (!is_ast_branch_node(node)) return false;
+function isOutputNode(node: RASTNode): node is OutputNode {
+  if (!isAstBranchNode(node)) return false;
   const { val: subnodes } = node;
 
   return (
@@ -110,11 +98,9 @@ function is_output_node(node: R_AST_Node): node is Output_Node {
   );
 }
 
-type Output_Server_Pos = Map<string, ScriptRange[]>;
-
-export function get_output_positions(
-  all_asignments: Variable_Assignment[]
-): Output_Server_Pos {
+export function getOutputPositions(
+  all_asignments: VariableAssignment[]
+): Map<string, ScriptRange[]> {
   return all_asignments
     .filter(({ is_output }) => is_output)
     .reduce((by_name, { name, node }) => {
@@ -135,8 +121,8 @@ export function get_output_positions(
     }, new Map<string, ScriptRange[]>());
 }
 
-export function get_known_outputs(
-  all_asignments: Variable_Assignment[]
+export function getKnownOutputs(
+  all_asignments: VariableAssignment[]
 ): AppInfo["known_outputs"] {
   const output_nodes = all_asignments.filter(({ is_output }) => is_output);
 
@@ -147,59 +133,12 @@ export function get_known_outputs(
   return [...known_names];
 }
 
-export type Ui_Assignment_Node = Required<
-  Assignment_Node_Gen<Branch_Node, Symbol_Node<"ui">>
+type ServerAssignmentNode = Required<
+  AssignmentNodeGen<BranchNode, SymbolNode<"server">>
 >;
-
-function is_ui_assignment_node(
-  node: Assignment_Node
-): node is Ui_Assignment_Node {
-  const has_position = Boolean(node.pos);
-  if (!has_position) return false;
-
-  const assigns_to_ui = get_assignment_lhs(node).val === "ui";
-  if (!assigns_to_ui) return false;
-
-  return is_ast_branch_node(get_assignment_rhs(node));
-}
-
-export function get_ui_assignment_node(all_asignments: Variable_Assignment[]): {
-  ui_root_node: Branch_Node;
-  ui_assignment_operator: Assignment_Operator;
-  ui_pos: ScriptRange;
-} {
-  const ui_assignment = all_asignments.find(
-    ({ name, is_output }) => name === "ui" && !is_output
-  );
-
-  if (!ui_assignment) {
-    throw new ParsingError({
-      message: "No ui assignment node was found in provided ast",
-    });
-  }
-
-  const { node: ui_node } = ui_assignment;
-
-  if (!is_ui_assignment_node(ui_node)) {
-    throw new ParsingError({
-      message: "No position info attached to the ui assignment node",
-      cause: ui_node,
-    });
-  }
-
-  return {
-    ui_pos: posToScriptRange(ui_node.pos),
-    ui_root_node: ui_node.val[2],
-    ui_assignment_operator: ui_node.val[0].val,
-  };
-}
-
-export type Server_Assignment_Node = Required<
-  Assignment_Node_Gen<Branch_Node, Symbol_Node<"server">>
->;
-export function get_server_assignment_node(
-  all_asignments: Variable_Assignment[]
-): Server_Assignment_Node {
+export function getServerAssignmentNode(
+  all_asignments: VariableAssignment[]
+): ServerAssignmentNode {
   const server_assignment = all_asignments.find(
     ({ name, is_output }) => name === "server" && !is_output
   );
@@ -219,5 +158,5 @@ export function get_server_assignment_node(
     });
   }
 
-  return server as Server_Assignment_Node;
+  return server as ServerAssignmentNode;
 }

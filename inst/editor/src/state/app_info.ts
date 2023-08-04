@@ -2,7 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
 import type { AppInfo } from "communication-types/src/AppInfo";
-import type { Raw_R_Info } from "r-bindings";
+import type { RawRInfo } from "r-bindings";
 import { useSelector } from "react-redux";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import type { PlaceNodeArguments } from "ui-node-definitions/src/TreeManipulation/placeNode";
@@ -56,7 +56,7 @@ export const mainStateSlice = createSlice({
     SET_FULL_STATE: (tree, action: PayloadAction<{ state: MainStateOption }>) =>
       action.payload.state,
 
-    SET_INFO_FROM_R: (tree, action: PayloadAction<Raw_R_Info>) => {
+    SET_INFO_FROM_R: (tree, action: PayloadAction<RawRInfo>) => {
       // const full_info = raw_R_info_to_app_info(action.payload);
       throw new Error("Temporarily disabled");
       // return {

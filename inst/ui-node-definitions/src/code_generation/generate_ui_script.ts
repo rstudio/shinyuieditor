@@ -5,14 +5,14 @@ import type {
 
 import type { ShinyUiNode } from "../ShinyUiNode";
 
-import { ui_node_to_code } from "./ui_node_to_code";
+import { uiNodeTocode } from "./ui_node_to_code";
 
 export const SCRIPT_LOC_KEYS = {
   ui: "<UI>",
   packages: "<PACKAGES>",
 };
 
-export function generate_ui_script({
+export function generateUiScript({
   ui_tree,
   packages: existing_libraries,
   language,
@@ -21,7 +21,7 @@ export function generate_ui_script({
   ui_tree: ShinyUiNode;
   language: LanguageMode;
 } & ScriptGenerationTemplate): string {
-  const ui_def = ui_node_to_code(ui_tree, language);
+  const ui_def = uiNodeTocode(ui_tree, language);
 
   // We need to check to make sure there aren't any libraries used in the ui
   // tree that are not declared in the script and add them
@@ -37,19 +37,19 @@ export function generate_ui_script({
 
   const package_calls =
     language === "R"
-      ? write_R_library_calls(all_packages)
-      : write_python_imports(all_packages);
+      ? writeRLibraryCalls(all_packages)
+      : writePythonImports(all_packages);
 
   return app_template
     .replace(SCRIPT_LOC_KEYS.ui, ui_def.code)
     .replace(SCRIPT_LOC_KEYS.packages, package_calls);
 }
 
-export function write_R_library_calls(libraries: string[]): string {
+export function writeRLibraryCalls(libraries: string[]): string {
   return libraries.map((l) => `library(${l})`).join("\n");
 }
 
-function write_python_imports(packages: string[]): string {
+function writePythonImports(packages: string[]): string {
   return packages.map((pkg) => `from ${pkg} import *`).join("\n");
 }
 

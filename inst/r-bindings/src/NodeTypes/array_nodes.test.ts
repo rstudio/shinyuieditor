@@ -1,6 +1,6 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { parse_r_script } from "../parse_r_script";
+import { parseRScript } from "../parse_r_script";
 
 import { is_array_node, extract_array_contents } from "./ArrayNode";
 
@@ -8,7 +8,7 @@ describe("Can parse array nodes to their proper javascript formats", async () =>
   const my_parser = await setup_r_parser();
 
   test("Array of strings", () => {
-    const parse_test = parse_r_script(my_parser, `c("a", "b", "c")`).rootNode;
+    const parse_test = parseRScript(my_parser, `c("a", "b", "c")`).rootNode;
 
     const test_node = parse_test.descendantsOfType("call")[0];
 
@@ -18,7 +18,7 @@ describe("Can parse array nodes to their proper javascript formats", async () =>
     }
   });
   test("Array of numbers", () => {
-    const parse_test = parse_r_script(my_parser, `c(4.2, 42, -2)`).rootNode;
+    const parse_test = parseRScript(my_parser, `c(4.2, 42, -2)`).rootNode;
 
     const test_node = parse_test.descendantsOfType("call")[0];
 
@@ -30,7 +30,7 @@ describe("Can parse array nodes to their proper javascript formats", async () =>
   });
 
   test("2d array of numbers", () => {
-    const parse_test = parse_r_script(my_parser, `c(c(1,2),c(3,4))`).rootNode;
+    const parse_test = parseRScript(my_parser, `c(c(1,2),c(3,4))`).rootNode;
 
     const test_node = parse_test.descendantsOfType("call")[0];
 

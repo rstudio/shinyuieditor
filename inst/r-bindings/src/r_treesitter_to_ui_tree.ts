@@ -1,9 +1,9 @@
 import type { ParserNode } from "treesitter-parsers";
-import { make_unknown_ui_function } from "ui-node-definitions/src/make_unknown_ui_function";
+import { makeUnknownUiFunction } from "ui-node-definitions/src/make_unknown_ui_function";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { inANotInB } from "util-functions/src/arrays";
 
-import { get_r_info_if_known } from "./get_r_info_if_known";
+import { getRInfoIfKnown } from "./get_r_info_if_known";
 import { extract_array_contents, is_array_node } from "./NodeTypes/ArrayNode";
 import {
   extract_boolean_content,
@@ -22,16 +22,16 @@ export function rTreesitterToUiTree(node: ParserNode): ShinyUiNode {
     return parse_text_node(node);
   }
 
-  const r_fn_info = get_r_info_if_known(node);
+  const r_fn_info = getRInfoIfKnown(node);
 
   if (r_fn_info === null) {
-    return make_unknown_ui_function(node.text);
+    return makeUnknownUiFunction(node.text);
   }
 
   const { fn_args, info } = r_fn_info;
 
   if (!info) {
-    return make_unknown_ui_function(node.text);
+    return makeUnknownUiFunction(node.text);
   }
 
   const parsed_node: ShinyUiNode = {
@@ -71,7 +71,7 @@ export function rTreesitterToUiTree(node: ParserNode): ShinyUiNode {
     }
 
     // ...otherwise we just parse the argument as normal
-    parsed_node.namedArgs[sue_arg_name] = parse_arg_node(kwarg.value);
+    parsed_node.namedArgs[sue_arg_name] = parseArgNode(kwarg.value);
   });
 
   const missing_required_args = inANotInB(
@@ -86,7 +86,7 @@ export function rTreesitterToUiTree(node: ParserNode): ShinyUiNode {
         // If we have missing required args, we need to fill them in first.
         const missing_arg_name = missing_required_args.shift()!;
 
-        parsed_node.namedArgs[missing_arg_name] = parse_arg_node(node);
+        parsed_node.namedArgs[missing_arg_name] = parseArgNode(node);
 
         return;
       }
@@ -112,7 +112,7 @@ export function rTreesitterToUiTree(node: ParserNode): ShinyUiNode {
   return parsed_node;
 }
 
-function parse_arg_node(node: ParserNode) {
+function parseArgNode(node: ParserNode) {
   if (is_string_node(node)) {
     return extract_string_content(node);
   }

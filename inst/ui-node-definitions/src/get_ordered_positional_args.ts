@@ -1,6 +1,6 @@
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 
-export function get_ordered_positional_args(
+export function getOrderedPositionalArgs(
   settingsInfo: DynamicArgumentInfo
 ): Set<string> {
   let positional_args: [position: number, value: string][] = [];

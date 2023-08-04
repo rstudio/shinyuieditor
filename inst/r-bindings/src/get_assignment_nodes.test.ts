@@ -1,8 +1,8 @@
-import type { R_AST } from ".";
+import type { RAST } from ".";
 
-import { get_assignment_nodes } from "./get_assignment_nodes";
+import { getAssignmentNodes } from "./get_assignment_nodes";
 
-const test_app_ast: R_AST = [
+const test_app_ast: RAST = [
   {
     val: [
       { val: "library", type: "s" },
@@ -389,7 +389,7 @@ const test_app_ast: R_AST = [
 
 describe("Can recursively parse ast to find all assignments ", () => {
   test("Correct number of assignments are found", () => {
-    const assignment_nodes = get_assignment_nodes(test_app_ast);
+    const assignment_nodes = getAssignmentNodes(test_app_ast);
 
     expect(assignment_nodes.map((n) => n.name)).toHaveLength(8);
   });

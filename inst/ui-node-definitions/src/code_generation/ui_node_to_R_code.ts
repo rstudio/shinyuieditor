@@ -1,25 +1,25 @@
 import type { Primatives } from "../../../r-bindings/src";
 
 import { NL_INDENT } from "./build_function_text";
-import { isNamedList, print_named_R_list } from "./print_named_list";
+import { isNamedList, printNamedRList } from "./print_named_list";
 
-export function print_R_argument_value(value: unknown): string {
-  if (Array.isArray(value)) return print_R_array(value);
+export function printRArgumentValue(value: unknown): string {
+  if (Array.isArray(value)) return printRArray(value);
 
-  if (isNamedList(value)) return print_named_R_list(value);
+  if (isNamedList(value)) return printNamedRList(value);
 
   if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
 
   return JSON.stringify(value);
 }
 
-function print_R_array(vals: Primatives[]): string {
-  const values = vals.map(print_primative);
+function printRArray(vals: Primatives[]): string {
+  const values = vals.map(printPrimative);
 
   return `c(${NL_INDENT}${values.join(`,${NL_INDENT}`)}\n)`;
 }
 
-function print_primative(val: Primatives): string {
+function printPrimative(val: Primatives): string {
   switch (typeof val) {
     case "string":
       return `"${val}"`;

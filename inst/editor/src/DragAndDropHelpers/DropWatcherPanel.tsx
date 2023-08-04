@@ -4,7 +4,7 @@ import type { PathElement, NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { getIsValidMove } from "ui-node-definitions/src/TreeManipulation/getIsValidMove";
-import type { Wrapping_Node } from "ui-node-definitions/src/TreeManipulation/wrapInNode";
+import type { WrappingNode } from "ui-node-definitions/src/TreeManipulation/wrapInNode";
 import type { ShinyUiNodeIds } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeTitle } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
@@ -59,7 +59,7 @@ export type DropWatcherPanelProps = {
   /**
    * Optional node to wrap the dropped node in.
    */
-  wrappingNode?: Wrapping_Node;
+  wrappingNode?: WrappingNode;
   /**
    * What message is shown over the drop area when a node is hovered over it?
    * Can be used to give descriptive messages to the user about what a drop will

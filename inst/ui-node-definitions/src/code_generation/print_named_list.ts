@@ -2,7 +2,7 @@ import { LINE_BREAK_LENGTH, NL_INDENT } from "./build_function_text";
 
 type NamedList = Record<string, string>;
 
-function print_named_list(
+function printNamedList(
   vals: NamedList,
   options: {
     assignment_operator: string;
@@ -32,8 +32,8 @@ function print_named_list(
  * @param vals Named list of values to print
  * @returns A list in R syntax. E.g. list("a" = 1, "b" = 2, "c" = "d")
  */
-export function print_named_R_list(vals: NamedList): string {
-  return print_named_list(vals, {
+export function printNamedRList(vals: NamedList): string {
+  return printNamedList(vals, {
     open_list: "list(",
     close_list: ")",
     assignment_operator: "=",
@@ -45,8 +45,8 @@ export function print_named_R_list(vals: NamedList): string {
  * @param vals Named list of values to print
  * @returns A dictionary in Python syntax. E.g. {"a": 1, "b": 2, "c": "d"}
  */
-export function print_named_python_list(vals: NamedList): string {
-  return print_named_list(vals, {
+export function printNamedPythonList(vals: NamedList): string {
+  return printNamedList(vals, {
     open_list: "{",
     close_list: "}",
     assignment_operator: ":",

@@ -17,10 +17,10 @@ export function isInternalUiNode(node: ShinyUiNode): node is InternalUiNode {
   return isUnknownUiNode(node) || isTextUiNode(node);
 }
 
-export function print_internal_ui_nodes(node: InternalUiNode): string {
+export function printInternalUiNodes(node: InternalUiNode): string {
   switch (node.id) {
     case "unknownUiFunction":
-      return print_unknown_ui_node(node);
+      return printUnknownUiNode(node);
     case "textNode":
       return text_node_to_code(node);
     // By leaving off the default case here typescript will let us know we need
@@ -31,6 +31,6 @@ export function print_internal_ui_nodes(node: InternalUiNode): string {
   throw new Error("Unknown internal ui node");
 }
 
-function print_unknown_ui_node({ namedArgs }: UnknownUiNode) {
+function printUnknownUiNode({ namedArgs }: UnknownUiNode) {
   return namedArgs.text;
 }

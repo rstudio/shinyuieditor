@@ -1,10 +1,10 @@
-import { build_function_text } from "./build_function_text";
-import { print_fn_definition_preview } from "./function_definition_printing";
+import { buildFunctionText } from "./build_function_text";
+import { printFnDefinitionPreview } from "./function_definition_printing";
 
 describe("Can turn AST into function call text with formatting", () => {
   test("Simple one argument function", () => {
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         { name: "a", val: 1, type: "n" },
       ])
@@ -19,7 +19,7 @@ describe("Can turn AST into function call text with formatting", () => {
   b = "two"
 )`;
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         { name: "a", val: 1, type: "n" },
         { name: "b", val: "two", type: "c" },
@@ -36,7 +36,7 @@ describe("Can turn AST into function call text with formatting", () => {
 )`;
 
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         { name: "char_arg", val: "a", type: "c" },
         { name: "sym_arg", val: "b", type: "s" },
@@ -55,7 +55,7 @@ describe("Nested function calls are properly indented", () => {
 )`;
 
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         { name: "char_arg", val: "a", type: "c" },
         {
@@ -82,7 +82,7 @@ describe("Nested function calls are properly indented", () => {
 )`;
 
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         { name: "char_arg", val: "a", type: "c" },
         {
@@ -112,7 +112,7 @@ describe("Nested function calls are properly indented", () => {
 )`;
 
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         { name: "a", val: 1, type: "n" },
         {
@@ -147,7 +147,7 @@ describe("Nested function calls are properly indented", () => {
 )`;
 
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         {
           name: "n1",
@@ -166,7 +166,7 @@ describe("Nested function calls are properly indented", () => {
     const expected_output = `my_fun(vec = c(1, 2, 3))`
 
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "my_fun", type: "s" },
         {
           name: "vec",
@@ -186,7 +186,7 @@ describe("Nested function calls are properly indented", () => {
 describe("Can print arrays and lists with smart line breaks", () => {
   test("Short multi-element arrays go on one line", () => {
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "c", type: "s" },
         { val: "a", type: "c" },
         { val: "b", type: "c" },
@@ -197,7 +197,7 @@ describe("Can print arrays and lists with smart line breaks", () => {
 
   test("Short multi-element lists go on one line", () => {
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "list", type: "s" },
         { name: "a", val: 1, type: "n" },
         { name: "b", val: 2, type: "n" },
@@ -216,7 +216,7 @@ describe("Can print arrays and lists with smart line breaks", () => {
 )`
 
     expect(
-      build_function_text([
+      buildFunctionText([
         { val: "c", type: "s" },
         { val: "a suuuuper long", type: "c" },
         { val: "character vec with many arguments", type: "c" },
@@ -229,7 +229,7 @@ describe("Can print arrays and lists with smart line breaks", () => {
 describe("Can write immediately invoked functions", () => {
   test("Can write out function definitions previews", () => {
     expect(
-      print_fn_definition_preview([
+      printFnDefinitionPreview([
         { val: "function", type: "s" },
         { val: [{ name: "x", val: "", type: "s" }], type: "e" },
         { val: "x", type: "s" },
@@ -239,7 +239,7 @@ describe("Can write immediately invoked functions", () => {
 
   test("Properly wraps inplace function definitions with abbridged previews", () => {
     expect(
-      build_function_text([
+      buildFunctionText([
         {
           val: [
             { val: "(", type: "s" },

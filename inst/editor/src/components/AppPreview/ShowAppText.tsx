@@ -3,7 +3,7 @@ import React from "react";
 import type { AppInfo } from "communication-types/src/AppInfo";
 import { ArrowUpRightSquare } from "react-bootstrap-icons";
 import { useStore } from "react-redux";
-import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
+import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
@@ -18,7 +18,7 @@ import styles from "./ShowAppText.module.css";
 
 function AppFilesViewer({ info }: { info: AppInfo }) {
   const language = useLanguageMode();
-  const app_scripts = generate_full_app_script(info, {
+  const app_scripts = generateFullAppScript(info, {
     include_info: false,
     language,
   });

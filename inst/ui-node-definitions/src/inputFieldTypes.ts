@@ -1,7 +1,7 @@
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
 import type { ShinyUiNode } from "./ShinyUiNode";
-import type { namedArgsObject } from "./uiNodeTypes";
+import type { NamedArgsObject } from "./uiNodeTypes";
 
 export type CSSMeasure = `${number}${CSSUnit}` | "auto";
 export type CSSUnit = "fr" | "px" | "rem" | "%";
@@ -140,7 +140,7 @@ type KeysOfUnknownArgs<Args extends Record<string, unknown>> = {
     : Key;
 }[keyof Args];
 
-export type ArgsToStaticInfo<Args extends namedArgsObject> = {
+export type ArgsToStaticInfo<Args extends NamedArgsObject> = {
   [Key in KeysOfKnownArgs<Args>]: MakeOmittedOption<
     Extract<
       StaticInputOptions,
@@ -168,7 +168,7 @@ export type MakeDynamicArguments<Obj extends Record<string, unknown>> = {
     : Obj[Key] | ((node?: ShinyUiNode) => Obj[Key]);
 };
 
-export type ArgsToDynamicInfo<Args extends namedArgsObject> = Expand<
+export type ArgsToDynamicInfo<Args extends NamedArgsObject> = Expand<
   ConvertToDynamic<ArgsToStaticInfo<Args>>
 >;
 type ConvertToDynamic<

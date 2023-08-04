@@ -4,7 +4,7 @@
  * @param explanation An optional explanation of why the function is unknown
  * @returns A node for the unknown UI function
  */
-export function make_unknown_ui_function(text: string, explanation?: string) {
+export function makeUnknownUiFunction(text: string, explanation?: string) {
   return {
     id: "unknownUiFunction",
     namedArgs: {

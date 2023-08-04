@@ -1,15 +1,15 @@
-import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
+import type { GeneratedUiDef } from "communication-types/src/MessageToBackend";
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import type { ShinyUiNode } from "../ShinyUiNode";
 
-import { ui_node_to_code } from "./ui_node_to_code";
+import { uiNodeTocode } from "./ui_node_to_code";
 
-function ui_node_to_R_code(
+function uiNodeToRCode(
   node: ShinyUiNode,
   opts: { remove_namespace: boolean }
-): Generated_UI_Def {
-  return ui_node_to_code(node, "R", opts);
+): GeneratedUiDef {
+  return uiNodeTocode(node, "R", opts);
 }
 
 describe("Can keep or remove namespaces", () => {
@@ -45,12 +45,9 @@ describe("Can keep or remove namespaces", () => {
     max = 12
   )
 )`;
-    const { code: ui_code, packages: library_calls } = ui_node_to_R_code(
-      ui_ast,
-      {
-        remove_namespace: false,
-      }
-    );
+    const { code: ui_code, packages: library_calls } = uiNodeToRCode(ui_ast, {
+      remove_namespace: false,
+    });
     expect(ui_code).toBe(with_namespaces);
     expect(library_calls).toStrictEqual([]);
   });
@@ -69,12 +66,9 @@ describe("Can keep or remove namespaces", () => {
   )
 )`;
 
-    const { code: ui_code, packages: library_calls } = ui_node_to_R_code(
-      ui_ast,
-      {
-        remove_namespace: true,
-      }
-    );
+    const { code: ui_code, packages: library_calls } = uiNodeToRCode(ui_ast, {
+      remove_namespace: true,
+    });
     expect(ui_code).toBe(no_namespaces);
     expect(library_calls).toStrictEqual(["gridlayout", "shiny"]);
   });
@@ -105,9 +99,9 @@ describe("Handles nodes with ui nodes as named arguments", () => {
   showcase = bsicons::bs_icon("github")
 )`;
 
-    expect(
-      ui_node_to_R_code(value_box_node, { remove_namespace: true }).code
-    ).toBe(expected_result);
+    expect(uiNodeToRCode(value_box_node, { remove_namespace: true }).code).toBe(
+      expected_result
+    );
   });
 });
 
@@ -127,7 +121,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      ui_node_to_R_code(
+      uiNodeToRCode(
         {
           id: "grid_card",
           namedArgs: {
@@ -165,7 +159,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      ui_node_to_R_code(
+      uiNodeToRCode(
         {
           id: "selectInput",
           namedArgs: {
@@ -193,7 +187,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      ui_node_to_R_code(
+      uiNodeToRCode(
         {
           id: "selectInput",
           namedArgs: {
@@ -230,7 +224,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      ui_node_to_R_code(
+      uiNodeToRCode(
         {
           id: "grid_page",
           namedArgs: {
@@ -254,7 +248,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      ui_node_to_R_code(
+      uiNodeToRCode(
         {
           id: "grid_card",
           namedArgs: { area: "mystery" },
@@ -389,7 +383,7 @@ test("Full UI example", () => {
     ],
   };
 
-  expect(ui_node_to_R_code(ui_ast, { remove_namespace: true }).code).toBe(
+  expect(uiNodeToRCode(ui_ast, { remove_namespace: true }).code).toBe(
     ui_as_r_code
   );
 });

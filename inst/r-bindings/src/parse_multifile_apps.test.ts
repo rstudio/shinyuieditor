@@ -1,10 +1,7 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import {
-  find_server_def_in_r_app,
-  find_ui_def_in_r_app,
-} from "./parse_multifile_r_apps";
-import { parse_r_script } from "./parse_r_script";
+import { findServerDefInRApp, findUiDefInRApp } from "./parse_multifile_r_apps";
+import { parseRScript } from "./parse_r_script";
 
 describe("Can get the server node", async () => {
   const my_parser = await setup_r_parser();
@@ -26,8 +23,8 @@ describe("Can get the server node", async () => {
     }
     `;
 
-    const server_node = find_server_def_in_r_app(
-      parse_r_script(my_parser, server_script).rootNode
+    const server_node = findServerDefInRApp(
+      parseRScript(my_parser, server_script).rootNode
     );
 
     expect(server_node.previousNamedSibling!.text).toBe("server");
@@ -47,8 +44,8 @@ describe("Can get the server node", async () => {
     }
     `;
 
-    const server_node = find_server_def_in_r_app(
-      parse_r_script(my_parser, server_script).rootNode
+    const server_node = findServerDefInRApp(
+      parseRScript(my_parser, server_script).rootNode
     );
 
     expect(server_node.previousNamedSibling!.text).toBe("server");
@@ -72,8 +69,8 @@ describe("Can get the UI node out of a standalone ui script", async () => {
       grid_card(area = "A"),
     )`;
 
-    const parsed_ui_node = parse_r_script(my_parser, ui_script).rootNode;
-    const ui_node = find_ui_def_in_r_app(parsed_ui_node);
+    const parsed_ui_node = parseRScript(my_parser, ui_script).rootNode;
+    const ui_node = findUiDefInRApp(parsed_ui_node);
 
     expect(ui_node).toBeTruthy();
   });
@@ -90,9 +87,9 @@ describe("Can get the UI node out of a standalone ui script", async () => {
       gap_size = "1rem",
       grid_card(area = "A"),
     )`;
-    const parsed_ui_node = parse_r_script(my_parser, ui_script).rootNode;
+    const parsed_ui_node = parseRScript(my_parser, ui_script).rootNode;
 
-    const ui_node = find_ui_def_in_r_app(parsed_ui_node);
+    const ui_node = findUiDefInRApp(parsed_ui_node);
 
     expect(ui_node).toBeTruthy();
   });

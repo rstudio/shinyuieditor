@@ -2,7 +2,7 @@ import type { TextUiNode } from "ui-node-definitions/src/internal/text_node";
 
 import { decoration_to_wrapper, size_to_wrapper } from "./is_text_node";
 
-export function text_node_to_code(ui_node: TextUiNode): string {
+export function textNodeToCode(ui_node: TextUiNode): string {
   // Why does this not automatically resolve for me?
   let text_size = ui_node.namedArgs.size;
   const { contents, decoration } = ui_node.namedArgs;

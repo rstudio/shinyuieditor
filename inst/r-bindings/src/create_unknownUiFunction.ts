@@ -1,12 +1,12 @@
 import {
-  build_function_text,
-  print_node_val,
+  buildFunctionText,
+  printNodeVal,
 } from "ui-node-definitions/src/code_generation/build_function_text";
 import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
 
-import type { R_AST_Node } from ".";
+import type { RASTNode } from ".";
 
-import { is_ast_branch_node } from "./node_identity_checkers";
+import { isAstBranchNode } from "./node_identity_checkers";
 
 /**
  *
@@ -21,15 +21,15 @@ export function create_unknownUiFunction({
   node,
   explanation,
 }: {
-  node: R_AST_Node;
+  node: RASTNode;
   explanation?: string;
 }): UnknownUiNode {
   return {
     id: "unknownUiFunction",
     namedArgs: {
-      text: is_ast_branch_node(node)
-        ? build_function_text(node.val)
-        : print_node_val(node),
+      text: isAstBranchNode(node)
+        ? buildFunctionText(node.val)
+        : printNodeVal(node),
       explanation,
     },
   };

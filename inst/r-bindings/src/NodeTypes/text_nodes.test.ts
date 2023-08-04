@@ -1,6 +1,6 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { parse_r_script } from "../parse_r_script";
+import { parseRScript } from "../parse_r_script";
 
 import { is_text_node, parse_text_node } from "./TextNode";
 
@@ -8,7 +8,7 @@ describe("Can parse text nodes to their proper object format", async () => {
   const my_parser = await setup_r_parser();
 
   test("Simple string", () => {
-    const parse_test = parse_r_script(my_parser, `"hello, world"`).rootNode;
+    const parse_test = parseRScript(my_parser, `"hello, world"`).rootNode;
 
     const test_node = parse_test.firstNamedChild!;
 
@@ -28,7 +28,7 @@ describe("Can parse text nodes to their proper object format", async () => {
   });
 
   test("em tag", () => {
-    const parse_test = parse_r_script(my_parser, `em("hello, world")`).rootNode;
+    const parse_test = parseRScript(my_parser, `em("hello, world")`).rootNode;
 
     const test_node = parse_test.firstNamedChild!;
 
@@ -46,7 +46,7 @@ describe("Can parse text nodes to their proper object format", async () => {
   });
 
   test("h1 tag", () => {
-    const parse_test = parse_r_script(my_parser, `h1("hello, world")`).rootNode;
+    const parse_test = parseRScript(my_parser, `h1("hello, world")`).rootNode;
 
     const test_node = parse_test.firstNamedChild!;
 
@@ -64,7 +64,7 @@ describe("Can parse text nodes to their proper object format", async () => {
   });
 
   test("Combined size and decoration tags", () => {
-    const parse_test = parse_r_script(
+    const parse_test = parseRScript(
       my_parser,
       `h2(strong("hello, world"))`
     ).rootNode;

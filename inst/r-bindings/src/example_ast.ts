@@ -1,8 +1,8 @@
-import type { R_AST } from ".";
+import type { RAST } from ".";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-export const test_app_ast: R_AST = [
+export const test_app_ast: RAST = [
   {
     val: [
       { val: "library", type: "s" },
