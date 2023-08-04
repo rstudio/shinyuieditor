@@ -4,6 +4,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import { collapseText } from "util-functions/src/strings";
 
 export const basicNavbarPage = {
   id: "navbarPage",
@@ -16,6 +17,15 @@ export const basicNavbarPage = {
         title: "My Sidebar",
       },
       children: [
+        {
+          id: "markdown",
+          namedArgs: {
+            mds: collapseText(
+              `## My Settings`,
+              "Use the following settings to mess with things"
+            ),
+          },
+        },
         {
           id: "actionButton",
           namedArgs: {

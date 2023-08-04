@@ -23,6 +23,7 @@ import {
   shinyLayoutSidebarInfo,
   shinyPanelMainInfo,
 } from "./ShinyLayoutSidebar/LayoutSidebar";
+import { markdownNodeInfo } from "./ShinyMarkdown/markdown";
 import { shinyNavbarPageInfo } from "./ShinyNavbarPage";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
@@ -73,6 +74,7 @@ export const registered_ui_nodes = [
   bslibSidebar,
   plotlyPlotlyOutputInfo,
   textNodeInfo,
+  markdownNodeInfo,
   unknownUiFunctionInfo,
   testingErrorNodeInfo,
 ] as const;

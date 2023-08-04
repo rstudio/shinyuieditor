@@ -27,6 +27,7 @@ import { input_select } from "./Shiny/input_select";
 import { input_slider } from "./Shiny/input_slider";
 import { input_text } from "./Shiny/input_text";
 import { layout_sidebar } from "./Shiny/layout_sidebar";
+import { markdown_node } from "./Shiny/markdown";
 import { output_plot } from "./Shiny/output_plot";
 import { output_text } from "./Shiny/output_text";
 import { output_ui } from "./Shiny/output_ui";
@@ -71,6 +72,7 @@ export const all_node_info = [
   input_checkbox_group,
   input_numeric,
   input_radio_buttons,
+  markdown_node,
   input_select,
   input_slider,
   input_text,

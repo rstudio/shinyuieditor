@@ -17,8 +17,7 @@ export const text_node = nodeInfoFactory<TextNodeSettings>()({
     package: "Internal",
   },
   category: "Utilities",
-  description:
-    "Add static text to your ui for things like descriptions and headers.",
+  description: `Plain static text to your ui for things like descriptions and headers. For more complex text, use the "Markdown text" node.`,
   takesChildren: false,
   settingsInfo: {
     contents: {
