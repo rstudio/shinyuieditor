@@ -1,17 +1,17 @@
 import type { TextUiNode } from "ui-node-definitions/src/internal/text_node";
 
-import type { Text_Node } from "../internal/is_text_node";
+import type { TextNode } from "../internal/is_text_node";
 import {
-  is_text_size_tag_node,
+  isTextSizeTagNode,
   size_tag_to_name,
-  is_text_decoration_tag_node,
-  parse_text_decoration_tag_node,
+  isTextDecorationTagNode,
+  parseTextDecorationTagNode,
 } from "../internal/is_text_node";
 
 export function buildTextNode(text: string): TextUiNode;
-export function buildTextNode(node: Text_Node): TextUiNode;
+export function buildTextNode(node: TextNode): TextUiNode;
 
-export function buildTextNode(node: Text_Node | string): TextUiNode {
+export function buildTextNode(node: TextNode | string): TextUiNode {
   const text_node: TextUiNode = {
     id: "textNode",
     namedArgs: {
@@ -24,20 +24,19 @@ export function buildTextNode(node: Text_Node | string): TextUiNode {
     return text_node;
   }
 
-  if (is_text_size_tag_node(node)) {
+  if (isTextSizeTagNode(node)) {
     text_node.namedArgs.size = size_tag_to_name[node.val[0].val];
 
     const content_node = node.val[1];
-    if (is_text_decoration_tag_node(content_node)) {
-      const { decoration, contents } =
-        parse_text_decoration_tag_node(content_node);
+    if (isTextDecorationTagNode(content_node)) {
+      const { decoration, contents } = parseTextDecorationTagNode(content_node);
       text_node.namedArgs.decoration = decoration;
       text_node.namedArgs.contents = contents;
     } else {
       text_node.namedArgs.contents = content_node.val;
     }
-  } else if (is_text_decoration_tag_node(node)) {
-    const { decoration, contents } = parse_text_decoration_tag_node(node);
+  } else if (isTextDecorationTagNode(node)) {
+    const { decoration, contents } = parseTextDecorationTagNode(node);
     text_node.namedArgs.decoration = decoration;
     text_node.namedArgs.contents = contents;
   } else {
