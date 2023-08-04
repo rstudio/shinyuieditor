@@ -13,8 +13,6 @@ import { useLanguageMode } from "../../state/languageMode";
 import { SidebarDropWatcherPanel } from "../Bslib/SidebarDropWatcherPanel";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
-import classes from "./ShinyNavbarPage.module.css";
-
 export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {
   UiComponent: ({
     namedArgs: { title, sidebar },
@@ -26,42 +24,45 @@ export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {
     const numChildren = children?.length ?? 0;
     const hasChildren = numChildren > 0;
 
+    // Wrap the tabset in an extra div so overflow can be set to auto but we
+    // still get the outline for selection
     return (
-      <Tabset
-        path={path}
-        title={title}
-        className={classes.container}
-        sidebar={
-          // We only have support for the sidebar argument in R mode
-          languageMode === "PYTHON" ? undefined : sidebar ? (
-            <UiNode path={makeChildPath(path, "sidebar")} node={sidebar} />
+      <div className="h-full w-full relative p-[1px]" {...wrapperProps}>
+        <Tabset
+          path={path}
+          title={title}
+          className="overflow-auto"
+          sidebar={
+            // We only have support for the sidebar argument in R mode
+            languageMode === "PYTHON" ? undefined : sidebar ? (
+              <UiNode path={makeChildPath(path, "sidebar")} node={sidebar} />
+            ) : (
+              <SidebarDropWatcherPanel path={path} />
+            )
+          }
+        >
+          {children ? (
+            children.map((node, i) => {
+              const nodePath = makeChildPath(path, i);
+              const title = getTabPanelTitle(node) ?? "unknown tab";
+              return (
+                <TabPanel key={pathToString(nodePath)} title={title}>
+                  <UiNode path={nodePath} node={node} />
+                </TabPanel>
+              );
+            })
           ) : (
-            <SidebarDropWatcherPanel path={path} />
-          )
-        }
-        {...wrapperProps}
-      >
-        {children ? (
-          children.map((node, i) => {
-            const nodePath = makeChildPath(path, i);
-            const title = getTabPanelTitle(node) ?? "unknown tab";
-            return (
-              <TabPanel key={pathToString(nodePath)} title={title}>
-                <UiNode path={nodePath} node={node} />
-              </TabPanel>
-            );
-          })
-        ) : (
-          <EmptyNavbarPageMessage hasChildren={hasChildren} />
-        )}
-      </Tabset>
+            <EmptyNavbarPageMessage hasChildren={hasChildren} />
+          )}
+        </Tabset>
+      </div>
     );
   },
 });
 
 function EmptyNavbarPageMessage({ hasChildren }: { hasChildren: boolean }) {
   return hasChildren ? null : (
-    <div className={classes.noTabsMessage}>
+    <div className="p-1">
       <span>Empty page. Drag elements or Tab Panel on to add content</span>
     </div>
   );

@@ -11,6 +11,7 @@ module.exports = {
         "light-grey": "#e9edf3",
         "rstudio-grey": "#333333",
         "rstudio-blue": "#75aadb",
+        "rstudio-white": "white",
         danger: "rgb(250, 83, 22)",
       },
       borderRadius: {

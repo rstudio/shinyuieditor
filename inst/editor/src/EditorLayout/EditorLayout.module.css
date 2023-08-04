@@ -11,19 +11,6 @@
     "elements editor properties"
     "elements editor preview";
 }
-.app_view {
-  grid-area: editor;
-  z-index: 2;
-
-  background-color: var(--rstudio-white);
-  padding-top: 32px;
-  padding-left: 32px;
-  padding-right: 32px;
-  padding-bottom: 32px;
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
 
 .elements_panel {
   grid-area: elements;
