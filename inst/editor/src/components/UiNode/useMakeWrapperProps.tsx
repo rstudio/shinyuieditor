@@ -30,7 +30,7 @@ type DragPassthroughEvents =
  * selection on click as well as attaching some data attributes to enable the ui
  * element component to interact with the rest of the app properly.
  */
-type UiNodeWrapperProps = {
+export type UiNodeWrapperProps = {
   onClick: React.MouseEventHandler<HTMLDivElement>;
   "data-sue-path": string;
   "data-is-selected-node": boolean;

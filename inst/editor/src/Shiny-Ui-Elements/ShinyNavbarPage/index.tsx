@@ -8,6 +8,7 @@ import {
 
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
+import { NodeWrapper } from "../../components/UiNode/NodeWraper";
 import UiNode from "../../components/UiNode/UiNode";
 import { useLanguageMode } from "../../state/languageMode";
 import { SidebarDropWatcherPanel } from "../Bslib/SidebarDropWatcherPanel";
@@ -27,9 +28,9 @@ export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {
     // Wrap the tabset in an extra div so overflow can be set to auto but we
     // still get the outline for selection
     return (
-      <div
-        className="h-full w-full relative p-[1px] bg-light-grey"
-        {...wrapperProps}
+      <NodeWrapper
+        className="h-full p-[1px] bg-light-grey"
+        wrapperProps={wrapperProps}
       >
         <Tabset
           path={path}
@@ -58,7 +59,7 @@ export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {
             <EmptyNavbarPageMessage hasChildren={hasChildren} />
           )}
         </Tabset>
-      </div>
+      </NodeWrapper>
     );
   },
 });

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ChevronLeft } from "react-bootstrap-icons";
 import { getParentPath } from "ui-node-definitions/src/TreeManipulation/getParentPath";
 
+import { NodeWrapper } from "../../components/UiNode/NodeWraper";
 import { useSetCurrentSelection } from "../../state/selectedPath";
 import { mergeClasses } from "../../utils/mergeClasses";
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
@@ -14,7 +15,7 @@ export const bslibSidebar = addEditorInfoById("sidebar", {
   UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
     const setSelection = useSetCurrentSelection();
     return (
-      <div {...wrapperProps} className={classes.outerWrapper}>
+      <NodeWrapper wrapperProps={wrapperProps} className={classes.outerWrapper}>
         <div
           className={mergeClasses("bg-background-light", classes.sidebar)}
           style={
@@ -41,7 +42,7 @@ export const bslibSidebar = addEditorInfoById("sidebar", {
             }}
           />
         </div>
-      </div>
+      </NodeWrapper>
     );
   },
 });
