@@ -27,11 +27,14 @@ export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {
     // Wrap the tabset in an extra div so overflow can be set to auto but we
     // still get the outline for selection
     return (
-      <div className="h-full w-full relative p-[1px]" {...wrapperProps}>
+      <div
+        className="h-full w-full relative p-[1px] bg-light-grey"
+        {...wrapperProps}
+      >
         <Tabset
           path={path}
           title={title}
-          className="overflow-auto"
+          className=""
           sidebar={
             // We only have support for the sidebar argument in R mode
             languageMode === "PYTHON" ? undefined : sidebar ? (

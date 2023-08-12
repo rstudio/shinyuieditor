@@ -1,5 +1,3 @@
-import classes from "./TabPanel.module.css";
-
 interface TabPanelProps extends React.ComponentPropsWithoutRef<"div"> {
   title: string;
 }
@@ -7,7 +5,7 @@ interface TabPanelProps extends React.ComponentPropsWithoutRef<"div"> {
 function TabPanel({ title, children, ...divProps }: TabPanelProps) {
   return (
     <div
-      className={classes.container}
+      className="h-full bg-rstudio-white"
       data-tab-id={title}
       aria-label={`tab panel ${title}`}
       {...divProps}
