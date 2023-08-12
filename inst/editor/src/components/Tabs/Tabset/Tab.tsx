@@ -10,7 +10,7 @@ import { samePath } from "ui-node-definitions/src/TreeManipulation/samePath";
 
 import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";
-import { useMakeWrapperProps } from "../../UiNode/useMakeWrapperProps";
+import { NodeWrapper } from "../../UiNode/NodeWraper";
 
 import classes from "./Tabset.module.css";
 
@@ -44,24 +44,22 @@ export function Tab({ name, isActive, index, parentPath }: TabProps) {
 
   const selectedPath = useCurrentSelection();
   const nodeForTab = useGetNode(pathToTabPanel);
-  const wrapperProps = useMakeWrapperProps({
-    node: nodeForTab,
-    path: pathToTabPanel,
-    canDrag: true,
-  });
-
   const isSelected = samePath(pathToTabPanel, selectedPath);
 
   return (
-    <div
+    <NodeWrapper
       className={classes.tab}
       data-active-tab={isActive}
       data-selected-tab={isSelected}
-      {...wrapperProps}
+      wrapperProps={{
+        node: nodeForTab,
+        path: pathToTabPanel,
+        canDrag: true,
+      }}
       style={{ order: index }}
       aria-label={isActive ? `Active tab ${name}` : `Select ${name} tab`}
     >
       {name}
-    </div>
+    </NodeWrapper>
   );
 }
