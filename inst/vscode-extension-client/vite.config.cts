@@ -2,12 +2,17 @@ import { resolve } from "path";
 
 import inject from "@rollup/plugin-inject";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "vite";
 
 const setup = ({ mode }) => {
   return defineConfig({
     base: "./",
+    resolve: {
+      alias: {
+        fs: require.resolve("rollup-plugin-node-builtins"),
+      },
+    },
     build: {
       outDir: "../vscode-extension/media/build",
       lib: {
