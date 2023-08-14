@@ -1,0 +1,4 @@
+Name: Run ShinyUiEditor
+Description: Start ShinyUiEditor on the currently active app file. If no app present will show template chooser.
+Binding: launch_editor_addin
+Interactive: true
