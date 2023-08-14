@@ -110,6 +110,9 @@ export async function editorLogic({
     // If we haven't initialized the app yet, do so now.
     if (!hasInitialized) {
       await initializeUiEditor();
+
+      // Let client know that we can edit the server code
+      sendMessage({ path: "CHECKIN", payload: { server_aware: true } });
       hasInitialized = true;
     }
 

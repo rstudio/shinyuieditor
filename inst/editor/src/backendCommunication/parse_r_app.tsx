@@ -10,8 +10,10 @@ const my_parser = setup_r_parser();
 
 export async function parseSingleFileRApp(app: string): Promise<AppInfo> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { server_node, ui_node, input_positions, output_positions } =
-    parse_r_app(await my_parser, app);
+  const { server_node, ui_node, server_locations } = parse_r_app(
+    await my_parser,
+    app
+  );
 
   const app_info: AppInfo = {
     language: "R",
@@ -21,7 +23,7 @@ export async function parseSingleFileRApp(app: string): Promise<AppInfo> {
       app,
     },
     ui_tree: r_treesitter_to_ui_tree(ui_node),
-    known_outputs: [...output_positions.keys()],
+    server_locations,
     app: generate_app_script_template(ui_node),
   };
 
@@ -34,8 +36,11 @@ export async function parseMultiFileRApp(
 ): Promise<AppInfo> {
   const parser = await my_parser;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { ui_node, server_node, input_positions, output_positions } =
-    parse_r_app(parser, ui, server);
+  const { ui_node, server_node, server_locations } = parse_r_app(
+    parser,
+    ui,
+    server
+  );
 
   const app_info: AppInfo = {
     language: "R",
@@ -45,8 +50,8 @@ export async function parseMultiFileRApp(
       ui,
       server,
     },
+    server_locations,
     ui_tree: r_treesitter_to_ui_tree(ui_node),
-    known_outputs: [...output_positions.keys()],
     ui: generate_app_script_template(ui_node),
     server: { code: server },
   };

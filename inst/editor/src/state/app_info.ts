@@ -66,9 +66,10 @@ export const mainStateSlice = createSlice({
     },
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app
-    SET_APP_INFO: (tree, action: PayloadAction<AppInfo>) => {
+    SET_APP_INFO: (state, action: PayloadAction<AppInfo>) => {
       try {
         return {
+          ...state,
           mode: "MAIN",
           ...action.payload,
         };
@@ -80,6 +81,7 @@ export const mainStateSlice = createSlice({
           console.error("Unknown error type seen", error);
         }
         return {
+          ...state,
           mode: "ERROR",
           msg: error_msg ?? "Unknown error",
           context: "Parsing app information from backend",
@@ -90,18 +92,18 @@ export const mainStateSlice = createSlice({
       state,
       { payload }: PayloadAction<MessageToClientByPath["BACKEND-ERROR"]>
     ) => {
-      return { mode: "ERROR", ...payload };
+      return { ...state, mode: "ERROR", ...payload };
     },
     SHOW_TEMPLATE_CHOOSER: (
       state,
       { payload }: PayloadAction<TemplateChooserOptions>
     ) => {
-      return { mode: "TEMPLATE_CHOOSER", options: payload };
+      return { ...state, mode: "TEMPLATE_CHOOSER", options: payload };
       // console.log("Template chooser mode", mode);
       // return "TEMPLATE_CHOOSER";
     },
     SET_LOADING: (state) => {
-      return { mode: "LOADING" };
+      return { ...state, mode: "LOADING" };
     },
     UPDATE_NODE: (state, action: PayloadAction<UpdateNodeArguments>) => {
       if (state.mode !== "MAIN") {

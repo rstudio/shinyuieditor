@@ -1,5 +1,8 @@
 import type { AppInfo } from "communication-types/src/AppInfo";
-import type { ScriptRange } from "communication-types/src/MessageToBackend";
+import type {
+  ScriptRange,
+  ServerPositionMap,
+} from "communication-types/src/MessageToBackend";
 import {
   generate_app_script_template,
   r_treesitter_to_ui_tree,
@@ -61,8 +64,8 @@ function makRAppInfoGetter(parser: TSParser) {
     // const input_positions = get_known_inputs(parsed_app);
     // const output_positions = get_known_outputs(parsed_app);
 
-    const input_positions = new Map<string, ScriptRange[]>();
-    const output_positions = new Map<string, ScriptRange[]>();
+    const input_positions: ServerPositionMap = new Map();
+    const output_positions = new Map();
 
     const app_info: AppInfo = {
       language: "R",
@@ -72,7 +75,6 @@ function makRAppInfoGetter(parser: TSParser) {
         app: text,
       },
       ui_tree: r_treesitter_to_ui_tree(ui_node),
-      known_outputs: [...output_positions.keys()],
       app: generate_app_script_template(ui_node),
     };
 

@@ -33,7 +33,6 @@ export function setupStaticBackend({
                 },
                 language,
                 app_type: "SINGLE-FILE",
-                known_outputs: [],
                 app: {
                   code: "",
                   packages: ["shiny"],

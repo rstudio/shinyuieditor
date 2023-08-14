@@ -17,6 +17,7 @@ export type MessageToBackendByPath = {
   "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
   "INSERT-SNIPPET": SnippetInsertRequest;
   "FIND-SERVER-USES": InputSourceRequest | OutputSourceRequest;
+  "SELECT-SERVER-CODE": ServerPositionInfo;
 };
 
 /**
@@ -30,16 +31,16 @@ export type SnippetInsertRequest = {
   where_in_server: "end" | "start";
 };
 
+type ServerPositionInfo = { positions: ServerPositions };
+
 export type InputSourceRequest = {
   type: "Input";
   /** The current input id used to bind to ui output fn */
-  inputId: string;
-};
+} & ({ inputId: string } | ServerPositionInfo);
 
 export type OutputSourceRequest = {
   type: "Output";
-  outputId: string;
-};
+} & ({ outputId: string } | ServerPositionInfo);
 
 /**
  * Output of code generation functions for ui. Contains the definition of the ui
@@ -76,6 +77,31 @@ export type ScriptPosition = {
 export type ScriptRange = {
   start: ScriptPosition;
   end: ScriptPosition;
+};
+
+/**
+ * List of ranges within a script where a given set of server code is located
+ */
+export type ServerPositions = ScriptRange[];
+
+/**
+ * Key-value store using an object pointing to where in the server code a given input or
+ * output's references live.
+ */
+export type ServerLocations = Record<string, ServerPositions>;
+
+/**
+ * Key-value store using `Map` pointing to where in the server code a given input or
+ * output's references live.
+ */
+export type ServerPositionMap = Map<string, ServerPositions>;
+
+/**
+ * Locations of inputs and outputs in the server
+ */
+export type InputOutputLocations = {
+  input_positions: ServerLocations;
+  output_positions: ServerLocations;
 };
 
 export type ParsedAppInfo = {

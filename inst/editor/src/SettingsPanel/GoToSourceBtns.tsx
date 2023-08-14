@@ -12,14 +12,18 @@ import { useBackendConnection } from "../backendCommunication/useBackendMessageC
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
 import { useCurrentAppInfo } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
+import { useMetaData } from "../state/metaData";
 
 import { buildOutputScaffold } from "./buildOutputScaffold";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
-  const { sendMsg, mode } = useBackendConnection();
+  const { sendMsg } = useBackendConnection();
 
   const language = useLanguageMode();
-  if (mode !== "VSCODE" || !node) return null;
+
+  const { server_aware } = useMetaData();
+
+  if (!server_aware || !node) return null;
 
   const node_info = getUiNodeInfo(node.id)[
     language === "PYTHON" ? "py_info" : "r_info"
@@ -66,12 +70,10 @@ function GoToOutputsBtn({
 }) {
   const current_app_info = useCurrentAppInfo();
 
-  if (
-    !(current_app_info.mode === "MAIN" && "known_outputs" in current_app_info)
-  )
+  if (!(current_app_info.mode === "MAIN" && current_app_info.server_locations))
     return null;
 
-  const known_outputs = current_app_info.known_outputs;
+  const { server_locations } = current_app_info;
 
   const { outputIdKey = "outputId" } = serverOutputInfo;
 
@@ -85,7 +87,7 @@ function GoToOutputsBtn({
   const outputId = namedArgs[keyForOutput as keyof typeof namedArgs];
   if (typeof outputId !== "string") return null;
 
-  const existing_output_locations = known_outputs.includes(outputId);
+  const existing_output_locations = server_locations.output_positions[outputId];
 
   return (
     <TooltipButton
@@ -102,8 +104,12 @@ function GoToOutputsBtn({
             path: "FIND-SERVER-USES",
             payload: {
               type: "Output",
-              outputId: outputId,
+              outputId,
             },
+          });
+          sendMsg({
+            path: "SELECT-SERVER-CODE",
+            payload: { positions: existing_output_locations },
           });
         } else {
           sendMsg({
@@ -131,6 +137,13 @@ function GoToInputsBtn({
   serverInputInfo: InputBindings;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
+  const current_app_info = useCurrentAppInfo();
+
+  if (!(current_app_info.mode === "MAIN" && current_app_info.server_locations))
+    return null;
+
+  const { server_locations } = current_app_info;
+
   const inputIdKey =
     typeof serverInputInfo === "boolean" ? "inputId" : serverInputInfo;
 
@@ -145,6 +158,10 @@ function GoToInputsBtn({
 
   if (typeof inputId !== "string") return null;
 
+  const inputLocations = server_locations.input_positions[inputId];
+
+  if (!inputLocations) return null;
+
   return (
     <TooltipButton
       text={`Find uses of bound input (input$${inputId}) in app script`}
@@ -154,6 +171,11 @@ function GoToInputsBtn({
         sendMsg({
           path: "FIND-SERVER-USES",
           payload: { type: "Input", inputId },
+        });
+
+        sendMsg({
+          path: "SELECT-SERVER-CODE",
+          payload: { positions: inputLocations },
         });
       }}
     >

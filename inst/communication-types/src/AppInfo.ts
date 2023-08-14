@@ -1,5 +1,7 @@
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
+import type { InputOutputLocations } from "./MessageToBackend";
+
 type SingleFileAppType = "SINGLE-FILE";
 type MultiFileAppType = "MULTI-FILE";
 export type AppType = SingleFileAppType | MultiFileAppType;
@@ -17,7 +19,7 @@ export type AppInfo = {
   ui_tree: ShinyUiNode;
   scripts: AppScriptInfo;
   language: LanguageMode;
-  known_outputs: string[];
+  server_locations?: InputOutputLocations;
 } & (
   | {
       app_type: SingleFileAppType;

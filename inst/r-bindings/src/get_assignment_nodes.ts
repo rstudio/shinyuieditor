@@ -1,5 +1,8 @@
 import type { AppInfo } from "communication-types/src/AppInfo";
-import type { ScriptRange } from "communication-types/src/MessageToBackend";
+import type {
+  ScriptRange,
+  ServerPositionMap,
+} from "communication-types/src/MessageToBackend";
 
 import type { BranchNode, ExpressionNode, RAST, RASTNode, SymbolNode } from ".";
 import { posToScriptRange } from ".";
@@ -100,10 +103,10 @@ function isOutputNode(node: RASTNode): node is OutputNode {
 
 export function getOutputPositions(
   all_asignments: VariableAssignment[]
-): Map<string, ScriptRange[]> {
+): ServerPositionMap {
   return all_asignments
     .filter(({ is_output }) => is_output)
-    .reduce((by_name, { name, node }) => {
+    .reduce<ServerPositionMap>((by_name, { name, node }) => {
       const { pos } = node;
       if (pos) {
         const existing = by_name.get(name);
@@ -118,19 +121,7 @@ export function getOutputPositions(
       }
 
       return by_name;
-    }, new Map<string, ScriptRange[]>());
-}
-
-export function getKnownOutputs(
-  all_asignments: VariableAssignment[]
-): AppInfo["known_outputs"] {
-  const output_nodes = all_asignments.filter(({ is_output }) => is_output);
-
-  const known_names = new Set<string>();
-  output_nodes.forEach(({ name }) => {
-    known_names.add(name);
-  });
-  return [...known_names];
+    }, new Map());
 }
 
 type ServerAssignmentNode = Required<

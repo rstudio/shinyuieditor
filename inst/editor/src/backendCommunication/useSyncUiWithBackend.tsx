@@ -13,6 +13,7 @@ import {
   useCurrentAppInfo,
 } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
+import { SET_META_DATA } from "../state/metaData";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useDeleteNode } from "../state/useDeleteNode";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
@@ -56,6 +57,7 @@ export function useSyncUiWithBackend() {
   React.useEffect(() => {
     const subscribe = backendMsgs.subscribe;
     const subscriptions = [
+      subscribe("CHECKIN", (info) => dispatch(SET_META_DATA(info))),
       subscribe("APP-INFO", (info) => dispatch(SET_APP_INFO(info))),
       subscribe("RAW-R-INFO", (raw_info) =>
         dispatch(SET_INFO_FROM_R(raw_info))
@@ -64,7 +66,7 @@ export function useSyncUiWithBackend() {
         if ("app" in scripts) {
           parseSingleFileRApp(scripts.app)
             .then((info) => {
-              parseSingleFileRApp(scripts.app);
+              // parseSingleFileRApp(scripts.app);
               dispatch(SET_APP_INFO(info));
             })
             .catch((e) => {

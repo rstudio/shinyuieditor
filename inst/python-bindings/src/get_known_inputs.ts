@@ -1,8 +1,6 @@
-import type { ScriptRange } from "communication-types/src/MessageToBackend";
+import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
 import { get_node_position } from "treesitter-parsers";
-
-export type ServerPositionMap = Map<string, ScriptRange[]>;
 
 /**
  * Get a mapping of all known inputs in the app script to output positions
@@ -10,7 +8,7 @@ export type ServerPositionMap = Map<string, ScriptRange[]>;
  * @returns A map of the input's `id` to the positions it appears in the app script
  */
 export function getKnownInputs(app_tree: ParserTree): ServerPositionMap {
-  const inputs = new Map<string, ScriptRange[]>();
+  const inputs: ServerPositionMap = new Map();
 
   app_tree.rootNode.descendantsOfType("attribute").forEach((node) => {
     const { firstNamedChild, lastNamedChild } = node;

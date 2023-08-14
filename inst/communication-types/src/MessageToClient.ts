@@ -13,6 +13,10 @@ import type { MessageUnion } from "./MessageUnion";
  * backend
  */
 export type MessageToClientByPath = {
+  CHECKIN: {
+    /* Basic handshake between backend to give some basic context about runtime to client */
+    server_aware: boolean;
+  };
   "RAW-R-INFO": RawRInfo;
   "APP-SCRIPT-TEXT": { language: LanguageMode } & AppScriptInfo;
   "APP-INFO": AppInfo;

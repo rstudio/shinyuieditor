@@ -178,6 +178,11 @@ launch_editor <- function(app_loc,
       )
 
       server_mode <<- "editing-app"
+
+      # Let client know if it can request server positions etc.. 
+      in_rstudio <- rstudioapi::isAvailable()
+      send_msg("CHECKIN", list(server_aware = in_rstudio))
+
       startup_app_preview()
       send_app_info_to_client()
     }
@@ -258,6 +263,13 @@ launch_editor <- function(app_loc,
         "ENTERED-TEMPLATE-SELECTOR" = {
           write_log("Template chooser mode")
           server_mode <<- "template-chooser"
+        },
+        "SELECT-SERVER-CODE" = {
+          select_server_code(
+            locations = msg$payload$positions, 
+            app_loc = app_loc, 
+            app_type = app_type
+          )
         }
       )
     }
@@ -319,3 +331,4 @@ launch_editor <- function(app_loc,
     )
   )
 }
+
