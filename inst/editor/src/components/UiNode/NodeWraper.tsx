@@ -37,8 +37,9 @@ export function NodeWrapper({
         // and high in the z-index stack so we don't get cutoff
         wrapperProps["data-is-selected-node"] && "z-50"
       )}
-      {...divProps}
       {...wrapperProps}
+      // Pass div props second so they can overwrite any wrapper props if needed
+      {...divProps}
     />
   );
 }
