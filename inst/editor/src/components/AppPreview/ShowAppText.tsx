@@ -10,7 +10,7 @@ import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../../state/languageMode";
 import type { RootState } from "../../state/store";
 import Button from "../Inputs/Button/Button";
-import { TooltipButton } from "../PopoverEl/Tooltip";
+import { PopoverButton } from "../Inputs/PopoverButton";
 
 import classes from "./AppPreview.module.css";
 import { pythonAppToShinyliveUrl } from "./python_app_to_shinylive_url";
@@ -88,15 +88,15 @@ export function ShowAppText() {
   return (
     <>
       <PanelHeader className={classes.title}>Code</PanelHeader>
-      <TooltipButton
+      <PopoverButton
         className={styles.show_btn}
-        text="See current application code"
-        position="left"
+        popoverContent="See current application code"
+        placement="left"
         onClick={() => set_script_visible((is_visible) => !is_visible)}
         variant="regular"
       >
         Get app script
-      </TooltipButton>
+      </PopoverButton>
       {script_visible ? (
         <DialogPopover
           className={styles.modal}

@@ -8,7 +8,7 @@ import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../../state/languageMode";
 import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
-import { TooltipButton } from "../PopoverEl/Tooltip";
+import { PopoverButton } from "../Inputs/PopoverButton";
 
 import classes from "./AppPreview.module.css";
 import { LogsViewer } from "./LogsViewer";
@@ -147,17 +147,17 @@ export function ReloadButton({
 }) {
   return (
     <div className={classes.reloadButtonContainer}>
-      <TooltipButton
-        text={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
+      <PopoverButton
+        popoverContent={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
         className={classes.reloadButton}
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           spinReloadButton(e.currentTarget);
           onClick(e.metaKey);
         }}
-        position={isExpandedMode ? "right" : "up-right"}
+        placement={isExpandedMode ? "right" : "top"}
       >
         <VscDebugRestart />
-      </TooltipButton>
+      </PopoverButton>
     </div>
   );
 }

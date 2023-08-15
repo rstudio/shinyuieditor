@@ -9,7 +9,7 @@ import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
-import { TooltipButton } from "../components/PopoverEl/Tooltip";
+import { PopoverButton } from "../components/Inputs/PopoverButton";
 import { useCurrentAppInfo } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
 import { useMetaData } from "../state/metaData";
@@ -90,13 +90,13 @@ function GoToOutputsBtn({
   const existing_output_locations = server_locations.output_positions[outputId];
 
   return (
-    <TooltipButton
-      text={
+    <PopoverButton
+      popoverContent={
         existing_output_locations
           ? "Show output declaration in app script"
           : "Create output binding in app server"
       }
-      position="left"
+      placement="left"
       variant="regular"
       onClick={() => {
         if (existing_output_locations) {
@@ -124,7 +124,7 @@ function GoToOutputsBtn({
       }}
     >
       {existing_output_locations ? "Show in server" : "Generate server code"}
-    </TooltipButton>
+    </PopoverButton>
   );
 }
 
@@ -163,9 +163,10 @@ function GoToInputsBtn({
   if (!inputLocations) return null;
 
   return (
-    <TooltipButton
-      text={`Find uses of bound input (input$${inputId}) in app script`}
-      position="left"
+    <PopoverButton
+      popoverContent={`Find uses of bound input (\`input$${inputId}\`) in app script`}
+      use_markdown
+      placement="left"
       variant="regular"
       onClick={() => {
         sendMsg({
@@ -180,6 +181,6 @@ function GoToInputsBtn({
       }}
     >
       Find in server
-    </TooltipButton>
+    </PopoverButton>
   );
 }

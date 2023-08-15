@@ -9,7 +9,7 @@ import { Trash } from "../../../../components/Icons";
 import { parseCSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { CSSUnitChooser } from "../../../../components/Inputs/CSSUnitInput/CSSUnitChooser";
 import { NumberInputSimple } from "../../../../components/Inputs/NumberInput/NumberInput";
-import { TooltipButton } from "../../../../components/PopoverEl/Tooltip";
+import { PopoverButton } from "../../../../components/Inputs/PopoverButton";
 
 import { getUnitInfo } from "./dragToResizeHelpers";
 import type { TractUpdateAction } from "./EditableGridContainer";
@@ -86,7 +86,7 @@ function DeleteTractButton({
   onClick: () => void;
   deletionConflicts: string[];
 }) {
-  const popoverPlacement = dir === "rows" ? "right" : "down";
+  const popoverPlacement = dir === "rows" ? "right" : "bottom";
 
   const enabled = deletionConflicts.length === 0;
   const message = !enabled
@@ -95,16 +95,16 @@ function DeleteTractButton({
       )} are entirely contained in tract`
     : "Delete tract";
   return (
-    <TooltipButton
+    <PopoverButton
       className={classes.deleteButton}
       onClick={removeFocusAfterClick(enabled ? onClick : undefined)}
       data-enabled={enabled}
-      text={message}
-      size="medium"
-      position={popoverPlacement}
+      popoverContent={message}
+      placement={popoverPlacement}
+      variant="icon"
     >
       <Trash />
-    </TooltipButton>
+    </PopoverButton>
   );
 }
 
@@ -115,19 +115,20 @@ function AddTractButton({
   dir: TractInfo["dir"];
   onClick: () => void;
 }) {
-  const popoverPlacement = dir === "rows" ? "right" : "down";
+  const popoverPlacement = dir === "rows" ? "right" : "bottom";
 
   const label = dir === "rows" ? `Add row` : `Add column`;
 
   return (
-    <TooltipButton
+    <PopoverButton
       className={classes.tractAddButton}
       onClick={removeFocusAfterClick(onClick)}
-      position={popoverPlacement}
-      text={label}
+      placement={popoverPlacement}
+      popoverContent={label}
+      variant="icon"
     >
       <FaPlus />
-    </TooltipButton>
+    </PopoverButton>
   );
 }
 

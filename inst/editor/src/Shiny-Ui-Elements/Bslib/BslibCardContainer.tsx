@@ -2,7 +2,7 @@ import React from "react";
 
 import type { bslib_card } from "ui-node-definitions/src/Bslib/card";
 
-import { TooltipButton } from "../../components/PopoverEl/Tooltip";
+import { PopoverButton } from "../../components/Inputs/PopoverButton";
 import { Portal } from "../../components/PortalModal/Portal";
 import { sizes_inline_styles } from "../../EditorContainer/App_Layout_Sizes";
 import { mergeClasses } from "../../utils/mergeClasses";
@@ -68,9 +68,11 @@ function FullScreenButton({
       className={styles.full_screen_button_container}
       data-is-full-screen={isFullScreen}
     >
-      <TooltipButton
-        text={isFullScreen ? "Reset full screen" : "Expand to full screen"}
-        position="left"
+      <PopoverButton
+        popoverContent={
+          isFullScreen ? "Reset full screen" : "Expand to full screen"
+        }
+        placement="left"
         onClick={(e) => {
           e.preventDefault();
           onClick();
@@ -92,7 +94,7 @@ function FullScreenButton({
             ></path>
           </svg>
         )}
-      </TooltipButton>
+      </PopoverButton>
     </div>
   );
 }

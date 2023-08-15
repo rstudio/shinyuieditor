@@ -3,7 +3,12 @@ import { isKnownShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import { inANotInB } from "util-functions/src/arrays";
 
 import { Trash } from "../../Icons";
-import { SimpleTooltip, TooltipButton } from "../../PopoverEl/Tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../../PopoverEl/FloatingPopover";
+import { PopoverButton } from "../PopoverButton";
 
 import type { FormBuilderProps } from "./FormBuilder";
 
@@ -23,13 +28,18 @@ export function UnknownArgumentsRender({
     <section className="unknown-arguments-list">
       <div className="divider-line">
         <label>
-          <SimpleTooltip
-            text="Arguments present in UI code but not known about or editable by the shinyuieditor"
-            position="left"
-            size="fit"
-          >
-            Unknown arguments
-          </SimpleTooltip>
+          <Tooltip placement="left">
+            <TooltipTrigger>
+              <span>Unknown arguments</span>
+            </TooltipTrigger>
+
+            <TooltipContent>
+              <div>
+                Arguments present in UI code but not known about or editable by
+                the shinyuieditor
+              </div>
+            </TooltipContent>
+          </Tooltip>
         </label>
       </div>
 
@@ -49,14 +59,15 @@ export function UnknownArgumentsRender({
               {argName}
             </code>
 
-            <TooltipButton
-              text={`Remove ${argName} argument`}
+            <PopoverButton
+              popoverContent={`Remove \`${argName}\` argument`}
+              use_markdown
               onClick={() => onSettingsChange(argName, { type: "REMOVE" })}
               type="button"
-              position="left"
+              placement="left"
             >
               <Trash />
-            </TooltipButton>
+            </PopoverButton>
           </li>
         ))}
       </ul>
