@@ -7,14 +7,16 @@ import {
   treesitter_to_ui_tree,
 } from "python-bindings";
 import {
+  get_assignment_nodes,
   get_ui_assignment,
   setup_python_parser,
-  get_assignment_nodes,
 } from "treesitter-parsers";
+import { convertMapToObject } from "util-functions/src/convertMapToObject";
 import type * as vscode from "vscode";
 
 import type { AppParser, InfoGetResults } from "../App_Parser";
 import { makeCachedInfoGetter } from "../make_cached_info_getter";
+import { getServerNodePosition } from "../R-Utils/build_R_app_parser";
 import type { CommandOutputGeneric } from "../R-Utils/runRCommand";
 
 type Parser = Awaited<ReturnType<typeof setup_python_parser>>;
@@ -71,7 +73,11 @@ function makePyAppInfoGetter(parser: Parser) {
         app: text,
       },
       ui_tree: treesitter_to_ui_tree(ui_node),
-      known_outputs: [...output_positions.keys()],
+      server_locations: {
+        input_positions: convertMapToObject(input_positions),
+        output_positions: convertMapToObject(output_positions),
+        server_fn: getServerNodePosition(parsed_app),
+      },
       app: generate_app_script_template(ui_node),
     };
 

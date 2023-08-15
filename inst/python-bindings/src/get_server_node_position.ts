@@ -1,6 +1,6 @@
 import type { ScriptRange } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
-import { get_node_position } from "treesitter-parsers";
+import { getNodePositionAndIndent } from "treesitter-parsers";
 
 import { getServerNode } from "./get_server_node";
 
@@ -19,11 +19,5 @@ export function getServerNodePosition(parsed_app: ParserTree): {
     throw new Error("No server node found");
   }
 
-  // Get the indent of the server function or if there' is nothing, default to two spaces
-  const indent = server_node.lastNamedChild?.startPosition.column ?? 2;
-
-  return {
-    server_fn: get_node_position(server_node),
-    indent,
-  };
+  return getNodePositionAndIndent(server_node);
 }

@@ -1,5 +1,6 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
+import type { getNodePositionAndIndent } from "treesitter-parsers";
 import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
 
@@ -10,7 +11,7 @@ export async function insertCodeSnippet({
   editor,
   snippet,
   server_info,
-  where_in_server,
+  ...loc_info
 }: {
   language: LanguageMode;
   editor: vscode.TextEditor;
@@ -22,12 +23,20 @@ export async function insertCodeSnippet({
   const server_fn_range = server_info.server_pos.server_fn;
   const indent = server_info.server_pos.indent;
 
+  if (!("where_in_server" in loc_info)) {
+    console.error(
+      "Don't know how to handle position based inputs yet in vscode api"
+    );
+
+    return;
+  }
+
   // Fill in the template either at bottom or top of server
   // Where exactly this will go depends on the language as R server functions have
   // the trailing curly brace we need to respect and python functions don't
   const row_delta = language === "R" ? -1 : 2;
   const row_to_place_snippet =
-    where_in_server === "end"
+    loc_info.where_in_server === "end"
       ? server_fn_range.end.row + row_delta
       : server_fn_range.start.row + row_delta;
 

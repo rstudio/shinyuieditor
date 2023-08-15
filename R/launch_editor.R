@@ -270,6 +270,14 @@ launch_editor <- function(app_loc,
             app_loc = app_loc, 
             app_type = app_type
           )
+        },
+        "INSERT-SNIPPET" = {
+          insert_server_code(
+            snippet = msg$payload$snippet,
+            insert_at = msg$payload$insert_at, 
+            app_loc = app_loc, 
+            app_type = app_type
+          )
         }
       )
     }

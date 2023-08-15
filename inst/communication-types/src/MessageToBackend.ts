@@ -1,3 +1,4 @@
+import type { getNodePositionAndIndent } from "treesitter-parsers/dist/get_node_positions";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { AppScriptInfo, AppType } from "./AppInfo";
@@ -28,7 +29,7 @@ export type MessageToBackend = MessageUnion<MessageToBackendByPath>;
 
 export type SnippetInsertRequest = {
   snippet: string;
-  where_in_server: "end" | "start";
+  insert_at: "end" | "start" | ScriptPosition;
 };
 
 type ServerPositionInfo = { positions: ServerPositions };
@@ -102,6 +103,7 @@ export type ServerPositionMap = Map<string, ServerPositions>;
 export type InputOutputLocations = {
   input_positions: ServerLocations;
   output_positions: ServerLocations;
+  server_fn: ReturnType<typeof getNodePositionAndIndent>;
 };
 
 export type ParsedAppInfo = {

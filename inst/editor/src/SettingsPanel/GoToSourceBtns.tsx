@@ -1,5 +1,7 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import { generate_python_output_binding } from "python-bindings";
+import { generate_r_output_binding } from "r-bindings";
 import type {
   InputBindings,
   OutputBindings,
@@ -13,8 +15,7 @@ import { PopoverButton } from "../components/Inputs/PopoverButton";
 import { useCurrentAppInfo } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
 import { useMetaData } from "../state/metaData";
-
-import { buildOutputScaffold } from "./buildOutputScaffold";
+import { buildServerInsertion } from "../utils/code_position_utils";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg } = useBackendConnection();
@@ -112,13 +113,19 @@ function GoToOutputsBtn({
             payload: { positions: existing_output_locations },
           });
         } else {
-          sendMsg({
-            path: "INSERT-SNIPPET",
-            payload: buildOutputScaffold({
+          const snippet_insertion_point = buildServerInsertion({
+            server_position: server_locations.server_fn,
+            snippet: buildSnippetText({
               language,
               output_id: outputId,
               output_info: serverOutputInfo,
             }),
+            language,
+          });
+
+          sendMsg({
+            path: "INSERT-SNIPPET",
+            payload: snippet_insertion_point,
           });
         }
       }}
@@ -183,4 +190,18 @@ function GoToInputsBtn({
       Find in server
     </PopoverButton>
   );
+}
+
+function buildSnippetText({
+  language,
+  output_id,
+  output_info: { renderScaffold },
+}: {
+  language: LanguageMode;
+  output_id: string;
+  output_info: OutputBindings;
+}): string {
+  return language === "PYTHON"
+    ? generate_python_output_binding(output_id, renderScaffold)
+    : generate_r_output_binding(output_id, renderScaffold);
 }
