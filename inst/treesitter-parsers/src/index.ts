@@ -8,7 +8,7 @@ export { get_ui_assignment } from "./get_ui_assignment";
 export { is_call_node, extract_call_content } from "./CallNode";
 
 export {
-  get_node_position,
+  getNodePosition,
   getNodePositionAndIndent,
 } from "./get_node_positions";
 

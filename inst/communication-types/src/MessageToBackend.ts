@@ -1,4 +1,4 @@
-import type { getNodePositionAndIndent } from "treesitter-parsers/dist/get_node_positions";
+import type { getNodePositionAndIndent } from "treesitter-parsers";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { AppScriptInfo, AppType } from "./AppInfo";

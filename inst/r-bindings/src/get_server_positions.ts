@@ -1,6 +1,6 @@
 import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
-import { get_node_position } from "treesitter-parsers";
+import { getNodePosition } from "treesitter-parsers";
 
 import { getNameOfAccessedProperty } from "./get_name_of_accessed_property";
 
@@ -21,7 +21,7 @@ function getOutputPositionsFromServer(server_node: ParserNode) {
       return;
     }
 
-    const output_loc = get_node_position(assignment);
+    const output_loc = getNodePosition(assignment);
 
     if (output_positions.has(output_name)) {
       output_positions.set(
@@ -43,7 +43,7 @@ function getInputPositionsFromServer(server_node: ParserNode) {
     const input_name = getNameOfAccessedProperty(node, "input");
 
     if (input_name === null) return;
-    const input_loc = get_node_position(node);
+    const input_loc = getNodePosition(node);
 
     if (input_positions.has(input_name)) {
       input_positions.set(

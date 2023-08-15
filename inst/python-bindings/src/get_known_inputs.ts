@@ -1,6 +1,6 @@
 import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
-import { get_node_position } from "treesitter-parsers";
+import { getNodePosition } from "treesitter-parsers";
 
 /**
  * Get a mapping of all known inputs in the app script to output positions
@@ -28,7 +28,7 @@ export function getKnownInputs(app_tree: ParserTree): ServerPositionMap {
     if (!input_call || input_call.type !== "call") {
       return;
     }
-    const position = get_node_position(input_call);
+    const position = getNodePosition(input_call);
 
     const existing_entry = inputs.get(input_id);
 

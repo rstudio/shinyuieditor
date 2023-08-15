@@ -5,7 +5,7 @@ import type { ParserNode } from ".";
  * @param node Node from the tree sitter tree
  * @returns Position of that node in the script
  */
-export function get_node_position(node: ParserNode) {
+export function getNodePosition(node: ParserNode) {
   const { startPosition, endPosition } = node;
 
   return {
@@ -36,7 +36,7 @@ export function getNodePositionAndIndent(server_node: ParserNode) {
   const indent = server_body_node?.startPosition.column ?? 2;
 
   return {
-    server_fn: get_node_position(server_node),
+    server_fn: getNodePosition(server_node),
     indent,
   };
 }

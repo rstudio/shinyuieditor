@@ -1,6 +1,6 @@
 import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserTree } from "treesitter-parsers";
-import { get_node_position } from "treesitter-parsers";
+import { getNodePosition } from "treesitter-parsers";
 
 /**
  * Grab all known outputs in the PyShiny app
@@ -31,7 +31,7 @@ export function getKnownOutputs(app_tree: ParserTree): ServerPositionMap {
 
     if (!output_id) return;
 
-    const position = get_node_position(decorated_def);
+    const position = getNodePosition(decorated_def);
 
     const existing_entry = outputs.get(output_id);
 
