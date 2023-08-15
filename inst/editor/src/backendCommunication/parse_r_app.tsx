@@ -1,4 +1,4 @@
-import type { AppInfo } from "communication-types/src/AppInfo";
+import type { AppInfo, AppScriptInfo } from "communication-types/src/AppInfo";
 import {
   generate_app_script_template,
   parse_r_app,
@@ -8,7 +8,7 @@ import { setup_r_parser } from "treesitter-parsers";
 
 const my_parser = setup_r_parser();
 
-export async function parseSingleFileRApp(app: string): Promise<AppInfo> {
+async function parseSingleFileRApp(app: string): Promise<AppInfo> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { server_node, ui_node, server_locations } = parse_r_app(
     await my_parser,
@@ -30,7 +30,7 @@ export async function parseSingleFileRApp(app: string): Promise<AppInfo> {
   return app_info;
 }
 
-export async function parseMultiFileRApp(
+async function parseMultiFileRApp(
   ui: string,
   server: string
 ): Promise<AppInfo> {
@@ -57,4 +57,12 @@ export async function parseMultiFileRApp(
   };
 
   return app_info;
+}
+
+export async function parseRAppText(scripts: AppScriptInfo) {
+  if ("app" in scripts) {
+    return await parseSingleFileRApp(scripts.app);
+  } else {
+    return await parseMultiFileRApp(scripts.ui, scripts.server);
+  }
 }

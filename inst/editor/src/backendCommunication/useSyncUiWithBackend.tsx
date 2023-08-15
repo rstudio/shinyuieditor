@@ -18,7 +18,8 @@ import { useCurrentSelection } from "../state/selectedPath";
 import { useDeleteNode } from "../state/useDeleteNode";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
-import { parseMultiFileRApp, parseSingleFileRApp } from "./parse_r_app";
+import { parsePythonAppText } from "./parse_python_app";
+import { parseRAppText } from "./parse_r_app";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
@@ -63,25 +64,16 @@ export function useSyncUiWithBackend() {
         dispatch(SET_INFO_FROM_R(raw_info))
       ),
       subscribe("APP-SCRIPT-TEXT", (scripts) => {
-        if ("app" in scripts) {
-          parseSingleFileRApp(scripts.app)
-            .then((info) => {
-              // parseSingleFileRApp(scripts.app);
-              dispatch(SET_APP_INFO(info));
-            })
-            .catch((e) => {
-              // eslint-disable-next-line no-console
-              console.error("Failed to parse app script", e);
-            });
+        const language = scripts.language;
+
+        if (language === "R") {
+          parseRAppText(scripts).then((info) => {
+            dispatch(SET_APP_INFO(info));
+          });
         } else {
-          parseMultiFileRApp(scripts.ui, scripts.server)
-            .then((info) => {
-              dispatch(SET_APP_INFO(info));
-            })
-            .catch((e) => {
-              // eslint-disable-next-line no-console
-              console.error("Failed to parse multi-file app scripts", e);
-            });
+          parsePythonAppText(scripts).then((info) => {
+            dispatch(SET_APP_INFO(info));
+          });
         }
       }),
       subscribe("TEMPLATE_CHOOSER", (outputChoices) =>
