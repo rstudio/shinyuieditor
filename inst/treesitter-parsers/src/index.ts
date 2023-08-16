@@ -1,7 +1,8 @@
 import type Parser from "web-tree-sitter";
 
-export { setup_python_parser } from "./setup_python_parser";
-export { setup_r_parser } from "./setup_r_parser";
+export { setup_python_parser, setup_r_parser } from "./setup_language_parsers";
+
+export type { ParserInitOptions } from "./setup_language_parsers";
 
 export { get_assignment_nodes } from "./get_assignment_nodes";
 export { get_ui_assignment } from "./get_ui_assignment";

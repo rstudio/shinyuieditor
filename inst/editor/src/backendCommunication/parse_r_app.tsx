@@ -1,19 +1,21 @@
-import type { AppInfo, AppScriptInfo } from "communication-types/src/AppInfo";
+import type { AppInfo } from "communication-types/src/AppInfo";
 import {
   generate_app_script_template,
   parse_r_app,
   r_treesitter_to_ui_tree,
 } from "r-bindings";
-import { setup_r_parser } from "treesitter-parsers";
+import type { TSParser } from "treesitter-parsers";
 
-const my_parser = setup_r_parser();
+import type { AppParserArgs } from "./parse_python_app";
 
-async function parseSingleFileRApp(app: string): Promise<AppInfo> {
+// We do this outside so we only run the setup code once
+// const my_parser = setup_r_parser();
+async function parseSingleFileRApp(
+  app: string,
+  parser: TSParser
+): Promise<AppInfo> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { server_node, ui_node, server_locations } = parse_r_app(
-    await my_parser,
-    app
-  );
+  const { server_node, ui_node, server_locations } = parse_r_app(parser, app);
 
   const app_info: AppInfo = {
     language: "R",
@@ -32,9 +34,9 @@ async function parseSingleFileRApp(app: string): Promise<AppInfo> {
 
 async function parseMultiFileRApp(
   ui: string,
-  server: string
+  server: string,
+  parser: TSParser
 ): Promise<AppInfo> {
-  const parser = await my_parser;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { ui_node, server_node, server_locations } = parse_r_app(
     parser,
@@ -59,10 +61,15 @@ async function parseMultiFileRApp(
   return app_info;
 }
 
-export async function parseRAppText(scripts: AppScriptInfo) {
+export async function parseRAppText({
+  scripts,
+  parser: parser_promise,
+}: AppParserArgs) {
+  const parser = await parser_promise;
+
   if ("app" in scripts) {
-    return await parseSingleFileRApp(scripts.app);
+    return await parseSingleFileRApp(scripts.app, parser);
   } else {
-    return await parseMultiFileRApp(scripts.ui, scripts.server);
+    return await parseMultiFileRApp(scripts.ui, scripts.server, parser);
   }
 }

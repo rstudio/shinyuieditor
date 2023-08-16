@@ -2,18 +2,19 @@ import * as React from "react";
 
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
+import type { ParserInitOptions, TSParser } from "treesitter-parsers";
+import { setup_python_parser, setup_r_parser } from "treesitter-parsers";
 import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
 import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
   SET_APP_INFO,
   SET_ERROR,
-  SET_INFO_FROM_R,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
-import { SET_META_DATA } from "../state/metaData";
+import { SET_META_DATA, useMetaData } from "../state/metaData";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useDeleteNode } from "../state/useDeleteNode";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
@@ -22,12 +23,15 @@ import { parsePythonAppText } from "./parse_python_app";
 import { parseRAppText } from "./parse_r_app";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
+let tsParser: Promise<TSParser> | null = null;
+
 export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs } = useBackendConnection();
   const state = useCurrentAppInfo();
   const currentSelection = useCurrentSelection();
   const language = useLanguageMode();
   const dispatch = useDispatch();
+  const metaData = useMetaData();
 
   const history = useUndoRedo(state);
 
@@ -58,20 +62,34 @@ export function useSyncUiWithBackend() {
   React.useEffect(() => {
     const subscribe = backendMsgs.subscribe;
     const subscriptions = [
-      subscribe("CHECKIN", (info) => dispatch(SET_META_DATA(info))),
+      subscribe("CHECKIN", (info) => {
+        const parserInitOptions: ParserInitOptions = {};
+        if (info.path_to_ts_wasm) {
+          const pathToWasm = info.path_to_ts_wasm;
+          parserInitOptions.locateFile = () => pathToWasm;
+        }
+        tsParser =
+          info.language === "R"
+            ? setup_r_parser(parserInitOptions)
+            : setup_python_parser(parserInitOptions);
+
+        dispatch(SET_META_DATA(info));
+      }),
       subscribe("APP-INFO", (info) => dispatch(SET_APP_INFO(info))),
-      subscribe("RAW-R-INFO", (raw_info) =>
-        dispatch(SET_INFO_FROM_R(raw_info))
-      ),
       subscribe("APP-SCRIPT-TEXT", (scripts) => {
+        if (!tsParser) {
+          throw new Error(
+            "No parser initialized. Checkin handshake must not have happened."
+          );
+        }
         const language = scripts.language;
 
         if (language === "R") {
-          parseRAppText(scripts).then((info) => {
+          parseRAppText({ scripts, parser: tsParser }).then((info) => {
             dispatch(SET_APP_INFO(info));
           });
         } else {
-          parsePythonAppText(scripts).then((info) => {
+          parsePythonAppText({ scripts, parser: tsParser }).then((info) => {
             dispatch(SET_APP_INFO(info));
           });
         }
@@ -91,7 +109,13 @@ export function useSyncUiWithBackend() {
     return () => {
       subscriptions.forEach((s) => s.unsubscribe());
     };
-  }, [backendMsgs, dispatch, sendMsg]);
+  }, [
+    backendMsgs.subscribe,
+    dispatch,
+    language,
+    metaData.path_to_ts_wasm,
+    sendMsg,
+  ]);
 
   const debouncedSendMsg = React.useMemo(
     () => debounce(sendMsg, 500, true),

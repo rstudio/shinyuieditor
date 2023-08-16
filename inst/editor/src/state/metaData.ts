@@ -5,11 +5,9 @@ import { useSelector } from "react-redux";
 
 import type { RootState } from "./store";
 
-type MetaData = { server_aware: Boolean };
-
 export const metaDataSlice = createSlice({
   name: "metaData",
-  initialState: { server_aware: false } as MetaData,
+  initialState: { server_aware: false } as MessageToClientByPath["CHECKIN"],
   reducers: {
     SET_META_DATA: (
       state,

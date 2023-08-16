@@ -1,6 +1,4 @@
-import type { RawRInfo } from "r-bindings";
-
-import type { AppType, AppInfo, LanguageMode, AppScriptInfo } from "./AppInfo";
+import type { AppInfo, AppScriptInfo, AppType, LanguageMode } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -16,8 +14,9 @@ export type MessageToClientByPath = {
   CHECKIN: {
     /* Basic handshake between backend to give some basic context about runtime to client */
     server_aware: boolean;
+    language: LanguageMode;
+    path_to_ts_wasm?: string;
   };
-  "RAW-R-INFO": RawRInfo;
   "APP-SCRIPT-TEXT": { language: LanguageMode } & AppScriptInfo;
   "APP-INFO": AppInfo;
   "BACKEND-ERROR": {

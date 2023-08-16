@@ -63,6 +63,12 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       document,
       sendMessage: (msg: MessageToClient) =>
         webviewPanel.webview.postMessage(msg),
+      convertFilePaths: (file_path: string) =>
+        webviewPanel.webview
+          .asWebviewUri(
+            vscode.Uri.joinPath(this.context.extensionUri, "media", file_path)
+          )
+          .toString(),
     });
 
     // Filter change and save events do only this current document

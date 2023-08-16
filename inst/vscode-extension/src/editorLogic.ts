@@ -7,14 +7,9 @@ import * as vscode from "vscode";
 
 import { startPreviewApp } from "./app-preview/startPreviewApp";
 import { clearAppFile } from "./extension-api-utils/clearAppFile";
-import { insertCodeSnippet } from "./extension-api-utils/insert_code_snippet";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { updateAppFile } from "./extension-api-utils/update_app_file";
-import { buildPythonAppParser } from "./Python-Utils/build_python_app_parser";
-import { buildRAppParser } from "./R-Utils/build_R_app_parser";
-import { selectAppLines } from "./selectServerReferences";
 import type { ParsedAppInfo } from "./ui_tree_has_changed";
-import { uiTreeHasChanged } from "./ui_tree_has_changed";
 
 const { showErrorMessage } = vscode.window;
 
@@ -41,10 +36,12 @@ export async function editorLogic({
   language,
   document,
   sendMessage,
+  convertFilePaths,
 }: {
   language: LanguageMode;
   document: vscode.TextDocument;
   sendMessage: (msg: MessageToClient) => Thenable<boolean>;
+  convertFilePaths: (path: string) => string;
 }) {
   // Start by initializing some state variables
 
@@ -64,28 +61,27 @@ export async function editorLogic({
 
   // The app info parser. This is used to parse the app for things like the UI
   // tree and server info.
-  const appInfoParser = await (language === "R"
-    ? buildRAppParser(document)
-    : buildPythonAppParser(document));
+  // const appInfoParser = await (language === "R"
+  //   ? buildRAppParser(document)
+  //   : buildPythonAppParser(document));
 
   // On the first time connecting to the viewer, load our libraries and
   // let the user know if this failed and they need to fix it.
   async function initializeUiEditor() {
-    const pkgsLoaded = await appInfoParser.check_if_pkgs_installed(
-      "shinyuieditor"
-    );
-
-    if (!pkgsLoaded.success) {
-      sendMessage({
-        path: "BACKEND-ERROR",
-        payload: {
-          context: "checking for shinyuieditor package",
-          msg: pkgsLoaded.msg,
-        },
-      });
-      showErrorMessage(pkgsLoaded.msg);
-      throw new Error(pkgsLoaded.msg);
-    }
+    // const pkgsLoaded = await appInfoParser.check_if_pkgs_installed(
+    //   "shinyuieditor"
+    // );
+    // if (!pkgsLoaded.success) {
+    //   sendMessage({
+    //     path: "BACKEND-ERROR",
+    //     payload: {
+    //       context: "checking for shinyuieditor package",
+    //       msg: pkgsLoaded.msg,
+    //     },
+    //   });
+    //   showErrorMessage(pkgsLoaded.msg);
+    //   throw new Error(pkgsLoaded.msg);
+    // }
   }
 
   function requestTemplateChooser() {
@@ -101,6 +97,7 @@ export async function editorLogic({
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
 
+    // debugger;
     // Check to make sure we're not just picking up a change that we made so we can skip
     // unnecessary parsing.
     const updateWeMade =
@@ -112,7 +109,15 @@ export async function editorLogic({
       await initializeUiEditor();
 
       // Let client know that we can edit the server code
-      sendMessage({ path: "CHECKIN", payload: { server_aware: true } });
+      sendMessage({
+        path: "CHECKIN",
+        payload: {
+          language,
+          server_aware: true,
+          // Create webview friendly url for the tree-sitter wasm file and send over
+          path_to_ts_wasm: convertFilePaths("tree-sitter.wasm"),
+        },
+      });
       hasInitialized = true;
     }
 
@@ -127,49 +132,58 @@ export async function editorLogic({
     // etc don't bring down the whole editor but instead just show an error
     // message that can be recovered from
     try {
-      const app_info_fetch = await appInfoParser.getInfo();
+      // const app_info_fetch = await appInfoParser.getInfo();
 
-      if (app_info_fetch.status === "error") {
-        sendMessage({
-          path: "BACKEND-ERROR",
-          payload: {
-            context: "parsing app",
-            msg: app_info_fetch.errorMsg,
-          },
-        });
-        // Error means that there is no latest app write. If we don't set this
-        // the app will think nothing has changed after problem is fixed if it
-        // is simply reverted.
-        latestAppWrite = null;
-        return;
-      }
+      // if (app_info_fetch.status === "error") {
+      //   sendMessage({
+      //     path: "BACKEND-ERROR",
+      //     payload: {
+      //       context: "parsing app",
+      //       msg: app_info_fetch.errorMsg,
+      //     },
+      //   });
+      //   // Error means that there is no latest app write. If we don't set this
+      //   // the app will think nothing has changed after problem is fixed if it
+      //   // is simply reverted.
+      //   latestAppWrite = null;
+      //   return;
+      // }
 
-      const app_info = app_info_fetch.values;
+      // const app_info = app_info_fetch.values;
 
-      if (app_info === "EMPTY") {
-        requestTemplateChooser();
-        return;
-      }
+      // if (app_info === "EMPTY") {
+      //   requestTemplateChooser();
+      //   return;
+      // }
 
       latestAppWrite = appFileText;
       // If the app info hasn't changed since the last time we parsed it, skip
       // the rest of the logic
-      const have_new_app_info = uiTreeHasChanged(
-        previous_parsed_info,
-        app_info_fetch
-      );
+      // const have_new_app_info = uiTreeHasChanged(
+      //   previous_parsed_info,
+      //   app_info_fetch
+      // );
 
-      previous_parsed_info = app_info_fetch;
+      // previous_parsed_info = app_info_fetch;
 
-      if (!have_new_app_info) {
-        // No syntactical change, ending-early
-        return;
-      }
+      // if (!have_new_app_info) {
+      //   // No syntactical change, ending-early
+      //   return;
+      // }
 
       sendMessage({
-        path: "APP-INFO",
-        payload: app_info.ui,
+        path: "APP-SCRIPT-TEXT",
+        payload: {
+          language,
+          app_type: "SINGLE-FILE",
+          app: appFileText,
+        },
       });
+
+      // sendMessage({
+      //   path: "APP-INFO",
+      //   payload: app_info.ui,
+      // });
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error("Failed to parse", e);
@@ -280,45 +294,49 @@ export async function editorLogic({
           return;
         }
         case "INSERT-SNIPPET": {
-          const info_fetch = await appInfoParser.getInfo();
-          if (
-            info_fetch.status === "success" &&
-            info_fetch.values !== "EMPTY" &&
-            info_fetch.values.server
-          ) {
-            insertCodeSnippet({
-              language,
-              editor: await get_companion_editor(),
-              server_info: info_fetch.values.server,
-              ...msg.payload,
-            });
+          const snippet = msg.payload.snippet;
+          const insert_at = msg.payload.insert_at;
+          if (typeof insert_at === "string") {
+            throw new Error("Need snippet location for insertion");
           }
+
+          const editor = await get_companion_editor();
+          const successfull_template_add = await editor.insertSnippet(
+            new vscode.SnippetString(snippet),
+            new vscode.Position(insert_at.row, insert_at.column)
+          );
+
+          if (!successfull_template_add) {
+            // Tell user there's nothing we can do.
+            vscode.window.showErrorMessage(`Failed to add output scaffold`);
+          }
+
           return;
         }
 
-        case "FIND-SERVER-USES": {
-          const app_info_fetch = await appInfoParser.getInfo();
-          if (
-            app_info_fetch.status !== "success" ||
-            app_info_fetch.values === "EMPTY"
-          ) {
-            return;
-          }
+        // case "FIND-SERVER-USES": {
+        //   const app_info_fetch = await appInfoParser.getInfo();
+        //   if (
+        //     app_info_fetch.status !== "success" ||
+        //     app_info_fetch.values === "EMPTY"
+        //   ) {
+        //     return;
+        //   }
 
-          const server_info = app_info_fetch.values.server;
+        //   const server_info = app_info_fetch.values.server;
 
-          const server_locations =
-            msg.payload.type === "Input"
-              ? server_info.get_input_positions(msg.payload.inputId)
-              : server_info.get_output_position(msg.payload.outputId);
+        //   const server_locations =
+        //     msg.payload.type === "Input"
+        //       ? server_info.get_input_positions(msg.payload.inputId)
+        //       : server_info.get_output_position(msg.payload.outputId);
 
-          selectAppLines({
-            editor: await get_companion_editor(),
-            selections: server_locations,
-          });
+        //   selectAppLines({
+        //     editor: await get_companion_editor(),
+        //     selections: server_locations,
+        //   });
 
-          return;
-        }
+        //   return;
+        // }
         default:
           // eslint-disable-next-line no-console
           console.warn("Unhandled message from client", msg);

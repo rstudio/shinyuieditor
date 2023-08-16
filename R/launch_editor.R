@@ -181,7 +181,7 @@ launch_editor <- function(app_loc,
 
       # Let client know if it can request server positions etc.. 
       in_rstudio <- rstudioapi::isAvailable()
-      send_msg("CHECKIN", list(server_aware = in_rstudio))
+      send_msg("CHECKIN", list(server_aware = in_rstudio, language = "R"))
 
       startup_app_preview()
       send_app_info_to_client()

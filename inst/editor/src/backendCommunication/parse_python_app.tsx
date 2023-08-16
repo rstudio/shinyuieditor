@@ -6,18 +6,26 @@ import {
   treesitter_to_ui_tree,
 } from "python-bindings";
 import { getServerNodePosition } from "python-bindings/src/get_server_node_position";
-import {
-  get_assignment_nodes,
-  get_ui_assignment,
-  setup_python_parser,
-} from "treesitter-parsers";
+import type { TSParser } from "treesitter-parsers";
+import { get_assignment_nodes, get_ui_assignment } from "treesitter-parsers";
 import { convertMapToObject } from "util-functions/src/convertMapToObject";
 
-const my_parser = setup_python_parser();
+export type AppParserArgs = {
+  scripts: AppScriptInfo;
+  parser: Promise<TSParser>;
+};
 
-async function parseSingleFilePythonApp(app: string): Promise<AppInfo> {
-  const parsed_app = (await my_parser).parse(app);
+export async function parsePythonAppText({
+  scripts,
+  parser: parser_promise,
+}: AppParserArgs) {
+  if (!("app" in scripts)) {
+    throw new Error("Multifile python apps are not supported");
+  }
+  const app = scripts.app;
 
+  const parsed_app = (await parser_promise).parse(app);
+  debugger;
   const assignment_nodes = get_assignment_nodes(parsed_app);
   const ui_node = get_ui_assignment(assignment_nodes);
 
@@ -45,12 +53,4 @@ async function parseSingleFilePythonApp(app: string): Promise<AppInfo> {
   };
 
   return app_info;
-}
-
-export async function parsePythonAppText(scripts: AppScriptInfo) {
-  if ("app" in scripts) {
-    return await parseSingleFilePythonApp(scripts.app);
-  } else {
-    throw new Error("Multifile python apps are not supported");
-  }
 }
