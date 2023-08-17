@@ -6,6 +6,7 @@ import "./App.css";
 import { BackendConnectionProvider } from "./backendCommunication/useBackendMessageCallbacks";
 import { GeneralErrorView } from "./components/ErrorCatcher/GeneralErrorView";
 import { EditorContainer } from "./EditorContainer/EditorContainer";
+import { TSParserProvider } from "./EditorContainer/TSParserProvider";
 import ReduxProvider from "./state/ReduxProvider";
 import styles from "./SUE.module.css";
 import {
@@ -43,7 +44,9 @@ export function SUE({
     <ReduxProvider>
       <ErrorBoundary fallbackRender={WholeAppErrorFallback}>
         <BackendConnectionProvider {...dispatch}>
-          <EditorContainer />
+          <TSParserProvider>
+            <EditorContainer />
+          </TSParserProvider>
         </BackendConnectionProvider>
       </ErrorBoundary>
     </ReduxProvider>

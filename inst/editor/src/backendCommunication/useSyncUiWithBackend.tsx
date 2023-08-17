@@ -2,10 +2,9 @@ import * as React from "react";
 
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
-import type { ParserInitOptions, TSParser } from "treesitter-parsers";
-import { setup_python_parser, setup_r_parser } from "treesitter-parsers";
 import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
+import { useTsParser } from "../EditorContainer/TSParserProvider";
 import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
   SET_APP_INFO,
@@ -14,16 +13,12 @@ import {
   useCurrentAppInfo,
 } from "../state/app_info";
 import { useLanguageMode } from "../state/languageMode";
-import { SET_META_DATA, useMetaData } from "../state/metaData";
+import { SET_META_DATA } from "../state/metaData";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useDeleteNode } from "../state/useDeleteNode";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
-import { parsePythonAppText } from "./parse_python_app";
-import { parseRAppText } from "./parse_r_app";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
-
-let tsParser: Promise<TSParser> | null = null;
 
 export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs } = useBackendConnection();
@@ -31,7 +26,7 @@ export function useSyncUiWithBackend() {
   const currentSelection = useCurrentSelection();
   const language = useLanguageMode();
   const dispatch = useDispatch();
-  const metaData = useMetaData();
+  const parseApp = useTsParser();
 
   const history = useUndoRedo(state);
 
@@ -63,36 +58,18 @@ export function useSyncUiWithBackend() {
     const subscribe = backendMsgs.subscribe;
     const subscriptions = [
       subscribe("CHECKIN", (info) => {
-        const parserInitOptions: ParserInitOptions = {};
-        if (info.path_to_ts_wasm) {
-          const pathToWasm = info.path_to_ts_wasm;
-          parserInitOptions.locateFile = () => pathToWasm;
-        }
-        tsParser =
-          info.language === "R"
-            ? setup_r_parser(parserInitOptions)
-            : setup_python_parser(parserInitOptions);
-
         dispatch(SET_META_DATA(info));
       }),
       subscribe("APP-INFO", (info) => dispatch(SET_APP_INFO(info))),
       subscribe("APP-SCRIPT-TEXT", (scripts) => {
-        if (!tsParser) {
+        if (!parseApp) {
           throw new Error(
             "No parser initialized. Checkin handshake must not have happened."
           );
         }
-        const language = scripts.language;
-
-        if (language === "R") {
-          parseRAppText({ scripts, parser: tsParser }).then((info) => {
-            dispatch(SET_APP_INFO(info));
-          });
-        } else {
-          parsePythonAppText({ scripts, parser: tsParser }).then((info) => {
-            dispatch(SET_APP_INFO(info));
-          });
-        }
+        parseApp(scripts).then((info) => {
+          dispatch(SET_APP_INFO(info));
+        });
       }),
       subscribe("TEMPLATE_CHOOSER", (outputChoices) =>
         dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }))
@@ -109,13 +86,7 @@ export function useSyncUiWithBackend() {
     return () => {
       subscriptions.forEach((s) => s.unsubscribe());
     };
-  }, [
-    backendMsgs.subscribe,
-    dispatch,
-    language,
-    metaData.path_to_ts_wasm,
-    sendMsg,
-  ]);
+  }, [backendMsgs.subscribe, dispatch, parseApp, sendMsg]);
 
   const debouncedSendMsg = React.useMemo(
     () => debounce(sendMsg, 500, true),
@@ -138,14 +109,16 @@ export function useSyncUiWithBackend() {
       return;
     }
 
+    const updatedAppScripts = generateFullAppScript(state, {
+      include_info: false,
+      language,
+    });
+
     debouncedSendMsg({
       path: "UPDATED-APP",
-      payload: generateFullAppScript(state, {
-        include_info: false,
-        language,
-      }),
+      payload: updatedAppScripts,
     });
-  }, [state, debouncedSendMsg, sendMsg, language]);
+  }, [debouncedSendMsg, language, sendMsg, state]);
 
   return {
     state,

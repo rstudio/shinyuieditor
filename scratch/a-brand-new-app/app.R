@@ -6,7 +6,6 @@ library(gridlayout)
 
 ui <- page_navbar(
   title = "Chick Weights",
-  selected = "Line Plots",
   collapsible = TRUE,
   theme = bslib::bs_theme(),
   sidebar = sidebar(
@@ -20,21 +19,22 @@ ui <- page_navbar(
       )
     )
   ),
+  selected = "Distributions",
   tabPanel(
     title = "Distributions",
     grid_container(
+      layout = c(
+        "facetOption",
+        "dists      "
+      ),
       row_sizes = c(
-        "165px",
+        "300px",
         "1fr"
       ),
       col_sizes = c(
         "1fr"
       ),
       gap_size = "10px",
-      layout = c(
-        "facetOption",
-        "dists"
-      ),
       grid_card_plot(area = "dists"),
       grid_card(
         area = "facetOption",
