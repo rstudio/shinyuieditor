@@ -1,7 +1,13 @@
+import React from "react";
+
 import type { LanguageMode } from "communication-types/src/AppInfo";
-import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import type {
+  InputOutputLocations,
+  MessageToBackend,
+} from "communication-types/src/MessageToBackend";
 import { generate_python_output_binding } from "python-bindings";
 import { generate_r_output_binding } from "r-bindings";
+import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 import type {
   InputBindings,
   OutputBindings,
@@ -12,17 +18,15 @@ import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { PopoverButton } from "../components/Inputs/PopoverButton";
+import { useTsParser } from "../EditorContainer/TSParserProvider";
 import { useCurrentAppInfo } from "../state/app_info";
-import { useLanguageMode } from "../state/languageMode";
 import { useMetaData } from "../state/metaData";
 import { buildServerInsertion } from "../utils/code_position_utils";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg } = useBackendConnection();
 
-  const language = useLanguageMode();
-
-  const { server_aware } = useMetaData();
+  const { server_aware, language } = useMetaData();
 
   if (!server_aware || !node) return null;
 
@@ -58,6 +62,42 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   );
 }
 
+function useUpToDateServerLocations() {
+  const current_app_info = useCurrentAppInfo();
+  const parseApp = useTsParser();
+
+  const [serverLocations, setServerLocations] =
+    React.useState<InputOutputLocations | null>(null);
+
+  React.useEffect(() => {
+    if (current_app_info.mode !== "MAIN") return;
+
+    // Because treesitter is so fast, we just regenerate the whole app script
+    // here and reparse that generated script. This takes way less time than you
+    // would expect.
+    // - Pitfalls:
+    //   - If the user has unsaved changes, this will not reflect those changes
+    //   - If a formatter was used, this will be unaware of it and give bad
+    //     positions
+    // - Potential Improvements:
+    //   - Offload this logic to the main dispatch system and just reparse the
+    //     app on every change as that's what this already does
+    const updatedAppScripts = generateFullAppScript(current_app_info, {
+      include_info: false,
+    });
+
+    parseApp(updatedAppScripts).then(({ server_locations }) => {
+      if (!server_locations) {
+        throw new Error("Could not parse app scripts");
+      }
+
+      setServerLocations(server_locations);
+    });
+  }, [current_app_info, parseApp]);
+
+  return serverLocations;
+}
+
 function GoToOutputsBtn({
   language,
   serverOutputInfo,
@@ -70,11 +110,9 @@ function GoToOutputsBtn({
   sendMsg: (msg: MessageToBackend) => void;
 }) {
   const current_app_info = useCurrentAppInfo();
+  const serverLocations = useUpToDateServerLocations();
 
-  if (!(current_app_info.mode === "MAIN" && current_app_info.server_locations))
-    return null;
-
-  const { server_locations } = current_app_info;
+  if (!(current_app_info.mode === "MAIN" && serverLocations)) return null;
 
   const { outputIdKey = "outputId" } = serverOutputInfo;
 
@@ -88,7 +126,7 @@ function GoToOutputsBtn({
   const outputId = namedArgs[keyForOutput as keyof typeof namedArgs];
   if (typeof outputId !== "string") return null;
 
-  const existing_output_locations = server_locations.output_positions[outputId];
+  const existing_output_locations = serverLocations.output_positions[outputId];
 
   return (
     <PopoverButton
@@ -102,19 +140,19 @@ function GoToOutputsBtn({
       onClick={() => {
         if (existing_output_locations) {
           sendMsg({
+            path: "SELECT-SERVER-CODE",
+            payload: { positions: existing_output_locations },
+          });
+          sendMsg({
             path: "FIND-SERVER-USES",
             payload: {
               type: "Output",
               outputId,
             },
           });
-          sendMsg({
-            path: "SELECT-SERVER-CODE",
-            payload: { positions: existing_output_locations },
-          });
         } else {
           const snippet_insertion_point = buildServerInsertion({
-            server_position: server_locations.server_fn,
+            server_position: serverLocations.server_fn,
             snippet: buildSnippetText({
               language,
               output_id: outputId,
@@ -145,11 +183,9 @@ function GoToInputsBtn({
   sendMsg: (msg: MessageToBackend) => void;
 }) {
   const current_app_info = useCurrentAppInfo();
+  const serverLocations = useUpToDateServerLocations();
 
-  if (!(current_app_info.mode === "MAIN" && current_app_info.server_locations))
-    return null;
-
-  const { server_locations } = current_app_info;
+  if (!(current_app_info.mode === "MAIN" && serverLocations)) return null;
 
   const inputIdKey =
     typeof serverInputInfo === "boolean" ? "inputId" : serverInputInfo;
@@ -165,7 +201,7 @@ function GoToInputsBtn({
 
   if (typeof inputId !== "string") return null;
 
-  const inputLocations = server_locations.input_positions[inputId];
+  const inputLocations = serverLocations.input_positions[inputId];
 
   if (!inputLocations) return null;
 
@@ -177,13 +213,12 @@ function GoToInputsBtn({
       variant="regular"
       onClick={() => {
         sendMsg({
-          path: "FIND-SERVER-USES",
-          payload: { type: "Input", inputId },
-        });
-
-        sendMsg({
           path: "SELECT-SERVER-CODE",
           payload: { positions: inputLocations },
+        });
+        sendMsg({
+          path: "FIND-SERVER-USES",
+          payload: { type: "Input", inputId },
         });
       }}
     >
