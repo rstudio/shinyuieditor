@@ -144,13 +144,6 @@ function GoToOutputsBtn({
             path: "SELECT-SERVER-CODE",
             payload: { positions: existing_output_locations },
           });
-          sendMsg({
-            path: "FIND-SERVER-USES",
-            payload: {
-              type: "Output",
-              outputId,
-            },
-          });
 
           toast("Highlighted output declaration in server");
         } else {
@@ -219,10 +212,6 @@ function GoToInputsBtn({
         sendMsg({
           path: "SELECT-SERVER-CODE",
           payload: { positions: inputLocations },
-        });
-        sendMsg({
-          path: "FIND-SERVER-USES",
-          payload: { type: "Input", inputId },
         });
 
         toast("Highlighted uses of input variable in server");

@@ -179,11 +179,6 @@ export async function editorLogic({
           app: appFileText,
         },
       });
-
-      // sendMessage({
-      //   path: "APP-INFO",
-      //   payload: app_info.ui,
-      // });
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error("Failed to parse", e);
@@ -314,29 +309,6 @@ export async function editorLogic({
           return;
         }
 
-        // case "FIND-SERVER-USES": {
-        //   const app_info_fetch = await appInfoParser.getInfo();
-        //   if (
-        //     app_info_fetch.status !== "success" ||
-        //     app_info_fetch.values === "EMPTY"
-        //   ) {
-        //     return;
-        //   }
-
-        //   const server_info = app_info_fetch.values.server;
-
-        //   const server_locations =
-        //     msg.payload.type === "Input"
-        //       ? server_info.get_input_positions(msg.payload.inputId)
-        //       : server_info.get_output_position(msg.payload.outputId);
-
-        //   selectAppLines({
-        //     editor: await get_companion_editor(),
-        //     selections: server_locations,
-        //   });
-
-        //   return;
-        // }
         default:
           // eslint-disable-next-line no-console
           console.warn("Unhandled message from client", msg);

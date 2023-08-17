@@ -17,7 +17,6 @@ export type MessageToBackendByPath = {
   "APP-PREVIEW-STOP": null;
   "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
   "INSERT-SNIPPET": SnippetInsertRequest;
-  "FIND-SERVER-USES": InputSourceRequest | OutputSourceRequest;
   "SELECT-SERVER-CODE": ServerPositionInfo;
 };
 
