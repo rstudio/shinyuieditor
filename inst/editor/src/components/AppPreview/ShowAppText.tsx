@@ -20,7 +20,6 @@ function AppFilesViewer({ info }: { info: AppInfo }) {
   const language = useLanguageMode();
   const app_scripts = generateFullAppScript(info, {
     include_info: false,
-    language,
   });
 
   if (app_scripts.app_type === "SINGLE-FILE") {

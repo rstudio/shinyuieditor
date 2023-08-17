@@ -6,9 +6,7 @@ export function generateFullAppScript(
   info: AppInfo,
   {
     include_info,
-    language,
   }: {
-    language: "R" | "PYTHON";
     include_info: boolean;
   }
 ): AppScriptInfo {
@@ -17,14 +15,18 @@ export function generateFullAppScript(
     case "SINGLE-FILE": {
       return {
         app_type,
-        app: generateUiScript({ ui_tree, language, ...info.app }),
+        app: generateUiScript({
+          ui_tree,
+          language: info.language,
+          ...info.app,
+        }),
         ...(include_info && { info }),
       };
     }
     case "MULTI-FILE": {
       return {
         app_type,
-        ui: generateUiScript({ ui_tree, language, ...info.ui }),
+        ui: generateUiScript({ ui_tree, language: info.language, ...info.ui }),
         server: info.server.code,
         ...(include_info && { info }),
       };

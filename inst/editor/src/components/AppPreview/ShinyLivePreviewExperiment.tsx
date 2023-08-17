@@ -109,7 +109,6 @@ function AppStateToShinyLiveUrl(state: MainStateOption): string {
 
   const script_text = generateFullAppScript(state, {
     include_info: false,
-    language: "PYTHON",
   });
 
   const url = pythonAppToShinyliveUrl(

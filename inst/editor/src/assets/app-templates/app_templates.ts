@@ -32,7 +32,7 @@ export function templateToAppContents(
     selection.outputType === "SINGLE-FILE"
       ? templateToSingleFileInfo(selection)
       : templateToMultiFileInfo(selection);
-  return generateFullAppScript(app_info, { include_info: true, language });
+  return generateFullAppScript(app_info, { include_info: true });
 }
 
 function templateToSingleFileInfo(

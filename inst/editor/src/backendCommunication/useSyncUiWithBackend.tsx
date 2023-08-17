@@ -111,7 +111,6 @@ export function useSyncUiWithBackend() {
 
     const updatedAppScripts = generateFullAppScript(state, {
       include_info: false,
-      language,
     });
 
     debouncedSendMsg({
