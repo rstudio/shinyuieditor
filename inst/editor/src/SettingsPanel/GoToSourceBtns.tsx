@@ -7,6 +7,7 @@ import type {
 } from "communication-types/src/MessageToBackend";
 import { generate_python_output_binding } from "python-bindings";
 import { generate_r_output_binding } from "r-bindings";
+import { toast } from "react-toastify";
 import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 import type {
   InputBindings,
@@ -150,6 +151,8 @@ function GoToOutputsBtn({
               outputId,
             },
           });
+
+          toast("Highlighted output declaration in server");
         } else {
           const snippet_insertion_point = buildServerInsertion({
             server_position: serverLocations.server_fn,
@@ -165,6 +168,7 @@ function GoToOutputsBtn({
             path: "INSERT-SNIPPET",
             payload: snippet_insertion_point,
           });
+          toast("Inserted output binding in server");
         }
       }}
     >
@@ -220,6 +224,8 @@ function GoToInputsBtn({
           path: "FIND-SERVER-USES",
           payload: { type: "Input", inputId },
         });
+
+        toast("Highlighted uses of input variable in server");
       }}
     >
       Find in server

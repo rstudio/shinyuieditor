@@ -4,6 +4,8 @@
 /* import bootstrap into layer lower than user styles */
 @import url("bootstrap/dist/css/bootstrap.css") layer(frameworks);
 
+@import url("react-toastify/dist/ReactToastify.min.css") layer(frameworks);
+
 /* Disable the resets provided by tailwind because they currently mess with too
 much stuff */
 /* @tailwind base;  */
@@ -95,6 +97,15 @@ much stuff */
   --size-xl: 28px;
 
   --height-sm: 25px;
+
+  /* Custom variables for toast  */
+  --toastify-font-family: var(--fonts);
+  --toastify-color-light: var(--rstudio-white);
+  --toastify-color-progress-light: linear-gradient(
+    to right,
+    var(--rstudio-blue),
+    var(--rstudio-blue-transparent)
+  );
 }
 
 * {

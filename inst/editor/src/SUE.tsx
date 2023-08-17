@@ -1,6 +1,7 @@
 import type { BackendConnection } from "communication-types";
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 import { BackendConnectionProvider } from "./backendCommunication/useBackendMessageCallbacks";
@@ -46,6 +47,7 @@ export function SUE({
         <BackendConnectionProvider {...dispatch}>
           <TSParserProvider>
             <EditorContainer />
+            <ToastContainer />
           </TSParserProvider>
         </BackendConnectionProvider>
       </ErrorBoundary>
