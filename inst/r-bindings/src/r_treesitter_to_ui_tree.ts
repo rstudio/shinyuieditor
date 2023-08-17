@@ -13,6 +13,7 @@ import {
   is_keyword_arg_node,
   parse_keyword_arg_node,
 } from "./NodeTypes/KeywordArgNode";
+import { extractListContents, isListNode } from "./NodeTypes/ListNode";
 import { extract_number_content, is_number_node } from "./NodeTypes/NumberNode";
 import { extract_string_content, is_string_node } from "./NodeTypes/StringNode";
 import { is_text_node, parse_text_node } from "./NodeTypes/TextNode";
@@ -127,6 +128,10 @@ function parseArgNode(node: ParserNode) {
 
   if (is_array_node(node)) {
     return extract_array_contents(node);
+  }
+
+  if (isListNode(node)) {
+    return extractListContents(node);
   }
 
   return rTreesitterToUiTree(node);
