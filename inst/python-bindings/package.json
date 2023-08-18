@@ -11,7 +11,7 @@
     "@typescript-eslint/parser": "^5.42.0",
     "esbuild": "^0.17.8",
     "eslint": "^8.26.0",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "tsx": "^3.12.1",
     "typescript": "^5.0.4",
     "vite-node": "^0.30.1",

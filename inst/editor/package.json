@@ -27,7 +27,7 @@
     "react-sortablejs": "^6.1.4",
     "react-toastify": "^9.1.3",
     "sortablejs": "^1.15.0",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "ui-node-definitions": "*",
     "util-functions": "*"
   },

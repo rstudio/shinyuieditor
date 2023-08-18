@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "editor": "*",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "typescript": "^5.0.4"
   },
   "scripts": {

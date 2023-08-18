@@ -136,7 +136,7 @@
     "eslint": "^8.26.0",
     "jest": "^29.3.1",
     "ts-jest": "^29.0.3",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "tsx": "^3.12.1",
     "typescript": "^5.0.4",
     "vite-tsconfig-paths": "^4.2.0"

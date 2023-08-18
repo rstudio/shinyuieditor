@@ -1,4 +1,4 @@
-import twConfig from "../ui-editor-tsconfig/tailwind.config";
+import twConfig from "../shared-configs/tailwind.config";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

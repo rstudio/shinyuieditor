@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "tsconfig": "*",
+    "shared-configs": "*",
     "util-functions": "*",
     "r-bindings": "*",
     "typescript": "^5.0.4",
@@ -14,7 +14,7 @@
     "@types/jest": "^29.2.4",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "eslint": "^8.26.0",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "tsx": "^3.12.1",
     "typescript": "^5.0.4",
     "vitest": "^0.30.0"

@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "shared-configs/tsconfig.json",
   "include": ["src"],
   "compilerOptions": {
     "types": ["vite/client"]

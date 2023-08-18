@@ -10,7 +10,7 @@
   "devDependencies": {
     "esbuild": "^0.17.8",
     "tree-sitter-cli": "^0.20.8",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "typescript": "^5.0.4"
   },
   "scripts": {

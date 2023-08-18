@@ -1,1 +1,1 @@
-module.exports = require("../ui-editor-tsconfig/postcss.config");
+module.exports = require("../shared-configs/postcss.config");

@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "util-functions": "*",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "treesitter-parsers": "*",
     "typescript": "^5.0.4"
   },
