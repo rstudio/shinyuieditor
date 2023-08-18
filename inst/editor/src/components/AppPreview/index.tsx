@@ -150,6 +150,7 @@ export function ReloadButton({
       <PopoverButton
         popoverContent={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
         className={classes.reloadButton}
+        variant="transparent"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           spinReloadButton(e.currentTarget);
           onClick(e.metaKey);
