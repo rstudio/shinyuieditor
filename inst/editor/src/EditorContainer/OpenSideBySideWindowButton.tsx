@@ -13,15 +13,16 @@ export function OpenSideBySideWindowButton() {
   return (
     <>
       <PopoverButton
+        className="OpenSideBySideWindowButton mr-2"
         popoverContent="Open app code next to editor"
         placement="bottom"
+        variant={["icon", "transparent"]}
         onClick={() => {
           sendMsg({
             path: "OPEN-COMPANION-EDITOR",
             payload: "BESIDE",
           });
         }}
-        className="OpenSideBySideWindowButton"
       >
         <FaCode />
       </PopoverButton>
