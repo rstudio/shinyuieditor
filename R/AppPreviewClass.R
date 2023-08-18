@@ -16,6 +16,7 @@ app_preview_runner <- R6::R6Class(
     print_logs = NULL,
     previous_logs = NULL,
     logger = NULL,
+    dont_run = FALSE,
     start_listeners = function() {
       private$on_ready_poll <- subscribe_once(
         source_fn = function() {
@@ -56,8 +57,10 @@ app_preview_runner <- R6::R6Class(
                           port,
                           host,
                           print_logs,
+                          run_preview,
                           logger = function() { } # nolint
     ) {
+      private$dont_run <- !run_preview
       private$logger <- logger
       private$print_logs <- print_logs
       private$app_loc <- app_loc
@@ -68,11 +71,12 @@ app_preview_runner <- R6::R6Class(
       self$url <- get_app_url(host = host, port = port)
     },
     start_app = function() {
-      if (private$is_running) {
-        # App is already running. No need to start up again
+      if (private$dont_run || private$is_running) {
+        # Don't run the app if the user has disabled it or if it's already
+        # running
         return()
       }
-
+      
       # Send message that we're starting up the preview app
       if (!is.null(private$on_starting_up)) {
         private$on_starting_up()
@@ -123,6 +127,9 @@ app_preview_runner <- R6::R6Class(
       private$is_running <- TRUE
     },
     restart = function() {
+      if (private$dont_run) {
+        return()
+      }
       private$logger("Restarting app preview process\n")
 
       self$stop_app()
@@ -139,9 +146,9 @@ app_preview_runner <- R6::R6Class(
       private$start_listeners()
     },
     stop_app = function() {
-
+ 
       # If the app was never started, then we don't need to stop it
-      if (!private$is_running) {
+      if (private$dont_run || !private$is_running ) {
         return()
       }
 

@@ -98,28 +98,16 @@ launch_editor <- function(app_loc,
     port = shiny_background_port,
     host = host,
     print_logs = show_preview_app_logs,
-    logger = write_log
+    logger = write_log,
+    run_preview = app_preview
   )
 
-  startup_app_preview <- function() {
-    if (app_preview) {
-      write_log("Starting app preview")
-      app_preview_obj$start_app()
-    }
-  }
-
-  shutdown_app_preview <- function() {
-    if (app_preview) {
-      write_log("Stopping app preview")
-      app_preview_obj$stop_app()
-    }
-  }
 
   # Turn off app preview and delete the watched files. This should only happen
   # when the user has backed out of editing a template app and chosen a new file
   # type
   reset_app_type <- function() {
-    shutdown_app_preview()
+    app_preview_obj$stop_app()
     file_change_watcher$delete_files()
   }
 
@@ -153,7 +141,7 @@ launch_editor <- function(app_loc,
           send_msg(
             "BACKEND-ERROR",
             list(
-              context = "parsing app file",
+              context = "Loading app scripts",
               msg = error$message
             )
           )
@@ -180,10 +168,15 @@ launch_editor <- function(app_loc,
       server_mode <<- "editing-app"
 
       # Let client know if it can request server positions etc.. 
-      in_rstudio <- rstudioapi::isAvailable()
-      send_msg("CHECKIN", list(server_aware = in_rstudio, language = "R"))
+      send_msg(
+        "CHECKIN", 
+        list(
+          server_aware = rstudioapi::isAvailable(), 
+          language = "R"
+        )
+      )
 
-      startup_app_preview()
+      app_preview_obj$start_app()
       send_app_info_to_client()
     }
 
@@ -339,4 +332,3 @@ launch_editor <- function(app_loc,
     )
   )
 }
-
