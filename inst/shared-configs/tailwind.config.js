@@ -8,6 +8,7 @@ module.exports = {
           light: "#f1f5f9",
           main: "#edf2f7",
         },
+        black: "#23262a",
         "light-grey": "#e9edf3",
         "rstudio-grey": "#333333",
         "rstudio-blue": "#75aadb",

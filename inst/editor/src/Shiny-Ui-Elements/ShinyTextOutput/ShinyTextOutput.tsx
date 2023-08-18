@@ -1,17 +1,19 @@
 import { output_text } from "ui-node-definitions/src/Shiny/output_text";
 
 import uiIcon from "../../assets/icons/shinyTextOutput.png";
+import { NodeWrapper } from "../../components/UiNode/NodeWraper";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
-
-import classes from "./styles.module.css";
 
 export const shinyTextOutputInfo = addEditorInfoToUiNode(output_text, {
   iconSrc: uiIcon,
   UiComponent: ({ namedArgs, wrapperProps }) => {
     return (
-      <div className={classes.container} {...wrapperProps}>
+      <NodeWrapper
+        wrapperProps={wrapperProps}
+        className="bg-light-grey rounded p-2 text-black max-h-full"
+      >
         Dynamic text from <code>output${namedArgs.outputId}</code>
-      </div>
+      </NodeWrapper>
     );
   },
 });
