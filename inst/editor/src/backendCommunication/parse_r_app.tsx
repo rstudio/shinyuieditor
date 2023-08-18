@@ -15,7 +15,7 @@ async function parseSingleFileRApp(
   parser: TSParser
 ): Promise<AppInfo> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { server_node, ui_node, server_locations } = parse_r_app(parser, app);
+  const { ui_node, server_locations } = parse_r_app(parser, app);
 
   const app_info: AppInfo = {
     language: "R",
@@ -38,11 +38,7 @@ async function parseMultiFileRApp(
   parser: TSParser
 ): Promise<AppInfo> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { ui_node, server_node, server_locations } = parse_r_app(
-    parser,
-    ui,
-    server
-  );
+  const { ui_node, server_locations } = parse_r_app(parser, ui, server);
 
   const app_info: AppInfo = {
     language: "R",

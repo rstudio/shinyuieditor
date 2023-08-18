@@ -28,7 +28,7 @@ ui <- page_navbar(
         "dists      "
       ),
       row_sizes = c(
-        "300px",
+        "185px",
         "1fr"
       ),
       col_sizes = c(
