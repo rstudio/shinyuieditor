@@ -38,3 +38,30 @@ app_type_to_files <- list(
   "SINGLE-FILE" = "app.R",
   "MULTI-FILE" = c("ui.R", "server.R")
 )
+
+
+
+get_app_scripts <- function(app_loc) {
+  app_type <- get_app_file_type(app_loc)
+
+  if (identical(app_type, "SINGLE-FILE")) {
+    list(
+      language = "R",
+      app_type = "SINGLE-FILE",
+      app = get_script(fs::path(app_loc, "app.R"))
+    )
+  } else {
+    list(
+      language = "R",
+      app_type = "MULTI-FILE",
+      ui = get_script(fs::path(app_loc, "ui.R")),
+      server = get_script(fs::path(app_loc, "server.R"))
+    )
+  }
+}
+
+
+get_script <- function(script_loc) {
+  file_lines <- readLines(script_loc)
+  paste(file_lines, collapse = "\n")
+}
