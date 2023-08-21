@@ -39,8 +39,6 @@ app_type_to_files <- list(
   "MULTI-FILE" = c("ui.R", "server.R")
 )
 
-
-
 get_app_scripts <- function(app_loc) {
   app_type <- get_app_file_type(app_loc)
 

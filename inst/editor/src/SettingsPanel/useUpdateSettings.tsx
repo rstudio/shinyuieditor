@@ -46,15 +46,17 @@ export function useUpdateSettings(tree: ShinyUiNode) {
 
   React.useEffect(() => {
     formHasBeenUpdated.current = false;
+    setCurrentNode(null);
     if (selectedPath === null) {
-      setCurrentNode(null);
       return;
     }
+    console.log("Fetching new node from path", selectedPath);
     setCurrentNode(safeGetNode(tree, selectedPath));
   }, [tree, selectedPath]);
 
   React.useEffect(() => {
     if (!currentNode) return;
+    console.log("Sending updated settings for node", currentNode);
 
     sendNewSettings(currentNode);
   }, [currentNode, sendNewSettings]);

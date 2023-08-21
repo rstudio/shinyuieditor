@@ -23,7 +23,9 @@ export type InputOptions =
   | {
       inputType: "list";
       value: NamedList;
-      newItemValue?: { key: string; value: string };
+      newItemValue?:
+        | { key: string; value: string }
+        | ((i: number) => { key: string; value: string });
     }
   | { inputType: "dropdown"; value: string; choices: string[] }
   | {

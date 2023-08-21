@@ -3,12 +3,12 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
+import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTypes";
+import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
 import { sameObject } from "util-functions/src/equalityCheckers";
 
 import { Trash } from "../../Icons";
 import Button from "../Button/Button";
-import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTypes";
-import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
 
 import classes from "./styles.module.css";
 
@@ -31,14 +31,14 @@ export function isNamedList(x: any): x is NamedList {
   return true;
 }
 
-type NewItemValue = { key: string; value: string };
+type NewItemValue = Required<InputComponentByType<"list">>["newItemValue"];
 
 export function NamedListInput({
   id,
   label,
   value,
   onChange,
-  newItemValue = { key: "myKey", value: "myValue" },
+  newItemValue = (i) => ({ key: "Value" + i, value: "value" + i }),
 }: InputComponentByType<"list">) {
   const { state, setState, addItem, deleteItem } = useListState({
     value,
@@ -65,7 +65,11 @@ export function NamedListInput({
         handle={`.${classes.dragHandle}`}
       >
         {state.map((item, i) => (
-          <div className={classes.item} key={item.id}>
+          <div
+            className={classes.item}
+            data-info-dump={item.key + "-" + item.value + "-" + i}
+            key={item.key + "-" + item.value + "-" + i}
+          >
             <div className={classes.dragHandle} title="Reorder list">
               <MdDragHandle />
             </div>
@@ -116,6 +120,10 @@ export function NamedListInput({
   );
 }
 
+function namedListToItemTypeArray(list: NamedList): ItemType[] {
+  return Object.keys(list).map((key, i) => ({ id: i, key, value: list[key] }));
+}
+
 function useListState({
   value,
   onChange,
@@ -125,22 +133,24 @@ function useListState({
   onChange: (x: NamedList) => void;
   newItemValue: NewItemValue;
 }) {
-  const [state, setState] = React.useState<ItemType[]>(
-    value !== undefined
-      ? Object.keys(value).map((key, i) => ({ id: i, key, value: value[key] }))
-      : []
-  );
+  const [state, setState] = React.useState<ItemType[]>([]);
 
+  const numItems = state.length;
+
+  // The purpose of this useEffect is to handle updating the state to reflect
+  // new values sent in via the value prop. This is to keep the state in sync
+  // with the value prop so we don't have stale arguments. There is probably
+  // a cleaner way to do this but I'm not sure what it is.
   React.useEffect(() => {
-    const newList = simplifyToChoices(state);
+    const valuesFromState = simplifyToChoices(state);
 
-    if (sameObject(newList, value ?? {})) {
+    if (sameObject(valuesFromState, value)) {
       // Same array detected. No changes should be made
       return;
     }
 
-    onChange(newList);
-  }, [onChange, state, value]);
+    setState(namedListToItemTypeArray(value));
+  }, [state, value]);
 
   const deleteItem = React.useCallback((itemId: number) => {
     setState((list) => list.filter(({ id }) => id !== itemId));
@@ -149,13 +159,17 @@ function useListState({
   // Adding an item resets all the ids so we dont get crazy ids if the list has
   // been edited a lot
   const addItem = React.useCallback(() => {
+    const newItem =
+      typeof newItemValue === "function"
+        ? newItemValue(numItems + 1)
+        : newItemValue;
     setState((list) =>
-      [...list, { id: -1, ...newItemValue }].map((item, i) => ({
+      [...list, { id: -1, ...newItem }].map((item, i) => ({
         ...item,
         id: i,
       }))
     );
-  }, [newItemValue]);
+  }, [newItemValue, numItems]);
 
   return {
     state,
@@ -164,6 +178,7 @@ function useListState({
     addItem,
   };
 }
+
 function simplifyToChoices(arrayVersion: ItemType[]): NamedList {
   const toReturn: NamedList = arrayVersion.reduce(
     (namedList, { key, value }) => {

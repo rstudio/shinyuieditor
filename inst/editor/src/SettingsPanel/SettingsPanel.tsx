@@ -34,10 +34,9 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
   }
+  const pathString = selectedPath.join(".");
   if (currentNode === null) {
-    return (
-      <div>Error finding requested node at path {selectedPath.join(".")}</div>
-    );
+    return <div>Error finding requested node at path {pathString}</div>;
   }
 
   const isRootNode = selectedPath.length === 0;
@@ -74,6 +73,14 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
                   >)
                 : undefined
             }
+            node={currentNode}
+            nodePath={selectedPath}
+            // We use a key here because otherwise react will try and be clever with
+            // the inputs which can cause funky things when we switch between nodes
+            // with shared argument names. If react doesn't know to rerender then the
+            // value of the previous node's shared argument will be used in place of
+            // the new nodes value. Putting the key all the way up
+            key={pathString + id}
             onSettingsChange={(name, action) => {
               switch (action.type) {
                 case "UPDATE":

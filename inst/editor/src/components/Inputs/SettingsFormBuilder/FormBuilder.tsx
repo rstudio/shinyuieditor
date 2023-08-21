@@ -1,6 +1,8 @@
 import React from "react";
 
 import type { AllInputTypes } from "ui-node-definitions/src/inputFieldTypes";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import type { NamedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
@@ -23,6 +25,8 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (x: {
 }) => JSX.Element;
 
 export type FormBuilderProps = {
+  node: ShinyUiNode;
+  nodePath: NodePath;
   settings: NamedArgsObject;
   settingsInfo: DynamicArgumentInfo;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
@@ -34,23 +38,50 @@ export function FormBuilder(args: FormBuilderProps) {
     settings,
     settingsInfo,
     onSettingsChange,
-    renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
+    renderInputs,
+    node,
+    nodePath,
   } = args;
+
+  const inputElements = knownArgumentInputs({
+    settings,
+    settingsInfo,
+    onSettingsChange: (name, action) => {
+      console.log("SettingsChange from known inputs", name, action);
+      debugger;
+      onSettingsChange(name, action);
+    },
+    node,
+    nodePath,
+  });
+
+  let renderedInput: JSX.Element;
+
+  if (renderInputs) {
+    renderedInput = renderInputs({
+      inputs: inputElements,
+      settings,
+      onSettingsChange,
+    });
+  } else {
+    renderedInput = (
+      <>
+        {Object.entries(inputElements).map(([name, input], i) => (
+          <React.Fragment key={name + node.id + nodePath.join("-")}>
+            {input}
+          </React.Fragment>
+        ))}
+      </>
+    );
+  }
 
   return (
     <form
       className="FormBuilder flex flex-grow flex-shrink-0 flex-col"
       onSubmit={disableDefaultSubmit}
+      key={node.id + nodePath.join("-")}
     >
-      {renderInputs({
-        inputs: knownArgumentInputs({
-          settings,
-          settingsInfo,
-          onSettingsChange,
-        }),
-        settings,
-        onSettingsChange,
-      })}
+      {renderedInput}
       <UnknownArgumentsRender {...args} />
     </form>
   );
@@ -66,6 +97,8 @@ const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 const non_rendered_input_types = new Set<AllInputTypes>(["omitted", "ui-node"]);
 
 function knownArgumentInputs({
+  node,
+  nodePath,
   settings,
   settingsInfo,
   onSettingsChange,
@@ -94,7 +127,10 @@ function knownArgumentInputs({
     } as SettingsInputProps;
 
     InputsComponents[arg_name] = (
-      <SettingsInput key={arg_name} {...inputProps} />
+      <SettingsInput
+        key={node.id + arg_name + nodePath.join("-")}
+        {...inputProps}
+      />
     );
   }
 

@@ -3,7 +3,6 @@ library(ggplot2)
 library(bslib)
 library(gridlayout)
 
-
 ui <- page_navbar(
   title = "Chick Weights",
   collapsible = TRUE,
@@ -28,7 +27,7 @@ ui <- page_navbar(
         "dists      "
       ),
       row_sizes = c(
-        "185px",
+        "420px",
         "1fr"
       ),
       col_sizes = c(
@@ -44,6 +43,10 @@ ui <- page_navbar(
             inputId = "distFacet",
             label = "Facet distribution by",
             choices = list("Diet Option" = "Diet", "Measure Time" = "Time")
+          ),
+          value_box(
+            title = "Look at me!",
+            value = textOutput(outputId = "textOutput")
           )
         )
       )
