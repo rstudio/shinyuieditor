@@ -24,7 +24,10 @@ export function EditorLayout({
         <div className="bg-rstudio-white p-8 h-full relative row-span-2 overflow-auto">
           {main}
         </div>
-        <div className={mergeClasses(styles.properties_panel, styles.panel)}>
+        <div
+          className={mergeClasses(styles.properties_panel, styles.panel)}
+          aria-label="Properties panel"
+        >
           {properties}
         </div>
         <div className={mergeClasses(styles.app_preview, styles.panel)}>

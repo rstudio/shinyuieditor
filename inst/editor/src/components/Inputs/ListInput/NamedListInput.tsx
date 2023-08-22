@@ -11,11 +11,11 @@ import { mergeClasses } from "../../../utils/mergeClasses";
 import { Trash } from "../../Icons";
 import Button from "../Button/Button";
 
-type ItemType = {
+type ItemArray = {
   id: number;
   key: string;
   value: string;
-};
+}[];
 
 export type NamedList = Record<string, string>;
 
@@ -32,22 +32,6 @@ export function isNamedList(x: any): x is NamedList {
 
 type NewItemValue = Required<InputComponentByType<"list">>["newItemValue"];
 
-// Custom div that takes all the same props as a <div> component
-function ListItem({ className, ...props }: React.ComponentProps<"div">) {
-  // TODO: Add styles for when the item is being dragged. Aka has the class "sortable-chosen"
-  return (
-    <div
-      className={mergeClasses(
-        className,
-        "w-100 grid grid-cols-[15px_1fr_auto_1fr_15px]",
-        "gap-1 p-1 items-center rounded [&.sortable-chosen]:outline",
-        "[&.sortable-chosen]:outline-offset-[-2px] [&.sortable-chosen]:outline-rstudio-grey/30 [&.sortable-chosen]:shadow-lg"
-      )}
-      {...props}
-    />
-  );
-}
-
 export function NamedListInput({
   id,
   label,
@@ -55,11 +39,12 @@ export function NamedListInput({
   onChange,
   newItemValue = (i) => ({ key: "Value" + i, value: "value" + i }),
 }: InputComponentByType<"list">) {
-  const { state, setState, addItem, deleteItem } = useListState({
-    value,
-    onChange,
-    newItemValue,
-  });
+  const { state, addItem, deleteItem, reorderItems, updateKey, updateValue } =
+    useListState({
+      value,
+      onChange,
+      newItemValue,
+    });
 
   return (
     <div
@@ -73,14 +58,11 @@ export function NamedListInput({
       </ListItem>
       <ReactSortable
         list={state}
-        setList={setState}
+        setList={reorderItems}
         handle=".NamedListDragHandle"
       >
         {state.map((item, i) => (
-          <ListItem
-            className="my-1"
-            key={item.key + "-" + item.value + "-" + i}
-          >
+          <ListItem className="my-1" aria-label="List item" key={i}>
             <div
               className="NamedListDragHandle grid place-items-center cursor-ns-resize"
               title="Reorder list"
@@ -90,12 +72,11 @@ export function NamedListInput({
             <input
               title="Key Field"
               className="min-w-0"
+              aria-label="List item key"
               type="text"
               value={item.key}
               onChange={(e) => {
-                const newList = [...state];
-                newList[i] = { ...item, key: e.target.value };
-                setState(newList);
+                updateKey({ index: i, newKey: e.target.value });
               }}
             />
             <span className="mb-[1px]">:</span>
@@ -103,11 +84,10 @@ export function NamedListInput({
               title="Value Field"
               className="min-w-0"
               type="text"
+              aria-label="List item value"
               value={item.value}
               onChange={(e) => {
-                const newList = [...state];
-                newList[i] = { ...item, value: e.target.value };
-                setState(newList);
+                updateValue({ index: i, newValue: e.target.value });
               }}
             />
             <Button
@@ -134,10 +114,6 @@ export function NamedListInput({
   );
 }
 
-function namedListToItemTypeArray(list: NamedList): ItemType[] {
-  return Object.keys(list).map((key, i) => ({ id: i, key, value: list[key] }));
-}
-
 function useListState({
   value,
   onChange,
@@ -147,7 +123,7 @@ function useListState({
   onChange: (x: NamedList) => void;
   newItemValue: NewItemValue;
 }) {
-  const [state, setState] = React.useState<ItemType[]>([]);
+  const [state, setState] = React.useState<ItemArray>([]);
 
   const numItems = state.length;
 
@@ -156,7 +132,7 @@ function useListState({
   // with the value prop so we don't have stale arguments. There is probably
   // a cleaner way to do this but I'm not sure what it is.
   React.useEffect(() => {
-    const valuesFromState = simplifyToChoices(state);
+    const valuesFromState = itemTypeArrayToNamedList(state);
 
     if (sameObject(valuesFromState, value)) {
       // Same array detected. No changes should be made
@@ -166,9 +142,15 @@ function useListState({
     setState(namedListToItemTypeArray(value));
   }, [state, value]);
 
-  const deleteItem = React.useCallback((itemId: number) => {
-    setState((list) => list.filter(({ id }) => id !== itemId));
-  }, []);
+  const deleteItem = React.useCallback(
+    (itemId: number) => {
+      const newValue = { ...value };
+      delete newValue[state[itemId].key];
+
+      onChange(newValue);
+    },
+    [onChange, state, value]
+  );
 
   // Adding an item resets all the ids so we dont get crazy ids if the list has
   // been edited a lot
@@ -177,29 +159,98 @@ function useListState({
       typeof newItemValue === "function"
         ? newItemValue(numItems + 1)
         : newItemValue;
-    setState((list) =>
-      [...list, { id: -1, ...newItem }].map((item, i) => ({
-        ...item,
-        id: i,
-      }))
-    );
-  }, [newItemValue, numItems]);
+
+    onChange({ ...value, [newItem.key]: newItem.value });
+  }, [newItemValue, numItems, onChange, value]);
+
+  const reorderItems = React.useCallback(
+    (newItemsOrder: ItemArray) => {
+      // The first time this is called it's an empty array so we can ignore that
+      if (newItemsOrder.length === 0) return;
+
+      const newValue = newItemsOrder.reduce((newList, item) => {
+        newList[item.key] = item.value;
+        return newList;
+      }, {} as NamedList);
+
+      onChange(newValue);
+    },
+    [onChange]
+  );
+
+  const updateKey = React.useCallback(
+    ({ index: i, newKey }: { index: number; newKey: string }) => {
+      // Copy the state array so we can modify it
+      const newState = [...state];
+
+      // Update the item we want to change's key
+      newState[i] = { ...newState[i], key: newKey };
+
+      // If the new key is already in the list, we need to delete the
+      // old item with that key.
+      // TODO: Pause here and give a validation error until the user has updated the key
+      const itemWithSameKeyIndex = newState.findIndex(
+        (item, j) => item.key === newKey && j !== i
+      );
+      if (itemWithSameKeyIndex !== -1) {
+        newState.splice(itemWithSameKeyIndex, 1);
+      }
+
+      // Now convert the state array back into a NamedList and update
+      // the value
+      onChange(itemTypeArrayToNamedList(newState));
+    },
+    [onChange, state]
+  );
+
+  const updateValue = React.useCallback(
+    ({ index: i, newValue }: { index: number; newValue: string }) => {
+      // Copy the state array so we can modify it
+      const newState = [...state];
+
+      // Update the item we want to change's key
+      newState[i] = { ...newState[i], value: newValue };
+
+      // Now convert the state array back into a NamedList and update
+      // the value
+      onChange(itemTypeArrayToNamedList(newState));
+    },
+    [onChange, state]
+  );
 
   return {
     state,
     setState,
+    reorderItems,
     deleteItem,
     addItem,
+    updateKey,
+    updateValue,
   };
 }
 
-function simplifyToChoices(arrayVersion: ItemType[]): NamedList {
-  const toReturn: NamedList = arrayVersion.reduce(
-    (namedList, { key, value }) => {
-      namedList[key] = value;
-      return namedList;
-    },
-    {} as NamedList
+function namedListToItemTypeArray(list: NamedList): ItemArray {
+  return Object.keys(list).map((key, i) => ({ id: i, key, value: list[key] }));
+}
+
+function itemTypeArrayToNamedList(array: ItemArray): NamedList {
+  return array.reduce((list, { key, value }) => {
+    list[key] = value;
+    return list;
+  }, {} as NamedList);
+}
+
+// Custom div that takes all the same props as a <div> component
+function ListItem({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={mergeClasses(
+        className,
+        "w-100 grid grid-cols-[15px_1fr_auto_1fr_15px]",
+        "gap-1 p-1 items-center rounded [&.sortable-chosen]:outline",
+        "[&.sortable-chosen]:outline-offset-[-2px] [&.sortable-chosen]:outline-rstudio-grey/30 [&.sortable-chosen]:shadow-lg"
+      )}
+      {...props}
+    />
   );
-  return toReturn;
 }
