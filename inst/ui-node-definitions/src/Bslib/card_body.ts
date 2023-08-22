@@ -10,7 +10,7 @@ type CardBodyFillSettings = {
 
 type CardBodyFillNode = MakeShinyUiNode<CardBodyFillSettings>;
 
-export const card_body_fill = nodeInfoFactory<CardBodyFillSettings>()({
+export const card_body = nodeInfoFactory<CardBodyFillSettings>()({
   id: "card_body",
   r_info: {
     fn_name: "card_body",

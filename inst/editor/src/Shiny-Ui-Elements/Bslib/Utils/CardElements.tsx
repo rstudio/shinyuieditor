@@ -1,4 +1,4 @@
-import type { card_body_fill } from "ui-node-definitions/src/Bslib/card_body_fill";
+import type { card_body } from "ui-node-definitions/src/Bslib/card_body";
 
 import { mergeClasses } from "../../../utils/mergeClasses";
 import type { ArgsFromInfo } from "../../utils/add_editor_info_to_ui_node";
@@ -13,13 +13,13 @@ function CardElementChildrenHolder({
   return <div className={styles.card_children_container}>{children}</div>;
 }
 
-export function CardBodyFill({
+export function CardBody({
   className,
   children,
   args = {},
   ...props
 }: React.ComponentPropsWithoutRef<"div"> & {
-  args?: ArgsFromInfo<typeof card_body_fill>;
+  args?: ArgsFromInfo<typeof card_body>;
 }) {
   const content_styles = {
     gap: args?.gap,

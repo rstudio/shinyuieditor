@@ -1,7 +1,7 @@
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
 import { bslib_card } from "./Bslib/card";
-import { card_body_fill } from "./Bslib/card_body_fill";
+import { card_body } from "./Bslib/card_body";
 import { card_footer } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
 import { page_navbar } from "./Bslib/page_navbar";
@@ -57,7 +57,7 @@ export const all_node_info = [
   grid_page,
   bslib_card,
   value_box,
-  card_body_fill,
+  card_body,
   card_footer,
   card_header,
   output_dt,
