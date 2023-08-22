@@ -46,11 +46,7 @@ export function FormBuilder(args: FormBuilderProps) {
   const inputElements = knownArgumentInputs({
     settings,
     settingsInfo,
-    onSettingsChange: (name, action) => {
-      console.log("SettingsChange from known inputs", name, action);
-      debugger;
-      onSettingsChange(name, action);
-    },
+    onSettingsChange,
     node,
     nodePath,
   });
