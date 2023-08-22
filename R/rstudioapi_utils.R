@@ -64,6 +64,9 @@ insert_server_code <- function(snippet, insert_at, app_loc, app_type) {
     location = client_pos_to_rstudioapi_pos(insert_at),
     text = snippet
   )
+
+  # Save new code so it's reflected in the Ui editor/ preview
+  rstudioapi::documentSave()
 }
 
 ensure_server_script_open <- function(app_loc, app_type) {
