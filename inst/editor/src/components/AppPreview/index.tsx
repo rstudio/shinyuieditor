@@ -6,6 +6,7 @@ import { VscDebugRestart } from "react-icons/vsc";
 
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../../state/languageMode";
+import { mergeClasses } from "../../utils/mergeClasses";
 import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
 import { PopoverButton } from "../Inputs/PopoverButton";
@@ -149,8 +150,10 @@ export function ReloadButton({
     <div className={classes.reloadButtonContainer}>
       <PopoverButton
         popoverContent={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
-        className={classes.reloadButton}
-        variant="transparent"
+        className={mergeClasses(classes.reloadButton, {
+          "text-white": !isExpandedMode,
+        })}
+        variant={["transparent", "icon"]}
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           spinReloadButton(e.currentTarget);
           onClick(e.metaKey);
