@@ -8,6 +8,7 @@ import { useTsParser } from "../EditorContainer/TSParserProvider";
 import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
   SET_APP_INFO,
+  SET_CONNECTION_LOST,
   SET_ERROR,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
@@ -77,6 +78,9 @@ export function useSyncUiWithBackend() {
       subscribe("BACKEND-ERROR", (error_info) =>
         dispatch(SET_ERROR(error_info))
       ),
+      subscribe("CONNECTION-LOST", (error_info) =>
+        dispatch(SET_CONNECTION_LOST())
+      ),
     ];
 
     // Make sure to do this after subscriptions otherwise the response may be
@@ -96,7 +100,11 @@ export function useSyncUiWithBackend() {
   // Keep the client-side state insync with the backend by sending update
   // messages
   React.useEffect(() => {
-    if (state.mode === "LOADING" || state.mode === "ERROR") {
+    if (
+      state.mode === "LOADING" ||
+      state.mode === "ERROR" ||
+      state.mode === "CONNECTION-LOST"
+    ) {
       // Avoiding unnecesary message to backend when the state hasn't changed
       // from the one sent to it
       return;

@@ -14,6 +14,9 @@ type NewType = {
   } & AppScriptInfo;
   // TODO: Remove this because it's only used for the static backend mode
   "APP-INFO": AppInfo;
+  "CONNECTION-LOST": {
+    msg: string;
+  };
   "BACKEND-ERROR": {
     context: string;
     msg: string;

@@ -23,8 +23,22 @@ export function EditorView({ state }: { state: MainStateOption }) {
     case "ERROR":
       return <ErrorView state={state} />;
 
+    case "CONNECTION-LOST":
+      return <LostConnectionView />;
+
     case "TEMPLATE_CHOOSER":
       return <TemplateChooserView {...state.options} />;
+
+    default:
+      return (
+        <ErrorView
+          state={{
+            mode: "ERROR",
+            context: "EditorView",
+            msg: `Editor in unknown state. Congratulations you found a bug!`,
+          }}
+        />
+      );
   }
 }
 
@@ -44,6 +58,19 @@ function ErrorView({ state }: { state: ErrorState }) {
     <MessageForUser>
       <h2>Error {state.context ? `while ${state.context}` : ``}</h2>
       <ErrorMessagePrinter msg={state.msg} />
+    </MessageForUser>
+  );
+}
+
+function LostConnectionView() {
+  return (
+    <MessageForUser>
+      <h2>Lost connection to backend</h2>
+      <p>Don't worry, nothing has been lost!</p>
+      <p>
+        Try refreshing the page if the editor has been sitting idle for a while.
+        Otherwise try re-running the ui editor launch command.
+      </p>
     </MessageForUser>
   );
 }

@@ -41,6 +41,9 @@ export type MainStateOption =
   | {
       mode: "LOADING";
     }
+  | {
+      mode: "CONNECTION-LOST";
+    }
   | ErrorState;
 
 // Note: The reducer callbacks use immer so the mutations we make to the object
@@ -105,6 +108,9 @@ export const mainStateSlice = createSlice({
     SET_LOADING: (state) => {
       return { ...state, mode: "LOADING" };
     },
+    SET_CONNECTION_LOST: (state) => {
+      return { ...state, mode: "CONNECTION-LOST" };
+    },
     UPDATE_NODE: (state, action: PayloadAction<UpdateNodeArguments>) => {
       if (state.mode !== "MAIN") {
         throw new Error("Tried to update a node when in template chooser mode");
@@ -145,6 +151,7 @@ export const {
   SET_FULL_STATE,
   SHOW_TEMPLATE_CHOOSER,
   SET_LOADING,
+  SET_CONNECTION_LOST,
 } = mainStateSlice.actions;
 
 export type UpdateAction = (
