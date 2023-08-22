@@ -7,10 +7,9 @@ import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTyp
 import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
 import { sameObject } from "util-functions/src/equalityCheckers";
 
+import { mergeClasses } from "../../../utils/mergeClasses";
 import { Trash } from "../../Icons";
 import Button from "../Button/Button";
-
-import classes from "./styles.module.css";
 
 type ItemType = {
   id: number;
@@ -33,6 +32,22 @@ export function isNamedList(x: any): x is NamedList {
 
 type NewItemValue = Required<InputComponentByType<"list">>["newItemValue"];
 
+// Custom div that takes all the same props as a <div> component
+function ListItem({ className, ...props }: React.ComponentProps<"div">) {
+  // TODO: Add styles for when the item is being dragged. Aka has the class "sortable-chosen"
+  return (
+    <div
+      className={mergeClasses(
+        className,
+        "w-100 grid grid-cols-[15px_1fr_auto_1fr_15px]",
+        "gap-1 p-1 items-center rounded [&.sortable-chosen]:outline",
+        "[&.sortable-chosen]:outline-offset-[-2px] [&.sortable-chosen]:outline-rstudio-grey/30 [&.sortable-chosen]:shadow-lg"
+      )}
+      {...props}
+    />
+  );
+}
+
 export function NamedListInput({
   id,
   label,
@@ -48,34 +63,33 @@ export function NamedListInput({
 
   return (
     <div
-      className={classes.list}
+      className="w-fit flex flex-col items-center my-2"
       aria-labelledby={makeLabelId(id)}
       aria-label={label}
     >
-      <div
-        className={classes.item + " " + classes.header}
-        aria-label="Columns field labels"
-      >
-        <span className={classes.keyField}>Key</span>
-        <span className={classes.valueField}>Value</span>
-      </div>
+      <ListItem className="text-center -my-1" aria-label="Columns field labels">
+        <span className="col-start-2">Key</span>
+        <span className="col-start-4">Value</span>
+      </ListItem>
       <ReactSortable
         list={state}
         setList={setState}
-        handle={`.${classes.dragHandle}`}
+        handle=".NamedListDragHandle"
       >
         {state.map((item, i) => (
-          <div
-            className={classes.item}
-            data-info-dump={item.key + "-" + item.value + "-" + i}
+          <ListItem
+            className="my-1"
             key={item.key + "-" + item.value + "-" + i}
           >
-            <div className={classes.dragHandle} title="Reorder list">
+            <div
+              className="NamedListDragHandle grid place-items-center cursor-ns-resize"
+              title="Reorder list"
+            >
               <MdDragHandle />
             </div>
             <input
               title="Key Field"
-              className={classes.keyField}
+              className="min-w-0"
               type="text"
               value={item.key}
               onChange={(e) => {
@@ -84,10 +98,10 @@ export function NamedListInput({
                 setState(newList);
               }}
             />
-            <span className={classes.separator}>:</span>
+            <span className="mb-[1px]">:</span>
             <input
               title="Value Field"
-              className={classes.valueField}
+              className="min-w-0"
               type="text"
               value={item.value}
               onChange={(e) => {
@@ -97,18 +111,18 @@ export function NamedListInput({
               }}
             />
             <Button
-              className={classes.deleteButton}
+              className="grid place-content-center p-0 area[delete] hover:scale-110 mb-[2px]"
               onClick={() => deleteItem(item.id)}
               variant={["icon", "transparent"]}
               title={`Delete ${item.value}`}
             >
               <Trash />
             </Button>
-          </div>
+          </ListItem>
         ))}
       </ReactSortable>
       <Button
-        className={classes.addItemButton}
+        className="text-icon -mt-1 p-1"
         onClick={() => addItem()}
         variant={["icon", "transparent"]}
         title="Add new item"

@@ -14,6 +14,7 @@ module.exports = {
         "rstudio-blue": "#75aadb",
         "rstudio-white": "white",
         danger: "rgb(250, 83, 22)",
+        icon: "#76838f",
       },
       borderRadius: {
         standard: "8px",
