@@ -17,4 +17,8 @@ describe("Merges multiple and conditional classes into single string", () => {
       "foo bar A B extra"
     );
   });
+
+  test("Works with objects for conditional addition of classes", () => {
+    expect(mergeClasses("foo", { bar: false, baz: true })).toBe("foo baz");
+  });
 });
