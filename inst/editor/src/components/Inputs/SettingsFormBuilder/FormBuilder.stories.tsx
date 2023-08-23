@@ -35,6 +35,14 @@ export const AutoBuild = () => {
 
   return (
     <FormBuilder
+      nodePath={[]}
+      node={{
+        id: "actionButton",
+        namedArgs: {
+          id: "test",
+          label: "test",
+        },
+      }}
       settings={value}
       settingsInfo={{
         name: {
