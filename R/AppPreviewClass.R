@@ -76,7 +76,7 @@ app_preview_runner <- R6::R6Class(
         # running
         return()
       }
-      
+
       # Send message that we're starting up the preview app
       if (!is.null(private$on_starting_up)) {
         private$on_starting_up()
@@ -146,9 +146,9 @@ app_preview_runner <- R6::R6Class(
       private$start_listeners()
     },
     stop_app = function() {
- 
+
       # If the app was never started, then we don't need to stop it
-      if (private$dont_run || !private$is_running ) {
+      if (private$dont_run || !private$is_running) {
         return()
       }
 

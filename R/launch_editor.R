@@ -167,11 +167,11 @@ launch_editor <- function(app_loc,
 
       server_mode <<- "editing-app"
 
-      # Let client know if it can request server positions etc.. 
+      # Let client know if it can request server positions etc..
       send_msg(
-        "CHECKIN", 
+        "CHECKIN",
         list(
-          server_aware = rstudioapi::isAvailable(), 
+          server_aware = rstudioapi::isAvailable(),
           language = "R"
         )
       )
@@ -259,16 +259,16 @@ launch_editor <- function(app_loc,
         },
         "SELECT-SERVER-CODE" = {
           select_server_code(
-            locations = msg$payload$positions, 
-            app_loc = app_loc, 
+            locations = msg$payload$positions,
+            app_loc = app_loc,
             app_type = app_type
           )
         },
         "INSERT-SNIPPET" = {
           insert_server_code(
             snippet = msg$payload$snippet,
-            insert_at = msg$payload$insert_at, 
-            app_loc = app_loc, 
+            insert_at = msg$payload$insert_at,
+            app_loc = app_loc,
             app_type = app_type
           )
         }

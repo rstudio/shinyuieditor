@@ -1,9 +1,10 @@
 import React from "react";
 
-import { mergeClasses } from "../../../utils/mergeClasses";
-import { NumberInputSimple } from "../NumberInput/NumberInput";
 import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTypes";
 import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
+
+import { mergeClasses } from "../../../utils/mergeClasses";
+import { NumberInputSimple } from "../NumberInput/NumberInput";
 
 import type { CSSUnitWAuto } from "./CSSMeasure";
 import { deparseCSSMeasure, parseCSSMeasure } from "./CSSMeasure";

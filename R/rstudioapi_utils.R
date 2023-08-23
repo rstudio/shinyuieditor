@@ -13,7 +13,7 @@ client_loc_to_rstudioapi_range <- function(location) {
 
   # Convert positions to the 1-indexed format used by the rstudioapi
   selection_start <- client_pos_to_rstudioapi_pos(location$start)
-  selection_end <-  client_pos_to_rstudioapi_pos(location$end)
+  selection_end <- client_pos_to_rstudioapi_pos(location$end)
 
   rstudioapi::document_range(
     start = selection_start,
@@ -33,15 +33,15 @@ client_loc_to_rstudioapi_range <- function(location) {
 #' @keywords internal
 select_server_code <- function(locations, app_loc, app_type) {
 
-    # Make sure the server-containing script is the main active file it's
-    # in the right file incase the user has navigated away
+  # Make sure the server-containing script is the main active file it's
+  # in the right file incase the user has navigated away
 
-    ensure_server_script_open(app_type = app_type, app_loc = app_loc)
-    ranges <- lapply(
-        X = locations,
-        FUN = client_loc_to_rstudioapi_range
-    )
-    rstudioapi::setSelectionRanges(ranges = ranges)
+  ensure_server_script_open(app_type = app_type, app_loc = app_loc)
+  ranges <- lapply(
+    X = locations,
+    FUN = client_loc_to_rstudioapi_range
+  )
+  rstudioapi::setSelectionRanges(ranges = ranges)
 }
 
 #' Insert code into the server script at the given location
@@ -53,7 +53,6 @@ select_server_code <- function(locations, app_loc, app_type) {
 #' "SINGLE-FILE" or "MULTI-FILE". As returned by `get_app_file_type()`
 #' @keywords internal
 insert_server_code <- function(snippet, insert_at, app_loc, app_type) {
-
   ensure_server_script_open(app_loc = app_loc, app_type = app_type)
 
   # Remove any vscode snippet related syntax from the snippet as it's not
@@ -96,5 +95,3 @@ get_path_to_app_server_script <- function(app_type, app_loc) {
 
   stop("Failed to figure out path")
 }
-
-
