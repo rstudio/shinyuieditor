@@ -47,7 +47,7 @@ function MainEditorView({ state }: { state: EditingState }) {
     <EditorLayout
       main={<UiNode node={state.ui_tree} path={[]} canDrag={false} />}
       left={<ElementsPalette />}
-      properties={<SettingsPanel tree={state.ui_tree} />}
+      properties={<SettingsPanel app_tree={state.ui_tree} />}
       preview={<AppPreview />}
     />
   );

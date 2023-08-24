@@ -20,6 +20,11 @@ input {
   border-radius: var(--corner-radius);
 }
 
+input:invalid,
+input[aria-invalid="true"] {
+  border-color: var(--red, orangered);
+}
+
 .unknown-arguments-list {
   .unknown-form-fields {
     padding-inline: 3px 0;

@@ -21,7 +21,7 @@ import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
 import { useUpdateSettings } from "./useUpdateSettings";
 
-export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
+export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
   const {
     currentNode,
     updateArgumentsByName,
@@ -29,7 +29,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     selectedPath,
     setNodeSelection,
     deleteNode,
-  } = useUpdateSettings(tree);
+  } = useUpdateSettings(app_tree);
 
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
@@ -58,12 +58,13 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
         <div className="flex flex-col py-vertical-spacing px-horizontal-spacing h-100 overflow-auto">
           <div className="flex-shrink-0">
             <PathBreadcrumb
-              tree={tree}
+              tree={app_tree}
               path={selectedPath}
               onSelect={setNodeSelection}
             />
           </div>
           <FormBuilder
+            app_tree={app_tree}
             settings={namedArgs}
             settingsInfo={staticSettingsInfo}
             renderInputs={
