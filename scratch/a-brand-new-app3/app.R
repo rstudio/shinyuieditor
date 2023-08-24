@@ -9,12 +9,12 @@ ui <- grid_page(
   layout = c(
     "header  header   ",
     "sidebar timePlot2",
-    "area5   area4    "
+    "sidebar area3    "
   ),
   row_sizes = c(
     "100px",
-    "1.72fr",
-    "1fr"
+    "1fr",
+    "1.72fr"
   ),
   col_sizes = c(
     "455px",
@@ -55,24 +55,8 @@ ui <- grid_page(
   ),
   grid_card_plot(area = "timePlot2"),
   grid_card(
-    area = "area4",
-    card_body(
-      tabsetPanel(
-        selected = "B1",
-        tabPanel(title = "B1"),
-        tabPanel(title = "B2")
-      )
-    )
-  ),
-  grid_card(
-    area = "area5",
-    card_body(
-      tabsetPanel(
-        selected = "A2",
-        tabPanel(title = "A1"),
-        tabPanel(title = "A2")
-      )
-    )
+    area = "area3",
+    card_body(DTOutput(outputId = "myTable", width = "100%"))
   )
 )
 
@@ -94,10 +78,15 @@ server <- function(input, output) {
   })
 
   output$myTable <- renderDT({
-    head(faithful, input$numRows)
+    faithful
   })
 
   output$timePlot <- renderPlot({
+    #Plot code goes here
+    plot(rnorm(100))
+  })
+
+  output$timePlot2 <- renderPlot({
     #Plot code goes here
     plot(rnorm(100))
   })

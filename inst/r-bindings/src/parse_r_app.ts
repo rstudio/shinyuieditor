@@ -3,7 +3,7 @@ import type { ParserNode, TSParser } from "treesitter-parsers";
 import { getNodePositionAndIndent } from "treesitter-parsers";
 import { convertMapToObject } from "util-functions/src/convertMapToObject";
 
-import { find_ui_and_server_in_singlefile_app } from "./find_ui_and_server_in_singlefile_app";
+import { FindUiAndServerInSinglefileRApp } from "./find_ui_and_server_in_singlefile_app";
 import { getServerPositions } from "./get_server_positions";
 import { findUiAndServerInMultifileRApp } from "./parse_multifile_r_apps";
 
@@ -25,7 +25,7 @@ export function parseRApp(
 ): ParsedRApp {
   const { ui_node, server_node } = server_script
     ? findUiAndServerInMultifileRApp(parser, ui_or_app_script, server_script)
-    : find_ui_and_server_in_singlefile_app(parser, ui_or_app_script);
+    : FindUiAndServerInSinglefileRApp(parser, ui_or_app_script);
 
   const positionMaps = getServerPositions(server_node);
 

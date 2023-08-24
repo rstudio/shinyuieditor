@@ -1,6 +1,6 @@
 import type { AppInfo } from "communication-types/src/AppInfo";
 import {
-  generate_app_script_template,
+  generateRAppScriptTemplate,
   parse_r_app,
   r_treesitter_to_ui_tree,
 } from "r-bindings";
@@ -26,7 +26,7 @@ async function parseSingleFileRApp(
     },
     ui_tree: r_treesitter_to_ui_tree(ui_node),
     server_locations,
-    app: generate_app_script_template(ui_node),
+    app: generateRAppScriptTemplate(ui_node),
   };
 
   return app_info;
@@ -50,7 +50,7 @@ async function parseMultiFileRApp(
     },
     server_locations,
     ui_tree: r_treesitter_to_ui_tree(ui_node),
-    ui: generate_app_script_template(ui_node),
+    ui: generateRAppScriptTemplate(ui_node),
     server: { code: server },
   };
 

@@ -25,7 +25,6 @@ export async function parsePythonAppText({
   const app = scripts.app;
 
   const parsed_app = (await parser_promise).parse(app);
-  debugger;
   const assignment_nodes = get_assignment_nodes(parsed_app);
   const ui_node = get_ui_assignment(assignment_nodes);
 
