@@ -89,6 +89,12 @@ describe("Can convert from dynamic info to static arguments for default settings
       optional: true,
       // defaultValue: new Date(),
     },
+    internalArg: {
+      inputType: "omitted",
+      optional: true,
+      defaultValue: "foo" as string,
+      useDefaultIfOptional: true,
+    },
     bool: {
       inputType: "boolean",
       defaultValue: (node) => (node ? false : true),

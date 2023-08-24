@@ -1,3 +1,9 @@
+// This is by far the worst file in the whole project. It's a lot of typescript
+// voodoo that gets it so we have nice checking when building node info. That
+// being said I'm sure it could be refactored to be _much_ simpler. Since it's a
+// build-time thing and not a runtime thing, It's not the top priority for
+// fixing, however.
+
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
 import type { ShinyUiNode } from "./ShinyUiNode";
@@ -173,11 +179,21 @@ export type MakeDynamicArguments<Obj extends Record<string, unknown>> = {
 export type ArgsToDynamicInfo<Args extends NamedArgsObject> = Expand<
   ConvertToDynamic<ArgsToStaticInfo<Args>>
 >;
+
 type ConvertToDynamic<
   ArgsInfo extends Record<string, Record<string, unknown>>
 > = {
-  [ArgName in keyof ArgsInfo]: MakeDynamicArguments<ArgsInfo[ArgName]>;
+  [ArgName in keyof ArgsInfo]: AddUseDefaultIfOptionalField<
+    MakeDynamicArguments<ArgsInfo[ArgName]>
+  >;
 };
+
+/**
+ * If the argument is optional, then we need to know if we should use the
+ * default value when creating a new instance of the settings object
+ */
+export type AddUseDefaultIfOptionalField<T extends Record<string, unknown>> =
+  T extends { optional: true } ? T & { useDefaultIfOptional?: true } : T;
 
 export type InputComponentByType<InputType extends InputTypeNames> = {
   id: string;
@@ -195,5 +211,3 @@ export function makeLabelId(id: string) {
 // 1. Generate default settings: arg_info => args
 // 2. Generate static values to feed into form builder: arg_info => static_arg_info
 // 3. Get out of form builder a new instance of args: static_arg_info => args
-
-//

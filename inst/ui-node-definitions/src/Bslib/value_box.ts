@@ -68,6 +68,7 @@ export const value_box = nodeInfoFactory<{
       inputType: "omitted",
       optional: true,
       defaultValue: "database",
+      useDefaultIfOptional: true,
     },
     showcase: {
       inputType: "omitted",
@@ -88,7 +89,6 @@ export const value_box = nodeInfoFactory<{
       optional: true,
     },
   },
-
   category: "Cards",
   description: "Colorful box to display a value",
 });
