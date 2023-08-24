@@ -15,9 +15,9 @@ import {
 import type { NonEmptyArray } from "util-functions/src/TypescriptUtils";
 
 import allBsIconNames from "../../../assets/bsicons/all-bsicon-names.json";
+import { mergeClasses } from "../../../utils/mergeClasses";
 
 import { BsIcon } from "./BsIcon";
-import styles from "./IconSelector.module.css";
 
 export function IconSelector({
   initialValue,
@@ -96,8 +96,8 @@ export function IconSelector({
     filtered_icons === null ? null : filtered_icons[activeIndex ?? 0];
 
   return (
-    <div className={styles.search_container}>
-      <BsIcon icon_name={current_selection ?? "bootstrap"} />
+    <div className={mergeClasses("flex items-center gap-2 pl-2")}>
+      <BsIcon icon_name={current_selection ?? "bootstrap"} className="w-4" />
       <input
         {...getReferenceProps({
           ref: refs.setReference,
@@ -105,7 +105,7 @@ export function IconSelector({
           value: inputValue,
           placeholder: "Search for icon...",
           "aria-autocomplete": "list",
-          className: styles.search_input,
+          className: "w-40",
           onKeyDown(event) {
             if (
               event.key === "Enter" &&
@@ -128,13 +128,15 @@ export function IconSelector({
             <div
               {...getFloatingProps({
                 ref: refs.setFloating,
-                className: styles.icon_list,
+                className:
+                  "z-10 flex flex-col w-40 max-h-96 overflow-auto rounded bg-white shadow-md",
                 style: {
                   position: strategy,
                   left: x ?? 0,
                   top: y ?? 0,
                 },
               })}
+              role="listbox"
             >
               {filtered_icons ? (
                 filtered_icons.map((icon, index) => (
@@ -150,13 +152,15 @@ export function IconSelector({
                     })}
                     active={activeIndex === index}
                     icon={icon}
+                    divider={index !== filtered_icons.length - 1}
                   />
                 ))
               ) : (
-                <div className={styles.icon_preview}>
-                  <BsIcon icon_name="EmojiFrown" />
-                  <span className={styles.icon_name}>No results</span>
-                </div>
+                <IconResult
+                  icon="EmojiFrown"
+                  active={false}
+                  label="No results"
+                />
               )}
             </div>
           </FloatingFocusManager>
@@ -170,25 +174,42 @@ const IconResult = forwardRef<
   HTMLDivElement,
   {
     icon: string;
+    label?: string;
     active: boolean;
+    divider?: boolean;
   } & React.HTMLProps<HTMLDivElement>
->(({ icon, active, ...rest }, ref) => {
+>(({ icon, label, active, divider, ...rest }, ref) => {
   const id = useId();
   return (
-    <div
-      ref={ref}
-      role="option"
-      id={id}
-      className={styles.icon_preview}
-      aria-selected={active}
-      aria-label={icon}
-      {...rest}
-    >
-      <BsIcon icon_name={icon} />
-      <span className={styles.icon_name}>{icon}</span>
-    </div>
+    <>
+      <div
+        ref={ref}
+        role="option"
+        id={id}
+        className={mergeClasses(
+          "grid grid-cols-[20px_1fr] gap-1 cursor-pointer px-3 py-2 items-center",
+          "[&[aria-selected='true']]:bg-rstudio-blue [&[aria-selected='true']]:text-white"
+        )}
+        aria-selected={active}
+        aria-label={icon}
+        {...rest}
+      >
+        <BsIcon icon_name={icon} />
+        <span>{label ?? icon}</span>
+      </div>
+      {divider && <ListDivider />}
+    </>
   );
 });
+
+function ListDivider() {
+  return (
+    // For some reason we need content for the divider to show up
+    <div className="bg-light-grey h-[1px] text-transparent select-none">
+      divider
+    </div>
+  );
+}
 const AlphaNumericRegex = /^[A-Za-z0-9-]*$/;
 
 function FilterIconsList(icon_search: string): NonEmptyArray<string> | null {

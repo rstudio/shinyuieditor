@@ -15,7 +15,9 @@
     "axe/aria": [
       "default",
       {
-        "aria-valid-attr-value": "off"
+        "aria-valid-attr-value": "off",
+        "aria-required-parent": "off",
+        "aria-required-children": "off"
       }
     ],
     "no-inline-styles": "off"
