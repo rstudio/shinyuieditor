@@ -1,8 +1,7 @@
-import { tab_panel } from "ui-node-definitions/src/Shiny/tab_panel";
-import type { ShinyUiNodeIds } from "ui-node-definitions/src/uiNodeTypes";
-
 import icon from "../../assets/icons/tabPanel.png";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
+import { tab_panel } from "../../ui-node-definitions/Shiny/tab_panel";
+import type { ShinyUiNodeIds } from "../../ui-node-definitions/uiNodeTypes";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 

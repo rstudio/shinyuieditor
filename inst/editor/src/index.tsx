@@ -1,15 +1,16 @@
 /* eslint-disable no-console */
 import type { BackendConnection } from "communication-types";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
+
 // import { pythonSidebarAndTabs as devModeTree } from "ui-node-definitions/src/sample_ui_trees/pythonSidebarAndTabs";
-import { basicNavbarPage as devModeTree } from "ui-node-definitions/src/sample_ui_trees/basicNavbarPage";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { MinimalAppInfo } from "./backendCommunication/getClientsideOnlyTree";
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
+import { basicNavbarPage as devModeTree } from "./ui-node-definitions/sample_ui_trees/basicNavbarPage";
+import type { ShinyUiRootNode } from "./ui-node-definitions/ShinyUiNode";
 // import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
 // import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
 // const devModeTree = "TEMPLATE_CHOOSER" as ShinyUiRootNode;

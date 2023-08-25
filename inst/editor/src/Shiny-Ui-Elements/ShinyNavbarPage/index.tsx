@@ -1,16 +1,15 @@
 // import icon from "../../assets/icons/tabsetPanel.png";
 
-import { getTabPanelTitle } from "ui-node-definitions/src/Bslib/page_navbar";
-import {
-  makeChildPath,
-  pathToString,
-} from "ui-node-definitions/src/nodePathUtils";
-
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import { NodeWrapper } from "../../components/UiNode/NodeWraper";
 import UiNode from "../../components/UiNode/UiNode";
 import { useLanguageMode } from "../../state/languageMode";
+import { getTabPanelTitle } from "../../ui-node-definitions/Bslib/page_navbar";
+import {
+  makeChildPath,
+  pathToString,
+} from "../../ui-node-definitions/nodePathUtils";
 import { SidebarDropWatcherPanel } from "../Bslib/SidebarDropWatcherPanel";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 

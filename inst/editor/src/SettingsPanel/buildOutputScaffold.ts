@@ -1,8 +1,9 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
-import { generate_python_output_binding } from "python-bindings";
-import { generate_r_output_binding } from "r-bindings";
-import type { OutputBindings } from "ui-node-definitions/src/nodeInfoFactory";
+
+import { generate_python_output_binding } from "../python-parsing";
+import { generate_r_output_binding } from "../r-parsing";
+import type { OutputBindings } from "../ui-node-definitions/nodeInfoFactory";
 
 type SnippetInsertionLocation = SnippetInsertRequest["insert_at"];
 export function buildOutputScaffold({

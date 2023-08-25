@@ -1,7 +1,7 @@
 import { AiOutlineQuestionCircle } from "react-icons/ai";
-import { unknown_code } from "ui-node-definitions/src/internal/unknown_code";
 
 import CategoryDivider from "../../components/CategoryDivider";
+import { unknown_code } from "../../ui-node-definitions/internal/unknown_code";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { formatFunctionText } from "./formatFunctionText";

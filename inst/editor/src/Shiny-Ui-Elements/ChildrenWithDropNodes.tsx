@@ -1,16 +1,15 @@
 import React from "react";
 
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-import type { ShinyUiParentNode } from "ui-node-definitions/src/ShinyUiNode";
+import UiNode from "../components/UiNode/UiNode";
+import { DropWatcherPanel } from "../DragAndDropHelpers/DropWatcherPanel";
+import type { NodePath } from "../ui-node-definitions/NodePath";
+import { makeChildPath } from "../ui-node-definitions/nodePathUtils";
+import type { ShinyUiParentNode } from "../ui-node-definitions/ShinyUiNode";
 import type {
   ShinyUiNodeIds,
   KnownShinyUiNode,
   NodeInfoByRPackage,
-} from "ui-node-definitions/src/uiNodeTypes";
-
-import UiNode from "../components/UiNode/UiNode";
-import { DropWatcherPanel } from "../DragAndDropHelpers/DropWatcherPanel";
+} from "../ui-node-definitions/uiNodeTypes";
 
 import styles from "./ChildrenWithDropNodes.module.css";
 

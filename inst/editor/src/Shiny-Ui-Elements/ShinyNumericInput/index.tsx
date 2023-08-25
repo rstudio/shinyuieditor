@@ -1,10 +1,9 @@
 import React from "react";
 
-import { input_numeric } from "ui-node-definitions/src/Shiny/input_numeric";
-
 import icon from "../../assets/icons/shinyNumericinput.png";
 import { NumberInputSimple } from "../../components/Inputs/NumberInput/NumberInput";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
+import { input_numeric } from "../../ui-node-definitions/Shiny/input_numeric";
 import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";

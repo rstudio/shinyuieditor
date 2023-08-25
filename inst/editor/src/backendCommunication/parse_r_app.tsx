@@ -1,10 +1,11 @@
 import type { AppInfo } from "communication-types/src/AppInfo";
+import type { TSParser } from "treesitter-parsers";
+
 import {
-  generateRAppScriptTemplate,
   parse_r_app,
   r_treesitter_to_ui_tree,
-} from "r-bindings";
-import type { TSParser } from "treesitter-parsers";
+  generateRAppScriptTemplate,
+} from "../r-parsing";
 
 import type { AppParserArgs } from "./parse_python_app";
 

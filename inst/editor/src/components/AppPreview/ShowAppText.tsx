@@ -3,12 +3,12 @@ import React from "react";
 import type { AppInfo } from "communication-types/src/AppInfo";
 import { ArrowUpRightSquare } from "react-bootstrap-icons";
 import { useStore } from "react-redux";
-import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../../state/languageMode";
 import type { RootState } from "../../state/store";
+import { generateFullAppScript } from "../../ui-node-definitions/code_generation/generate_full_app_script";
 import Button from "../Inputs/Button/Button";
 import { PopoverButton } from "../Inputs/PopoverButton";
 

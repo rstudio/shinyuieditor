@@ -1,14 +1,14 @@
 import React from "react";
 
 import { FaGripLines, FaGripLinesVertical } from "react-icons/fa";
-import type { ResizeDirection } from "ui-node-definitions/src/gridlayout/gridTemplates/availableMoves";
-import { availableMoves } from "ui-node-definitions/src/gridlayout/gridTemplates/availableMoves";
-import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
+
+import type { ResizeDirection } from "../../../ui-node-definitions/gridlayout/gridTemplates/availableMoves";
+import { availableMoves } from "../../../ui-node-definitions/gridlayout/gridTemplates/availableMoves";
+import type { TemplatedGridProps } from "../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
 import type {
   ItemLocation,
   GridItemExtent,
-} from "ui-node-definitions/src/gridlayout/gridTemplates/types";
-
+} from "../../../ui-node-definitions/gridlayout/gridTemplates/types";
 import { mergeClasses } from "../../../utils/mergeClasses";
 
 import classes from "./AreaOverlay.module.css";

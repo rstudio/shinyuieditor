@@ -1,5 +1,6 @@
-import type { GridLayoutArgs } from "ui-node-definitions/src/gridlayout/GridLayoutArgs";
 import { ensureArray } from "util-functions/src/arrays";
+
+import type { GridLayoutArgs } from "../../../../ui-node-definitions/gridlayout/GridLayoutArgs";
 
 /**
  * When we have layouts that are a single row or column we can have issues with

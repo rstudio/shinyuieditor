@@ -2,9 +2,6 @@ import * as React from "react";
 
 import omit from "just-omit";
 import { useDispatch } from "react-redux";
-import type { KnownInputFieldTypes } from "ui-node-definitions/src/inputFieldTypes";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
 
 import { UPDATE_NODE } from "../state/app_info";
 import {
@@ -12,6 +9,9 @@ import {
   useSetCurrentSelection,
 } from "../state/selectedPath";
 import { useDeleteNode } from "../state/useDeleteNode";
+import type { KnownInputFieldTypes } from "../ui-node-definitions/inputFieldTypes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getNode } from "../ui-node-definitions/TreeManipulation/getNode";
 
 export function useUpdateSettings(tree: ShinyUiNode) {
   const dispatch = useDispatch();

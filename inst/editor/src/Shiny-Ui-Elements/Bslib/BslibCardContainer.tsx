@@ -1,10 +1,9 @@
 import React from "react";
 
-import type { bslib_card } from "ui-node-definitions/src/Bslib/card";
-
 import { PopoverButton } from "../../components/Inputs/PopoverButton";
 import { Portal } from "../../components/PortalModal/Portal";
 import { sizes_inline_styles } from "../../EditorContainer/App_Layout_Sizes";
+import type { bslib_card } from "../../ui-node-definitions/Bslib/card";
 import { mergeClasses } from "../../utils/mergeClasses";
 import type { ArgsFromInfo } from "../utils/add_editor_info_to_ui_node";
 

@@ -1,9 +1,9 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
-import type { ShinyUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import { registered_ui_nodes } from "../Shiny-Ui-Elements/registered_ui_nodes";
 import { useLanguageMode } from "../state/languageMode";
+import type { ShinyUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";

@@ -1,14 +1,5 @@
 import React from "react";
 
-import type { PathElement, NodePath } from "ui-node-definitions/src/NodePath";
-import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { getIsValidMove } from "ui-node-definitions/src/TreeManipulation/getIsValidMove";
-import type { WrappingNode } from "ui-node-definitions/src/TreeManipulation/wrapInNode";
-import type { ShinyUiNodeIds } from "ui-node-definitions/src/uiNodeTypes";
-import { getUiNodeTitle } from "ui-node-definitions/src/uiNodeTypes";
-import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
-
 import Button from "../components/Inputs/Button/Button";
 import {
   Tooltip,
@@ -17,6 +8,16 @@ import {
 } from "../components/PopoverEl/FloatingPopover";
 import UiNode from "../components/UiNode/UiNode";
 import { usePlaceNode } from "../state/usePlaceNode";
+import type { PathElement, NodePath } from "../ui-node-definitions/NodePath";
+import { makeChildPath } from "../ui-node-definitions/nodePathUtils";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getIsValidMove } from "../ui-node-definitions/TreeManipulation/getIsValidMove";
+import type { WrappingNode } from "../ui-node-definitions/TreeManipulation/wrapInNode";
+import type { ShinyUiNodeIds } from "../ui-node-definitions/uiNodeTypes";
+import {
+  getUiNodeTitle,
+  getUiNodeInfo,
+} from "../ui-node-definitions/uiNodeTypes";
 import { mergeClasses } from "../utils/mergeClasses";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";

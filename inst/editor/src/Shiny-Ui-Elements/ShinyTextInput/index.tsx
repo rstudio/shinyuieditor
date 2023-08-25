@@ -1,8 +1,7 @@
 import React from "react";
 
-import { input_text } from "ui-node-definitions/src/Shiny/input_text";
-
 import icon from "../../assets/icons/shinyTextinput.png";
+import { input_text } from "../../ui-node-definitions/Shiny/input_text";
 import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";

@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import { ChevronLeft } from "react-bootstrap-icons";
-import { getParentPath } from "ui-node-definitions/src/TreeManipulation/getParentPath";
 
 import { NodeWrapper } from "../../components/UiNode/NodeWraper";
 import { useSetCurrentSelection } from "../../state/selectedPath";
+import { getParentPath } from "../../ui-node-definitions/TreeManipulation/getParentPath";
 import { mergeClasses } from "../../utils/mergeClasses";
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";

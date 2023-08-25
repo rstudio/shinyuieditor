@@ -1,6 +1,5 @@
-import { grid_card_text } from "ui-node-definitions/src/gridlayout/Grid_Card_Text";
-
 import textIcon from "../../assets/icons/shinyText.png";
+import { grid_card_text } from "../../ui-node-definitions/gridlayout/grid_card_text";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 

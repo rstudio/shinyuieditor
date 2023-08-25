@@ -1,15 +1,15 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
-import { isKnownShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
-import { samePath } from "ui-node-definitions/src/TreeManipulation/samePath";
 
 import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";
+import { isKnownShinyUiNode } from "../../../ui-node-definitions/isShinyUiNode";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import { getNode } from "../../../ui-node-definitions/TreeManipulation/getNode";
+import { samePath } from "../../../ui-node-definitions/TreeManipulation/samePath";
 import { NodeWrapper } from "../../UiNode/NodeWraper";
 
 import classes from "./Tabset.module.css";

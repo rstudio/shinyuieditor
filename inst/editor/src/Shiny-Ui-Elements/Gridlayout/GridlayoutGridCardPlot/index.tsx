@@ -1,6 +1,5 @@
-import { grid_card_plot } from "ui-node-definitions/src/gridlayout/Grid_Card_Plot";
-
 import icon from "../../../assets/icons/shinyPlot.png";
+import { grid_card_plot } from "../../../ui-node-definitions/gridlayout/grid_card_plot";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { StaticPlotPlaceholder } from "../../ShinyPlotOutput/StaticPlotPlaceholder";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";

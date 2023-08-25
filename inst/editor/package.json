@@ -14,8 +14,6 @@
     "just-debounce-it": "^3.1.1",
     "just-omit": "^2.1.1",
     "lz-string": "^1.5.0",
-    "python-bindings": "*",
-    "r-bindings": "*",
     "react": "^18.2.0",
     "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.2.0",
@@ -28,7 +26,6 @@
     "react-toastify": "^9.1.3",
     "sortablejs": "^1.15.0",
     "shared-configs": "*",
-    "ui-node-definitions": "*",
     "util-functions": "*"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
-import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
-import { isKnownShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import { inANotInB } from "util-functions/src/arrays";
 
+import type { UnknownUiNode } from "../../../ui-node-definitions/internal/unknown_code";
+import { isKnownShinyUiNode } from "../../../ui-node-definitions/isShinyUiNode";
 import { Trash } from "../../Icons";
 import {
   Tooltip,

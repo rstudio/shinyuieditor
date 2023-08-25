@@ -1,27 +1,25 @@
 import React from "react";
 
+import type { MessageToBackend } from "communication-types";
 import type { LanguageMode } from "communication-types/src/AppInfo";
-import type {
-  InputOutputLocations,
-  MessageToBackend,
-} from "communication-types/src/MessageToBackend";
-import { generate_python_output_binding } from "python-bindings";
-import { generate_r_output_binding } from "r-bindings";
+import type { InputOutputLocations } from "communication-types/src/MessageToBackend";
 import { toast } from "react-toastify";
-import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
-import type {
-  InputBindings,
-  OutputBindings,
-} from "ui-node-definitions/src/nodeInfoFactory";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { PopoverButton } from "../components/Inputs/PopoverButton";
 import { useTsParser } from "../EditorContainer/TSParserProvider";
+import { generate_python_output_binding } from "../python-parsing";
+import { generate_r_output_binding } from "../r-parsing";
 import { useCurrentAppInfo } from "../state/app_info";
 import { useMetaData } from "../state/metaData";
+import { generateFullAppScript } from "../ui-node-definitions/code_generation/generate_full_app_script";
+import type {
+  OutputBindings,
+  InputBindings,
+} from "../ui-node-definitions/nodeInfoFactory";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import { buildServerInsertion } from "../utils/code_position_utils";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {

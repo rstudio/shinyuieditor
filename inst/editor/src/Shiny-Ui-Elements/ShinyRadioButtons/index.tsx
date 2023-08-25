@@ -1,8 +1,7 @@
 import React from "react";
 
-import { input_radio_buttons } from "ui-node-definitions/src/Shiny/input_radio_buttons";
-
 import icon from "../../assets/icons/shinyRadioButtons.png";
+import { input_radio_buttons } from "../../ui-node-definitions/Shiny/input_radio_buttons";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 

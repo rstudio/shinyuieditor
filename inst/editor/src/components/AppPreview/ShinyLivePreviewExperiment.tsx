@@ -3,11 +3,11 @@ import React from "react";
 import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
-import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import type { MainStateOption } from "../../state/app_info";
 import { useCurrentAppInfo } from "../../state/app_info";
+import { generateFullAppScript } from "../../ui-node-definitions/code_generation/generate_full_app_script";
 import Button from "../Inputs/Button/Button";
 
 import {

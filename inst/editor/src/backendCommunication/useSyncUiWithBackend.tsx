@@ -2,7 +2,6 @@ import * as React from "react";
 
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
-import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
 import { useTsParser } from "../EditorContainer/TSParserProvider";
 import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
@@ -17,6 +16,7 @@ import { useLanguageMode } from "../state/languageMode";
 import { SET_META_DATA } from "../state/metaData";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useDeleteNode } from "../state/useDeleteNode";
+import { generateFullAppScript } from "../ui-node-definitions/code_generation/generate_full_app_script";
 import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
 import { useBackendConnection } from "./useBackendMessageCallbacks";

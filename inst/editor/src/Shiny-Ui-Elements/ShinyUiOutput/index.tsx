@@ -1,6 +1,5 @@
-import { output_ui } from "ui-node-definitions/src/Shiny/output_ui";
-
 import uiIcon from "../../assets/icons/shinyImage.png";
+import { output_ui } from "../../ui-node-definitions/Shiny/output_ui";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";

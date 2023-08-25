@@ -1,14 +1,15 @@
 import type { AppInfo, AppScriptInfo } from "communication-types/src/AppInfo";
-import {
-  generate_app_script_template,
-  get_known_inputs,
-  get_known_outputs,
-  treesitter_to_ui_tree,
-} from "python-bindings";
-import { getServerNodePosition } from "python-bindings/src/get_server_node_position";
 import type { TSParser } from "treesitter-parsers";
 import { get_assignment_nodes, get_ui_assignment } from "treesitter-parsers";
 import { convertMapToObject } from "util-functions/src/convertMapToObject";
+
+import {
+  get_known_inputs,
+  get_known_outputs,
+  treesitter_to_ui_tree,
+  generate_app_script_template,
+} from "../python-parsing";
+import { getServerNodePosition } from "../python-parsing/get_server_node_position";
 
 export type AppParserArgs = {
   scripts: AppScriptInfo;

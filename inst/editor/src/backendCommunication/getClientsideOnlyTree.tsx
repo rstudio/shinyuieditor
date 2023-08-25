@@ -1,5 +1,6 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
+
+import type { ShinyUiRootNode } from "../ui-node-definitions/ShinyUiNode";
 
 export type MinimalAppInfo = {
   ui_tree: ShinyUiRootNode;

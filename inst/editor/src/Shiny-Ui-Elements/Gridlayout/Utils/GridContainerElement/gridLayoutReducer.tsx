@@ -1,23 +1,24 @@
 import clone from "just-clone";
-import type { GridLayoutArgs } from "ui-node-definitions/src/gridlayout/GridLayoutArgs";
-import { addItem } from "ui-node-definitions/src/gridlayout/gridTemplates/addItem";
-import { addTract } from "ui-node-definitions/src/gridlayout/gridTemplates/addTract";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
+
+import type { GridLayoutArgs } from "../../../../ui-node-definitions/gridlayout/GridLayoutArgs";
+import { addItem } from "../../../../ui-node-definitions/gridlayout/gridTemplates/addItem";
+import { addTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/addTract";
 import {
   convertGridlayoutArgsToTemplatedLayout,
   convertTemplatedLayoutToGridlayoutArgs,
-} from "ui-node-definitions/src/gridlayout/gridTemplates/layoutParsing";
+} from "../../../../ui-node-definitions/gridlayout/gridTemplates/layoutParsing";
 import {
   removeItem,
   removeItems,
-} from "ui-node-definitions/src/gridlayout/gridTemplates/removeItem";
-import { removeTract } from "ui-node-definitions/src/gridlayout/gridTemplates/removeTract";
-import { renameItem } from "ui-node-definitions/src/gridlayout/gridTemplates/renameItem";
-import { resizeTract } from "ui-node-definitions/src/gridlayout/gridTemplates/resizeTract";
-import { swapItems } from "ui-node-definitions/src/gridlayout/gridTemplates/swapItems";
-import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
-import type { GridItemExtent } from "ui-node-definitions/src/gridlayout/gridTemplates/types";
-import type { CSSMeasure } from "ui-node-definitions/src/inputFieldTypes";
-import type { TractDirection } from "util-functions/src/matrix-helpers";
+} from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeItem";
+import { removeTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeTract";
+import { renameItem } from "../../../../ui-node-definitions/gridlayout/gridTemplates/renameItem";
+import { resizeTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/resizeTract";
+import { swapItems } from "../../../../ui-node-definitions/gridlayout/gridTemplates/swapItems";
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
+import type { GridItemExtent } from "../../../../ui-node-definitions/gridlayout/gridTemplates/types";
+import type { CSSMeasure } from "../../../../ui-node-definitions/inputFieldTypes";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }

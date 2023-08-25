@@ -1,11 +1,11 @@
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
-import { basicGridPage } from "ui-node-definitions/src/sample_ui_trees/basicGridPage";
-import { basicNavbarPage } from "ui-node-definitions/src/sample_ui_trees/basicNavbarPage";
-import { bslibCards } from "ui-node-definitions/src/sample_ui_trees/bslibCards";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
+import { basicNavbarPage } from "./python-parsing/python_ast_to_shiny_ui_node.test";
 import { SUE } from "./SUE";
+import { basicGridPage } from "./ui-node-definitions/sample_ui_trees/basicGridPage";
+import { bslibCards } from "./ui-node-definitions/sample_ui_trees/bslibCards";
+import type { ShinyUiRootNode } from "./ui-node-definitions/ShinyUiNode";
 
 export const SueShowcase = (args: Parameters<typeof SUE>[0]) => {
   return <SUE {...args}></SUE>;

@@ -1,8 +1,7 @@
 import React from "react";
 
-import { input_checkbox } from "ui-node-definitions/src/Shiny/input_checkbox";
-
 import icon from "../../assets/icons/shinycheckbox.png";
+import { input_checkbox } from "../../ui-node-definitions/Shiny/input_checkbox";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 

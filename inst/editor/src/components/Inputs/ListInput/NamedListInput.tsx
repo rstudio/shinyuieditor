@@ -3,10 +3,10 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
-import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTypes";
-import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
 import { sameObject } from "util-functions/src/equalityCheckers";
 
+import type { InputComponentByType } from "../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { Trash } from "../../Icons";
 import Button from "../Button/Button";

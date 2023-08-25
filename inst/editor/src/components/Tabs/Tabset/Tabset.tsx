@@ -1,14 +1,14 @@
 import React from "react";
 
 import { FaPlus } from "react-icons/fa";
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { nodeDepth } from "ui-node-definitions/src/TreeManipulation/nodeDepth";
 import { seqArray } from "util-functions/src/arrays";
 
 import { useCurrentSelection } from "../../../state/selectedPath";
 import { usePlaceNode } from "../../../state/usePlaceNode";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import { nodeDepth } from "../../../ui-node-definitions/TreeManipulation/nodeDepth";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { PopoverButton } from "../../Inputs/PopoverButton";
 

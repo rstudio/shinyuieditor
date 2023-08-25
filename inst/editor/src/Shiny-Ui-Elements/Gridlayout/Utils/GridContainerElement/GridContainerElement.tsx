@@ -1,22 +1,21 @@
 import React from "react";
 
-import type { GridLayoutArgs } from "ui-node-definitions/src/gridlayout/GridLayoutArgs";
-import { findEmptyCells } from "ui-node-definitions/src/gridlayout/gridTemplates/findItemLocation";
-import { areasToItemLocations } from "ui-node-definitions/src/gridlayout/gridTemplates/itemLocations";
-import {
-  convertTemplatedLayoutToGridlayoutArgs,
-  parseGridLayoutArgs,
-} from "ui-node-definitions/src/gridlayout/gridTemplates/layoutParsing";
-import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
-import type { GridItemExtent } from "ui-node-definitions/src/gridlayout/gridTemplates/types";
-import { isValidGridItem } from "ui-node-definitions/src/gridlayout/isValidGridItem";
-import { makeGridFriendlyNode } from "ui-node-definitions/src/gridlayout/makeGridFriendlyNode";
-import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-
 import UiNode from "../../../../components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "../../../../DragAndDropHelpers/DragAndDropHelpers";
 import { DropWatcherPanel } from "../../../../DragAndDropHelpers/DropWatcherPanel";
 import { usePlaceNode } from "../../../../state/usePlaceNode";
+import type { GridLayoutArgs } from "../../../../ui-node-definitions/gridlayout/GridLayoutArgs";
+import { findEmptyCells } from "../../../../ui-node-definitions/gridlayout/gridTemplates/findItemLocation";
+import { areasToItemLocations } from "../../../../ui-node-definitions/gridlayout/gridTemplates/itemLocations";
+import {
+  parseGridLayoutArgs,
+  convertTemplatedLayoutToGridlayoutArgs,
+} from "../../../../ui-node-definitions/gridlayout/gridTemplates/layoutParsing";
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
+import type { GridItemExtent } from "../../../../ui-node-definitions/gridlayout/gridTemplates/types";
+import { isValidGridItem } from "../../../../ui-node-definitions/gridlayout/isValidGridItem";
+import { makeGridFriendlyNode } from "../../../../ui-node-definitions/gridlayout/makeGridFriendlyNode";
+import { makeChildPath } from "../../../../ui-node-definitions/nodePathUtils";
 import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";

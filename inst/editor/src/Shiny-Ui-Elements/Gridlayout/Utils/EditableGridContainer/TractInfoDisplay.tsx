@@ -1,8 +1,6 @@
 import * as React from "react";
 
 import { FaPlus } from "react-icons/fa";
-import { conflictsToRemoveTract } from "ui-node-definitions/src/gridlayout/gridTemplates/removeTract";
-import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
 import { cleanNumber } from "util-functions/src/numbers";
 
 import { Trash } from "../../../../components/Icons";
@@ -10,6 +8,8 @@ import { parseCSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSM
 import { CSSUnitChooser } from "../../../../components/Inputs/CSSUnitInput/CSSUnitChooser";
 import { NumberInputSimple } from "../../../../components/Inputs/NumberInput/NumberInput";
 import { PopoverButton } from "../../../../components/Inputs/PopoverButton";
+import { conflictsToRemoveTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeTract";
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
 
 import { getUnitInfo } from "./dragToResizeHelpers";
 import type { TractUpdateAction } from "./EditableGridContainer";

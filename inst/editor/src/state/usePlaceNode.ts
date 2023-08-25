@@ -1,9 +1,10 @@
 import React from "react";
 
 import { useDispatch } from "react-redux";
-import type { PlaceNodeArguments } from "ui-node-definitions/src/TreeManipulation/placeNode";
-import type { WrappingNode } from "ui-node-definitions/src/TreeManipulation/wrapInNode";
-import { wrapInNode } from "ui-node-definitions/src/TreeManipulation/wrapInNode";
+
+import type { PlaceNodeArguments } from "../ui-node-definitions/TreeManipulation/placeNode";
+import type { WrappingNode } from "../ui-node-definitions/TreeManipulation/wrapInNode";
+import { wrapInNode } from "../ui-node-definitions/TreeManipulation/wrapInNode";
 
 import { PLACE_NODE } from "./app_info";
 

@@ -3,15 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
 import type { AppInfo } from "communication-types/src/AppInfo";
 import { useSelector } from "react-redux";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import type { PlaceNodeArguments } from "ui-node-definitions/src/TreeManipulation/placeNode";
-import { placeNodeMutating } from "ui-node-definitions/src/TreeManipulation/placeNode";
-import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulation/removeNode";
-import { removeNodeMutating } from "ui-node-definitions/src/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
-import { updateNodeMutating } from "ui-node-definitions/src/TreeManipulation/updateNode";
 
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import type { PlaceNodeArguments } from "../ui-node-definitions/TreeManipulation/placeNode";
+import { placeNodeMutating } from "../ui-node-definitions/TreeManipulation/placeNode";
+import type { RemoveNodeArguments } from "../ui-node-definitions/TreeManipulation/removeNode";
+import { removeNodeMutating } from "../ui-node-definitions/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "../ui-node-definitions/TreeManipulation/updateNode";
+import { updateNodeMutating } from "../ui-node-definitions/TreeManipulation/updateNode";
 
 import {
   get_deletion_subscriptions,

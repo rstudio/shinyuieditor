@@ -1,17 +1,17 @@
-import type { GridItemSettings } from "ui-node-definitions/src/gridlayout/grid_card";
-import { areasOfChildren } from "ui-node-definitions/src/gridlayout/gridTemplates/areasOfChildren";
-import { emptyCell } from "ui-node-definitions/src/gridlayout/gridTemplates/itemLocations";
-import type { GridContainerNode } from "ui-node-definitions/src/gridlayout/isValidGridItem";
-import { isValidGridContainer } from "ui-node-definitions/src/gridlayout/isValidGridItem";
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
+import type { GridItemSettings } from "../../../ui-node-definitions/gridlayout/grid_card";
+import { areasOfChildren } from "../../../ui-node-definitions/gridlayout/gridTemplates/areasOfChildren";
+import { emptyCell } from "../../../ui-node-definitions/gridlayout/gridTemplates/itemLocations";
+import type { GridContainerNode } from "../../../ui-node-definitions/gridlayout/isValidGridItem";
+import { isValidGridContainer } from "../../../ui-node-definitions/gridlayout/isValidGridItem";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import { getNode } from "../../../ui-node-definitions/TreeManipulation/getNode";
 import {
   getChildIndex,
   separateIntoParentAndChildPaths,
-} from "ui-node-definitions/src/TreeManipulation/getParentPath";
-import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
+} from "../../../ui-node-definitions/TreeManipulation/getParentPath";
+import type { RemoveNodeArguments } from "../../../ui-node-definitions/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "../../../ui-node-definitions/TreeManipulation/updateNode";
 
 import { gridLayoutReducer } from "./GridContainerElement/gridLayoutReducer";
 

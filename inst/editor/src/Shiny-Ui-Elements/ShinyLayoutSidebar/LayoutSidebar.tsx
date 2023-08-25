@@ -1,9 +1,8 @@
 // import icon from "../../assets/icons/tabsetPanel.png";
 
-import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-
 import UiNode from "../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
+import { makeChildPath } from "../../ui-node-definitions/nodePathUtils";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 

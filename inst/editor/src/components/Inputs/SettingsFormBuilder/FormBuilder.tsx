@@ -1,13 +1,13 @@
 import React from "react";
 
-import type { AllInputTypes } from "ui-node-definitions/src/inputFieldTypes";
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import type { NamedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
 import { getAllBindingIds } from "../../../EditorContainer/getAllBindingIds";
+import type { AllInputTypes } from "../../../ui-node-definitions/inputFieldTypes";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import type { NamedArgsObject } from "../../../ui-node-definitions/uiNodeTypes";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import type {

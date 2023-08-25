@@ -1,10 +1,10 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-import type { ShinyUiParentNode } from "ui-node-definitions/src/ShinyUiNode";
 import { sum_booleans } from "util-functions/src/sum_booleans";
 
 import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
+import type { ShinyUiParentNode } from "../../../ui-node-definitions/ShinyUiNode";
 import { mergeClasses } from "../../../utils/mergeClasses";
 
 import styles from "./CardUtils.module.css";

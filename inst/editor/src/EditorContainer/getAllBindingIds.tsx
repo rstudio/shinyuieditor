@@ -1,5 +1,5 @@
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { walkUiNode } from "ui-node-definitions/src/walkUiNode";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { walkUiNode } from "../ui-node-definitions/walkUiNode";
 
 export function getAllBindingIds(ui_tree: ShinyUiNode): string[] {
   const ids: string[] = [];

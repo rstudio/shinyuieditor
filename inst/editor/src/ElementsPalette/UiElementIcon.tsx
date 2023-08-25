@@ -1,7 +1,3 @@
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import type { ShinyUiNodeIds } from "ui-node-definitions/src/uiNodeTypes";
-import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
-
 import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import {
   MarkdownTooltipContent,
@@ -10,6 +6,9 @@ import {
 } from "../components/PopoverEl/FloatingPopover";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import { getUiNodeIcon } from "../Shiny-Ui-Elements/registered_ui_nodes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import type { ShinyUiNodeIds } from "../ui-node-definitions/uiNodeTypes";
+import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 
 import classes from "./styles.module.css";
 

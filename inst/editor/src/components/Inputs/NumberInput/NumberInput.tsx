@@ -1,10 +1,9 @@
 import React from "react";
 
-import type { InputComponentByType } from "ui-node-definitions/src/inputFieldTypes";
-import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
-
-import { DownSpinnerButton, UpSpinnerButton } from "../../Icons";
 import "./NumberInput.scss";
+import type { InputComponentByType } from "../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
+import { DownSpinnerButton, UpSpinnerButton } from "../../Icons";
 
 export function NumberInput({
   id,

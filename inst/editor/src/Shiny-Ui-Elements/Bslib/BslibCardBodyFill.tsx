@@ -1,5 +1,4 @@
-import { card_body } from "ui-node-definitions/src/Bslib/card_body";
-
+import { card_body } from "../../ui-node-definitions/Bslib/card_body";
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 

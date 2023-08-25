@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
+import type { ShinyUiNode } from "editor/src/ui-node-definitions/ShinyUiNode";
 
 import type { InputOutputLocations } from "./MessageToBackend";
 

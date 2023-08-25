@@ -1,9 +1,8 @@
 import type {
-  InputTypeNames,
   KnownInputFieldTypes,
-} from "ui-node-definitions/src/inputFieldTypes";
-import { isShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
-
+  InputTypeNames,
+} from "../../../../ui-node-definitions/inputFieldTypes";
+import { isShinyUiNode } from "../../../../ui-node-definitions/isShinyUiNode";
 import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import { isNamedList } from "../../ListInput/NamedListInput";
 // import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";

@@ -1,11 +1,10 @@
-import type { NodeInfoById } from "ui-node-definitions";
-import { node_info_by_id } from "ui-node-definitions";
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-
 import type { CustomFormRenderFn } from "../../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { useMakeWrapperProps } from "../../components/UiNode/useMakeWrapperProps";
 import type { UpdateAction, DeleteAction } from "../../state/app_info";
+import type { NodeInfoById } from "../../ui-node-definitions";
+import { node_info_by_id } from "../../ui-node-definitions";
+import type { NodePath } from "../../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
 
 export function addEditorInfoToUiNode<
   Info extends { example_args?: unknown; takesChildren: boolean }

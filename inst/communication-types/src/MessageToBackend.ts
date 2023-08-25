@@ -1,5 +1,5 @@
+import type { ShinyUiNode } from "editor/src/ui-node-definitions/ShinyUiNode";
 import type { getNodePositionAndIndent } from "treesitter-parsers";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { AppScriptInfo, AppType } from "./AppInfo";
 import { isRecord } from "./isRecord";

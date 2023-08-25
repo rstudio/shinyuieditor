@@ -1,7 +1,8 @@
 import * as React from "react";
 
 import { useDispatch } from "react-redux";
-import type { NodePath } from "ui-node-definitions/src/NodePath";
+
+import type { NodePath } from "../ui-node-definitions/NodePath";
 
 import { DELETE_NODE } from "./app_info";
 

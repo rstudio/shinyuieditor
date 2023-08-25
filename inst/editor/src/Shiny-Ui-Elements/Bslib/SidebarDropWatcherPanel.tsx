@@ -1,6 +1,5 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
+import type { NodePath } from "../../ui-node-definitions/NodePath";
 
 import classes from "./Sidebar.module.css";
 

@@ -1,13 +1,13 @@
 import * as React from "react";
 
 import produce from "immer";
-import { addTract } from "ui-node-definitions/src/gridlayout/gridTemplates/addTract";
-import { removeTract } from "ui-node-definitions/src/gridlayout/gridTemplates/removeTract";
-import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
 import { buildRange, ensureArray } from "util-functions/src/arrays";
 import type { TractDirection } from "util-functions/src/matrix-helpers";
 
 import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
+import { addTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/addTract";
+import { removeTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeTract";
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
 import { mergeClasses } from "../../../../utils/mergeClasses";
 
 import classes from "./resizableGrid.module.css";

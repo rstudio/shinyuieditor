@@ -1,8 +1,7 @@
 import type {
   InputOptions,
   KnownInputFieldTypes,
-} from "ui-node-definitions/src/inputFieldTypes";
-
+} from "../../../../ui-node-definitions/inputFieldTypes";
 import { BooleanInput } from "../../BooleanInput/BooleanInputSimple";
 import { CSSUnitInput } from "../../CSSUnitInput/CSSUnitInput";
 import { NamedListInput } from "../../ListInput/NamedListInput";

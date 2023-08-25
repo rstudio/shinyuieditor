@@ -1,7 +1,6 @@
-import { output_text } from "ui-node-definitions/src/Shiny/output_text";
-
 import uiIcon from "../../assets/icons/shinyTextOutput.png";
 import { NodeWrapper } from "../../components/UiNode/NodeWraper";
+import { output_text } from "../../ui-node-definitions/Shiny/output_text";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 export const shinyTextOutputInfo = addEditorInfoToUiNode(output_text, {

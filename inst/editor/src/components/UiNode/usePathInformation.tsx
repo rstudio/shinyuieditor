@@ -1,12 +1,12 @@
 import React from "react";
 
-import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { sameArray } from "util-functions/src/equalityCheckers";
 
 import {
   useCurrentSelection,
   useSetCurrentSelection,
 } from "../../state/selectedPath";
+import type { NodePath } from "../../ui-node-definitions/NodePath";
 
 /**
  * Builds info related to the path such as a click handler to set selection and

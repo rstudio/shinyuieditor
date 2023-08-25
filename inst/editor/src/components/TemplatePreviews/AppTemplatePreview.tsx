@@ -1,10 +1,9 @@
 import React from "react";
 
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-
 import UiNode from "../UiNode/UiNode";
 
 import "./styles.scss";
+import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
 
 // This is the size that we render the preview at before shrinking it down
 const FULL_WIDTH_PX = 1260;

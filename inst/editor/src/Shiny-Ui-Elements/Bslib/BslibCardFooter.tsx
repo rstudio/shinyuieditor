@@ -1,5 +1,4 @@
-import { card_footer } from "ui-node-definitions/src/Bslib/card_footer";
-
+import { card_footer } from "../../ui-node-definitions/Bslib/card_footer";
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 

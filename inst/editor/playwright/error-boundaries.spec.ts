@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { errorTestingTree } from "ui-node-definitions/src/sample_ui_trees/errorTesting";
+
+import { errorTestingTree } from "../src/ui-node-definitions/sample_ui_trees/errorTesting";
 
 import { mockBackendState } from "./utils/mockBackend";
 

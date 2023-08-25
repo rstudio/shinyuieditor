@@ -1,7 +1,5 @@
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
 import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
 import { Trash } from "../components/Icons";
@@ -11,6 +9,8 @@ import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilde
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import {
   generateGhIssueURL,
   generateSerializedStateForError,

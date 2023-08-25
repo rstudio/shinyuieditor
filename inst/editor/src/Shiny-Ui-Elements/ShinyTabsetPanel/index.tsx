@@ -1,13 +1,12 @@
-import { getTabPanelTitle } from "ui-node-definitions/src/Bslib/page_navbar";
-import {
-  makeChildPath,
-  pathToString,
-} from "ui-node-definitions/src/nodePathUtils";
-
 import icon from "../../assets/icons/tabsetPanel.png";
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
+import { getTabPanelTitle } from "../../ui-node-definitions/Bslib/page_navbar";
+import {
+  makeChildPath,
+  pathToString,
+} from "../../ui-node-definitions/nodePathUtils";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
 export const shinyTabsetPanelInfo = addEditorInfoById("tabsetPanel", {

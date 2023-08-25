@@ -1,21 +1,19 @@
 import React from "react";
 
 import type {
-  InputOptions,
-  InputTypeNames,
   KnownInputFieldTypes,
+  InputTypeNames,
   StaticInputOptionsByInputType,
-} from "ui-node-definitions/src/inputFieldTypes";
-import { makeLabelId } from "ui-node-definitions/src/inputFieldTypes";
-
+  InputOptions,
+} from "../../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../../../utils/mergeClasses";
 import Button from "../../Button/Button";
-
-import "./SettingsInput.scss";
 
 import { SettingsInputElement } from "./SettingsInputElement";
 import { valueIsType } from "./valueIsType";
 
+import "./SettingsInput.scss";
 export type SettingsUpdateAction =
   | {
       type: "UPDATE";

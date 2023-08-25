@@ -2,12 +2,12 @@ import React from "react";
 
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { isParentNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { getUiNodeComponent } from "../../Shiny-Ui-Elements/registered_ui_nodes";
 import type { UiNodeComponent } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import type { NodePath } from "../../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
+import { isParentNode } from "../../ui-node-definitions/ShinyUiNode";
 
 import { UiNodeErrorView } from "./UiNodeErrorView";
 import { useMakeWrapperProps } from "./useMakeWrapperProps";

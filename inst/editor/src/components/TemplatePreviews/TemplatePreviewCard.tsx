@@ -1,10 +1,10 @@
 import React from "react";
 
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import gridIcon from "../../assets/icons/shinyGridContainer.png";
 import navbarIcon from "../../assets/icons/tabsetPanel.png";
+import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
 import {
   MarkdownTooltipContent,
   Tooltip,

@@ -1,7 +1,7 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
-import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
-import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
+import type { NodePath } from "../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getNode } from "../ui-node-definitions/TreeManipulation/getNode";
+import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 
 import classes from "./PathBreadcrumbLinear.module.css";
 

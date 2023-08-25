@@ -1,12 +1,11 @@
 import type { CSSProperties } from "react";
 
-import { value_box } from "ui-node-definitions/src/Bslib/value_box";
-
 import icon from "../../../assets/icons/shinyValueBox.png";
 import { PopoverButton } from "../../../components/Inputs/PopoverButton";
 import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsSimple";
 import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
+import { value_box } from "../../../ui-node-definitions/Bslib/value_box";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";

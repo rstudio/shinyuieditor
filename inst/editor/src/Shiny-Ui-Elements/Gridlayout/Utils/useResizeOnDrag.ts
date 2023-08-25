@@ -1,21 +1,22 @@
 import React from "react";
 
-import type { DragHandle } from "ui-node-definitions/src/gridlayout/gridTemplates/findAvailableTracts";
-import findAvailableTracts from "ui-node-definitions/src/gridlayout/gridTemplates/findAvailableTracts";
-import {
-  gridLocationToExtent,
-  sameLocation,
-} from "ui-node-definitions/src/gridlayout/gridTemplates/helpers";
-import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
-import type {
-  GridItemExtent,
-  ItemLocation,
-} from "ui-node-definitions/src/gridlayout/gridTemplates/types";
 import type { TractDirection } from "util-functions/src/matrix-helpers";
 import { within } from "util-functions/src/within";
 
-import type { TractExtents } from "./getTractExtents";
+import type { DragHandle } from "../../../ui-node-definitions/gridlayout/gridTemplates/findAvailableTracts";
+import findAvailableTracts from "../../../ui-node-definitions/gridlayout/gridTemplates/findAvailableTracts";
+import {
+  gridLocationToExtent,
+  sameLocation,
+} from "../../../ui-node-definitions/gridlayout/gridTemplates/helpers";
+import type { TemplatedGridProps } from "../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
+import type {
+  GridItemExtent,
+  ItemLocation,
+} from "../../../ui-node-definitions/gridlayout/gridTemplates/types";
+
 import { getTractExtents } from "./getTractExtents";
+import type { TractExtents } from "./getTractExtents";
 
 type ResizeDragState = {
   dragHandle: DragHandle;

@@ -1,7 +1,6 @@
-import { input_action_button } from "ui-node-definitions/src/Shiny/input_action_button";
-
 import buttonIcon from "../../assets/icons/shinyButton.png";
 import Button from "../../components/Inputs/Button/Button";
+import { input_action_button } from "../../ui-node-definitions/Shiny/input_action_button";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";

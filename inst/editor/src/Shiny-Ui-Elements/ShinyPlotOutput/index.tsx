@@ -1,7 +1,6 @@
-import { output_plot } from "ui-node-definitions/src/Shiny/output_plot";
-
 import plotIcon from "../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import { output_plot } from "../../ui-node-definitions/Shiny/output_plot";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { StaticPlotPlaceholder } from "./StaticPlotPlaceholder";

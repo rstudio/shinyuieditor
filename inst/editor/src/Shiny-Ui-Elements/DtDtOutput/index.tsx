@@ -1,8 +1,8 @@
-import { output_dt } from "ui-node-definitions/src/DT/output_dt";
 import { seqArray } from "util-functions/src/arrays";
 
 import "./styles.scss";
 import icon from "../../assets/icons/shinyTable.png";
+import { output_dt } from "../../ui-node-definitions/DT/output_dt";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 import { InputOutputTitle } from "../utils/InputOutputTitle";
 
