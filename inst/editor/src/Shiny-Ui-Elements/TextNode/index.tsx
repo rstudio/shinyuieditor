@@ -1,4 +1,4 @@
-import { size_to_wrapper } from "ui-node-definitions/src/internal/is_text_node";
+import { sizeNameToTag } from "r-bindings/src/NodeTypes/TextNode";
 import { text_node } from "ui-node-definitions/src/internal/text_node";
 
 import icon from "../../assets/icons/shinyText.png";
@@ -12,7 +12,7 @@ export const textNodeInfo = addEditorInfoToUiNode(text_node, {
     namedArgs: { contents, decoration, size = "default" },
     wrapperProps,
   }) => {
-    const WrapperComp = size_to_wrapper[size];
+    const WrapperComp = sizeNameToTag[size];
 
     return (
       <WrapperComp

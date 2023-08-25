@@ -1,8 +1,8 @@
+import { textNodeToCode } from "r-bindings/src/NodeTypes/TextNode";
 import { isTextUiNode } from "ui-node-definitions/src/internal/text_node";
 import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
 import { isUnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
 
-import { text_node_to_code } from "../../../r-bindings/src";
 import type { ShinyUiNode } from "../ShinyUiNode";
 import type { ShinyUiNodeInfo, KnownShinyUiNode } from "../uiNodeTypes";
 
@@ -22,7 +22,7 @@ export function printInternalUiNodes(node: InternalUiNode): string {
     case "unknownUiFunction":
       return printUnknownUiNode(node);
     case "textNode":
-      return text_node_to_code(node);
+      return textNodeToCode(node);
     // By leaving off the default case here typescript will let us know we need
     // to add any new internal nodes to this printing function when we add them.
   }

@@ -9,17 +9,17 @@ import type { NamedArgsObject } from "../uiNodeTypes";
 import { getUiNodeInfo } from "../uiNodeTypes";
 
 import {
-  indentLineBreaks,
-  LINE_BREAK_LENGTH,
-  NL_INDENT,
-  shouldLineBreak,
-} from "./build_function_text";
-import {
   isInternalUiNode,
   printInternalUiNodes,
 } from "./print_internal_ui_nodes";
 import { printPythonArgumentValue } from "./ui_node_to_python_code";
 import { printRArgumentValue } from "./ui_node_to_R_code";
+import {
+  indentLineBreaks,
+  shouldLineBreak,
+  LINE_BREAK_LENGTH,
+  NL_INDENT,
+} from "./utils";
 
 export function uiNodeTocode(
   node: ShinyUiNode,

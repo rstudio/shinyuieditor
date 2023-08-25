@@ -1,53 +1,10 @@
-import type { RAST, RASTNode } from "r-bindings";
-import { IsNodeOfType, get_ast_is_array_or_list } from "r-bindings";
 import { indent_text_block } from "util-functions/src/strings";
-
-import {
-  isWrappedFunctionDefNode,
-  printFnDefinitionPreview,
-} from "./function_definition_printing";
 
 const INDENT_SPACES = 2;
 const INDENT = " ".repeat(INDENT_SPACES);
 export const LINE_BREAK_LENGTH = 60;
 /** Newline with indent */
 export const NL_INDENT = `\n${INDENT}`;
-
-export function buildFunctionText(call_node: RAST): string {
-  const [fn_name, ...args] = call_node;
-
-  let function_call: string;
-  // We will break out early if we're dealing with unknown code or a function
-  // definition ast
-  if (isWrappedFunctionDefNode(fn_name)) {
-    function_call = `(${printFnDefinitionPreview(fn_name.val[1].val)})`;
-  } else if (!IsNodeOfType(fn_name, "symbol")) {
-    // If we're not dealing with a symbol declaring a function name
-    return "Unknown Ui Code";
-  } else {
-    function_call = fn_name.val;
-  }
-
-  const fn_args_list = args.map(
-    (node) => `${node.name ? `${node.name} = ` : ""}${printNodeVal(node)}`
-  );
-
-  const is_multi_line_call = shouldLineBreak({
-    fn_name: function_call,
-    fn_args_list,
-    max_line_length_for_multi_args: get_ast_is_array_or_list(call_node)
-      ? LINE_BREAK_LENGTH
-      : 0,
-  });
-
-  const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
-
-  const args_text = fn_args_list.join(arg_seperator);
-
-  return `${function_call}(${is_multi_line_call ? NL_INDENT : ""}${args_text}${
-    is_multi_line_call ? "\n" : ""
-  })`;
-}
 
 /**
  * Decide if we spread the call out over multiple lines, or keep on a single
@@ -96,32 +53,6 @@ export function shouldLineBreak({
   return (
     total_args_length + name_and_parens_length > max_line_length_for_multi_args
   );
-}
-
-export function printNodeVal({ val, type }: RASTNode): string {
-  switch (type) {
-    case "b": {
-      return val ? "TRUE" : "FALSE";
-    }
-    case "c": {
-      return `"${val}"`;
-    }
-    case "m": {
-      return "";
-    }
-    case "n": {
-      return String(val);
-    }
-    case "s": {
-      return val;
-    }
-    case "e": {
-      return indentLineBreaks(buildFunctionText(val));
-    }
-    case "u": {
-      return "<...>";
-    }
-  }
 }
 
 export function indentLineBreaks(txt: string): string {

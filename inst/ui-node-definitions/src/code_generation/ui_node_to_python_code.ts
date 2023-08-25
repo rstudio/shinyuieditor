@@ -1,7 +1,7 @@
 import type { Primatives } from "../../../r-bindings/src";
 
-import { NL_INDENT } from "./build_function_text";
 import { isNamedList, printNamedPythonList } from "./print_named_list";
+import { NL_INDENT } from "./utils";
 
 export function printPythonArgumentValue(value: unknown): string {
   if (Array.isArray(value)) return printPythonArray(value);

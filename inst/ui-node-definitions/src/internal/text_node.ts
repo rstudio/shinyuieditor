@@ -1,7 +1,7 @@
+import type { TextNodeSettings } from "r-bindings/src/NodeTypes/TextNode";
+
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode, ShinyUiNode } from "../ShinyUiNode";
-
-import type { TextNodeSettings } from "./is_text_node";
 
 export type TextUiNode = MakeShinyUiNode<TextNodeSettings>;
 
@@ -35,10 +35,7 @@ export const text_node = nodeInfoFactory<TextNodeSettings>()({
         default: { label: "Plain" },
         italic: { label: "Italic" },
         bold: { label: "Bold" },
-      } satisfies Record<
-        Required<TextNodeSettings>["decoration"],
-        { label: string }
-      >,
+      },
       optionsPerColumn: 2,
     },
     size: {

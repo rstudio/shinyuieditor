@@ -1,4 +1,4 @@
-import { LINE_BREAK_LENGTH, NL_INDENT } from "./build_function_text";
+import { LINE_BREAK_LENGTH, NL_INDENT } from "./utils";
 
 type NamedList = Record<string, string>;
 

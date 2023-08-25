@@ -5,12 +5,12 @@ import type {
   SingleFileTemplateSelection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
-import { indentLineBreaks } from "ui-node-definitions/src/code_generation/build_function_text";
 import { generateFullAppScript } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 import {
   SCRIPT_LOC_KEYS,
   writeRLibraryCalls,
 } from "ui-node-definitions/src/code_generation/generate_ui_script";
+import { indentLineBreaks } from "ui-node-definitions/src/code_generation/utils";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";

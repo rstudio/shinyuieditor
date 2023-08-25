@@ -43,6 +43,19 @@ const size_tag_to_name: ToTagNameMap<TextSizeMappings> = {
   span: "default",
 };
 
+export const sizeNameToTag: ToNameTagMap<TextSizeMappings> = {
+  default: "span",
+  small: "small",
+  headline: "h1",
+  subtitle: "h2",
+};
+
+export type TextNodeSettings = {
+  contents: string;
+  decoration?: TextDecorationMappings["name"];
+  size?: TextSizeMappings["name"];
+};
+
 type Decoration_Tag = TextDecorationMappingsNoDefault["tag"];
 const decoration_tags = new Set(["strong", "em"]) satisfies Set<Decoration_Tag>;
 function is_decoration_tag(fn_name: string): fn_name is Decoration_Tag {
@@ -112,4 +125,33 @@ export function parse_text_node(node: TSTextNode): TextUiNode {
   }
 
   throw new Error("Can't parse string");
+}
+
+/**
+ * Convert a text node to code. Will be a function call like `strong("foo")` or
+ * a plain string depending on the decoration and size options
+ * @param ui_node The text node to convert
+ * @returns The code for the text node
+ */
+export function textNodeToCode(ui_node: TextUiNode): string {
+  // Why does this not automatically resolve for me?
+  let text_size = ui_node.namedArgs.size;
+  const { contents, decoration } = ui_node.namedArgs;
+
+  const quoted_contents = `"${contents}"`;
+
+  const decoration_wrapper = decoration
+    ? decoration_to_wrapper[decoration]
+    : "";
+
+  const decorated_contents = decoration_wrapper
+    ? `${decoration_wrapper}(${quoted_contents})`
+    : quoted_contents;
+
+  if (!text_size || text_size === "default") {
+    // Just plain text
+    return decorated_contents;
+  }
+
+  return `${sizeNameToTag[text_size]}(${decorated_contents})`;
 }

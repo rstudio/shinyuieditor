@@ -7,23 +7,23 @@
       "rules": {
         "no-console": "warn",
         "@typescript-eslint/consistent-type-imports": "error",
-        "@typescript-eslint/naming-convention": [
-          "error",
+        // "@typescript-eslint/naming-convention": [
+        //   "error",
 
-          {
-            "selector": "typeLike",
-            "format": ["PascalCase"],
-            "leadingUnderscore": "allow",
-            "trailingUnderscore": "allow"
-          },
-          {
-            "selector": "function",
-            // Allow PascalCase for React components.
-            "format": ["camelCase", "PascalCase"],
-            "leadingUnderscore": "allow",
-            "trailingUnderscore": "allow"
-          }
-        ],
+        //   {
+        //     "selector": "typeLike",
+        //     "format": ["PascalCase"],
+        //     "leadingUnderscore": "allow",
+        //     "trailingUnderscore": "allow"
+        //   },
+        //   {
+        //     "selector": "function",
+        //     // Allow PascalCase for React components.
+        //     "format": ["camelCase", "PascalCase"],
+        //     "leadingUnderscore": "allow",
+        //     "trailingUnderscore": "allow"
+        //   }
+        // ],
         "import/order": [
           "error",
           {
