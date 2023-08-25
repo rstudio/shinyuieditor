@@ -28,7 +28,7 @@ export const shinyCheckboxGroupInputInfo = addEditorInfoToUiNode(
           <label>{namedArgs.label}</label>
           <div>
             {Object.keys(choices).map((key, i) => (
-              <div className={classes.radio} key={key}>
+              <div key={key}>
                 <label className={classes.checkbox}>
                   <input
                     type="checkbox"
