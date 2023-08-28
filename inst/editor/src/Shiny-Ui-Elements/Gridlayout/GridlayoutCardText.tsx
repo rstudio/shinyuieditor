@@ -16,7 +16,7 @@ const GridlayoutGridCardText: UiComponentFromInfo<typeof grid_card_text> = ({
   return (
     <BsCard
       ref={compRef}
-      className="bg-white w-full h-full relative gridlayout-textPanel grid px-3"
+      className="bg-white w-full h-full relative gridlayout-textPanel flex flex-row items-center px-3"
       style={{ gridArea: area, justifyContent: alignment }}
       {...wrapperProps}
     >
