@@ -3,16 +3,16 @@ import * as React from "react";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
 
-import { useCommunicateWithBackend } from "../components/AppPreview/useCommunicateWithBackend";
 import PngIcon from "../components/Icons";
 import Button from "../components/Inputs/Button/Button";
 import styles from "../DragAndDropHelpers/DropWatcherPanel.module.css";
+import { useMetaData } from "../state/metaData";
 
 export function AppTour() {
   const [stepIndex, setStepIndex] = React.useState(0);
   const [run, setRun] = React.useState(false);
 
-  const { appLoc } = useCommunicateWithBackend();
+  const { app_preview } = useMetaData();
 
   const handleJoyrideCallback: (data: CallBackProps) => void = (data) => {
     const { action, index, type } = data;
@@ -114,35 +114,33 @@ export function AppTour() {
       },
       {
         target: "[aria-label='App Preview']",
-        content:
-          appLoc === "HIDDEN" ? (
-            <div>
-              <p>
-                At any point while editing your application you can see the code
-                to recreate the current app.
-              </p>
-              <p>
-                Simply copy and paste the code into your editor of choice to get
-                going with your app.
-              </p>
-            </div>
-          ) : (
-            <div>
-              <p>
-                You can see how the changes impact your app with the app
-                preview.
-              </p>
-              <p>
-                Click in the center of the preview to expand it to full screen
-                to get a better view of your app.
-              </p>
+        content: app_preview ? (
+          <div>
+            <p>
+              At any point while editing your application you can see the code
+              to recreate the current app.
+            </p>
+            <p>
+              Simply copy and paste the code into your editor of choice to get
+              going with your app.
+            </p>
+          </div>
+        ) : (
+          <div>
+            <p>
+              You can see how the changes impact your app with the app preview.
+            </p>
+            <p>
+              Click in the center of the preview to expand it to full screen to
+              get a better view of your app.
+            </p>
 
-              <p>
-                Any log messages from the app will be placed into the "App Logs"
-                drawer.
-              </p>
-            </div>
-          ),
+            <p>
+              Any log messages from the app will be placed into the "App Logs"
+              drawer.
+            </p>
+          </div>
+        ),
         placement: "top-start",
       },
       {
@@ -152,7 +150,7 @@ export function AppTour() {
         placement: "bottom",
       },
     ],
-    [appLoc]
+    [app_preview]
   );
 
   return (

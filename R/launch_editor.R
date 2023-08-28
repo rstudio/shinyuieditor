@@ -172,7 +172,8 @@ launch_editor <- function(app_loc,
         "CHECKIN",
         list(
           server_aware = rstudioapi::isAvailable(),
-          language = "R"
+          language = "R",
+          app_preview = app_preview
         )
       )
 
@@ -219,6 +220,8 @@ launch_editor <- function(app_loc,
       write_log("Message from client", msg$path)
       switch(msg$path,
         "APP-PREVIEW-REQUEST" = {
+
+
           send_msg("APP-PREVIEW-STATUS", payload = "LOADING")
           app_preview_obj$set_listeners(
             on_ready = function() {

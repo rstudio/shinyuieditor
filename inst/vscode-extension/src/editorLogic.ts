@@ -114,6 +114,7 @@ export async function editorLogic({
         payload: {
           language,
           server_aware: true,
+          app_preview: true,
           // Create webview friendly url for the tree-sitter wasm file and send over
           path_to_ts_wasm: convertFilePaths("tree-sitter.wasm"),
         },

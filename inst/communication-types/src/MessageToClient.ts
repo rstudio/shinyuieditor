@@ -7,6 +7,10 @@ type NewType = {
     /* Basic handshake between backend to give some basic context about runtime to client */
     server_aware: boolean;
     language: LanguageMode;
+    /**
+     * Is there an app preview being run?
+     */
+    app_preview: boolean;
     path_to_ts_wasm?: string;
   };
   "APP-SCRIPT-TEXT": {
