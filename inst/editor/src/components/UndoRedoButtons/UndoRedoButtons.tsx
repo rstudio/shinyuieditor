@@ -12,7 +12,10 @@ export function UndoRedoButtons({
   canGoForward,
 }: HistoryInfo) {
   return (
-    <div className={mergeClasses(classes.container, "undo-redo-buttons")}>
+    <div
+      className={mergeClasses(classes.container, "undo-redo-buttons")}
+      aria-label="Undo/Redo buttons"
+    >
       <Button
         variant={["transparent", "icon"]}
         disabled={!canGoBackward}
