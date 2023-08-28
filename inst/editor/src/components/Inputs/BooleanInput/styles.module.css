@@ -27,10 +27,12 @@ label.checkboxLabel {
   display: block;
   position: relative;
   margin-inline: 4px;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 label.checkboxLabel:after {
-  content: attr(data-value);
+  content: attr(data-value) !important;
   color: var(--dark-grey);
   text-align: center;
   position: absolute;
@@ -42,7 +44,6 @@ label.checkboxLabel:after {
   height: var(--toggle-h);
   border-radius: calc(var(--corner-radius) - var(--toggle-inset));
   background: var(--rstudio-white);
-  transition: var(--animation-speed);
 }
 
 .checkboxInput:checked + .checkboxLabel {
@@ -55,5 +56,5 @@ label.checkboxLabel:after {
 }
 
 .checkboxLabel:active:after {
-  width: calc(var(--toggle-w) * 1.2);
+  /* width: calc(var(--toggle-w) * 1.2); */
 }
