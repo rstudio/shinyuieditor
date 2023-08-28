@@ -18,6 +18,9 @@ app_preview_runner <- R6::R6Class(
     logger = NULL,
     dont_run = FALSE,
     start_listeners = function() {
+      # Make sure we're working with a clean slate
+      private$stop_listeners()
+
       private$on_ready_poll <- subscribe_once(
         source_fn = function() {
           server_exists(self$url)
@@ -44,9 +47,17 @@ app_preview_runner <- R6::R6Class(
       )
     },
     stop_listeners = function() {
-      private$on_log_poll$cancel_all()
-      private$on_crash_poll$cancel_all()
-      private$on_ready_poll$cancel_all()
+
+      # If we have listeners set, then stop them
+      if (!is.null(private$on_log_poll)) {
+        private$on_log_poll$cancel_all()
+      } 
+      if (!is.null(private$on_crash_poll)) {
+        private$on_crash_poll$cancel_all()
+      }
+      if (!is.null(private$on_ready_poll)) {
+        private$on_ready_poll$cancel_all()
+      }
     }
   ),
   public = list(
