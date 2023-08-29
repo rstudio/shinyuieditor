@@ -19,8 +19,6 @@ export type ParserInitOptions = {
 export async function setup_python_parser(opts: ParserInitOptions = {}) {
   await Parser.init(opts);
 
-  console.log("Python wasm grammar", { python_grammar_wasm });
-
   const parser = new Parser();
   parser.setLanguage(await Parser.Language.load(python_grammar_wasm));
   return parser;
