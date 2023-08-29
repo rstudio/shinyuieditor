@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 
-import icon from "../../assets/icons/shinyText.png";
+import icon from "../../assets/icons/shinyMarkdown.png";
 import { markdown_node } from "../../ui-node-definitions/Shiny/markdown";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
