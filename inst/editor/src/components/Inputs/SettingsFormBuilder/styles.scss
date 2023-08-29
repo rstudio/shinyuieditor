@@ -20,7 +20,6 @@ input {
   border-radius: var(--corner-radius);
 }
 
-input:invalid,
 input[aria-invalid="true"] {
   border-color: var(--red, orangered);
 }

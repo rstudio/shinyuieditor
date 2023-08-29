@@ -5,8 +5,7 @@ import { cleanNumber } from "util-functions/src/numbers";
 
 import { Trash } from "../../../../components/Icons";
 import { parseCSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { CSSUnitChooser } from "../../../../components/Inputs/CSSUnitInput/CSSUnitChooser";
-import { NumberInputSimple } from "../../../../components/Inputs/NumberInput/NumberInput";
+import { CSSUnitInputCore } from "../../../../components/Inputs/CSSUnitInput/CSSUnitInput";
 import { PopoverButton } from "../../../../components/Inputs/PopoverButton";
 import { conflictsToRemoveTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeTract";
 import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
@@ -59,17 +58,12 @@ function TractInfoDisplay({
           <AddTractButton dir={dir} onClick={() => addTract("after")} />
         </div>
         <div className={classes.cssSizeInput}>
-          <NumberInputSimple
-            name="value-count"
-            aria-label="value-count"
-            value={count}
-            onChange={changeCount}
-            min={0}
-          />
-          <CSSUnitChooser
+          <CSSUnitInputCore
+            count={count}
             unit={unit as TractUnit}
-            availableUnits={ALLOWED_UNITS}
-            onChange={(u) => changeUnit(u)}
+            onCountChange={changeCount}
+            onUnitChange={changeUnit}
+            allowedUnits={ALLOWED_UNITS}
           />
         </div>
       </div>
