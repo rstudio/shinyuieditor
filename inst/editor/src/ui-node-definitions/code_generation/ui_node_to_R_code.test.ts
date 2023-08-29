@@ -3,6 +3,7 @@ import type { GeneratedUiDef } from "communication-types/src/MessageToBackend";
 import type { ShinyUiNode } from "../ShinyUiNode";
 import type { KnownShinyUiNode } from "../uiNodeTypes";
 
+import { printNamedRList } from "./print_named_list";
 import { uiNodeTocode } from "./ui_node_to_code";
 
 function uiNodeToRCode(
@@ -100,6 +101,66 @@ describe("Handles nodes with ui nodes as named arguments", () => {
 )`;
 
     expect(uiNodeToRCode(value_box_node, { remove_namespace: true }).code).toBe(
+      expected_result
+    );
+  });
+});
+
+describe("Escapes special characters in string nodes", () => {
+  test("Arrays", () => {
+    const markdown_node: KnownShinyUiNode = {
+      id: "markdown",
+      namedArgs: {
+        mds: `Here is a slash \\ and here is a double quote "`,
+      },
+    };
+
+    // prettier-ignore
+    const expected_result = 
+  `markdown(
+  mds = c(
+    "Here is a slash \\\\ and here is a double quote \\""
+  )
+)`;
+
+    expect(uiNodeToRCode(markdown_node, { remove_namespace: true }).code).toBe(
+      expected_result
+    );
+  });
+
+  test("Named Lists", () => {
+    const list_with_special_chars = {
+      slash: "Here's a slash \\",
+      "double quote": `Here's a double quote "`,
+    };
+
+    // prettier-ignore
+    const expected_result = 
+  `list(
+  "slash" = "Here's a slash \\\\",
+  "double quote" = "Here's a double quote \\""
+)`;
+
+    expect(printNamedRList(list_with_special_chars)).toBe(expected_result);
+  });
+
+  test("Argument values", () => {
+    const button_node: KnownShinyUiNode = {
+      id: "actionButton",
+      namedArgs: {
+        inputId: "my_button",
+        label: `Here is a slash \\ and here is a double quote "`,
+      },
+    };
+
+    // prettier-ignore
+    const expected_result = 
+  `actionButton(
+  inputId = "my_button",
+  label = "Here is a slash \\\\ and here is a double quote \\""
+)`;
+
+    expect(uiNodeToRCode(button_node, { remove_namespace: true }).code).toBe(
       expected_result
     );
   });

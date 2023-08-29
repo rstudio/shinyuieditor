@@ -1,3 +1,4 @@
+import { safeStringPrint } from "./printPrimative";
 import { LINE_BREAK_LENGTH, NL_INDENT } from "./utils";
 
 type NamedList = Record<string, string>;
@@ -12,7 +13,10 @@ function printNamedList(
 ): string {
   const { open_list, close_list, assignment_operator } = options;
   const values = Object.keys(vals).map(
-    (name) => `"${name}" ${assignment_operator} "${vals[name]}"`
+    (name) =>
+      `${safeStringPrint(name)} ${assignment_operator} ${safeStringPrint(
+        vals[name]
+      )}`
   );
 
   // Add 6 for length of `list(` prefix and `)` postfix

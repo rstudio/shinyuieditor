@@ -1,6 +1,7 @@
 import type { Primatives } from "../../r-parsing";
 
 import { isNamedList, printNamedPythonList } from "./print_named_list";
+import { printPrimative } from "./printPrimative";
 import { NL_INDENT } from "./utils";
 
 export function printPythonArgumentValue(value: unknown): string {
@@ -17,13 +18,4 @@ export function printPythonArray(vals: Primatives[]): string {
   const values = vals.map(printPrimative);
 
   return `[${NL_INDENT}${values.join(`,${NL_INDENT}`)}\n]`;
-}
-
-function printPrimative(val: Primatives): string {
-  switch (typeof val) {
-    case "string":
-      return `"${val}"`;
-    default:
-      return String(val);
-  }
 }
