@@ -38,6 +38,8 @@ FileChangeWatcher <- function(dir_root) { # nolint
     watcher_subscription <<- create_output_subscribers(
       source_fn = get_last_edit_time,
       filter_fn = function(last_edited_new) {
+
+        # Print timestamp and then print memory usage
         no_changes_to_file <- identical(last_known_edit, last_edited_new)
         return(!no_changes_to_file)
       },
