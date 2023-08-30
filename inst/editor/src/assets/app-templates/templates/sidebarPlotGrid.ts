@@ -106,7 +106,7 @@ const appTree: ShinyUiNode = {
 export const sidebarPlotGridTemplate: TemplateInfo = {
   title: "Sidebar Plotly",
   description:
-    "The classic geyser app in a gridlayout grid pag with a sidebar and a single large plot",
+    "The classic geyser app in a gridlayout grid page with a sidebar and a single large plot",
   uiTree: appTree as ShinyUiNode,
   otherCode: {
     serverLibraries: ["plotly"],
