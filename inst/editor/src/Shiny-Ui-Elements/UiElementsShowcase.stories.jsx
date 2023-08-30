@@ -5,18 +5,17 @@ import React from "react";
 
 import omit from "just-omit";
 
-import ReduxProvider from "../state/ReduxProvider";
-
 import "../App.css";
 
-import { shinyids } from "ui-node-definitions/src/uiNodeTypes";
-import { getUiNodeInfo } from "./registered_ui_nodes";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
 } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
+import ReduxProvider from "../state/ReduxProvider";
+import { shinyids } from "../ui-node-definitions/uiNodeTypes";
 
+import { getUiNodeInfo } from "./registered_ui_nodes";
 import classes from "./UiElementsShowcase.module.css";
 
 function UiNodeAndSettings({ id, namedArgs }) {
@@ -106,7 +105,7 @@ function UiNodeAndSettings({ id, namedArgs }) {
 }
 
 export default {
-  title: "Ui Elements Showcase",
+  title: "Ui Elements Showcase Older",
   component: UiNodeAndSettings,
 };
 
