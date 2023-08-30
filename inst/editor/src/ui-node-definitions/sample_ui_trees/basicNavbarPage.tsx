@@ -34,6 +34,18 @@ export const basicNavbarPage = {
             label: "My Button",
           },
         },
+        {
+          id: "radioButtons",
+          namedArgs: {
+            inputId: "myRadio",
+            label: "My Radio",
+            choices: {
+              "Choice 1": "choice1",
+              "Choice 2": "choice2",
+              "Choice 3": "choice3",
+            },
+          },
+        },
       ],
     },
   },

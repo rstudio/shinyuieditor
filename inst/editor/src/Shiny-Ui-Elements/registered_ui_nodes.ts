@@ -27,7 +27,7 @@ import { markdownNodeInfo } from "./ShinyMarkdown/markdown";
 import { shinyNavbarPageInfo } from "./ShinyNavbarPage";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
-import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
+import { shinyRadioButtonsInfo } from "./ShinyRadioButtons/ShinyRadioButtons";
 import { shinySelectInputInfo } from "./ShinySelectInput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
 import { shinyTabPanelInfo } from "./ShinyTabPanel";
@@ -90,7 +90,7 @@ const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
  * @returns Set of information about that node, or error if it doesn't exist
  * @throws Error if node doesn't exist
  */
-function getUiNodeInfo(id: string): ShinyUiNodeInfo {
+export function getUiNodeInfo(id: string): ShinyUiNodeInfo {
   if (!shinyUiNodeInfo.has(id)) {
     throw new Error(`Failed to find node info for requested node: ${id}`);
   }
