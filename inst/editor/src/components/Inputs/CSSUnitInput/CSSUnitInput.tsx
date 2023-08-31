@@ -5,25 +5,11 @@ import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { NumberInputSimple } from "../NumberInput/NumberInput";
 
-import type { CSSUnit, CSSUnitWAuto } from "./CSSMeasure";
+import type { CSSUnitWAuto } from "./CSSMeasure";
+import { infoForUnits } from "./CSSMeasure";
 import { deparseCSSMeasure, parseCSSMeasure } from "./CSSMeasure";
 import { CSSUnitChooser } from "./CSSUnitChooser";
 import classes from "./CSSUnitInput.module.css";
-
-const defaultCounts: Record<CSSUnit, number> = {
-  fr: 1,
-  px: 10,
-  rem: 1,
-  "%": 100,
-};
-
-const stepsForUnits: Record<CSSUnitWAuto, number> = {
-  fr: 0.1,
-  px: 1,
-  rem: 0.1,
-  "%": 1,
-  auto: 1,
-};
 
 export function CSSUnitInput({
   id,
@@ -69,7 +55,10 @@ export function CSSUnitInput({
 
       if (unit === "auto") {
         onChange(
-          deparseCSSMeasure({ unit: newUnit, count: defaultCounts[newUnit] })
+          deparseCSSMeasure({
+            unit: newUnit,
+            count: infoForUnits[newUnit].defaultCount,
+          })
         );
         return;
       }
@@ -128,7 +117,7 @@ export function CSSUnitInputCore<AllowedUnits extends CSSUnitWAuto>({
   onUnitChange: (x: AllowedUnits) => void;
   allowedUnits: AllowedUnits[];
 }) {
-  const stepSize = stepsForUnits[unit];
+  const { step, min, max } = infoForUnits[unit];
 
   return (
     <>
@@ -138,10 +127,10 @@ export function CSSUnitInputCore<AllowedUnits extends CSSUnitWAuto>({
         value={count}
         disabled={disabled}
         onChange={onCountChange}
-        step={stepSize}
-        min={0}
+        step={step}
+        min={min}
+        max={max}
       />
-
       <CSSUnitChooser
         unit={unit}
         availableUnits={allowedUnits}

@@ -16,7 +16,11 @@ export function valueIsType(
   }
 
   if (type === "number") {
-    return typeof value === "number";
+    return (
+      typeof value === "number" ||
+      // Number may be a negative number or something akin to that so we should try coercing it to a number
+      (typeof value === "string" && !isNaN(Number(value)))
+    );
   }
 
   if (type === "string") {
