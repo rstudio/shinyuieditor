@@ -48,6 +48,9 @@ jobs:
         shell: bash
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      # Make sure all assets are built
+      - name: Build all deps
+        run: yarn build
       # Update the snapshots
       - name: Update snapshots
         run: yarn update-visual-snapshots
