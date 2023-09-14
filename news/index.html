@@ -24,14 +24,14 @@
 
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyuieditor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
 
       <!--<div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">shinyuieditor</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of  <a href=""></a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
         </div>
       </div>-->
     </div>
@@ -87,6 +87,25 @@
       
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.0" id="shinyuieditor-050">shinyuieditor 0.5.0<a class="anchor" aria-label="anchor" href="#shinyuieditor-050"></a></h2>
+<div class="section level4">
+<h4 id="major-new-features-and-improvements-0-5-0">Major new features and improvements<a class="anchor" aria-label="anchor" href="#major-new-features-and-improvements-0-5-0"></a></h4>
+<ul><li>Switched underlying parsing to use TreeSitter instead of the built-in R parser. This simplifies codebase and also makes whole app faster.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="minor-new-features-and-improvements-0-5-0">Minor new features and improvements<a class="anchor" aria-label="anchor" href="#minor-new-features-and-improvements-0-5-0"></a></h4>
+<ul><li>CSS unit inputs now respect valid ranges for their corresponding units. E.g. can’t go bigger than 100% or smaller than 0px. (26324946e132f38dd4183543c51e44392649fab7 and a3f385a75cb868b245a0762cd6fa04f5942177c3)</li>
+<li>You can now pass a direct path to an app in <code><a href="../reference/launch_editor.html">launch_editor()</a></code>. (c931639284ed2420afe3ddc21fbb0261a289f8f4)</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-0-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0"></a></h4>
+<ul><li>No longer crashes when special characters (e.g. <code>\</code> or <code>"</code>) are put into string inputs (2e241278750b6af816e44bb51750646a6f5de393)</li>
+<li>Fixed bug where refreshing the page when using the editor via the <code><a href="../reference/launch_editor.html">launch_editor()</a></code> function (as opposed to the vscode extension) could cause app file to be erased. (6aa03f4)</li>
+<li>Fixed visual bug where headers and footers of bslib cards would show up even when nothing was in them in the vscode extension. (7d253de)</li>
+<li>Fixed bug where non-bsicon versions of value boxes would be converted to <code>bsicons::bs_icon("undefined")</code>. (aefb778)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.3" id="shinyuieditor-043">shinyuieditor 0.4.3<a class="anchor" aria-label="anchor" href="#shinyuieditor-043"></a></h2>
 <div class="section level4">

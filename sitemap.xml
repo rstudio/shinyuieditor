@@ -43,13 +43,19 @@
     <loc>https://rstudio.github.io/shinyuieditor/reference/get_app_file_type.html</loc>
   </url>
   <url>
-    <loc>https://rstudio.github.io/shinyuieditor/reference/get_app_info.html</loc>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/get_path_to_app_server_script.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/insert_server_code.html</loc>
+  </url>
+  <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/launch_editor.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/select_server_code.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/watch_for_app_close.html</loc>
