@@ -5,6 +5,8 @@
 ^LICENSE\.md$
 ^_pkgdown\.yml$
 ^docs$
+^doc$
+^venv$
 ^pkgdown$
 ^\.github$
 ^\.devcontainer$
@@ -27,3 +29,5 @@
 ^inst\/util-functions
 ^inst\/build-utils
 ^inst\/r-package-build-tools
+^.*\.bin$
+^.*\.turbo$
