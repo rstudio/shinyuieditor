@@ -1,4 +1,4 @@
-import type { TractDirection } from "../GridlayoutGridPage";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 
 export type TractExtents = { index: number; start: number; end: number }[];
 export function getTractExtents({

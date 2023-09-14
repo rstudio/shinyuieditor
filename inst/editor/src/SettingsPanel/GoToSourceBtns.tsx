@@ -1,61 +1,119 @@
-import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import React from "react";
+
+import type { MessageToBackend } from "communication-types";
+import type { LanguageMode } from "communication-types/src/AppInfo";
+import type { InputOutputLocations } from "communication-types/src/MessageToBackend";
+import { toast } from "react-toastify";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
-import { TooltipButton } from "../components/PopoverEl/Tooltip";
-import type {
-  ServerBindings,
-  ShinyUiNode,
-} from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { PopoverButton } from "../components/Inputs/PopoverButton";
+import { useTsParser } from "../EditorContainer/TSParserProvider";
+import { generate_python_output_binding } from "../python-parsing";
+import { generate_r_output_binding } from "../r-parsing";
 import { useCurrentAppInfo } from "../state/app_info";
+import { useMetaData } from "../state/metaData";
+import { generateFullAppScript } from "../ui-node-definitions/code_generation/generate_full_app_script";
+import type {
+  OutputBindings,
+  InputBindings,
+} from "../ui-node-definitions/nodeInfoFactory";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
+import { buildServerInsertion } from "../utils/code_position_utils";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
-  const { sendMsg, mode } = useBackendConnection();
+  const { sendMsg } = useBackendConnection();
 
-  if (mode !== "VSCODE" || !node) return null;
+  const { server_aware, language } = useMetaData();
 
-  const serverBindings = (getUiNodeInfo(node.id).serverBindings ??
-    {}) as Partial<ServerBindings>;
+  if (!server_aware || !node) return null;
+
+  const node_info = getUiNodeInfo(node.id)[
+    language === "PYTHON" ? "py_info" : "r_info"
+  ];
+
+  const output_bindings = (
+    "output_bindings" in node_info ? node_info.output_bindings : null
+  ) as OutputBindings | null;
+
+  const input_bindings =
+    "input_bindings" in node_info ? node_info.input_bindings : null;
 
   return (
     <div>
-      <GoToOutputsBtn
-        serverOutputInfo={serverBindings?.outputs}
-        node={node}
-        sendMsg={sendMsg}
-      />
-      <GoToInputsBtn
-        serverInputInfo={serverBindings?.inputs}
-        node={node}
-        sendMsg={sendMsg}
-      />
+      {output_bindings ? (
+        <GoToOutputsBtn
+          language={language}
+          serverOutputInfo={output_bindings}
+          node={node}
+          sendMsg={sendMsg}
+        />
+      ) : null}
+      {input_bindings ? (
+        <GoToInputsBtn
+          serverInputInfo={input_bindings}
+          node={node}
+          sendMsg={sendMsg}
+        />
+      ) : null}
     </div>
   );
 }
 
+function useUpToDateServerLocations() {
+  const current_app_info = useCurrentAppInfo();
+  const parseApp = useTsParser();
+
+  const [serverLocations, setServerLocations] =
+    React.useState<InputOutputLocations | null>(null);
+
+  React.useEffect(() => {
+    if (current_app_info.mode !== "MAIN") return;
+
+    // Because treesitter is so fast, we just regenerate the whole app script
+    // here and reparse that generated script. This takes way less time than you
+    // would expect.
+    // - Pitfalls:
+    //   - If the user has unsaved changes, this will not reflect those changes
+    //   - If a formatter was used, this will be unaware of it and give bad
+    //     positions
+    // - Potential Improvements:
+    //   - Offload this logic to the main dispatch system and just reparse the
+    //     app on every change as that's what this already does
+    const updatedAppScripts = generateFullAppScript(current_app_info, {
+      include_info: false,
+    });
+
+    parseApp(updatedAppScripts).then(({ server_locations }) => {
+      if (!server_locations) {
+        throw new Error("Could not parse app scripts");
+      }
+
+      setServerLocations(server_locations);
+    });
+  }, [current_app_info, parseApp]);
+
+  return serverLocations;
+}
+
 function GoToOutputsBtn({
+  language,
   serverOutputInfo,
   node: { namedArgs },
   sendMsg,
 }: {
+  language: LanguageMode;
   node: ShinyUiNode;
-  serverOutputInfo?: ServerBindings["outputs"];
+  serverOutputInfo: OutputBindings;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
   const current_app_info = useCurrentAppInfo();
+  const serverLocations = useUpToDateServerLocations();
 
-  if (
-    !(
-      current_app_info.mode === "MAIN" && "known_outputs" in current_app_info
-    ) ||
-    typeof serverOutputInfo === "undefined"
-  )
-    return null;
+  if (!(current_app_info.mode === "MAIN" && serverLocations)) return null;
 
-  const known_outputs = current_app_info.known_outputs;
-
-  const { outputIdKey, renderScaffold } = serverOutputInfo;
+  const { outputIdKey = "outputId" } = serverOutputInfo;
 
   // I have no idea why I have to do this coercsian but for some reason this
   // keeps getting narrowed to never type for args unless I do it.
@@ -67,39 +125,46 @@ function GoToOutputsBtn({
   const outputId = namedArgs[keyForOutput as keyof typeof namedArgs];
   if (typeof outputId !== "string") return null;
 
-  const existing_output_locations = known_outputs.has(outputId);
+  const existing_output_locations = serverLocations.output_positions[outputId];
 
   return (
-    <TooltipButton
-      text={
+    <PopoverButton
+      popoverContent={
         existing_output_locations
           ? "Show output declaration in app script"
           : "Create output binding in app server"
       }
-      position="left"
+      placement="left"
       variant="regular"
       onClick={() => {
         if (existing_output_locations) {
           sendMsg({
-            path: "FIND-SERVER-USES",
-            payload: {
-              type: "Output",
-              outputId: outputId,
-            },
+            path: "SELECT-SERVER-CODE",
+            payload: { positions: existing_output_locations },
           });
+
+          toast("Highlighted output declaration in server");
         } else {
+          const snippet_insertion_point = buildServerInsertion({
+            server_position: serverLocations.server_fn,
+            snippet: buildSnippetText({
+              language,
+              output_id: outputId,
+              output_info: serverOutputInfo,
+            }),
+            language,
+          });
+
           sendMsg({
             path: "INSERT-SNIPPET",
-            payload: {
-              snippet: `\noutput\\$${outputId} <- ${renderScaffold}`,
-              where_in_server: "end",
-            },
+            payload: snippet_insertion_point,
           });
+          toast("Inserted output binding in server");
         }
       }}
     >
       {existing_output_locations ? "Show in server" : "Generate server code"}
-    </TooltipButton>
+    </PopoverButton>
   );
 }
 
@@ -109,12 +174,16 @@ function GoToInputsBtn({
   sendMsg,
 }: {
   node: ShinyUiNode;
-  serverInputInfo?: ServerBindings["inputs"];
+  serverInputInfo: InputBindings;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
-  if (typeof serverInputInfo === "undefined") return null;
+  const current_app_info = useCurrentAppInfo();
+  const serverLocations = useUpToDateServerLocations();
 
-  const { inputIdKey } = serverInputInfo;
+  if (!(current_app_info.mode === "MAIN" && serverLocations)) return null;
+
+  const inputIdKey =
+    typeof serverInputInfo === "boolean" ? "inputId" : serverInputInfo;
 
   // I have no idea why I have to do this coercsian but for some reason this
   // keeps getting narrowed to never type for args unless I do it.
@@ -127,19 +196,40 @@ function GoToInputsBtn({
 
   if (typeof inputId !== "string") return null;
 
+  const inputLocations = serverLocations.input_positions[inputId];
+
+  if (!inputLocations) return null;
+
   return (
-    <TooltipButton
-      text={`Find uses of bound input (input$${inputId}) in app script`}
-      position="left"
+    <PopoverButton
+      popoverContent={`Find uses of bound input (\`input$${inputId}\`) in app script`}
+      use_markdown
+      placement="left"
       variant="regular"
       onClick={() => {
         sendMsg({
-          path: "FIND-SERVER-USES",
-          payload: { type: "Input", inputId },
+          path: "SELECT-SERVER-CODE",
+          payload: { positions: inputLocations },
         });
+
+        toast("Highlighted uses of input variable in server");
       }}
     >
       Find in server
-    </TooltipButton>
+    </PopoverButton>
   );
+}
+
+function buildSnippetText({
+  language,
+  output_id,
+  output_info: { renderScaffold },
+}: {
+  language: LanguageMode;
+  output_id: string;
+  output_info: OutputBindings;
+}): string {
+  return language === "PYTHON"
+    ? generate_python_output_binding(output_id, renderScaffold)
+    : generate_r_output_binding(output_id, renderScaffold);
 }

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "tsconfig": "*",
+    "shared-configs": "*",
     "typescript": "^5.0.4",
     "vitest": "^0.30.0",
     "just-clone": "^6.1.1"

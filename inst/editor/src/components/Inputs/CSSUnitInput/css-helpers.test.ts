@@ -3,6 +3,7 @@ import { isCSSMeasure, parseCSSMeasure } from "./CSSMeasure";
 test("Initializes properly", () => {
   expect(parseCSSMeasure("2rem")).toStrictEqual({ count: 2, unit: "rem" });
   expect(parseCSSMeasure("1rem")).toStrictEqual({ count: 1, unit: "rem" });
+  expect(parseCSSMeasure("-32px")).toStrictEqual({ count: -32, unit: "px" });
   expect(parseCSSMeasure("1 rem")).toStrictEqual({ count: 1, unit: "rem" });
   expect(parseCSSMeasure("3fr")).toStrictEqual({ count: 3, unit: "fr" });
   expect(parseCSSMeasure("auto")).toStrictEqual({ count: null, unit: "auto" });

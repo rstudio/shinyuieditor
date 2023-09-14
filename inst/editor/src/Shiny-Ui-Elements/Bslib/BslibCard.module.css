@@ -8,6 +8,7 @@
   /* outline: var(--outline); */
   --card-padding: 6px;
   isolation: isolate;
+  border: var(--bs-card-border-width) solid var(--bs-card-border-color);
 }
 
 .container.full_screen_mode {

@@ -1,54 +1,46 @@
+import React from "react";
+
 import icon from "../../assets/icons/shinycheckbox.png";
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { input_checkbox } from "../../ui-node-definitions/Shiny/input_checkbox";
+import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
-import ShinyCheckboxInput from "./ShinyCheckboxInput";
+import classes from "./styles.module.css";
 
-export type ShinyCheckboxInputProps = {
-  inputId: string;
-  label: string;
-  value: boolean;
-  width?: CSSMeasure;
+const ShinyCheckboxInput: UiComponentFromInfo<typeof input_checkbox> = ({
+  namedArgs,
+  wrapperProps,
+}) => {
+  const width = namedArgs.width ?? "auto";
+
+  const settings = { ...namedArgs };
+
+  const [value, setValue] = React.useState(settings.value);
+
+  React.useEffect(() => {
+    setValue(settings.value);
+  }, [settings.value]);
+
+  return (
+    <div
+      className={classes.container + " shiny::checkbox"}
+      style={{ width }}
+      {...wrapperProps}
+    >
+      <label htmlFor={settings.inputId}>
+        <input
+          id={settings.inputId}
+          type="checkbox"
+          checked={value}
+          onChange={(e) => setValue(e.target.checked)}
+        />
+        <span className={classes.label}>{settings.label}</span>
+      </label>
+    </div>
+  );
 };
 
-export const shinyCheckboxInputInfo =
-  nodeInfoFactory<ShinyCheckboxInputProps>()({
-    r_package: "shiny",
-    r_fn_name: "checkboxInput",
-    title: "Checkbox Input",
-    takesChildren: false,
-    UiComponent: ShinyCheckboxInput,
-    settingsInfo: {
-      inputId: {
-        inputType: "string",
-        label: "inputId",
-        defaultValue: "myCheckboxInput",
-      },
-      label: {
-        inputType: "string",
-        label: "label",
-        defaultValue: "Checkbox Input",
-      },
-      value: {
-        inputType: "boolean",
-        label: "Starting value",
-        defaultValue: false,
-      },
-      width: {
-        inputType: "cssMeasure",
-        label: "Width",
-        defaultValue: "100%",
-        units: ["%", "px", "rem"],
-        optional: true,
-      },
-    },
-    serverBindings: {
-      inputs: {
-        inputIdKey: "inputId",
-      },
-    },
-    iconSrc: icon,
-    category: "Inputs",
-    description:
-      "Create a checkbox that can be used to specify logical values.",
-  });
+export const shinyCheckboxInputInfo = addEditorInfoToUiNode(input_checkbox, {
+  iconSrc: icon,
+  UiComponent: ShinyCheckboxInput,
+});

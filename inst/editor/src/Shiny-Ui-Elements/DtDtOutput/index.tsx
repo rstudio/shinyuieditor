@@ -1,49 +1,44 @@
+import { seqArray } from "util-functions/src/arrays";
+
+import "./styles.scss";
 import icon from "../../assets/icons/shinyTable.png";
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { output_dt } from "../../ui-node-definitions/DT/output_dt";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
+import { InputOutputTitle } from "../utils/InputOutputTitle";
 
-import DtDTOutput from "./DtOutput";
-
-export type DTOutputSettings = {
-  outputId: string;
-  width?: CSSMeasure;
-  height?: CSSMeasure;
-};
-
-export const dtDTOutputInfo = nodeInfoFactory<DTOutputSettings>()({
-  r_package: "DT",
-  r_fn_name: "DTOutput",
-  title: "DT Table",
-  takesChildren: false,
-  UiComponent: DtDTOutput,
-  settingsInfo: {
-    outputId: {
-      inputType: "string",
-      label: "Output ID",
-      defaultValue: "myTable",
-    },
-    width: {
-      inputType: "cssMeasure",
-      label: "Width",
-      defaultValue: "100%",
-      units: ["%", "px", "rem"],
-      optional: true,
-      useDefaultIfOptional: true,
-    },
-    height: {
-      label: "Height",
-      inputType: "cssMeasure",
-      defaultValue: "auto",
-      optional: true,
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderDT({\n  iris\n})`,
-    },
-  },
+export const dtDTOutputInfo = addEditorInfoToUiNode(output_dt, {
   iconSrc: icon,
-  category: "Outputs",
-  description: `\`DataTable\` table output`,
+  UiComponent: ({ namedArgs, path, wrapperProps }) => {
+    return (
+      <div className="dtDTOutput" {...wrapperProps}>
+        <div
+          className="faux-table"
+          style={
+            {
+              "--table-w": namedArgs.width,
+              "--table-h": namedArgs.height,
+            } as React.CSSProperties
+          }
+        >
+          <div className="faux-header">
+            Table: <InputOutputTitle type="output" name={namedArgs.outputId} />
+          </div>
+          <div className="faux-table-body">{table_cells}</div>
+        </div>
+      </div>
+    );
+  },
 });
+
+const NUM_COLS = 4;
+const NUM_ROWS = 25;
+
+const table_cells = seqArray(NUM_ROWS).map((i) => (
+  <div className="faux-row" key={i}>
+    {seqArray(NUM_COLS).map((i) => (
+      <div className="faux-cell" key={i}>
+        i
+      </div>
+    ))}
+  </div>
+));

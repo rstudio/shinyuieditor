@@ -1,5 +1,5 @@
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
-import { pathToString } from "../../Shiny-Ui-Elements/nodePathUtils";
+import { pathToString } from "../../ui-node-definitions/nodePathUtils";
 
 import type { UiNodeProps } from "./UiNode";
 import { usePathInformation } from "./usePathInformation";
@@ -29,7 +29,7 @@ type DragPassthroughEvents =
  * selection on click as well as attaching some data attributes to enable the ui
  * element component to interact with the rest of the app properly.
  */
-type UiNodeWrapperProps = {
+export type UiNodeWrapperProps = {
   onClick: React.MouseEventHandler<HTMLDivElement>;
   "data-sue-path": string;
   "data-is-selected-node": boolean;

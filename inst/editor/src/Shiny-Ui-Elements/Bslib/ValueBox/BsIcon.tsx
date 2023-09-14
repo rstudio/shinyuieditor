@@ -7,7 +7,7 @@ interface IconProps extends icons.IconProps {
   icon_name: string;
 }
 
-function clean_icon_name(icon_name: string): string {
+function cleanIconName(icon_name: string): string {
   // Convert from dash case to camel case
   // e.g. "arrow-left" to "ArrowLeft"
   // e.g. "1-circle" to "Icon1Circle"
@@ -33,7 +33,7 @@ function clean_icon_name(icon_name: string): string {
 export const BsIcon = ({ icon_name, ...props }: IconProps) => {
   let icon_name_clean = "icon_name";
   try {
-    icon_name_clean = clean_icon_name(icon_name);
+    icon_name_clean = cleanIconName(icon_name);
   } catch (error) {
     return (
       <span>

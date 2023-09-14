@@ -1,21 +1,15 @@
 import React from "react";
 
+import type { InputComponentByType } from "../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { NumberInputSimple } from "../NumberInput/NumberInput";
-import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
-import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
-import type { CSSUnitWAuto } from "./CSSMeasure";
-import { deparseCSSMeasure, parseCSSMeasure } from "./CSSMeasure";
+import type { CSSUnitWAuto, ParsedCSSMeasure } from "./CSSMeasure";
+import { validateCountAfterUnitChange } from "./CSSMeasure";
+import { deparseCSSMeasure, infoForUnits, parseCSSMeasure } from "./CSSMeasure";
 import { CSSUnitChooser } from "./CSSUnitChooser";
 import classes from "./CSSUnitInput.module.css";
-
-const defaultCounts = {
-  fr: 1,
-  px: 10,
-  rem: 1,
-  "%": 100,
-};
 
 export function CSSUnitInput({
   id,
@@ -26,6 +20,13 @@ export function CSSUnitInput({
 }: InputComponentByType<"cssMeasure">) {
   const { count, unit } = parseCSSMeasure(initialValue);
 
+  // Allow us to pass the object-form of the css measure to on change to keep
+  // code cleaner
+  const updateValue = React.useCallback(
+    (x: ParsedCSSMeasure) => onChange(deparseCSSMeasure(x)),
+    [onChange]
+  );
+
   const updateCount = React.useCallback(
     (newCount?: number) => {
       if (newCount === undefined) {
@@ -33,43 +34,28 @@ export function CSSUnitInput({
           throw new Error("Undefined count with auto units");
         }
 
-        onChange(deparseCSSMeasure({ unit, count: null }));
+        updateValue({ unit, count: null });
         return;
       }
+
       if (unit === "auto") {
         // eslint-disable-next-line no-console
         console.error("How did you change the count of an auto unit?");
         return;
       }
 
-      onChange(deparseCSSMeasure({ unit, count: newCount }));
+      updateValue({ unit, count: newCount });
     },
-    [onChange, unit]
+    [unit, updateValue]
   );
 
   const updateUnit = React.useCallback(
     (newUnit: CSSUnitWAuto) => {
-      if (newUnit === "auto") {
-        onChange(
-          deparseCSSMeasure({
-            unit: newUnit,
-            count: null,
-          })
-        );
-        return;
-      }
+      updateValue(validateCountAfterUnitChange(count, newUnit));
 
-      if (unit === "auto") {
-        onChange(
-          deparseCSSMeasure({ unit: newUnit, count: defaultCounts[newUnit] })
-        );
-        return;
-      }
-
-      onChange(deparseCSSMeasure({ unit: newUnit, count: count }));
       return;
     },
-    [count, onChange, unit]
+    [count, updateValue]
   );
 
   if (!units.includes(unit)) {
@@ -88,20 +74,57 @@ export function CSSUnitInput({
       aria-label={label}
       aria-labelledby={makeLabelId(id)}
     >
+      <CSSUnitInputCore
+        count={count}
+        unit={unit}
+        disabled={no_count}
+        onCountChange={updateCount}
+        onUnitChange={updateUnit}
+        allowedUnits={units}
+      />
+    </div>
+  );
+}
+
+/**
+ * The core display of the CSSUnitInput. This is the part that is shared between
+ * the settings input used in the properties pane and the tract resizer view.
+ * @returns A JSX fragment with the number input and unit chooser
+ */
+export function CSSUnitInputCore<AllowedUnits extends CSSUnitWAuto>({
+  count,
+  unit,
+  disabled,
+  onCountChange,
+  onUnitChange,
+  allowedUnits,
+}: {
+  count: number | null;
+  unit: AllowedUnits;
+  disabled?: boolean;
+  onCountChange: (x: number) => void;
+  onUnitChange: (x: AllowedUnits) => void;
+  allowedUnits: AllowedUnits[];
+}) {
+  const { step, min, max } = infoForUnits[unit];
+
+  return (
+    <>
       <NumberInputSimple
         name="value-count"
         aria-label="value-count"
         value={count}
-        disabled={no_count}
-        onChange={updateCount}
-        min={0}
+        disabled={disabled}
+        onChange={onCountChange}
+        step={step}
+        min={min}
+        max={max}
       />
-
       <CSSUnitChooser
         unit={unit}
-        availableUnits={units}
-        onChange={updateUnit}
+        availableUnits={allowedUnits}
+        onChange={onUnitChange}
       />
-    </div>
+    </>
   );
 }

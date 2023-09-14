@@ -30,7 +30,24 @@ export function removeQuotes(x: string): string {
   return x.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1");
 }
 
-export function indent_text_block(txt: string, spaces_to_indent: number) {
+/**
+ * Indent a block of text by a certain number of spaces
+ * @param txt Text to be indented
+ * @param spaces_to_indent Number of spaces to indent by
+ * @param indent_start Whether to indent the first line
+ * @returns Text indented by the number of spaces specified
+ */
+export function indent_text_block(
+  txt: string,
+  spaces_to_indent: number,
+  indent_start: boolean = false
+) {
   const INDENT = " ".repeat(spaces_to_indent);
-  return txt.replaceAll(/\n/g, `\n${INDENT}`);
+  let indented = txt.replaceAll(/\n/g, `\n${INDENT}`);
+
+  if (indent_start) {
+    indented = INDENT + indented;
+  }
+
+  return indented;
 }

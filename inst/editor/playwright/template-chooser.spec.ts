@@ -6,7 +6,7 @@ import { mockBackendState } from "./utils/mockBackend";
 test("Updating the area name of a grid item propigates through rest of app properly", async ({
   page,
 }) => {
-  await mockBackendState(page, "TEMPLATE_CHOOSER");
+  await mockBackendState(page, { language: "R" });
 
   await page.goto("/");
 
@@ -79,7 +79,7 @@ test("Updating the area name of a grid item propigates through rest of app prope
 test("Non-main state data is reset when navigating between templates", async ({
   page,
 }) => {
-  await mockBackendState(page, "TEMPLATE_CHOOSER");
+  await mockBackendState(page, { language: "R" });
 
   await page.goto("/");
 

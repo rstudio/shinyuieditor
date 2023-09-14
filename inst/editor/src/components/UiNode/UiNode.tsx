@@ -3,15 +3,11 @@ import React from "react";
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
 
-import type {
-  NodePath,
-  ShinyUiNode,
-  UiNodeComponent,
-} from "../../Shiny-Ui-Elements/uiNodeTypes";
-import {
-  getUiNodeInfo,
-  isParentNode,
-} from "../../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeComponent } from "../../Shiny-Ui-Elements/registered_ui_nodes";
+import type { UiNodeComponent } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import type { NodePath } from "../../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
+import { isParentNode } from "../../ui-node-definitions/ShinyUiNode";
 
 import { UiNodeErrorView } from "./UiNodeErrorView";
 import { useMakeWrapperProps } from "./useMakeWrapperProps";
@@ -24,14 +20,14 @@ export type UiNodeProps = {
 /**
  * Recursively render the nodes in a UI Tree
  */
-const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
-  const node_info = getUiNodeInfo(node.id);
 
-  const Comp = node_info.UiComponent as UiNodeComponent<
+function UiNode({ path, node, canDrag = true }: UiNodeProps) {
+  // Bit ugly here.
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const Comp = getUiNodeComponent(node.id) as UiNodeComponent<
     typeof node.namedArgs,
     { TakesChildren: true }
   >;
-
   const wrapperProps = useMakeWrapperProps({ path, node, canDrag });
 
   const fallbackRender = React.useMemo(
@@ -51,6 +47,6 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
       />
     </ErrorBoundary>
   );
-};
+}
 
 export default UiNode;

@@ -48,6 +48,9 @@ export function setupWebsocketBackend({
       ws.onclose = (event) => {
         if (connectedToWebsocket) {
           onClose();
+          messageDispatch.dispatch("CONNECTION-LOST", {
+            msg: "Websocket connection closed",
+          });
         } else {
           resolve("NO-WS-CONNECTION");
         }

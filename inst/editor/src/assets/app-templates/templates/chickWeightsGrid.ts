@@ -1,6 +1,6 @@
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
-import type { ShinyUiParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiParentNode } from "../../../ui-node-definitions/ShinyUiNode";
 
 const navbarTree: ShinyUiParentNode = {
   id: "grid_page",
@@ -21,7 +21,7 @@ const navbarTree: ShinyUiParentNode = {
           children: [{ id: "textNode", namedArgs: { contents: "Settings" } }],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {

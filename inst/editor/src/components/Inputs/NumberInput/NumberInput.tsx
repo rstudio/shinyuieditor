@@ -1,9 +1,10 @@
 import React from "react";
 
-import { DownSpinnerButton, UpSpinnerButton } from "../../Icons";
-import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
-import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 import "./NumberInput.scss";
+import type { InputComponentByType } from "../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
+import { mergeClasses } from "../../../utils/mergeClasses";
+import { DownSpinnerButton, UpSpinnerButton } from "../../Icons";
 
 export function NumberInput({
   id,
@@ -26,6 +27,10 @@ type NumberInputSimpleProps = Omit<
   React.ComponentPropsWithoutRef<"input">,
   "value" | "onChange"
 > & {
+  min?: number;
+  max?: number;
+  /** Optional classes to be applied to the input element */
+  inputClassName?: string;
   value: number | null;
   onChange: (x: number) => void;
 };
@@ -37,6 +42,7 @@ export function NumberInputSimple({
   max,
   step,
   disabled,
+  inputClassName,
   ...passthroughProps
 }: NumberInputSimpleProps) {
   const { displayedVal, handleChange, handleBlur, incrementUp, incrementDown } =
@@ -48,6 +54,10 @@ export function NumberInputSimple({
       onChange,
     });
 
+  const tooBig = isNumber(value) && isNumber(max) && value > max;
+  const tooSmall = isNumber(value) && isNumber(min) && value < min;
+  const isInvalid = tooBig || tooSmall;
+
   return (
     <div
       className="NumberInput SUE-Input"
@@ -56,7 +66,10 @@ export function NumberInputSimple({
     >
       <input
         {...passthroughProps}
-        className="input-field"
+        className={mergeClasses("input-field", inputClassName, {
+          "invalid:bg-red-100 invalid:border-danger invalid:outline-danger":
+            isInvalid,
+        })}
         type="number"
         placeholder={"0"}
         value={displayedVal}
@@ -84,6 +97,11 @@ export function NumberInputSimple({
           <DownSpinnerButton />
         </button>
       </div>
+      {isInvalid ? (
+        <div className="text-danger text-xs absolute left-0 w-max">
+          {tooBig ? `Max allowed: ${max}` : `Min allowed: ${min}`}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -109,14 +127,14 @@ function useNumberInput({
       return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
-        if (typeof value !== "number") return;
-        if (typeof step !== "number") return;
+        if (!isNumber(value)) return;
+        if (!isNumber(step)) return;
 
         const newValue = value + (dir === "up" ? 1 : -1) * step;
 
-        if (typeof min === "number" && min > newValue) return;
+        if (isNumber(min) && min > newValue) return;
 
-        if (typeof max === "number" && max < newValue) return;
+        if (isNumber(max) && max < newValue) return;
 
         onChange(newValue);
       };
@@ -173,4 +191,8 @@ function useNumberInput({
     displayedVal,
     handleBlur,
   };
+}
+
+function isNumber(x: unknown): x is number {
+  return typeof x === "number";
 }

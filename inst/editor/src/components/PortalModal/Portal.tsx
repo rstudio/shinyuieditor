@@ -7,10 +7,14 @@ import * as ReactDOM from "react-dom";
  * @param children Child elements
  * @param el HTML element to create.  default: div
  */
-export const Portal: React.FC<{
+
+export function Portal({
+  children,
+  el = "div",
+}: {
   el?: string;
   children: React.ReactNode;
-}> = ({ children, el = "div" }) => {
+}) {
   const [container] = React.useState(document.createElement(el));
 
   React.useEffect(() => {
@@ -21,4 +25,4 @@ export const Portal: React.FC<{
   }, [container]);
 
   return ReactDOM.createPortal(children, container);
-};
+}

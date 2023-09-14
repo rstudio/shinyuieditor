@@ -4,12 +4,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "r-ast-parsing": "*",
     "editor": "*",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "type-check": "tsc -p ./ --noEmit"
+    "type-check": "tsc -p ./ --noEmit",
+    "lint": "eslint src --fix"
   }
 }

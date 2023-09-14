@@ -28,7 +28,7 @@ ui <- navbarPage(
         area = "nums",
         full_screen = TRUE,
         card_header("Header"),
-        card_body_fill(
+        card_body(
           sliderInput(
             inputId = "inputId",
             label = "Slider Input",
@@ -43,7 +43,7 @@ ui <- navbarPage(
         area = "square",
         full_screen = TRUE,
         card_header("Header"),
-        card_body_fill(textOutput(outputId = "squared"))
+        card_body(textOutput(outputId = "squared"))
       )
     )
   )

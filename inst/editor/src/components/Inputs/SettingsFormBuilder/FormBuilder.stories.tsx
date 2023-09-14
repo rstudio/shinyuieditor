@@ -2,6 +2,8 @@ import React from "react";
 
 import omit from "just-omit";
 
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+
 import { FormBuilder } from "./FormBuilder";
 import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 
@@ -35,6 +37,15 @@ export const AutoBuild = () => {
 
   return (
     <FormBuilder
+      app_tree={{} as ShinyUiNode}
+      nodePath={[]}
+      node={{
+        id: "actionButton",
+        namedArgs: {
+          id: "test",
+          label: "test",
+        },
+      }}
       settings={value}
       settingsInfo={{
         name: {

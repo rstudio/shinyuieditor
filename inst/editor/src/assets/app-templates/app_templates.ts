@@ -1,18 +1,17 @@
 import type { MessageToBackendByPath } from "communication-types";
+import type { AppInfo, LanguageMode } from "communication-types/src/AppInfo";
 import type {
-  Multi_File_Template_Selection,
-  Single_File_Template_Selection,
+  MultiFileTemplateSelection,
+  SingleFileTemplateSelection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
 
-import type {
-  Single_File_Full_Info,
-  Multi_File_Full_Info,
-} from "../../ast_parsing";
-import { SCRIPT_LOC_KEYS } from "../../ast_parsing";
-import { indent_line_breaks } from "../../ast_parsing/code_generation/build_function_text";
-import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
-import { write_library_calls } from "../../ast_parsing/generate_ui_script";
+import { generateFullAppScript } from "../../ui-node-definitions/code_generation/generate_full_app_script";
+import {
+  SCRIPT_LOC_KEYS,
+  writeRLibraryCalls,
+} from "../../ui-node-definitions/code_generation/generate_ui_script";
+import { indentLineBreaks } from "../../ui-node-definitions/code_generation/utils";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
@@ -26,34 +25,37 @@ export const app_templates: TemplateInfo[] = [
   chickWeightsGridTemplate,
 ];
 
-export function template_to_app_contents(
-  selection: Single_File_Template_Selection | Multi_File_Template_Selection
+export function templateToAppContents(
+  selection: SingleFileTemplateSelection | MultiFileTemplateSelection,
+  language: LanguageMode
 ): MessageToBackendByPath["UPDATED-APP"] {
   const app_info =
     selection.outputType === "SINGLE-FILE"
-      ? template_to_single_file_info(selection)
-      : template_to_multi_file_info(selection);
-
-  return generate_full_app_script(app_info, { include_info: true });
+      ? templateToSingleFileInfo(selection)
+      : templateToMultiFileInfo(selection);
+  return generateFullAppScript(app_info, { include_info: true });
 }
 
-function template_to_single_file_info({
-  uiTree,
-  otherCode: {
-    uiExtra = "",
-    serverExtra = "",
-    serverFunctionBody = "",
-    serverLibraries = [],
-  },
-}: Single_File_Template_Selection): Single_File_Full_Info {
-  const code = `${SCRIPT_LOC_KEYS.libraries}
+function templateToSingleFileInfo(
+  template_info: SingleFileTemplateSelection
+): AppInfo {
+  const {
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = [],
+    },
+  } = template_info;
+  const code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
 ui <- ${SCRIPT_LOC_KEYS.ui}
 
 ${serverExtra}
 server <- function(input, output) {
-  ${indent_line_breaks(serverFunctionBody)}
+  ${indentLineBreaks(serverFunctionBody)}
 }
 
 shinyApp(ui, server)
@@ -61,43 +63,57 @@ shinyApp(ui, server)
 `;
 
   return {
-    app_type: "SINGLE-FILE",
     ui_tree: uiTree,
+    scripts: {
+      app_type: "SINGLE-FILE",
+      app: code,
+    },
+    language: "R",
+    app_type: "SINGLE-FILE",
     app: {
       code,
-      libraries: ["shiny", ...serverLibraries],
+      packages: ["shiny", ...serverLibraries],
     },
   };
 }
 
-function template_to_multi_file_info({
-  uiTree,
-  otherCode: {
-    uiExtra = "",
-    serverExtra = "",
-    serverFunctionBody = "",
-    serverLibraries = [],
-  },
-}: Multi_File_Template_Selection): Multi_File_Full_Info {
-  const ui_code = `${SCRIPT_LOC_KEYS.libraries}
+function templateToMultiFileInfo(
+  template_info: MultiFileTemplateSelection
+): AppInfo {
+  const {
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = [],
+    },
+  } = template_info;
+  const ui_code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
 ui <- ${SCRIPT_LOC_KEYS.ui}
 `;
-  const server_code = `${write_library_calls(serverLibraries)}
+  const server_code = `${writeRLibraryCalls(serverLibraries)}
 
 ${serverExtra}
 server <- function(input, output) {
-  ${indent_line_breaks(serverFunctionBody)}
+  ${indentLineBreaks(serverFunctionBody)}
 }
 `;
 
   return {
     app_type: "MULTI-FILE",
+    scripts: {
+      app_type: "MULTI-FILE",
+      ui: ui_code,
+      server: server_code,
+    },
+    language: "R",
     ui_tree: uiTree,
     ui: {
       code: ui_code,
-      libraries: ["shiny", ...serverLibraries],
+      packages: ["shiny", ...serverLibraries],
     },
     server: {
       code: server_code,

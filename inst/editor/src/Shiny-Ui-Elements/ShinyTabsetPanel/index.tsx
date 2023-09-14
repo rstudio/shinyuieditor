@@ -1,39 +1,39 @@
 import icon from "../../assets/icons/tabsetPanel.png";
+import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
+import Tabset from "../../components/Tabs/Tabset/Tabset";
+import UiNode from "../../components/UiNode/UiNode";
+import { getTabPanelTitle } from "../../ui-node-definitions/Bslib/page_navbar";
 import {
-  getFirstTabName,
-  getTabNames,
-} from "../../components/Tabs/Tabset/utils";
-import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { ShinyUiParentNode } from "../uiNodeTypes";
+  makeChildPath,
+  pathToString,
+} from "../../ui-node-definitions/nodePathUtils";
+import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
-import ShinyTabsetPanel from "./ShinyTabsetPanel";
+export const shinyTabsetPanelInfo = addEditorInfoById("tabsetPanel", {
+  UiComponent: ({ namedArgs, children, path, wrapperProps }) => {
+    const numChildren = children?.length ?? 0;
 
-export type TabsetPanelSettings = { id?: string; selected?: string };
-
-export const shinyTabsetPanelInfo = nodeInfoFactory<TabsetPanelSettings>()({
-  r_package: "shiny",
-  r_fn_name: "tabsetPanel",
-  title: "Tabset Panel",
-  takesChildren: true,
-  UiComponent: ShinyTabsetPanel,
-  settingsInfo: {
-    id: {
-      inputType: "string",
-      label: "Id for tabset",
-      defaultValue: "tabset-default-id",
-      optional: true,
-    },
-    selected: {
-      inputType: "dropdown",
-      optional: true,
-      label: "Selected tab on load",
-      defaultValue: (node) =>
-        node ? getFirstTabName(node as ShinyUiParentNode) : "First Tab",
-      choices: (node) =>
-        node ? getTabNames(node as ShinyUiParentNode) : ["First Tab"],
-    },
+    return (
+      <Tabset path={path} {...wrapperProps}>
+        {numChildren > 0 ? (
+          children?.map((node, i) => {
+            const nodePath = makeChildPath(path, i);
+            const title = getTabPanelTitle(node) ?? "unknown tab";
+            return (
+              <TabPanel key={pathToString(nodePath)} title={title}>
+                <UiNode path={nodePath} node={node} />
+              </TabPanel>
+            );
+          })
+        ) : (
+          <div style={{ padding: "5px" }}>
+            <span>
+              Empty tabset. Drag elements or Tab Panel on to add content
+            </span>
+          </div>
+        )}
+      </Tabset>
+    );
   },
   iconSrc: icon,
-  category: "Tabs",
-  description: "A container filled with tabs",
 });

@@ -1,0 +1,14 @@
+@value can_accept_drop from "../DragAndDropHelpers/DropWatcherPanel.module.css";
+
+/* The final panel should grow as large as it needs to fill end of card */
+.drop_watcher:last-of-type {
+  flex: 1;
+  height: unset;
+}
+
+.drop_watcher:global(.can_accept_drop) {
+  /* Add subtle transition to ease jarring layout transition */
+  transition-property: height flex-grow flex;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+}

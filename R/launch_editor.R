@@ -71,8 +71,14 @@ launch_editor <- function(app_loc,
   # "editing-app". This is used to know what to do on close
   server_mode <- "initializing"
 
+  # Validate that we're pointing to a directory. If the user has supplied a
+  # direct file. E.g. a app.R or app.py file we should back up the app loc to
+  # the parent location
+  app_loc <- validate_app_loc(app_loc)
+  
   # Type of app we're in. Can be "SINGLE-FILE", "MULTI-FILE", or "MISSING"
   app_type <- get_app_file_type(app_loc)
+
 
   # ----------------------------------------------------------------------------
   # Initialize classes for controling app preview and polling for updates
@@ -98,28 +104,16 @@ launch_editor <- function(app_loc,
     port = shiny_background_port,
     host = host,
     print_logs = show_preview_app_logs,
-    logger = write_log
+    logger = write_log,
+    run_preview = app_preview
   )
 
-  startup_app_preview <- function() {
-    if (app_preview) {
-      write_log("Starting app preview")
-      app_preview_obj$start_app()
-    }
-  }
-
-  shutdown_app_preview <- function() {
-    if (app_preview) {
-      write_log("Stopping app preview")
-      app_preview_obj$stop_app()
-    }
-  }
 
   # Turn off app preview and delete the watched files. This should only happen
   # when the user has backed out of editing a template app and chosen a new file
   # type
   reset_app_type <- function() {
-    shutdown_app_preview()
+    app_preview_obj$stop_app()
     file_change_watcher$delete_files()
   }
 
@@ -133,7 +127,7 @@ launch_editor <- function(app_loc,
     is_existing_app <- !identical(new_app_type, "MISSING")
     if (is_existing_app) {
       file_change_watcher$set_watched_files(app_type_to_files[[new_app_type]])
-    }         
+    }
     app_type <<- new_app_type
   }
 
@@ -147,13 +141,13 @@ launch_editor <- function(app_loc,
     send_app_info_to_client <- function() {
       tryCatch(
         {
-          send_msg("APP-INFO", get_app_info(app_loc))
+          send_msg("APP-SCRIPT-TEXT", get_app_scripts(app_loc))
         },
         error = function(error) {
           send_msg(
             "BACKEND-ERROR",
             list(
-              context = "parsing app file",
+              context = "Loading app scripts",
               msg = error$message
             )
           )
@@ -178,7 +172,18 @@ launch_editor <- function(app_loc,
       )
 
       server_mode <<- "editing-app"
-      startup_app_preview()
+
+      # Let client know if it can request server positions etc..
+      send_msg(
+        "CHECKIN",
+        list(
+          server_aware = rstudioapi::isAvailable(),
+          language = "R",
+          app_preview = app_preview
+        )
+      )
+
+      app_preview_obj$start_app()
       send_app_info_to_client()
     }
 
@@ -258,6 +263,21 @@ launch_editor <- function(app_loc,
         "ENTERED-TEMPLATE-SELECTOR" = {
           write_log("Template chooser mode")
           server_mode <<- "template-chooser"
+        },
+        "SELECT-SERVER-CODE" = {
+          select_server_code(
+            locations = msg$payload$positions,
+            app_loc = app_loc,
+            app_type = app_type
+          )
+        },
+        "INSERT-SNIPPET" = {
+          insert_server_code(
+            snippet = msg$payload$snippet,
+            insert_at = msg$payload$insert_at,
+            app_loc = app_loc,
+            app_type = app_type
+          )
         }
       )
     }

@@ -1,4 +1,4 @@
-import type { TractDirection } from "../../GridlayoutGridPage";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 
 import classes from "./TractSizer.module.css";
 import type { TractEventListener } from "./useDragToResizeGrid";

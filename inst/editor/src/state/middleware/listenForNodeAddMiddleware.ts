@@ -1,7 +1,7 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 
-import { getPathAfterMove } from "../../components/UiNode/TreeManipulation/getPathAfterMove";
-import { isNodeMove } from "../../components/UiNode/TreeManipulation/placeNode";
+import { getPathAfterMove } from "../../ui-node-definitions/TreeManipulation/getPathAfterMove";
+import { isNodeMove } from "../../ui-node-definitions/TreeManipulation/placeNode";
 import { PLACE_NODE } from "../app_info";
 import { SET_SELECTION } from "../selectedPath";
 

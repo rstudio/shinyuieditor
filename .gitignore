@@ -21,3 +21,21 @@ node_modules/
 
 inst/*/.turbo/
 **/storybook-static/*
+inst/inst/abstract_snake_tree/src/
+inst/inst/abstract-snake-tree/src/scratch.js
+
+# Sometimes the debug process spits out compiled js files to here. 
+inst/inst/
+
+# Ignore build targets locally
+# inst/editor/build/
+# inst/vscode-extension/build/
+# inst/vscode-extension/media/build/
+# inst/vscode-extension/*.vsix
+
+
+# Ignore virtual environment directory
+venv/
+
+# Ignore cache files from python apps 
+**/__pycache__/

@@ -1,43 +1,35 @@
 import type { BackendConnection } from "communication-types";
-import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
-
+import { ToastContainer } from "react-toastify";
 import "./App.css";
-import { setupStaticBackend } from "./backendCommunication/staticBackend";
+
 import { BackendConnectionProvider } from "./backendCommunication/useBackendMessageCallbacks";
 import { GeneralErrorView } from "./components/ErrorCatcher/GeneralErrorView";
 import { EditorContainer } from "./EditorContainer/EditorContainer";
-import type { ShinyUiRootNode } from "./Shiny-Ui-Elements/uiNodeTypes";
+import { TSParserProvider } from "./EditorContainer/TSParserProvider";
 import ReduxProvider from "./state/ReduxProvider";
 import styles from "./SUE.module.css";
 import {
-  generate_gh_issue_url,
-  generate_serialized_state_for_error,
+  generateGhIssueURL,
+  generateSerializedStateForError,
 } from "./utils/generate_issue_reports";
 import { mergeClasses } from "./utils/mergeClasses";
 
-export type SUE_Props = {
-  backendDispatch?: BackendConnection;
-  showMessages?: boolean;
-  defaultTree?: ShinyUiRootNode;
-};
 export function SUE({
   showMessages = true,
-  defaultTree,
-  backendDispatch: { sendMsg, incomingMsgs, mode } = setupStaticBackend({
-    messageDispatch: makeMessageDispatcher(),
-    showMessages,
-    defaultTree: defaultTree ?? "TEMPLATE_CHOOSER",
-  }),
-}: SUE_Props) {
+  backendDispatch: { sendMsg, incomingMsgs, mode },
+}: {
+  backendDispatch: BackendConnection;
+  showMessages?: boolean;
+}) {
   const dispatch: BackendConnection = showMessages
     ? {
         sendMsg,
         incomingMsgs: {
           subscribe: (on, callback) => {
             // eslint-disable-next-line no-console
-            console.log(`backendMsgs.subscribe("${on}", ...)`);
+            // console.log(`backendMsgs.subscribe("${on}", ...)`);
             return incomingMsgs.subscribe(on, callback);
           },
         },
@@ -53,7 +45,10 @@ export function SUE({
     <ReduxProvider>
       <ErrorBoundary fallbackRender={WholeAppErrorFallback}>
         <BackendConnectionProvider {...dispatch}>
-          <EditorContainer />
+          <TSParserProvider>
+            <EditorContainer />
+            <ToastContainer />
+          </TSParserProvider>
         </BackendConnectionProvider>
       </ErrorBoundary>
     </ReduxProvider>
@@ -68,9 +63,9 @@ const WholeAppErrorFallback = (fallbackProps: FallbackProps) => {
         <GeneralErrorView
           header="ShinyUiEditor encountered an error"
           generateIssueLink={(state_at_error) =>
-            generate_gh_issue_url({
+            generateGhIssueURL({
               title: "Error in ShinyUiEditor at root",
-              body: `Error at root of editor:\n${generate_serialized_state_for_error(
+              body: `Error at root of editor:\n${generateSerializedStateForError(
                 state_at_error
               )}`,
             })

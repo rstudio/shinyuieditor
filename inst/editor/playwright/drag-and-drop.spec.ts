@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import type { ShinyUiNode } from "../src/main";
+import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
 import { mockBackendState } from "./utils/mockBackend";
 const testingUiTree: ShinyUiNode = {
@@ -15,7 +15,7 @@ const testingUiTree: ShinyUiNode = {
 };
 
 test("Drag and drop an item onto the grid and name area", async ({ page }) => {
-  await mockBackendState(page, testingUiTree);
+  await mockBackendState(page, { ui_tree: testingUiTree, language: "R" });
 
   await page.goto("/");
 

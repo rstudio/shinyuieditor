@@ -1,15 +1,14 @@
 import React from "react";
 
-import type { UiNodeComponent } from "../uiNodeTypes";
+import icon from "../../assets/icons/shinyRadioButtons.png";
+import { input_radio_buttons } from "../../ui-node-definitions/Shiny/input_radio_buttons";
+import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
-import type { ShinyRadioButtonsProps } from ".";
-
-import classes from "./styles.module.css";
-
-const ShinyRadioButtons: UiNodeComponent<
-  ShinyRadioButtonsProps,
-  { TakesChildren: false }
-> = ({ namedArgs, wrapperProps }) => {
+const ShinyRadioButtons: UiComponentFromInfo<typeof input_radio_buttons> = ({
+  namedArgs,
+  wrapperProps,
+}) => {
   const choices = namedArgs.choices;
   const keys = Object.keys(choices);
   const values = Object.values(choices);
@@ -25,30 +24,30 @@ const ShinyRadioButtons: UiNodeComponent<
   }, [selection, values]);
 
   return (
-    <div
-      className={classes.container}
-      style={{ width: namedArgs.width }}
-      {...wrapperProps}
-    >
+    <div className="p-1" style={{ width: namedArgs.width }} {...wrapperProps}>
       <label>{namedArgs.label}</label>
-      <div>
+      <div className="flex flex-col pt-1">
         {values.map((value, i) => (
-          <div className={classes.radio} key={value}>
-            <label>
-              <input
-                type="radio"
-                name={namedArgs.inputId}
-                value={value}
-                onChange={(x) => setSelection(x.target.value)}
-                checked={value === selection}
-              />
-              <span>{keys[i]}</span>
-            </label>
-          </div>
+          <label className="flex items-center gap-1" key={value}>
+            <input
+              type="radio"
+              name={namedArgs.inputId}
+              value={value}
+              onChange={(x) => setSelection(x.target.value)}
+              checked={value === selection}
+            />
+            <span>{keys[i]}</span>
+          </label>
         ))}
       </div>
     </div>
   );
 };
 
-export default ShinyRadioButtons;
+export const shinyRadioButtonsInfo = addEditorInfoToUiNode(
+  input_radio_buttons,
+  {
+    UiComponent: ShinyRadioButtons,
+    iconSrc: icon,
+  }
+);

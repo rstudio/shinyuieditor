@@ -1,19 +1,14 @@
 import { useErrorBoundary } from "react-error-boundary";
 
 import Button from "../../components/Inputs/Button/Button";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { testing_error_node } from "../../ui-node-definitions/internal/testing_error_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import styles from "./styles.module.css";
 
 // Provides a node that throws an error when a button is clicked in editor or
 // settings panel (for testing error boundaries)
-export const testingErrorNodeInfo = nodeInfoFactory<{
-  error_msg: string;
-}>()({
-  r_package: "TESTING",
-  r_fn_name: "error_node",
-  title: "Error Throwing Node",
-  takesChildren: false,
+export const testingErrorNodeInfo = addEditorInfoToUiNode(testing_error_node, {
   UiComponent: ({ namedArgs, path, wrapperProps }) => {
     const { showBoundary } = useErrorBoundary();
 
@@ -33,13 +28,7 @@ export const testingErrorNodeInfo = nodeInfoFactory<{
       </div>
     );
   },
-  settingsInfo: {
-    error_msg: {
-      label: "Message for error",
-      inputType: "string",
-      defaultValue: "Uh oh, an error!",
-    },
-  },
+
   settingsFormRender: ({ inputs, settings }) => {
     if (settings.error_msg === "Trigger settings error") {
       throw new Error(`Settings panel render error:\n${settings.error_msg}`);
@@ -55,8 +44,4 @@ export const testingErrorNodeInfo = nodeInfoFactory<{
       </>
     );
   },
-  // iconSrc: icon,
-  category: "TESTING",
-  description:
-    "Node that throws an error when a button is clicked in editor or settings panel",
 });

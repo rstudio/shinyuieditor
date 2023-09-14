@@ -1,7 +1,11 @@
-import { isShinyUiNode } from "../../../../Shiny-Ui-Elements/isShinyUiNode";
+import type {
+  KnownInputFieldTypes,
+  InputTypeNames,
+} from "../../../../ui-node-definitions/inputFieldTypes";
+import { isShinyUiNode } from "../../../../ui-node-definitions/isShinyUiNode";
 import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import { isNamedList } from "../../ListInput/NamedListInput";
-import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
+// import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
 
 export function valueIsType(
   value: KnownInputFieldTypes | undefined,
@@ -12,7 +16,11 @@ export function valueIsType(
   }
 
   if (type === "number") {
-    return typeof value === "number";
+    return (
+      typeof value === "number" ||
+      // Number may be a negative number or something akin to that so we should try coercing it to a number
+      (typeof value === "string" && !isNaN(Number(value)))
+    );
   }
 
   if (type === "string") {

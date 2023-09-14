@@ -6,19 +6,18 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "../components/PopoverEl/FloatingPopover";
-import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
-import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
 import UiNode from "../components/UiNode/UiNode";
-import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
-import type {
-  NodePath,
-  PathElement,
-  ShinyUiNode,
-  ShinyUiNodeIds,
-} from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeTitle } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
+import type { PathElement, NodePath } from "../ui-node-definitions/NodePath";
+import { makeChildPath } from "../ui-node-definitions/nodePathUtils";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getIsValidMove } from "../ui-node-definitions/TreeManipulation/getIsValidMove";
+import type { WrappingNode } from "../ui-node-definitions/TreeManipulation/wrapInNode";
+import type { ShinyUiNodeIds } from "../ui-node-definitions/uiNodeTypes";
+import {
+  getUiNodeTitle,
+  getUiNodeInfo,
+} from "../ui-node-definitions/uiNodeTypes";
 import { mergeClasses } from "../utils/mergeClasses";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
@@ -61,7 +60,7 @@ export type DropWatcherPanelProps = {
   /**
    * Optional node to wrap the dropped node in.
    */
-  wrappingNode?: Wrapping_Node;
+  wrappingNode?: WrappingNode;
   /**
    * What message is shown over the drop area when a node is hovered over it?
    * Can be used to give descriptive messages to the user about what a drop will

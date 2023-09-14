@@ -5,12 +5,15 @@ import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
 
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
+import { useLanguageMode } from "../../state/languageMode";
+import { mergeClasses } from "../../utils/mergeClasses";
 import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
-import { TooltipButton } from "../PopoverEl/Tooltip";
+import { PopoverButton } from "../Inputs/PopoverButton";
 
 import classes from "./AppPreview.module.css";
 import { LogsViewer } from "./LogsViewer";
+import { ShinyLivePreviewExperiment } from "./ShinyLivePreviewExperiment";
 import { ShowAppText } from "./ShowAppText";
 import { useCommunicateWithBackend } from "./useCommunicateWithBackend";
 import { usePreviewScale } from "./usePreviewScale";
@@ -25,16 +28,20 @@ export default function AppPreview() {
     setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [shinyLiveMode, setShinyLiveMode] = React.useState(false);
+
+  const language = useLanguageMode();
+
   const { appLoc, errors, appLogs, clearLogs, restartApp } =
     useCommunicateWithBackend();
 
   const previewScale = usePreviewScale();
 
   const reloadApp = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      spinReloadButton(e.currentTarget);
+    (metaKey: boolean) => {
       if (!iframeRef.current || typeof appLoc === "string") return;
-      if (e.metaKey) {
+      if (metaKey) {
         restartApp();
       } else {
         iframeRef.current.src = appLoc.url;
@@ -42,6 +49,10 @@ export default function AppPreview() {
     },
     [appLoc, restartApp]
   );
+
+  if (language === "PYTHON" && shinyLiveMode) {
+    return <ShinyLivePreviewExperiment />;
+  }
 
   // This is a custom environment variable that is set to "True" in the
   // development testing so we can see a fake app preview window. If we're not
@@ -51,23 +62,10 @@ export default function AppPreview() {
     return <ShowAppText />;
   }
 
-  const ReloadButton = ({ isExpandedMode }: { isExpandedMode: boolean }) => (
-    <div className={classes.reloadButtonContainer}>
-      <TooltipButton
-        text={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
-        className={classes.reloadButton}
-        onClick={reloadApp}
-        position={isExpandedMode ? "right" : "up-right"}
-      >
-        <VscDebugRestart />
-      </TooltipButton>
-    </div>
-  );
-
   return (
     <>
       <PanelHeader className={classes.title}>
-        <ReloadButton isExpandedMode={false} />
+        <ReloadButton isExpandedMode={false} onClick={reloadApp} />
         App Preview
       </PanelHeader>
 
@@ -83,10 +81,34 @@ export default function AppPreview() {
         }
       >
         {errors !== null ? (
-          <RestartPrompt onClick={restartApp} />
+          <div className={classes.appContainer}>
+            <p>
+              App preview crashed.<br></br> Try and restart?
+            </p>
+            <Button
+              className={classes.restartButton}
+              title="Restart app preview"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                spinReloadButton(e.currentTarget);
+                restartApp();
+              }}
+            >
+              Restart app preview <VscDebugRestart />
+            </Button>
+            {/* Experimental method to use ShinyLive in case of failure of local preview app */}
+            {/* {language === "PYTHON" ? (
+              <PopoverButton
+                popoverContent="Open in experimental ShinyLive Runtime"
+                placement="left"
+                onClick={() => setShinyLiveMode(true)}
+              >
+                Try ShinyLive Runtime
+              </PopoverButton>
+            ) : null} */}
+          </div>
         ) : (
           <>
-            <ReloadButton isExpandedMode={true} />
+            <ReloadButton isExpandedMode={true} onClick={reloadApp} />
             <div className={classes.appContainer}>
               {appLoc === "LOADING" ? (
                 <LoadingMessage />
@@ -117,24 +139,34 @@ export default function AppPreview() {
   );
 }
 
-function RestartPrompt({ onClick }: { onClick: () => void }) {
+export function ReloadButton({
+  isExpandedMode,
+  onClick,
+}: {
+  isExpandedMode: boolean;
+  onClick: (metaKey: boolean) => void;
+}) {
   return (
-    <div className={classes.appContainer}>
-      <p>
-        App preview crashed.<br></br> Try and restart?
-      </p>
-      <Button
-        className={classes.restartButton}
-        title="Restart app preview"
-        onClick={onClick}
+    <div className={classes.reloadButtonContainer}>
+      <PopoverButton
+        popoverContent={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
+        className={mergeClasses(classes.reloadButton, {
+          "text-white": !isExpandedMode,
+        })}
+        variant={["transparent", "icon"]}
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          spinReloadButton(e.currentTarget);
+          onClick(e.metaKey);
+        }}
+        placement={isExpandedMode ? "right" : "top"}
       >
-        Restart app preview <VscDebugRestart />
-      </Button>
+        <VscDebugRestart />
+      </PopoverButton>
     </div>
   );
 }
 
-function LoadingMessage() {
+export function LoadingMessage() {
   return (
     <div className={classes.loadingMessage}>
       <h2>Loading app preview...</h2>

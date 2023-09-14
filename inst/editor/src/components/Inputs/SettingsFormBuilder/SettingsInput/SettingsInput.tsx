@@ -1,17 +1,19 @@
-import Button from "../../Button/Button";
-import type {
-  InputOptions,
-  InputTypeNames,
-  KnownInputFieldTypes,
-  StaticInputOptionsByInputType,
-} from "../inputFieldTypes";
-import { makeLabelId } from "../inputFieldTypes";
+import React from "react";
 
-import "./SettingsInput.scss";
+import type {
+  KnownInputFieldTypes,
+  InputTypeNames,
+  StaticInputOptionsByInputType,
+  InputOptions,
+} from "../../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../../ui-node-definitions/inputFieldTypes";
+import { mergeClasses } from "../../../../utils/mergeClasses";
+import Button from "../../Button/Button";
 
 import { SettingsInputElement } from "./SettingsInputElement";
 import { valueIsType } from "./valueIsType";
 
+import "./SettingsInput.scss";
 export type SettingsUpdateAction =
   | {
       type: "UPDATE";
@@ -80,6 +82,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   return (
     <InputLabelWrapper
       argumentIsUnset={argumentIsUnset}
+      className={opts.fill_space ? "flex flex-col flex-grow" : ""}
       optionalField={
         argumentIsOptional ? (
           <input
@@ -100,11 +103,13 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
 
 export function InputLabelWrapper({
   argumentIsUnset = false,
+  className,
   optionalField,
   label,
   labelId,
   mainInput,
 }: {
+  className?: string;
   argumentIsUnset?: boolean;
   optionalField?: React.ReactNode;
   label: string;
@@ -112,7 +117,7 @@ export function InputLabelWrapper({
   mainInput: React.ReactNode;
 }) {
   return (
-    <div className="SUE-SettingsInput">
+    <div className={mergeClasses("SUE-SettingsInput", className)}>
       <div className="info" data-unset={argumentIsUnset}>
         {optionalField}
         <label id={labelId}>{label}</label>

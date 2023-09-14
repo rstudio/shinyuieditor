@@ -2,19 +2,14 @@
 import type { MessageToClient } from "communication-types";
 import * as vscode from "vscode";
 
+import { appScriptStatus } from "./appScriptStatus";
 import { editorLogic } from "./editorLogic";
-import { appScriptStatus } from "./R-Utils/appScriptStatus";
-import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
-import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
-import { getNonce } from "./util";
 
 /**
  * Provider for custom editor.
  *
  */
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
-  private RProcess: ActiveRSession | null = null;
-
   private static readonly viewType = "shinyuieditor.appFile";
 
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
@@ -35,12 +30,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     return providerRegistration;
   }
 
-  constructor(private readonly context: vscode.ExtensionContext) {
-    // Spin up background R process for things like formatting code etc.
-    startBackgroundRProcess().then((rProc) => {
-      this.RProcess = rProc;
-    });
-  }
+  constructor(private readonly context: vscode.ExtensionContext) {}
 
   /**
    * Called when an instance of the custom editor is opened.
@@ -53,14 +43,14 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     webviewPanel: vscode.WebviewPanel,
     _token: vscode.CancellationToken
   ): Promise<void> {
-    const isInvalidAppScript = appScriptStatus(document) === "invalid";
+    const scriptStatus = appScriptStatus(document);
 
-    if (isInvalidAppScript) {
-      const errMsg = `The active file doesn't appear to be a Shiny app. Make sure that the script is either empty or has a valid shiny app in it.`;
-      vscode.window.showErrorMessage(errMsg);
+    if (scriptStatus.status === "invalid") {
+      vscode.window.showErrorMessage(scriptStatus.reason);
       webviewPanel.dispose();
-      throw new Error(errMsg);
+      throw new Error(scriptStatus.reason);
     }
+
     // Setup initial content for the webview
     webviewPanel.webview.options = {
       enableScripts: true,
@@ -68,15 +58,17 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-    if (!this.RProcess) {
-      throw new Error("Don't have an R Process to pass to editor backend!");
-    }
-
-    const editorBackend = editorLogic({
-      RProcess: this.RProcess,
+    const editorBackend = await editorLogic({
+      language: scriptStatus.lang,
       document,
       sendMessage: (msg: MessageToClient) =>
         webviewPanel.webview.postMessage(msg),
+      convertFilePaths: (file_path: string) =>
+        webviewPanel.webview
+          .asWebviewUri(
+            vscode.Uri.joinPath(this.context.extensionUri, "media", file_path)
+          )
+          .toString(),
     });
 
     // Filter change and save events do only this current document
@@ -134,8 +126,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     // Use a nonce to whitelist which scripts can be run
     const nonce = getNonce();
 
-    const cspSource = webview.cspSource;
-
     return /* html */ `
 			<!DOCTYPE html>
 			<html lang="en">
@@ -147,14 +137,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 				// webpack
 				var global = window;
 			  </script>
-				<!--
-				Use a content security policy to only allow loading images from https or from our extension directory,
-				and only allow scripts that have a specific nonce.
-				-->
-				<meta 
-          http-equiv="Content-Security-Policy" 
-          content="default-src 'none'; frame-src http://localhost:*/ ${cspSource} https:; img-src ${cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
-
+				
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 				
@@ -169,4 +152,16 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 			</body>
 			</html>`;
   }
+}
+
+// Create a unique nonce for this session so we can whitelist which scripts can
+// be run
+function getNonce() {
+  let text = "";
+  const possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < 32; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 }

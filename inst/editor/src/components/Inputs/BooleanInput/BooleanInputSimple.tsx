@@ -1,6 +1,6 @@
+import type { InputComponentByType } from "../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
-import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import classes from "./styles.module.css";
 

@@ -1,34 +1,20 @@
-import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { UiNodeComponent } from "../uiNodeTypes";
+import { card_footer } from "../../ui-node-definitions/Bslib/card_footer";
+import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { CardFooter } from "./Utils/CardElements";
-import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
-type CardFooterSettings = {};
-
-const BslibCardFooter: UiNodeComponent<
-  CardFooterSettings,
-  { TakesChildren: true }
-> = ({ namedArgs, children = [], path, wrapperProps }) => {
-  return (
-    <CardFooter {...wrapperProps}>
-      <CardChildrenWithDropNodes
-        children={children}
-        path={path}
-        parentid="card_footer"
-        messageOnHover="Add to card footer"
-      />
-    </CardFooter>
-  );
-};
-
-export const bslibCardFooterInfo = nodeInfoFactory<CardFooterSettings>()({
-  r_package: "bslib",
-  r_fn_name: "card_footer",
-  title: "Card Footer",
-  takesChildren: true,
-  UiComponent: BslibCardFooter,
-  settingsInfo: {},
-  category: "Cards",
-  description: "Header for bslib cards",
+export const bslibCardFooterInfo = addEditorInfoToUiNode(card_footer, {
+  UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
+    return (
+      <CardFooter {...wrapperProps}>
+        <ChildrenWithDropNodes
+          children={children}
+          parentPath={path}
+          parentid="card_footer"
+          messageOnHover="Add to card footer"
+        />
+      </CardFooter>
+    );
+  },
 });

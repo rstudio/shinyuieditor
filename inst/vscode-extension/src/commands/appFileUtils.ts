@@ -1,6 +1,7 @@
 type AppName = `${string}.R`;
 export const defaultAppName: AppName = "app.R";
 
+// eslint-disable-next-line no-useless-escape
 const nameRootRegex = /^([\w|\s]+)([\.[\w|^\.]*]*)$/i;
 export function validateAppFileName(fileName: string):
   | { valid: true; name: AppName }

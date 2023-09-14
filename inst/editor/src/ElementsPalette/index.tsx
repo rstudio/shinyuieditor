@@ -1,56 +1,53 @@
+import type { LanguageMode } from "communication-types/src/AppInfo";
+
 import { PanelHeader } from "../EditorLayout/PanelHeader";
-import type {
-  ShinyUiNodeCategories,
-  ShinyUiNodeIds,
-} from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyids } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { registered_ui_nodes } from "../Shiny-Ui-Elements/registered_ui_nodes";
+import { useLanguageMode } from "../state/languageMode";
+import type { ShinyUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";
 
-// We use an object here to enforce that we categorize all of the objects
-const catOrderObj: Record<ShinyUiNodeCategories, 1> = {
+// We use an object here to enforce that we categorize all of the objects and
+// decide their order
+const categoryOrder = Object.keys({
   Utilities: 1,
   Inputs: 1,
   Outputs: 1,
-  layouts: 1,
+  Layout: 1,
   gridlayout: 1,
   Tabs: 1,
   Containers: 1,
   Cards: 1,
   Plotting: 1,
   Uncategorized: 1,
-};
+} satisfies Record<Exclude<ShinyUiNodeInfo["category"], "TESTING">, 1>);
 
-const categoryOrder = Object.keys(catOrderObj);
+type NodeInfo = (typeof registered_ui_nodes)[number];
 
-function getNodeCategory(name: string) {
-  const node_info = getUiNodeInfo(name);
+function sortByCategory(info_a: NodeInfo, info_b: NodeInfo): number {
+  const cat_a = categoryOrder.indexOf(info_a.category);
+  const cat_b = categoryOrder.indexOf(info_b.category);
 
-  if ("category" in node_info && node_info.category) return node_info.category;
-
-  return "uncategorized";
+  return cat_a < cat_b ? -1 : cat_a > cat_b ? 1 : 0;
 }
 
-function sortByCategory(nameA: ShinyUiNodeIds, nameB: ShinyUiNodeIds): number {
-  const categoryA = categoryOrder.indexOf(getNodeCategory(nameA));
-  const categoryB = categoryOrder.indexOf(getNodeCategory(nameB));
-
-  if (categoryA < categoryB) return -1;
-  if (categoryA > categoryB) return 1;
-
-  return 0;
+function filterToLanguage(info: NodeInfo, language: LanguageMode): boolean {
+  switch (language) {
+    case "R":
+      return info.r_info !== undefined;
+    case "PYTHON":
+      return info.py_info !== undefined;
+  }
 }
 
-export default function ElementsPalette({
-  availableUiNodes = shinyids,
-}: {
-  availableUiNodes?: typeof shinyids;
-}) {
-  const ui_node_names = ([...availableUiNodes] as ShinyUiNodeIds[]).sort(
-    sortByCategory
-  );
+export default function ElementsPalette() {
+  const languageMode = useLanguageMode();
+
+  const ui_node_names = registered_ui_nodes
+    .filter((info) => filterToLanguage(info, languageMode))
+    .sort(sortByCategory)
+    .map((info) => info.id);
 
   return (
     <>

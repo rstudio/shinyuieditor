@@ -1,13 +1,7 @@
-import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TractDirection } from "../../GridlayoutGridPage";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 
-import type { TemplatedGridProps } from "./TemplatedGridProps";
-
-export function buildRange(from: number, to: number): number[] {
-  const numEls = Math.abs(to - from) + 1;
-  const step = from < to ? 1 : -1;
-  return Array.from({ length: numEls }, (_, i) => from + i * step);
-}
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
+import type { CSSMeasure } from "../../../../ui-node-definitions/inputFieldTypes";
 
 export function layoutDefToStyles({
   areas,
@@ -70,7 +64,3 @@ export function getTractSizesInPx({
     .split(" ")
     .map((s) => Number(s.replaceAll("px", "")));
 }
-
-// Roundabout way to avoid ugly machine-epsilon floating point numbers like
-// 1.4999999999991
-export const cleanNumber = (num: number) => Number(num.toFixed(4));

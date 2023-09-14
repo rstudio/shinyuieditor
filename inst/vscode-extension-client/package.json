@@ -4,21 +4,24 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@types/vscode": "^1.65.0",
-    "editor": "*",
-    "tsconfig": "*",
-    "tsx": "^3.12.1",
-    "typescript": "^5.0.4"
+    "editor": "*"
   },
   "scripts": {
-    "dev": "vite build",
-    "prod": "vite build",
+    "build": "vite build",
+    "dev": "vite build --mode dev",
     "type-check": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
+    "@rollup/plugin-inject": "^5.0.3",
+    "@types/vscode": "^1.65.0",
     "@types/vscode-webview": "^1.57.0",
-    "@vitejs/plugin-react": "^3.1.0",
-    "vite": "^4.1.1",
+    "autoprefixer": "^10.4.15",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "tailwindcss": "^3.3.3",
+    "shared-configs": "*",
+    "tsx": "^3.12.1",
+    "typescript": "^5.0.4",
+    "vite": "^4.2.1",
     "vite-tsconfig-paths": "^4.0.5"
   }
 }

@@ -1,7 +1,7 @@
 import { FaCode } from "react-icons/fa";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
-import { TooltipButton } from "../components/PopoverEl/Tooltip";
+import { PopoverButton } from "../components/Inputs/PopoverButton";
 
 export function OpenSideBySideWindowButton() {
   const { sendMsg, mode } = useBackendConnection();
@@ -12,18 +12,20 @@ export function OpenSideBySideWindowButton() {
 
   return (
     <>
-      <TooltipButton
-        text="Open app code next to editor"
+      <PopoverButton
+        className="OpenSideBySideWindowButton mr-2"
+        popoverContent="Open app code next to editor"
+        placement="bottom"
+        variant={["icon", "transparent"]}
         onClick={() => {
           sendMsg({
             path: "OPEN-COMPANION-EDITOR",
             payload: "BESIDE",
           });
         }}
-        className="OpenSideBySideWindowButton"
       >
         <FaCode />
-      </TooltipButton>
+      </PopoverButton>
       <div className="divider" />
     </>
   );

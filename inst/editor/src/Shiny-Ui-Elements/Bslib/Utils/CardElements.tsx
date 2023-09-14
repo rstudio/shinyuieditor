@@ -1,5 +1,6 @@
+import type { card_body } from "../../../ui-node-definitions/Bslib/card_body";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import type { CardBodyFillSettings } from "../BslibCardBodyFill";
+import type { ArgsFromInfo } from "../../utils/add_editor_info_to_ui_node";
 
 import styles from "./CardUtils.module.css";
 
@@ -11,12 +12,14 @@ function CardElementChildrenHolder({
   return <div className={styles.card_children_container}>{children}</div>;
 }
 
-export function CardBodyFill({
+export function CardBody({
   className,
   children,
   args = {},
   ...props
-}: React.ComponentPropsWithoutRef<"div"> & { args?: CardBodyFillSettings }) {
+}: React.ComponentPropsWithoutRef<"div"> & {
+  args?: ArgsFromInfo<typeof card_body>;
+}) {
   const content_styles = {
     gap: args?.gap,
   } as React.CSSProperties;

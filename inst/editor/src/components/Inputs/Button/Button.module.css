@@ -8,7 +8,6 @@
 
   border: var(--outline-width) solid var(--outline-color);
   background-color: var(--background-color);
-  color: var(--text-color);
 
   border-radius: var(--corner-radius);
   align-self: center;

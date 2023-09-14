@@ -3,20 +3,22 @@ import * as React from "react";
 import omit from "just-omit";
 import { useDispatch } from "react-redux";
 
-import type { KnownInputFieldTypes } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import { getNode } from "../components/UiNode/TreeManipulation/getNode";
-import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { UPDATE_NODE } from "../state/app_info";
 import {
   useCurrentSelection,
   useSetCurrentSelection,
 } from "../state/selectedPath";
+import { useDeleteNode } from "../state/useDeleteNode";
+import type { KnownInputFieldTypes } from "../ui-node-definitions/inputFieldTypes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getNode } from "../ui-node-definitions/TreeManipulation/getNode";
 
 export function useUpdateSettings(tree: ShinyUiNode) {
   const dispatch = useDispatch();
 
   const selectedPath = useCurrentSelection();
   const setNodeSelection = useSetCurrentSelection();
+  const deleteNode = useDeleteNode(selectedPath);
 
   const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
     selectedPath !== null ? safeGetNode(tree, selectedPath) : null
@@ -44,8 +46,8 @@ export function useUpdateSettings(tree: ShinyUiNode) {
 
   React.useEffect(() => {
     formHasBeenUpdated.current = false;
+    setCurrentNode(null);
     if (selectedPath === null) {
-      setCurrentNode(null);
       return;
     }
     setCurrentNode(safeGetNode(tree, selectedPath));
@@ -92,6 +94,7 @@ export function useUpdateSettings(tree: ShinyUiNode) {
     deleteArgumentByName,
     selectedPath,
     setNodeSelection,
+    deleteNode,
   };
 }
 

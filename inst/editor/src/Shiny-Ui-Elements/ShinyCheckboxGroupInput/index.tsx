@@ -1,9 +1,10 @@
 import icon from "../../assets/icons/shinyCheckgroup.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { input_checkbox_group } from "../../ui-node-definitions/Shiny/input_checkbox_group";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
-import ShinyCheckboxGroupInput from "./ShinyCheckboxGroupInput";
+import classes from "./styles.module.css";
 
 export type ShinyCheckboxGroupInputProps = {
   inputId: string;
@@ -12,47 +13,36 @@ export type ShinyCheckboxGroupInputProps = {
   width?: CSSMeasure;
 };
 
-export const shinyCheckboxGroupInputInfo =
-  nodeInfoFactory<ShinyCheckboxGroupInputProps>()({
-    r_package: "shiny",
-    r_fn_name: "checkboxGroupInput",
-    title: "Checkbox Group",
-    takesChildren: false,
-    UiComponent: ShinyCheckboxGroupInput,
-    settingsInfo: {
-      inputId: {
-        inputType: "string",
-        label: "inputId",
-        defaultValue: "myCheckboxGroup",
-      },
-      label: {
-        inputType: "string",
-        label: "label",
-        defaultValue: "Checkbox Group",
-      },
-      choices: {
-        label: "Choices",
-        inputType: "list",
-        defaultValue: {
-          "choice a": "a",
-          "choice b": "b",
-        },
-      },
-      width: {
-        inputType: "cssMeasure",
-        label: "Width",
-        defaultValue: "100%",
-        units: ["%", "px", "rem"],
-        optional: true,
-      },
-    },
-    serverBindings: {
-      inputs: {
-        inputIdKey: "inputId",
-      },
-    },
+export const shinyCheckboxGroupInputInfo = addEditorInfoToUiNode(
+  input_checkbox_group,
+  {
     iconSrc: icon,
-    category: "Inputs",
-    description:
-      "Create a group of checkboxes that can be used to toggle multiple choices independently. The server will receive the input as a character vector of the selected values.",
-  });
+    UiComponent: ({ namedArgs, wrapperProps }) => {
+      const choices = namedArgs.choices;
+      return (
+        <div
+          className={classes.container}
+          style={{ width: namedArgs.width }}
+          {...wrapperProps}
+        >
+          <label>{namedArgs.label}</label>
+          <div>
+            {Object.keys(choices).map((key, i) => (
+              <div key={key}>
+                <label className={classes.checkbox}>
+                  <input
+                    type="checkbox"
+                    name={choices[key]}
+                    value={choices[key]}
+                    defaultChecked={i === 0}
+                  />
+                  <span>{key}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    },
+  }
+);

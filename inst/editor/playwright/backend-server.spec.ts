@@ -5,6 +5,9 @@ import {
   setupBackendServer,
 } from "./utils/start_uieditor_backend";
 
+//! If these don't work. Remember to first install the R package with `yarn
+//! install-r-pkg` in `inst/r-package-build-tools` and then also build the
+//! editor with `yarn build` (from `inst/editor` or the root.)
 test("Template chooser can change between templates mid-session", async ({
   page,
   browserName,

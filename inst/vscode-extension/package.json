@@ -2,7 +2,7 @@
   "name": "shinyuieditor",
   "displayName": "ShinyUiEditor",
   "description": "Visual editor interface for constructing R Shiny app UIs",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "publisher": "posit",
   "icon": "assets/shinyuieditor-hex.png",
   "private": true,
@@ -16,6 +16,9 @@
   "categories": [
     "Data Science",
     "Other"
+  ],
+  "extensionDependencies": [
+    "ms-python.python"
   ],
   "repository": {
     "type": "git",
@@ -43,6 +46,9 @@
         "selector": [
           {
             "filenamePattern": "*app.R"
+          },
+          {
+            "filenamePattern": "*app.py"
           }
         ]
       }
@@ -66,11 +72,20 @@
         {
           "when": "resourceFilename =~ /app.R/",
           "command": "shinyuieditor.startEditorOnActiveFile"
+        },
+        {
+          "when": "resourceFilename =~ /app.py/",
+          "command": "shinyuieditor.startEditorOnActiveFile"
         }
       ],
       "editor/title": [
         {
           "when": "resourceFilename =~ /app.R/",
+          "command": "shinyuieditor.startEditorOnActiveFile",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceFilename =~ /app.py/",
           "command": "shinyuieditor.startEditorOnActiveFile",
           "group": "navigation"
         }
@@ -99,11 +114,9 @@
     }
   },
   "scripts": {
-    "prod": "vsce package",
-    "vscode:prepublish": "yarn run esbuild-base -- --minify",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=build/extension.js --external:vscode \"--external:*.png\" \"--external:*.scss\" --format=cjs --platform=node",
-    "dev": "yarn run esbuild-base -- --sourcemap",
-    "esbuild-watch": "yarn run esbuild-base -- --sourcemap --watch",
+    "build": "vsce package",
+    "dev": "tsx ./build.mts --dev",
+    "vscode:prepublish": "tsx ./build.mts",
     "lint": "eslint \"src/**/*.ts\"",
     "type-check": "tsc -p ./ --noEmit",
     "test": "jest",
@@ -123,14 +136,15 @@
     "eslint": "^8.26.0",
     "jest": "^29.3.1",
     "ts-jest": "^29.0.3",
-    "tsconfig": "*",
+    "shared-configs": "*",
     "tsx": "^3.12.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
-    "util-functions": "*",
-    "r-ast-parsing": "*",
+    "just-compare": "^2.3.0",
     "just-debounce-it": "^3.1.1",
+    "treesitter-parsers": "*",
     "winreg": "^1.2.4"
   }
 }

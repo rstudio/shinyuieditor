@@ -6,22 +6,22 @@ library(bslib)
 ui <- grid_page(
   layout = c(
     "header   header ",
-    "sidebar  vbox   ",
-    "cardDemo redPlot"
+    "cardDemo vbox   ",
+    "sidebar  redPlot"
   ),
   row_sizes = c(
-    "110px",
-    "0.97fr",
-    "1.03fr"
+    "130px",
+    "0.92fr",
+    "1.08fr"
   ),
   col_sizes = c(
-    "300px",
+    "520px",
     "1fr"
   ),
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    card_body_fill(
+    card_body(
       sliderInput(
         inputId = "bins",
         label = "Number of Bins ",
@@ -48,7 +48,7 @@ ui <- grid_page(
   grid_card(
     area = "cardDemo",
     card_header(h2("My Card header")),
-    card_body_fill(
+    card_body(
       numericInput(
         inputId = "myNumericInput",
         label = "Numeric Input",
@@ -65,11 +65,41 @@ ui <- grid_page(
   ),
   grid_card(
     area = "vbox",
-    card_body_fill(
-      value_box(
-        title = "Look at me!",
-        value = "Big number!",
-        showcase = bsicons::bs_icon("database")
+    card_body(
+      grid_container(
+        layout = c(
+          "a .",
+          ". b"
+        ),
+        row_sizes = c(
+          "1fr",
+          "1fr"
+        ),
+        col_sizes = c(
+          "1fr",
+          "1fr"
+        ),
+        gap_size = "10px",
+        grid_card(
+          area = "a",
+          card_body(
+            value_box(
+              title = "Look at me!",
+              value = "My value",
+              showcase = bsicons::bs_icon("database")
+            )
+          )
+        ),
+        grid_card(
+          area = "b",
+          card_body(
+            value_box(
+              title = "Look at me!",
+              value = "My value",
+              showcase = bsicons::bs_icon("chat-dots")
+            )
+          )
+        )
       )
     )
   )

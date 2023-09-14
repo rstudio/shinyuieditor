@@ -1,62 +1,66 @@
-import type { R_AST_Node } from "r-ast-parsing";
-import { is_function_call } from "r-ast-parsing/src/Function_Call_Node";
-import {
-  make_character_node,
-  name_node,
-} from "r-ast-parsing/src/node_builders";
+import type { CSSProperties } from "react";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
 import { PopoverButton } from "../../../components/Inputs/PopoverButton";
 import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsSimple";
 import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
+import { value_box } from "../../../ui-node-definitions/Bslib/value_box";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import { isShinyUiNode } from "../../isShinyUiNode";
-import { nodeInfoFactory } from "../../nodeInfoFactory";
-import type { ShinyUiNode, UiNodeComponent } from "../../uiNodeTypes";
-import { isUnknownUiNode } from "../../UnknownUiFunction";
-import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
+import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
+import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
-import styles from "./ValueBox.module.css";
 
-const layout_dir_to_code = {
-  left: "showcase_left_center()",
-  right: "showcase_top_right()",
-} as const;
-
-type ValueBoxArgs = {
-  title: string;
-  showcase_icon?: string;
-  showcase?: unknown;
-  value: ShinyUiNode;
-  showcase_layout?: keyof typeof layout_dir_to_code;
-};
-
-const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
+const ValueBox: UiComponentFromInfo<typeof value_box> = ({
   namedArgs,
   children,
   path,
   wrapperProps,
 }) => {
+  const showcase_right = namedArgs.showcase_layout === "right";
   return (
-    <div className={styles.container} {...wrapperProps}>
+    <div
+      className="flex-1 relative"
+      style={
+        {
+          "--font-color": "var(--rstudio-white",
+          "--selected-outline-color": "black",
+        } as CSSProperties
+      }
+      {...wrapperProps}
+    >
       <div
         className={mergeClasses(
-          "bg-primary",
-          "text-white",
-          styles.value_box,
-          namedArgs.showcase_layout === "right" ? styles.showcase_right : null
+          "bg-primary text-white h-100 grid gap-md p-md overflow-auto",
+          showcase_right ? "grid-cols-[7fr_3fr]" : "grid-cols-[3fr_7fr]"
         )}
       >
-        <div className={styles.showcase}>
-          <BsIcon icon_name={namedArgs.showcase_icon ?? "question-circle"} />
+        <div
+          className={mergeClasses(
+            "p-sm col-start-1 row-start-1 min-w-0",
+            showcase_right ? "col-start-2" : "col-start-1"
+          )}
+        >
+          <BsIcon
+            className="w-100 h-100"
+            icon_name={namedArgs.showcase_icon ?? "question-circle"}
+          />
         </div>
-        <div className={styles.content}>
-          <h5 className={styles.card_title}>{namedArgs.title}</h5>
-          <div className={styles.card_value}>
+        <div
+          className={mergeClasses(
+            "flex flex-col justify-center row-start-1 min-w-0",
+            showcase_right ? "col-start-1" : "col-start-2"
+          )}
+        >
+          <h5 className="">{namedArgs.title}</h5>
+          <div>
             <DropWatcherPanel
+              className={
+                namedArgs.value.id === "textNode" ? "text-[1.5rem]" : ""
+              }
               existing_node={namedArgs.value}
               child_loc={"value"}
               parentPath={path}
@@ -66,9 +70,9 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
               parentNodeType="value_box"
             />
           </div>
-          <CardChildrenWithDropNodes
+          <ChildrenWithDropNodes
             children={children}
-            path={path}
+            parentPath={path}
             parentid="value_box"
             messageOnHover="Add node to value box"
           />
@@ -78,42 +82,9 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
   );
 };
 
-export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
-  r_package: "bslib",
-  r_fn_name: "value_box",
-  title: "Value Box",
-  takesChildren: true,
+export const bslibValueBoxInfo = addEditorInfoToUiNode(value_box, {
+  iconSrc: icon,
   UiComponent: ValueBox,
-  settingsInfo: {
-    title: {
-      label: "Title of valuebox",
-      inputType: "string",
-      defaultValue: "Look at me!",
-    },
-    showcase_icon: {
-      inputType: "omitted",
-      optional: true,
-      defaultValue: "database",
-    },
-    showcase: {
-      inputType: "omitted",
-      optional: true,
-    },
-    value: {
-      inputType: "ui-node",
-      defaultValue: {
-        id: "textNode",
-        namedArgs: {
-          contents: "My value",
-        },
-      },
-    },
-    showcase_layout: {
-      inputType: "omitted",
-      defaultValue: "left",
-      optional: true,
-    },
-  },
   settingsFormRender: ({ settings, onSettingsChange, inputs }) => {
     return (
       <div>
@@ -133,7 +104,7 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
               />
             ) : (
               <PopoverButton
-                className={styles.replace_showcase_btn}
+                className="w-100 h-[25px]"
                 use_markdown={true}
                 popoverContent="Replace current showcase value with an icon from the
                   bsicons package."
@@ -181,83 +152,4 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       </div>
     );
   },
-  code_gen_R: {
-    print_named_args: (args, render_child) => {
-      const { title, showcase_icon, showcase, value, showcase_layout } = args;
-
-      let named_args = [`title = "${title}"`, `value = ${render_child(value)}`];
-
-      // We need to do a little dancing to make sure that the showcase icon
-      // doesn't wipe out another type of showcase the user may have and also to
-      // make sure we preserve any non-icon showcases
-      if (showcase_icon) {
-        named_args.push(`showcase = bsicons::bs_icon("${showcase_icon}")`);
-      } else if (
-        showcase &&
-        isShinyUiNode(showcase) &&
-        isUnknownUiNode(showcase)
-      ) {
-        named_args.push(`showcase = ${render_child(showcase)}`);
-      }
-
-      if (showcase_layout) {
-        named_args.push(
-          `showcase_layout = ${layout_dir_to_code[showcase_layout]}`
-        );
-      }
-      return named_args;
-    },
-    preprocess_raw_ast_arg: (arg) => {
-      switch (arg.name) {
-        case "showcase":
-          return convertShowcaseArg(arg);
-        case "showcase_layout":
-          return convertShowcaseLayoutArg(arg);
-        default:
-          return arg;
-      }
-    },
-  },
-  iconSrc: icon,
-  category: "Cards",
-  description: "Colorful box to display a value",
 });
-
-/**
- *
- * @param arg Argument representing the passed value to the "showcase" argument
- * of the value_box function call
- * @returns Updated argument, switching the name to the internal "showcase_icon"
- * and converting the icon, if it exists, to a character node representing the
- * icon name. If the passed value doesn't match an icon format. Then the
- * original is returned.
- */
-function convertShowcaseArg(arg: R_AST_Node) {
-  const is_icon_call =
-    is_function_call(arg, "bsicons::bs_icon") ||
-    is_function_call(arg, "bs_icon");
-
-  if (is_icon_call) {
-    const icon = arg.val[1].val as string;
-    return name_node(make_character_node(icon), "showcase_icon");
-  }
-
-  return arg;
-}
-
-/**
- *
- * @param arg Argument representing the passed value to the "showcase_layout"
- * argument of the value_box function call.
- * @returns Updated argument, converting the function call to a character node
- * of left or right based on the original passed function.
- */
-function convertShowcaseLayoutArg(arg: R_AST_Node) {
-  if (is_function_call(arg, "showcase_left_center")) {
-    return name_node(make_character_node("left"), "showcase_layout");
-  } else if (is_function_call(arg, "showcase_top_right")) {
-    return name_node(make_character_node("right"), "showcase_layout");
-  }
-
-  return arg;
-}

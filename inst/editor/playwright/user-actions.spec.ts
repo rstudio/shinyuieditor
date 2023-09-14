@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
 import { mockBackendState } from "./utils/mockBackend";
 
@@ -68,7 +68,7 @@ const redoKeys = `${onMac ? "Meta" : "Control"}+Shift+z`;
 test("Can delete elements and undo/redo those changes with keyboard shortcuts", async ({
   page,
 }) => {
-  await mockBackendState(page, basicNavbarPage);
+  await mockBackendState(page, { ui_tree: basicNavbarPage, language: "R" });
 
   await page.goto("/");
 

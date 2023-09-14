@@ -1,6 +1,6 @@
 import React from "react";
 
-import { alignTextLeft, alignTextCenter, alignTextRight } from "../../../Icons";
+import { alignTextCenter, alignTextLeft, alignTextRight } from "../../../Icons";
 import type { CSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../ListInput/NamedListInput";
 import type { DropdownOption } from "../../OptionsDropdown/DropdownSelect";
@@ -10,6 +10,7 @@ import { DEFAULT_RADIO_CHOICE } from "../../RadioInputs/RadioInputsSimple";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
 import { SettingsInput } from "./SettingsInput";
+import { ExistingValuesProvider } from "./StringInput";
 
 export default {
   title: "SettingsInput",
@@ -23,9 +24,6 @@ export const RequiredStringInput = () => {
     if (action.type === "UPDATE") {
       setValue(action.value as string);
     }
-    // if (action.type === "REMOVE") {
-    //   setValue(undefined);
-    // }
   };
 
   return (
@@ -37,6 +35,33 @@ export const RequiredStringInput = () => {
       label="This is my name"
       onUpdate={updateValue}
     />
+  );
+};
+export const OffLimitsStringValues = () => {
+  const [value, setValue] = React.useState("test");
+
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      setValue(action.value as string);
+    }
+  };
+
+  return (
+    <ExistingValuesProvider
+      offLimitValues={{
+        existingValues: new Set(["Foo", "Bar", "Baz"]),
+        warningMsg: (value: string) => `The value ${value} is already taken`,
+      }}
+    >
+      <SettingsInput
+        name="name"
+        value={value}
+        defaultValue="name default"
+        inputType="string"
+        label="There are off limits values for this input"
+        onUpdate={updateValue}
+      />
+    </ExistingValuesProvider>
   );
 };
 

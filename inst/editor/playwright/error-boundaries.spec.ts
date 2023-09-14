@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { errorTestingTree } from "../src/state/sample_ui_trees/errorTesting";
+import { errorTestingTree } from "../src/ui-node-definitions/sample_ui_trees/errorTesting";
 
 import { mockBackendState } from "./utils/mockBackend";
 
@@ -26,7 +26,7 @@ test("Errors are caught and not allowed to propigate up beyond their local posit
     };
   });
 
-  await mockBackendState(page, errorTestingTree);
+  await mockBackendState(page, { ui_tree: errorTestingTree, language: "R" });
 
   await page.goto("/");
 

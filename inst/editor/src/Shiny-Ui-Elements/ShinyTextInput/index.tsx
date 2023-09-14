@@ -1,59 +1,47 @@
+import React from "react";
+
 import icon from "../../assets/icons/shinyTextinput.png";
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { input_text } from "../../ui-node-definitions/Shiny/input_text";
+import { mergeClasses } from "../../utils/mergeClasses";
+import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
-import ShinyTextInput from "./ShinyTextInput";
+import classes from "./styles.module.css";
 
-export type ShinyTextInputProps = {
-  inputId: string;
-  label: string;
-  value: string;
-  placeholder?: string;
-  width?: CSSMeasure;
+const ShinyTextInput: UiComponentFromInfo<typeof input_text> = ({
+  namedArgs,
+  wrapperProps,
+}) => {
+  const [value, setValue] = React.useState(namedArgs.value);
+
+  React.useEffect(() => {
+    setValue(namedArgs.value);
+  }, [namedArgs.value]);
+
+  return (
+    <div
+      className={mergeClasses(classes.container, "textInput")}
+      style={{
+        height: "auto",
+        width: namedArgs.width ?? "200px",
+        // If we're using the default width, don't let it go over the width of its container
+        maxWidth: namedArgs.width ? undefined : "100%",
+      }}
+      {...wrapperProps}
+    >
+      <label htmlFor={namedArgs.inputId}>{namedArgs.label}</label>
+      <input
+        id={namedArgs.inputId}
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder={namedArgs.placeholder}
+      />
+    </div>
+  );
 };
 
-export const shinyTextInputInfo = nodeInfoFactory<ShinyTextInputProps>()({
-  r_package: "shiny",
-  r_fn_name: "textInput",
-  title: "Text Input",
-  takesChildren: false,
-  UiComponent: ShinyTextInput,
-  settingsInfo: {
-    inputId: {
-      inputType: "string",
-      label: "inputId",
-      defaultValue: "myTextInput",
-    },
-    label: {
-      inputType: "string",
-      label: "label",
-      defaultValue: "Text Input",
-    },
-    value: {
-      inputType: "string",
-      label: "Starting text",
-      defaultValue: "",
-    },
-    placeholder: {
-      inputType: "string",
-      label: "Empty input placeholder",
-      defaultValue: "placeholder text",
-      optional: true,
-    },
-    width: {
-      inputType: "cssMeasure",
-      label: "Width",
-      defaultValue: "100%",
-      units: ["%", "px", "rem"],
-      optional: true,
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
-    },
-  },
+export const shinyTextInputInfo = addEditorInfoToUiNode(input_text, {
   iconSrc: icon,
-  category: "Inputs",
-  description: "Create an input control for entry of unstructured text values.",
+  UiComponent: ShinyTextInput,
 });

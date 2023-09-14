@@ -3,17 +3,21 @@ import * as React from "react";
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
-import { generate_full_app_script } from "../ast_parsing/generate_full_app_script";
-import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
+import { useTsParser } from "../EditorContainer/TSParserProvider";
+import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
   SET_APP_INFO,
+  SET_CONNECTION_LOST,
   SET_ERROR,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
+import { useLanguageMode } from "../state/languageMode";
+import { SET_META_DATA } from "../state/metaData";
 import { useCurrentSelection } from "../state/selectedPath";
-import { useUndoRedo } from "../state-logic/useUndoRedo";
-import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
+import { useDeleteNode } from "../state/useDeleteNode";
+import { generateFullAppScript } from "../ui-node-definitions/code_generation/generate_full_app_script";
+import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
@@ -21,7 +25,9 @@ export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs } = useBackendConnection();
   const state = useCurrentAppInfo();
   const currentSelection = useCurrentSelection();
+  const language = useLanguageMode();
   const dispatch = useDispatch();
+  const parseApp = useTsParser();
 
   const history = useUndoRedo(state);
 
@@ -50,32 +56,41 @@ export function useSyncUiWithBackend() {
 
   // Subscribe to messages from the backend
   React.useEffect(() => {
-    const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
-      dispatch(SET_APP_INFO(info));
-    });
-
-    const templateChooserSubscription = backendMsgs.subscribe(
-      "TEMPLATE_CHOOSER",
-      (outputChoices) => {
-        dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }));
-      }
-    );
-
-    const backendErrorSubscription = backendMsgs.subscribe(
-      "BACKEND-ERROR",
-      (error_info) => dispatch(SET_ERROR(error_info))
-    );
+    const subscribe = backendMsgs.subscribe;
+    const subscriptions = [
+      subscribe("CHECKIN", (info) => {
+        dispatch(SET_META_DATA(info));
+      }),
+      subscribe("APP-INFO", (info) => dispatch(SET_APP_INFO(info))),
+      subscribe("APP-SCRIPT-TEXT", (scripts) => {
+        if (!parseApp) {
+          throw new Error(
+            "No parser initialized. Checkin handshake must not have happened."
+          );
+        }
+        parseApp(scripts).then((info) => {
+          dispatch(SET_APP_INFO(info));
+        });
+      }),
+      subscribe("TEMPLATE_CHOOSER", (outputChoices) =>
+        dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }))
+      ),
+      subscribe("BACKEND-ERROR", (error_info) =>
+        dispatch(SET_ERROR(error_info))
+      ),
+      subscribe("CONNECTION-LOST", (error_info) =>
+        dispatch(SET_CONNECTION_LOST())
+      ),
+    ];
 
     // Make sure to do this after subscriptions otherwise the response may be
     // received before subscribers are setup to receive
     sendMsg({ path: "READY-FOR-STATE" });
 
     return () => {
-      updatedAppSubscription.unsubscribe();
-      templateChooserSubscription.unsubscribe();
-      backendErrorSubscription.unsubscribe();
+      subscriptions.forEach((s) => s.unsubscribe());
     };
-  }, [backendMsgs, dispatch, sendMsg]);
+  }, [backendMsgs.subscribe, dispatch, parseApp, sendMsg]);
 
   const debouncedSendMsg = React.useMemo(
     () => debounce(sendMsg, 500, true),
@@ -85,7 +100,11 @@ export function useSyncUiWithBackend() {
   // Keep the client-side state insync with the backend by sending update
   // messages
   React.useEffect(() => {
-    if (state.mode === "LOADING" || state.mode === "ERROR") {
+    if (
+      state.mode === "LOADING" ||
+      state.mode === "ERROR" ||
+      state.mode === "CONNECTION-LOST"
+    ) {
       // Avoiding unnecesary message to backend when the state hasn't changed
       // from the one sent to it
       return;
@@ -98,11 +117,15 @@ export function useSyncUiWithBackend() {
       return;
     }
 
+    const updatedAppScripts = generateFullAppScript(state, {
+      include_info: false,
+    });
+
     debouncedSendMsg({
       path: "UPDATED-APP",
-      payload: generate_full_app_script(state, { include_info: false }),
+      payload: updatedAppScripts,
     });
-  }, [state, debouncedSendMsg, sendMsg]);
+  }, [debouncedSendMsg, language, sendMsg, state]);
 
   return {
     state,

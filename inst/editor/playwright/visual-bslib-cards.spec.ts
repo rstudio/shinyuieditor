@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import type { KnownShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
+import type { KnownShinyUiNode } from "../src/ui-node-definitions/uiNodeTypes";
 
 import { mockBackendState } from "./utils/mockBackend";
 const shortCardTree: KnownShinyUiNode = {
@@ -19,7 +19,7 @@ const shortCardTree: KnownShinyUiNode = {
       },
       children: [
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {
@@ -77,7 +77,7 @@ const shortCardTree: KnownShinyUiNode = {
 test("Make sure cards with too much content don't overflow visually", async ({
   page,
 }) => {
-  await mockBackendState(page, shortCardTree);
+  await mockBackendState(page, { ui_tree: shortCardTree, language: "R" });
 
   await page.goto("/");
 

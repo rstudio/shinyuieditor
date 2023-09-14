@@ -4,7 +4,7 @@ import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
 import gridIcon from "../../assets/icons/shinyGridContainer.png";
 import navbarIcon from "../../assets/icons/tabsetPanel.png";
-import type { ShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
 import {
   MarkdownTooltipContent,
   Tooltip,

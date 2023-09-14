@@ -1,18 +1,19 @@
-import { getNode } from "../../../components/UiNode/TreeManipulation/getNode";
+import type { GridItemSettings } from "../../../ui-node-definitions/gridlayout/grid_card";
+import { areasOfChildren } from "../../../ui-node-definitions/gridlayout/gridTemplates/areasOfChildren";
+import { emptyCell } from "../../../ui-node-definitions/gridlayout/gridTemplates/itemLocations";
+import type { GridContainerNode } from "../../../ui-node-definitions/gridlayout/isValidGridItem";
+import { isValidGridContainer } from "../../../ui-node-definitions/gridlayout/isValidGridItem";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import { getNode } from "../../../ui-node-definitions/TreeManipulation/getNode";
 import {
   getChildIndex,
   separateIntoParentAndChildPaths,
-} from "../../../components/UiNode/TreeManipulation/getParentPath";
-import type { RemoveNodeArguments } from "../../../components/UiNode/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "../../../components/UiNode/TreeManipulation/updateNode";
-import { emptyCell } from "../../../utils/gridTemplates/itemLocations";
-import type { NodePath, ShinyUiNode } from "../../uiNodeTypes";
-import type { GridItemSettings } from "../GridlayoutCard";
+} from "../../../ui-node-definitions/TreeManipulation/getParentPath";
+import type { RemoveNodeArguments } from "../../../ui-node-definitions/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "../../../ui-node-definitions/TreeManipulation/updateNode";
 
-import { areasOfChildren } from "./areasOfChildren";
 import { gridLayoutReducer } from "./GridContainerElement/gridLayoutReducer";
-import type { GridContainerNode } from "./isValidGridContainer";
-import { isValidGridContainer } from "./isValidGridContainer";
 
 // This function watches for changes in a grid layout childs grid area and
 // updates the parent's layout names accordingly. Note that it mutates the tree

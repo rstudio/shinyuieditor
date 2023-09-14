@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import type { ShinyUiNode } from "../src/main";
+import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
 import { dragInDir } from "./utils/dragInDir";
 import { mockBackendState } from "./utils/mockBackend";
@@ -49,7 +49,7 @@ const basicGridApp: ShinyUiNode = {
 };
 
 test("Can resize tracts of the layout by dragging", async ({ page }) => {
-  await mockBackendState(page, basicGridApp);
+  await mockBackendState(page, { ui_tree: basicGridApp, language: "R" });
 
   await page.goto("/");
 
@@ -78,7 +78,7 @@ test("Can resize tracts of the layout by dragging", async ({ page }) => {
 test("Can update the positions of cards by dragging edges", async ({
   page,
 }) => {
-  await mockBackendState(page, basicGridApp);
+  await mockBackendState(page, { ui_tree: basicGridApp, language: "R" });
 
   await page.goto("/");
 

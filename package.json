@@ -4,8 +4,9 @@
     "inst/*"
   ],
   "scripts": {
+    "build": "turbo run build",
     "dev": "turbo run dev",
-    "prod": "turbo run prod",
+    "prod": "turbo run build",
     "test": "turbo run test",
     "playwright": "turbo run playwright",
     "update-visual-snapshots": "turbo run update-visual-snapshots",
@@ -14,6 +15,6 @@
     "watch": "turbo run watch --parallel --continue"
   },
   "devDependencies": {
-    "turbo": "^1.8.8"
+    "turbo": "^1.10.12"
   }
 }

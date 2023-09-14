@@ -1,6 +1,6 @@
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
-import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 
 const appTree: ShinyUiNode = {
   id: "grid_page",
@@ -28,7 +28,7 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {
@@ -85,7 +85,7 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          id: "card_body_fill",
+          id: "card_body",
           namedArgs: {},
           children: [
             {
@@ -106,7 +106,7 @@ const appTree: ShinyUiNode = {
 export const sidebarPlotGridTemplate: TemplateInfo = {
   title: "Sidebar Plotly",
   description:
-    "The classic geyser app in a gridlayout grid pag with a sidebar and a single large plot",
+    "The classic geyser app in a gridlayout grid page with a sidebar and a single large plot",
   uiTree: appTree as ShinyUiNode,
   otherCode: {
     serverLibraries: ["plotly"],

@@ -1,25 +1,24 @@
 import clone from "just-clone";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 
-import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import addItem from "../../../../utils/gridTemplates/addItem";
-import addTract from "../../../../utils/gridTemplates/addTract";
-import {
-  removeItem,
-  removeItems,
-} from "../../../../utils/gridTemplates/removeItem";
-import removeTract from "../../../../utils/gridTemplates/removeTract";
-import { renameItem } from "../../../../utils/gridTemplates/renameItem";
-import resizeTract from "../../../../utils/gridTemplates/resizeTract";
-import swapItems from "../../../../utils/gridTemplates/swapItems";
-import type { GridItemExtent } from "../../../../utils/gridTemplates/types";
-import type { TractDirection } from "../../GridlayoutGridPage";
-import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
-
-import type { GridLayoutArgsProperlyBoxed } from "./ensureProperBoxedGridLayoutArts";
+import type { GridLayoutArgs } from "../../../../ui-node-definitions/gridlayout/GridLayoutArgs";
+import { addItem } from "../../../../ui-node-definitions/gridlayout/gridTemplates/addItem";
+import { addTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/addTract";
 import {
   convertGridlayoutArgsToTemplatedLayout,
   convertTemplatedLayoutToGridlayoutArgs,
-} from "./layoutParsing";
+} from "../../../../ui-node-definitions/gridlayout/gridTemplates/layoutParsing";
+import {
+  removeItem,
+  removeItems,
+} from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeItem";
+import { removeTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeTract";
+import { renameItem } from "../../../../ui-node-definitions/gridlayout/gridTemplates/renameItem";
+import { resizeTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/resizeTract";
+import { swapItems } from "../../../../ui-node-definitions/gridlayout/gridTemplates/swapItems";
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
+import type { GridItemExtent } from "../../../../ui-node-definitions/gridlayout/gridTemplates/types";
+import type { CSSMeasure } from "../../../../ui-node-definitions/inputFieldTypes";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }
@@ -51,9 +50,9 @@ export type GridLayoutAction =
     };
 
 export function gridLayoutReducer(
-  layout: GridLayoutArgsProperlyBoxed,
+  layout: GridLayoutArgs,
   action: GridLayoutAction
-): GridLayoutArgsProperlyBoxed {
+): GridLayoutArgs {
   const layoutToUpdate = convertGridlayoutArgsToTemplatedLayout(layout);
 
   return convertTemplatedLayoutToGridlayoutArgs(

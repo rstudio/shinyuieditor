@@ -1,47 +1,42 @@
-import React from "react";
-
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
 
-import DeleteNodeButton from "../components/DeleteNodeButton";
 import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
+import { Trash } from "../components/Icons";
+import Button from "../components/Inputs/Button/Button";
 import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
-import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import {
-  generate_gh_issue_url,
-  generate_serialized_state_for_error,
+  generateGhIssueURL,
+  generateSerializedStateForError,
 } from "../utils/generate_issue_reports";
 
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
-import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
-type SettingsPanelProps = {
-  tree: ShinyUiNode;
-};
-
-export function SettingsPanel({ tree }: SettingsPanelProps) {
+export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
   const {
     currentNode,
     updateArgumentsByName,
     deleteArgumentByName,
     selectedPath,
     setNodeSelection,
-  } = useUpdateSettings(tree);
+    deleteNode,
+  } = useUpdateSettings(app_tree);
 
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
   }
+  const pathString = selectedPath.join(".");
   if (currentNode === null) {
-    return (
-      <div>Error finding requested node at path {selectedPath.join(".")}</div>
-    );
+    return <div>Error finding requested node at path {pathString}</div>;
   }
 
   const isRootNode = selectedPath.length === 0;
@@ -54,29 +49,39 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
     nodeInfo.settingsInfo,
     currentNode
   );
+  const customSettingsRenderer = getUiNodeSettingsRenderer(id);
 
   return (
     <>
       <PanelHeader>Properties</PanelHeader>
       <ErrorBoundary fallbackRender={SettingsPanelErrorFallback}>
-        <div className={classes.settingsPanel}>
-          <div className={classes.currentElementAbout}>
+        <div className="flex flex-col py-vertical-spacing px-horizontal-spacing h-100 overflow-auto">
+          <div className="flex-shrink-0">
             <PathBreadcrumb
-              tree={tree}
+              tree={app_tree}
               path={selectedPath}
               onSelect={setNodeSelection}
             />
           </div>
           <FormBuilder
+            app_tree={app_tree}
             settings={namedArgs}
             settingsInfo={staticSettingsInfo}
             renderInputs={
-              "settingsFormRender" in nodeInfo
-                ? (nodeInfo.settingsFormRender as CustomFormRenderFn<
+              customSettingsRenderer
+                ? (customSettingsRenderer as CustomFormRenderFn<
                     typeof namedArgs
                   >)
                 : undefined
             }
+            node={currentNode}
+            nodePath={selectedPath}
+            // We use a key here because otherwise react will try and be clever with
+            // the inputs which can cause funky things when we switch between nodes
+            // with shared argument names. If react doesn't know to rerender then the
+            // value of the previous node's shared argument will be used in place of
+            // the new nodes value. Putting the key all the way up
+            key={pathString + id}
             onSettingsChange={(name, action) => {
               switch (action.type) {
                 case "UPDATE":
@@ -90,8 +95,25 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
             }}
           />
           <GoToSourceBtns node={currentNode} />
-          <div className={classes.buttonsHolder}>
-            {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+          <div className="mt-auto py-vertical-spacing flex flex-col justify-around items-center gap-vertical-spacing">
+            {!isRootNode && (
+              <Button
+                className="text-danger flex items-center justify-start h-[40px] w-100 border-0"
+                onClick={(e) => {
+                  // Stop propigation of click event in case we have other click listeners
+                  // that try and do things like set selection
+                  e.stopPropagation();
+                  deleteNode();
+                }}
+                aria-label="Delete Selected Node"
+                title="Delete Selected Node"
+                variant="delete"
+                type="button"
+              >
+                <Trash className="text-2xl" />
+                Delete Element
+              </Button>
+            )}
           </div>
         </div>
       </ErrorBoundary>
@@ -103,9 +125,9 @@ const SettingsPanelErrorFallback = (fallbackProps: FallbackProps) => {
     <GeneralErrorView
       header="Error rendering settings panel"
       generateIssueLink={(state_at_error) =>
-        generate_gh_issue_url({
+        generateGhIssueURL({
           title: "Error rendering settings panel",
-          body: `Error rendering settings panel:\n${generate_serialized_state_for_error(
+          body: `Error rendering settings panel:\n${generateSerializedStateForError(
             state_at_error
           )}`,
           labels: ["Settings-Panel"],

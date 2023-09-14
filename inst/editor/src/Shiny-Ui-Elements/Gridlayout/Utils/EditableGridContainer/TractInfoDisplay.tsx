@@ -1,21 +1,20 @@
 import * as React from "react";
 
 import { FaPlus } from "react-icons/fa";
+import { cleanNumber } from "util-functions/src/numbers";
 
 import { Trash } from "../../../../components/Icons";
 import { parseCSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { CSSUnitChooser } from "../../../../components/Inputs/CSSUnitInput/CSSUnitChooser";
-import { NumberInputSimple } from "../../../../components/Inputs/NumberInput/NumberInput";
-import { TooltipButton } from "../../../../components/PopoverEl/Tooltip";
-import { conflictsToRemoveTract } from "../../../../utils/gridTemplates/removeTract";
+import { CSSUnitInputCore } from "../../../../components/Inputs/CSSUnitInput/CSSUnitInput";
+import { PopoverButton } from "../../../../components/Inputs/PopoverButton";
+import { conflictsToRemoveTract } from "../../../../ui-node-definitions/gridlayout/gridTemplates/removeTract";
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
 
 import { getUnitInfo } from "./dragToResizeHelpers";
 import type { TractUpdateAction } from "./EditableGridContainer";
-import type { TemplatedGridProps } from "./TemplatedGridProps";
 import classes from "./TractInfoDisplay.module.css";
 import { roundFr, roundPixel } from "./tractUpdatingFunctions";
 import type { TractInfo } from "./useDragToResizeGrid";
-import { cleanNumber } from "./utils";
 
 type TractUnit = "fr" | "px";
 const ALLOWED_UNITS: TractUnit[] = ["fr", "px"];
@@ -59,17 +58,12 @@ function TractInfoDisplay({
           <AddTractButton dir={dir} onClick={() => addTract("after")} />
         </div>
         <div className={classes.cssSizeInput}>
-          <NumberInputSimple
-            name="value-count"
-            aria-label="value-count"
-            value={count}
-            onChange={changeCount}
-            min={0}
-          />
-          <CSSUnitChooser
+          <CSSUnitInputCore
+            count={count}
             unit={unit as TractUnit}
-            availableUnits={ALLOWED_UNITS}
-            onChange={(u) => changeUnit(u)}
+            onCountChange={changeCount}
+            onUnitChange={changeUnit}
+            allowedUnits={ALLOWED_UNITS}
           />
         </div>
       </div>
@@ -86,7 +80,7 @@ function DeleteTractButton({
   onClick: () => void;
   deletionConflicts: string[];
 }) {
-  const popoverPlacement = dir === "rows" ? "right" : "down";
+  const popoverPlacement = dir === "rows" ? "right" : "bottom";
 
   const enabled = deletionConflicts.length === 0;
   const message = !enabled
@@ -95,16 +89,16 @@ function DeleteTractButton({
       )} are entirely contained in tract`
     : "Delete tract";
   return (
-    <TooltipButton
+    <PopoverButton
       className={classes.deleteButton}
       onClick={removeFocusAfterClick(enabled ? onClick : undefined)}
       data-enabled={enabled}
-      text={message}
-      size="medium"
-      position={popoverPlacement}
+      popoverContent={message}
+      placement={popoverPlacement}
+      variant="icon"
     >
       <Trash />
-    </TooltipButton>
+    </PopoverButton>
   );
 }
 
@@ -115,19 +109,20 @@ function AddTractButton({
   dir: TractInfo["dir"];
   onClick: () => void;
 }) {
-  const popoverPlacement = dir === "rows" ? "right" : "down";
+  const popoverPlacement = dir === "rows" ? "right" : "bottom";
 
   const label = dir === "rows" ? `Add row` : `Add column`;
 
   return (
-    <TooltipButton
+    <PopoverButton
       className={classes.tractAddButton}
       onClick={removeFocusAfterClick(onClick)}
-      position={popoverPlacement}
-      text={label}
+      placement={popoverPlacement}
+      popoverContent={label}
+      variant="icon"
     >
       <FaPlus />
-    </TooltipButton>
+    </PopoverButton>
   );
 }
 

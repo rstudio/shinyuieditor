@@ -21,6 +21,7 @@
 
 .description {
   padding-inline-start: var(--size-md);
+  margin-block: var(--size-md);
 }
 
 .code_holder {
@@ -45,4 +46,13 @@
   flex-direction: row;
   justify-content: flex-end;
   margin-block-start: var(--size-md);
+}
+
+.openButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  font-style: italic;
+  gap: var(--size-sm);
 }

@@ -1,11 +1,12 @@
 import { AppTour } from "../AppTour";
 import SvgShinyLogo from "../components/Icons/ShinyLogo";
 import { UndoRedoButtons } from "../components/UndoRedoButtons/UndoRedoButtons";
+import type { HistoryInfo } from "../HistoryNavigation/useUndoRedo";
 import type { MainStateOption } from "../state/app_info";
-import type { HistoryInfo } from "../state-logic/useUndoRedo";
 import { mergeClasses } from "../utils/mergeClasses";
 
 import styles from "./HeaderView.module.css";
+import { LanguageModeBadge } from "./LanguageModeBadge";
 import { OpenSideBySideWindowButton } from "./OpenSideBySideWindowButton";
 
 export function HeaderView({
@@ -19,6 +20,7 @@ export function HeaderView({
     <header className={styles.header}>
       <SvgShinyLogo className={styles.shiny_logo} />
       <h1 className={styles.app_title}>Shiny UI Editor</h1>
+      <LanguageModeBadge />
       <div className={styles.right}>
         {state.mode === "MAIN" ? (
           <>

@@ -1,12 +1,12 @@
 import React from "react";
 
-import { nodesAreSiblings } from "../../../components/UiNode/TreeManipulation/nodesAreSiblings";
 import type { DraggedNodeInfo } from "../../../DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "../../../DragAndDropHelpers/useFilteredDrop";
 import { useCurrentDraggedNode } from "../../../state/currentlyDraggedNode";
-import type { NodePath } from "../../uiNodeTypes";
+import { isValidGridItem } from "../../../ui-node-definitions/gridlayout/isValidGridItem";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import { nodesAreSiblings } from "../../../ui-node-definitions/TreeManipulation/nodesAreSiblings";
 
-import { isValidGridItem } from "./isValidGridItem";
 import classes from "./swapping.module.css";
 import { useSetLayout } from "./useSetLayout";
 

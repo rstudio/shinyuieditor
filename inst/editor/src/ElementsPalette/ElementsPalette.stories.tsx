@@ -1,5 +1,7 @@
 import React from "react";
 
+import ReduxProvider from "../state/ReduxProvider";
+
 import ElementsPalette from ".";
 
 export default {
@@ -17,6 +19,8 @@ export const Primary = () => (
       backgroundColor: "var(--light-grey)",
     }}
   >
-    <ElementsPalette />
+    <ReduxProvider>
+      <ElementsPalette />
+    </ReduxProvider>
   </div>
 );

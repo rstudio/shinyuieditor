@@ -1,27 +1,26 @@
 import React from "react";
 
+import type { AppInfo } from "communication-types/src/AppInfo";
+import { ArrowUpRightSquare } from "react-bootstrap-icons";
 import { useStore } from "react-redux";
 
-import type {
-  Single_File_Full_Info,
-  Multi_File_Full_Info,
-} from "../../ast_parsing";
-import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
+import { useLanguageMode } from "../../state/languageMode";
 import type { RootState } from "../../state/store";
+import { generateFullAppScript } from "../../ui-node-definitions/code_generation/generate_full_app_script";
 import Button from "../Inputs/Button/Button";
-import { TooltipButton } from "../PopoverEl/Tooltip";
+import { PopoverButton } from "../Inputs/PopoverButton";
 
 import classes from "./AppPreview.module.css";
+import { pythonAppToShinyliveUrl } from "./python_app_to_shinylive_url";
 import styles from "./ShowAppText.module.css";
 
-function AppFilesViewer({
-  info,
-}: {
-  info: Single_File_Full_Info | Multi_File_Full_Info;
-}) {
-  const app_scripts = generate_full_app_script(info, { include_info: false });
+function AppFilesViewer({ info }: { info: AppInfo }) {
+  const language = useLanguageMode();
+  const app_scripts = generateFullAppScript(info, {
+    include_info: false,
+  });
 
   if (app_scripts.app_type === "SINGLE-FILE") {
     return (
@@ -29,8 +28,27 @@ function AppFilesViewer({
         <h2 className={styles.title}>App script</h2>
         <p className={styles.description}>
           The following code defines the currently being edited app. Copy and
-          paste it to an <code>app.R</code> file to use.
+          paste it to an <code>app.{language === "PYTHON" ? "py" : "R"}</code>{" "}
+          file to use.
         </p>
+
+        {language === "PYTHON" ? (
+          <div className={styles.openButtons}>
+            <span>Want to start coding your app? </span>
+            <Button
+              onClick={() => {
+                const editor_url = pythonAppToShinyliveUrl(
+                  app_scripts.app,
+                  "editor"
+                );
+                window.open(editor_url);
+              }}
+            >
+              <ArrowUpRightSquare />
+              Open in ShinyLive Editor
+            </Button>
+          </div>
+        ) : null}
         <div className={styles.code_holder}>
           <label>app.R</label>
           <pre>{app_scripts.app}</pre>
@@ -69,15 +87,15 @@ export function ShowAppText() {
   return (
     <>
       <PanelHeader className={classes.title}>Code</PanelHeader>
-      <TooltipButton
+      <PopoverButton
         className={styles.show_btn}
-        text="See current application code"
-        position="left"
+        popoverContent="See current application code"
+        placement="left"
         onClick={() => set_script_visible((is_visible) => !is_visible)}
         variant="regular"
       >
         Get app script
-      </TooltipButton>
+      </PopoverButton>
       {script_visible ? (
         <DialogPopover
           className={styles.modal}

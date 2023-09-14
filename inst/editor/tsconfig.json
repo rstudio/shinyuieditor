@@ -1,12 +1,6 @@
 {
-  "extends": "tsconfig/base.json",
-  "include": [
-    "src",
-    "../util-functions/src/within.ts",
-    "../util-functions/src/TypescriptUtils.ts",
-    "../util-functions/src/matrix-helpers.test.ts",
-    "playwright/component-tests/bsicon-chooser.spec.tsx"
-  ],
+  "extends": "shared-configs/tsconfig.json",
+  "include": ["src", "playwright"],
   "compilerOptions": {
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "types": ["vite/client", "jest", "@testing-library/jest-dom"]

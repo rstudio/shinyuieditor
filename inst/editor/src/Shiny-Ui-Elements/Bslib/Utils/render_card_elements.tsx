@@ -2,24 +2,21 @@ import { sum_booleans } from "util-functions/src/sum_booleans";
 
 import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
+import type { ShinyUiParentNode } from "../../../ui-node-definitions/ShinyUiNode";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import { makeChildPath } from "../../nodePathUtils";
-import type { NodePath, ShinyUiParentNode } from "../../uiNodeTypes";
 
 import styles from "./CardUtils.module.css";
 
-const possible_elements = new Set([
-  "card_body_fill",
-  "card_header",
-  "card_footer",
-]);
+const possible_elements = new Set(["card_body", "card_header", "card_footer"]);
 
 const headerScaffold = {
   id: "card_header",
   namedArgs: {},
 } as const;
 const bodyScaffold = {
-  id: "card_body_fill",
+  id: "card_body",
   namedArgs: {},
 } as const;
 const footerScaffold = {
@@ -27,7 +24,7 @@ const footerScaffold = {
   namedArgs: {},
 } as const;
 
-export function render_card_elements(
+export function renderCardElements(
   children: ShinyUiParentNode["children"] = [],
   path: NodePath
 ): React.ReactNode {
@@ -54,7 +51,7 @@ export function render_card_elements(
     child_index++;
     if (id === "card_header") {
       header = child_node;
-    } else if (id === "card_body_fill") {
+    } else if (id === "card_body") {
       body = child_node;
     } else if (id === "card_footer") {
       footer = child_node;
@@ -92,7 +89,7 @@ export function render_card_elements(
           parentPath={path}
           wrappingNode={bodyScaffold}
           visibleWhenEmpty={true}
-          parentNodeType="card_body_fill"
+          parentNodeType="card_body"
           messageOnHover="Add to card body"
         />
       )}

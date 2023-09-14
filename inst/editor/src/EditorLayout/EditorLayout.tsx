@@ -18,14 +18,28 @@ export function EditorLayout({
   return (
     <>
       <div className={styles.EditorSkeleton}>
-        <div className={mergeClasses(styles.elements_panel, styles.panel)}>
+        <div
+          className={mergeClasses(styles.elements_panel, styles.panel)}
+          aria-label="Elements Panel"
+        >
           {left}
         </div>
-        <div className={styles.app_view}>{main}</div>
-        <div className={mergeClasses(styles.properties_panel, styles.panel)}>
+        <div
+          className="app-view bg-rstudio-white p-8 h-full relative row-span-2 overflow-auto"
+          aria-label="App Skeleton"
+        >
+          {main}
+        </div>
+        <div
+          className={mergeClasses(styles.properties_panel, styles.panel)}
+          aria-label="Properties panel"
+        >
           {properties}
         </div>
-        <div className={mergeClasses(styles.app_preview, styles.panel)}>
+        <div
+          className={mergeClasses(styles.app_preview, styles.panel)}
+          aria-label="App Preview"
+        >
           {preview}
         </div>
       </div>

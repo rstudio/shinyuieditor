@@ -5,22 +5,22 @@ import {
   TooltipTrigger,
 } from "../components/PopoverEl/FloatingPopover";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
-import type {
-  ShinyUiNode,
-  ShinyUiNodeIds,
-} from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeIcon } from "../Shiny-Ui-Elements/registered_ui_nodes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import type { ShinyUiNodeIds } from "../ui-node-definitions/uiNodeTypes";
+import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 
 import classes from "./styles.module.css";
 
 export function UiElementIcon({ id }: { id: ShinyUiNodeIds }) {
   const {
-    iconSrc,
     title,
     settingsInfo,
     description: infoPopup = title,
     default_node,
   } = getUiNodeInfo(id);
+
+  const iconSrc = getUiNodeIcon(id);
 
   const node = default_node
     ? {

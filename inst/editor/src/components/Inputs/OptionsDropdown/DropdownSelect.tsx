@@ -2,9 +2,9 @@ import React from "react";
 
 import { removeDuplicates } from "util-functions/src/arrays";
 
-import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
-import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 import "./styles.scss";
+import type { InputComponentByType } from "../../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
 
 export type DropdownOption = string;
 

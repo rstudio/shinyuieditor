@@ -3,16 +3,14 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { seqArray } from "util-functions/src/arrays";
 
-import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
-import type {
-  NodePath,
-  ShinyUiNode,
-} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentSelection } from "../../../state/selectedPath";
 import { usePlaceNode } from "../../../state/usePlaceNode";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import { nodeDepth } from "../../../ui-node-definitions/TreeManipulation/nodeDepth";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { PopoverButton } from "../../Inputs/PopoverButton";
-import { nodeDepth } from "../../UiNode/TreeManipulation/nodeDepth";
 
 import { Tab } from "./Tab";
 import { TabDropDetector } from "./TabDropDetector";
@@ -24,15 +22,14 @@ interface TabsetProps extends React.ComponentPropsWithoutRef<"div"> {
   addTabButton?: JSX.Element;
 }
 
-function Tabset({
-  path,
-  title,
+function useTabSelections({
   children,
-  className = "",
-  ...divProps
-}: TabsetProps & { path: NodePath }) {
+  path,
+}: {
+  children: React.ReactNode;
+  path: NodePath;
+}) {
   const tabNames = getTabNamesFromChildren(children);
-  const numChildren = tabNames.length;
   const selectedPath = useCurrentSelection();
 
   const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
@@ -54,15 +51,45 @@ function Tabset({
     if (selectedNodeIsDeeperThanActiveTab) {
       const index_of_tab_containing_selection =
         selectedPath[nodeDepth(pathOfActiveTab) - 1];
+
       if (typeof index_of_tab_containing_selection !== "number") {
-        throw new Error("Somehow active tab is not a child of the tabset");
+        // Probably selected something like the sidebar;
+        return;
       }
+
       setActiveTab(index_of_tab_containing_selection);
     }
   }, [activeTab, path, selectedPath, setActiveTab]);
 
+  const add_tab: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    place_node({
+      path: makeChildPath(path, tabNames.length),
+      node: emptyTabPanel,
+    });
+  };
+  return {
+    tabNames,
+    add_tab,
+    activeTab,
+  };
+}
+
+function Tabset({
+  path,
+  title,
+  children,
+  sidebar,
+  className = "",
+  ...divProps
+}: TabsetProps & { path: NodePath; sidebar?: JSX.Element }) {
+  const { tabNames, activeTab, add_tab } = useTabSelections({
+    children,
+    path,
+  });
   return (
     <div className={mergeClasses(className, classes.container)} {...divProps}>
+      {sidebar}
       <div className={classes.header}>
         <h1 className={classes.pageTitle}>{title}</h1>
         <div className={classes.tabHolder} aria-label="tabs container">
@@ -75,7 +102,7 @@ function Tabset({
               index={i}
             />
           ))}
-          {seqArray(numChildren).map((i) => (
+          {seqArray(tabNames.length).map((i) => (
             <TabDropDetector
               key={i}
               parentPath={path}
@@ -85,23 +112,18 @@ function Tabset({
           ))}
           <TabDropDetector
             parentPath={path}
-            index={numChildren}
+            index={tabNames.length}
             baseWidth="25px"
           >
             <PlusButton
               className={classes.addTabButton}
               label="Add new tab"
-              onClick={(e) => {
-                e.stopPropagation();
-                place_node({
-                  path: makeChildPath(path, numChildren),
-                  node: emptyTabPanel,
-                });
-              }}
+              onClick={add_tab}
             />
           </TabDropDetector>
         </div>
       </div>
+
       <div className={classes.tabContents}>
         {selectActiveTab(children, activeTab)}
       </div>
@@ -154,10 +176,6 @@ function selectActiveTab(children: React.ReactNode, activeTab: number) {
   });
 }
 
-const ButtonStyle: React.CSSProperties = {
-  display: "block",
-};
-
 function PlusButton({
   label,
   onClick,
@@ -176,7 +194,11 @@ function PlusButton({
       popoverContent={label}
       onClick={onClick}
     >
-      <FaPlus style={ButtonStyle} />
+      <FaPlus
+        style={{
+          display: "block",
+        }}
+      />
     </PopoverButton>
   );
 }

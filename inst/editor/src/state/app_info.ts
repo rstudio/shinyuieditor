@@ -1,18 +1,17 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
+import type { AppInfo } from "communication-types/src/AppInfo";
 import { useSelector } from "react-redux";
 
-import type { Full_App_Info, Raw_App_Info } from "../ast_parsing";
-import { ensure_full_app_info } from "../ast_parsing/ensure_full_app_info";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
-import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
-import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
-import type { RemoveNodeArguments } from "../components/UiNode/TreeManipulation/removeNode";
-import { removeNodeMutating } from "../components/UiNode/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/updateNode";
-import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
-import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import type { PlaceNodeArguments } from "../ui-node-definitions/TreeManipulation/placeNode";
+import { placeNodeMutating } from "../ui-node-definitions/TreeManipulation/placeNode";
+import type { RemoveNodeArguments } from "../ui-node-definitions/TreeManipulation/removeNode";
+import { removeNodeMutating } from "../ui-node-definitions/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "../ui-node-definitions/TreeManipulation/updateNode";
+import { updateNodeMutating } from "../ui-node-definitions/TreeManipulation/updateNode";
 
 import {
   get_deletion_subscriptions,
@@ -20,14 +19,10 @@ import {
 } from "./create_subscriber_getter";
 import type { RootState } from "./store";
 
-export type EditingState = { mode: "MAIN" } & Full_App_Info;
-export type TemplateChooserState = {
-  mode: "TEMPLATE_CHOOSER";
-  options: TemplateChooserOptions;
-};
-export type LoadingState = {
-  mode: "LOADING";
-};
+export type EditingState = {
+  mode: "MAIN";
+} & AppInfo;
+
 export type ErrorState = {
   mode: "ERROR";
   /** Where this error occured. E.g. "Parsing ast" */
@@ -38,8 +33,16 @@ export type ErrorState = {
 
 export type MainStateOption =
   | EditingState
-  | TemplateChooserState
-  | LoadingState
+  | {
+      mode: "TEMPLATE_CHOOSER";
+      options: TemplateChooserOptions;
+    }
+  | {
+      mode: "LOADING";
+    }
+  | {
+      mode: "CONNECTION-LOST";
+    }
   | ErrorState;
 
 // Note: The reducer callbacks use immer so the mutations we make to the object
@@ -54,30 +57,50 @@ export const mainStateSlice = createSlice({
     // This is used to teleport to a given state wholesale. E.g. undo-redo
     SET_FULL_STATE: (tree, action: PayloadAction<{ state: MainStateOption }>) =>
       action.payload.state,
+
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app
-    SET_APP_INFO: (
-      tree,
-      action: PayloadAction<Raw_App_Info | Full_App_Info>
-    ) => {
-      return ensure_full_app_info(action.payload);
+    SET_APP_INFO: (state, action: PayloadAction<AppInfo>) => {
+      try {
+        return {
+          ...state,
+          mode: "MAIN",
+          ...action.payload,
+        };
+      } catch (error) {
+        const error_msg = error instanceof Error ? error.message : null;
+
+        if (error_msg === null) {
+          // eslint-disable-next-line no-console
+          console.error("Unknown error type seen", error);
+        }
+        return {
+          ...state,
+          mode: "ERROR",
+          msg: error_msg ?? "Unknown error",
+          context: "Parsing app information from backend",
+        };
+      }
     },
     SET_ERROR: (
       state,
       { payload }: PayloadAction<MessageToClientByPath["BACKEND-ERROR"]>
     ) => {
-      return { mode: "ERROR", ...payload };
+      return { ...state, mode: "ERROR", ...payload };
     },
     SHOW_TEMPLATE_CHOOSER: (
       state,
       { payload }: PayloadAction<TemplateChooserOptions>
     ) => {
-      return { mode: "TEMPLATE_CHOOSER", options: payload };
+      return { ...state, mode: "TEMPLATE_CHOOSER", options: payload };
       // console.log("Template chooser mode", mode);
       // return "TEMPLATE_CHOOSER";
     },
     SET_LOADING: (state) => {
-      return { mode: "LOADING" };
+      return { ...state, mode: "LOADING" };
+    },
+    SET_CONNECTION_LOST: (state) => {
+      return { ...state, mode: "CONNECTION-LOST" };
     },
     UPDATE_NODE: (state, action: PayloadAction<UpdateNodeArguments>) => {
       if (state.mode !== "MAIN") {
@@ -118,6 +141,7 @@ export const {
   SET_FULL_STATE,
   SHOW_TEMPLATE_CHOOSER,
   SET_LOADING,
+  SET_CONNECTION_LOST,
 } = mainStateSlice.actions;
 
 export type UpdateAction = (

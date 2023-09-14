@@ -1,47 +1,32 @@
 import icon from "../../assets/icons/shinyPlot.png";
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { PlotPlaceholder } from "../../components/PlotPlaceholder/PlotPlaceholder";
+import { output_plotly } from "../../ui-node-definitions/plotly/output_plotly";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
+import { InputOutputTitle } from "../utils/InputOutputTitle";
 
-import PlotlyPlotlyOutput from "./PlotlyPlotlyOutput";
+import "./styles.scss";
 
-export type PlotlyOutputSettings = {
-  outputId: string;
-  width?: CSSMeasure;
-  height?: CSSMeasure;
-};
-
-export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
-  r_package: "plotly",
-  r_fn_name: "plotlyOutput",
-  title: "Plotly Plot",
-  takesChildren: false,
-  UiComponent: PlotlyPlotlyOutput,
-  settingsInfo: {
-    outputId: {
-      inputType: "string",
-      label: "Output ID for plot",
-      defaultValue: "plot",
-    },
-    width: {
-      label: "Width",
-      inputType: "cssMeasure",
-      defaultValue: "100%",
-      optional: true,
-    },
-    height: {
-      label: "Height",
-      inputType: "cssMeasure",
-      defaultValue: "400px",
-      optional: true,
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
-    },
-  },
+export const plotlyPlotlyOutputInfo = addEditorInfoToUiNode(output_plotly, {
   iconSrc: icon,
-  category: "Plotting",
-  description: "Output for interactive `plotly` plots.",
+  UiComponent: ({
+    namedArgs: { outputId, width = "100%", height = "400px" },
+    wrapperProps,
+  }) => {
+    return (
+      <div
+        className="plotlyPlotlyOutput"
+        style={{ height, width }}
+        {...wrapperProps}
+      >
+        <PlotPlaceholder
+          title={
+            <span className="title-bar">
+              <InputOutputTitle type="output" name={outputId} />
+              <span className="plotly-name">Plotly</span>
+            </span>
+          }
+        />
+      </div>
+    );
+  },
 });

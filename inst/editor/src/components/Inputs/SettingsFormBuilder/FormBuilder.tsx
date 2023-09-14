@@ -3,16 +3,20 @@ import React from "react";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
-import type { namedArgsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { getAllBindingIds } from "../../../EditorContainer/getAllBindingIds";
+import type { AllInputTypes } from "../../../ui-node-definitions/inputFieldTypes";
+import type { NodePath } from "../../../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import type { NamedArgsObject } from "../../../ui-node-definitions/uiNodeTypes";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
-import type { All_Input_Types } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
 } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import "./styles.scss";
+import { ExistingValuesProvider } from "./SettingsInput/StringInput";
 import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
 type SettingsObj = Record<string, unknown>;
@@ -24,31 +28,47 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (x: {
 }) => JSX.Element;
 
 export type FormBuilderProps = {
-  settings: namedArgsObject;
+  app_tree: ShinyUiNode;
+  node: ShinyUiNode;
+  nodePath: NodePath;
+  settings: NamedArgsObject;
   settingsInfo: DynamicArgumentInfo;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
 
 export function FormBuilder(args: FormBuilderProps) {
-  const {
-    settings,
-    settingsInfo,
-    onSettingsChange,
-    renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
-  } = args;
+  const { settings, onSettingsChange, renderInputs, node, nodePath } = args;
+
+  const inputElements = knownArgumentInputs(args);
+
+  let renderedInput: JSX.Element;
+
+  if (renderInputs) {
+    renderedInput = renderInputs({
+      inputs: inputElements,
+      settings,
+      onSettingsChange,
+    });
+  } else {
+    renderedInput = (
+      <>
+        {Object.entries(inputElements).map(([name, input], i) => (
+          <React.Fragment key={name + node.id + nodePath.join("-")}>
+            {input}
+          </React.Fragment>
+        ))}
+      </>
+    );
+  }
 
   return (
-    <form className="FormBuilder" onSubmit={disableDefaultSubmit}>
-      {renderInputs({
-        inputs: knownArgumentInputs({
-          settings,
-          settingsInfo,
-          onSettingsChange,
-        }),
-        settings,
-        onSettingsChange,
-      })}
+    <form
+      className="FormBuilder flex flex-grow flex-shrink-0 flex-col"
+      onSubmit={disableDefaultSubmit}
+      key={node.id + nodePath.join("-")}
+    >
+      {renderedInput}
       <UnknownArgumentsRender {...args} />
     </form>
   );
@@ -61,12 +81,12 @@ const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
 /**
  * Input types that should not be rendered in the form
  */
-const non_rendered_input_types = new Set<All_Input_Types>([
-  "omitted",
-  "ui-node",
-]);
+const non_rendered_input_types = new Set<AllInputTypes>(["omitted", "ui-node"]);
 
 function knownArgumentInputs({
+  app_tree,
+  node,
+  nodePath,
   settings,
   settingsInfo,
   onSettingsChange,
@@ -94,9 +114,46 @@ function knownArgumentInputs({
       onUpdate: (updatedAction) => onSettingsChange(arg_name, updatedAction),
     } as SettingsInputProps;
 
-    InputsComponents[arg_name] = (
-      <SettingsInput key={arg_name} {...inputProps} />
+    const settingsInput = (
+      <SettingsInput
+        key={node.id + arg_name + nodePath.join("-")}
+        {...inputProps}
+      />
     );
+
+    // This logic is to prevent the situation where we have duplicate IDs for
+    // inputs and outputs.
+    if (
+      (arg_name === "id" ||
+        arg_name === "inputId" ||
+        arg_name === "outputId") &&
+      typeof current_arg_value === "string"
+    ) {
+      const bindingIds = getAllBindingIds(app_tree);
+
+      // Just remove the first instance of a node's id from the array of seen
+      // ids. This will make sure that duplicate values will always show up as
+      // an error because if we just delete the the value from a set then it
+      // looks like it's not a duplicate.
+      const thisNodeIdIndex = bindingIds.indexOf(current_arg_value);
+      if (thisNodeIdIndex !== -1) {
+        bindingIds.splice(thisNodeIdIndex, 1);
+      }
+
+      // Now wrap this input with a context provider of off limits values.
+      InputsComponents[arg_name] = (
+        <ExistingValuesProvider
+          offLimitValues={{
+            existingValues: new Set(bindingIds),
+            warningMsg: (value: string) => `The id ${value} is already taken`,
+          }}
+        >
+          {settingsInput}
+        </ExistingValuesProvider>
+      );
+    } else {
+      InputsComponents[arg_name] = settingsInput;
+    }
   }
 
   return InputsComponents;

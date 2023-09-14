@@ -48,12 +48,15 @@ jobs:
         shell: bash
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      # Make sure all assets are built
+      - name: Build all deps
+        run: yarn build
       # Update the snapshots
       - name: Update snapshots
         run: yarn update-visual-snapshots
       # Run build to fix the environment variables
       - name: Rebuild main bundle
-        run: yarn prod
+        run: yarn build
       # Commit the changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

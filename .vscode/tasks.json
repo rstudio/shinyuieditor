@@ -7,6 +7,16 @@
       "type": "shell"
     },
     {
+      "label": "Compile Current TypeScript File",
+      "type": "shell",
+      "command": "npx esbuild ${file} --outdir=${workspaceFolder}/inst/${relativeFileDirname} --bundle --platform=node --target=node16 --format=cjs --sourcemap",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "dev build",
       "type": "npm",
       "script": "dev",

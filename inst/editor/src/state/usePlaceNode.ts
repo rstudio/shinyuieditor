@@ -2,9 +2,9 @@ import React from "react";
 
 import { useDispatch } from "react-redux";
 
-import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
-import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
-import { wrapInNode } from "../components/UiNode/TreeManipulation/wrapInNode";
+import type { PlaceNodeArguments } from "../ui-node-definitions/TreeManipulation/placeNode";
+import type { WrappingNode } from "../ui-node-definitions/TreeManipulation/wrapInNode";
+import { wrapInNode } from "../ui-node-definitions/TreeManipulation/wrapInNode";
 
 import { PLACE_NODE } from "./app_info";
 
@@ -17,7 +17,7 @@ export function usePlaceNode() {
       node,
       ...opts
     }: PlaceNodeArguments & {
-      wrappingNode?: Wrapping_Node;
+      wrappingNode?: WrappingNode;
     }) => {
       if (wrappingNode) {
         node = wrapInNode({ child: node, wrapper: wrappingNode });

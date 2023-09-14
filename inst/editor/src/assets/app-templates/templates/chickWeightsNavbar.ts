@@ -1,6 +1,6 @@
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
-import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 
 const navbarTree: ShinyUiNode = {
   id: "navbarPage",
@@ -46,7 +46,7 @@ const navbarTree: ShinyUiNode = {
                   ],
                 },
                 {
-                  id: "card_body_fill",
+                  id: "card_body",
                   namedArgs: {},
                   children: [
                     {
@@ -113,7 +113,7 @@ const navbarTree: ShinyUiNode = {
                   ],
                 },
                 {
-                  id: "card_body_fill",
+                  id: "card_body",
                   namedArgs: {},
                   children: [
                     {

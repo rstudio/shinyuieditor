@@ -9,6 +9,11 @@ const setup = ({ mode }) => {
   return defineConfig({
     base: "./",
     server: { port: 3000 },
+    resolve: {
+      alias: {
+        fs: require.resolve("rollup-plugin-node-builtins"),
+      },
+    },
     build: {
       outDir: mode === "vscode" ? "../vscode-extension/media/build" : "build",
       lib:
@@ -22,13 +27,16 @@ const setup = ({ mode }) => {
           : undefined,
       emptyOutDir: true,
       sourcemap: mode === "dev",
-      target: "es2015",
+      // target: "es2015",
       chunkSizeWarningLimit: 1000,
     },
     plugins: [react(), tsconfigPaths()],
     define: {
       "process.env.NODE_ENV": `"${mode}"`,
     },
+    // optimizeDeps: {
+    //   exclude: ["fs"],
+    // },
     test: {
       include: [`src/**/*.test.{ts,tsx}`],
       globals: true,

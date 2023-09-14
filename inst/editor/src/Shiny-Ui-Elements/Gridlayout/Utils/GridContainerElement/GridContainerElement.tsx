@@ -4,28 +4,28 @@ import UiNode from "../../../../components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "../../../../DragAndDropHelpers/DragAndDropHelpers";
 import { DropWatcherPanel } from "../../../../DragAndDropHelpers/DropWatcherPanel";
 import { usePlaceNode } from "../../../../state/usePlaceNode";
-import { findEmptyCells } from "../../../../utils/gridTemplates/findItemLocation";
-import { areasToItemLocations } from "../../../../utils/gridTemplates/itemLocations";
-import type { GridItemExtent } from "../../../../utils/gridTemplates/types";
-import { makeChildPath } from "../../../nodePathUtils";
-import type { UiNodeComponent } from "../../../uiNodeTypes";
-import { makeGridFriendlyNode } from "../../GridlayoutCard/makeGridFriendlyNode";
+import type { GridLayoutArgs } from "../../../../ui-node-definitions/gridlayout/GridLayoutArgs";
+import { findEmptyCells } from "../../../../ui-node-definitions/gridlayout/gridTemplates/findItemLocation";
+import { areasToItemLocations } from "../../../../ui-node-definitions/gridlayout/gridTemplates/itemLocations";
+import {
+  parseGridLayoutArgs,
+  convertTemplatedLayoutToGridlayoutArgs,
+} from "../../../../ui-node-definitions/gridlayout/gridTemplates/layoutParsing";
+import type { TemplatedGridProps } from "../../../../ui-node-definitions/gridlayout/gridTemplates/TemplatedGridProps";
+import type { GridItemExtent } from "../../../../ui-node-definitions/gridlayout/gridTemplates/types";
+import { isValidGridItem } from "../../../../ui-node-definitions/gridlayout/isValidGridItem";
+import { makeGridFriendlyNode } from "../../../../ui-node-definitions/gridlayout/makeGridFriendlyNode";
+import { makeChildPath } from "../../../../ui-node-definitions/nodePathUtils";
+import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
-import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
-import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 import { LayoutDispatchContext } from "../useSetLayout";
 import { useUpdateNamedArgs } from "../useUpdateUiArguments";
 
-import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutArts";
-import type { GridLayoutArgs } from "./GridLayoutArgs";
+import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutArgs";
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
-import {
-  convertTemplatedLayoutToGridlayoutArgs,
-  parseGridLayoutArgs,
-} from "./layoutParsing";
 import classes from "./styles.module.css";
 
 export type NewItemInfo = DraggedNodeInfo & {

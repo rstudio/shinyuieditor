@@ -1,68 +1,53 @@
+import React from "react";
+
 import icon from "../../assets/icons/shinyNumericinput.png";
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import { NumberInputSimple } from "../../components/Inputs/NumberInput/NumberInput";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { input_numeric } from "../../ui-node-definitions/Shiny/input_numeric";
+import { mergeClasses } from "../../utils/mergeClasses";
+import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
-import ShinyNumericInput from "./ShinyNumericInput";
+import classes from "./styles.module.css";
 
-export type ShinyNumericInputProps = {
-  inputId: string;
-  label: string;
-  value: number;
-  min?: number;
-  max?: number;
-  step?: number;
-  width?: CSSMeasure;
+const ShinyNumericInput: UiComponentFromInfo<typeof input_numeric> = ({
+  namedArgs,
+  wrapperProps,
+}) => {
+  const settings = { ...namedArgs };
+
+  const [value, setValue] = React.useState(settings.value);
+
+  React.useEffect(() => {
+    setValue(settings.value);
+  }, [settings.value]);
+
+  return (
+    <div
+      className={mergeClasses(classes.container, "numericInput")}
+      style={{
+        width: settings.width ?? "200px",
+        // If we're using the default width, don't let it go over the width of its container
+        maxWidth: settings.width ? undefined : "100%",
+      }}
+      {...wrapperProps}
+    >
+      <span>{settings.label}</span>
+      <NumberInputSimple
+        type="number"
+        value={value}
+        onChange={setValue}
+        min={settings.min}
+        max={settings.max}
+        step={settings.step}
+      />
+    </div>
+  );
 };
 
-export const shinyNumericInputInfo = nodeInfoFactory<ShinyNumericInputProps>()({
-  r_package: "shiny",
-  r_fn_name: "numericInput",
-  title: "Numeric Input",
-  takesChildren: false,
+export const shinyNumericInputInfo = addEditorInfoToUiNode(input_numeric, {
+  iconSrc: icon,
   UiComponent: ShinyNumericInput,
-  settingsInfo: {
-    inputId: {
-      inputType: "string",
-      label: "inputId",
-      defaultValue: "myNumericInput",
-    },
-    label: {
-      inputType: "string",
-      label: "label",
-      defaultValue: "Numeric Input",
-    },
-    min: {
-      label: "Min",
-      inputType: "number",
-      defaultValue: 0,
-      optional: true,
-    },
-    max: {
-      label: "Max",
-      inputType: "number",
-      defaultValue: 10,
-      optional: true,
-    },
-    value: {
-      label: "Start value",
-      inputType: "number",
-      defaultValue: 5,
-    },
-    step: {
-      inputType: "number",
-      label: "Step size",
-      defaultValue: 1,
-      optional: true,
-    },
-    width: {
-      inputType: "cssMeasure",
-      label: "Width",
-      defaultValue: "100%",
-      units: ["%", "px", "rem"],
-      optional: true,
-    },
-  },
   settingsFormRender: ({ inputs }) => {
     return (
       <>
@@ -78,12 +63,4 @@ export const shinyNumericInputInfo = nodeInfoFactory<ShinyNumericInputProps>()({
       </>
     );
   },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
-    },
-  },
-  iconSrc: icon,
-  category: "Inputs",
-  description: "An input control for entry of numeric values",
 });

@@ -1,0 +1,10 @@
+.language_badge {
+  width: var(--size-lg);
+  color: var(--rstudio-blue);
+  transform: translateY(-1px);
+}
+
+.language_badge > svg {
+  height: 100%;
+  width: 100%;
+}

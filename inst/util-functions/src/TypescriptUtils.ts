@@ -84,3 +84,40 @@ export type NonEmptyArray<T> = [T, ...T[]];
 export function identify_fn<T>(x: T) {
   return x;
 }
+
+/**
+ * Get a union of all the keys of currently required values in the object along
+ * with adding the newly requested keys
+ */
+type RequiredKeys<T> = {
+  [K in keyof T]: undefined extends T[K] ? never : K;
+}[keyof T];
+
+/**
+ * Set a subset of keys of an object to be required. Like a more specific
+ * version of `Required<T>`
+ */
+export type RequireKeys<T, K extends keyof T> = Expand_Single<
+  Required<Pick<T, RequiredKeys<T> | K>> & Omit<T, RequiredKeys<T> | K>
+>;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type test_require_keys = Expect<
+  Equal<
+    RequireKeys<{ a: string; b?: number; c?: string[] }, "b">,
+    { a: string; b: number; c?: string[] }
+  >
+>;
+
+declare const brand: unique symbol;
+
+/**
+ * Used for when you want to ensure that a given type has been verified at the
+ * type level without having to do anything to the actual object itself.
+ *
+ * For more info see [this article on a similar concept in
+ * flow.](https://codemix.com/opaque-types-in-javascript/) And [this
+ * tweet](https://twitter.com/mattpocockuk/status/1625173884885401600?s=20) for
+ * the logic for this implementation.
+ */
+export type Brand<T, TBrand> = T & { [brand]: TBrand };

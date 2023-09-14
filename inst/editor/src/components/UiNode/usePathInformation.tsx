@@ -2,11 +2,11 @@ import React from "react";
 
 import { sameArray } from "util-functions/src/equalityCheckers";
 
-import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
 import {
   useCurrentSelection,
   useSetCurrentSelection,
 } from "../../state/selectedPath";
+import type { NodePath } from "../../ui-node-definitions/NodePath";
 
 /**
  * Builds info related to the path such as a click handler to set selection and

@@ -1,0 +1,8 @@
+# Activate these filters so that build assets are ignored locally but go through properly on CI
+# Run the following in the shell
+#    git config --global filter.buildfilter.clean "cat"
+#    git config --global filter.buildfilter.smudge "cat"
+inst/editor/build/ filter=buildfilter
+inst/vscode-extension/build/ filter=buildfilter
+inst/vscode-extension/media/build/ filter=buildfilter
+inst/vscode-extension/*.vsix filter=buildfilter

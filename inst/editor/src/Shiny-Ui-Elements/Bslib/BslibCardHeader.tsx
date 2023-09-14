@@ -1,35 +1,22 @@
-import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { UiNodeComponent } from "../uiNodeTypes";
+import { card_header } from "../../ui-node-definitions/Bslib/card_header";
+import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { CardHeader } from "./Utils/CardElements";
-import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
-export type CardHeaderSettings = {};
 
-const BslibCardHeader: UiNodeComponent<
-  CardHeaderSettings,
-  { TakesChildren: true }
-> = (node) => {
-  const { children, path, wrapperProps } = node;
+export const bslibCardHeaderInfo = addEditorInfoToUiNode(card_header, {
+  UiComponent: (node) => {
+    const { children, path, wrapperProps } = node;
 
-  return (
-    <CardHeader {...wrapperProps}>
-      <CardChildrenWithDropNodes
-        children={children}
-        path={path}
-        parentid="card_header"
-        messageOnHover="Add to card header"
-      />
-    </CardHeader>
-  );
-};
-
-export const bslibCardHeaderInfo = nodeInfoFactory<CardHeaderSettings>()({
-  r_package: "bslib",
-  r_fn_name: "card_header",
-  title: "Card Header",
-  takesChildren: true,
-  UiComponent: BslibCardHeader,
-  settingsInfo: {},
-  category: "Cards",
-  description: "Header for bslib cards",
+    return (
+      <CardHeader {...wrapperProps}>
+        <ChildrenWithDropNodes
+          children={children}
+          parentPath={path}
+          parentid="card_header"
+          messageOnHover="Add to card header"
+        />
+      </CardHeader>
+    );
+  },
 });
