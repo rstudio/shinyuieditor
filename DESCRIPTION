@@ -1,6 +1,6 @@
 Package: shinyuieditor
 Title: Build and Modify your Shiny UI, visually
-Version: 0.4.3
+Version: 0.5.0
 Authors@R: 
     person(given = "Nick",
            family = "Strayer",

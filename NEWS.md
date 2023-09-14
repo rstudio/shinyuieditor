@@ -1,7 +1,17 @@
-# development
+# shinyuieditor 0.5.0
+
+### Major new features and improvements
+
+- Switched underlying parsing to use TreeSitter instead of the built-in R parser. This simplifies codebase and also makes whole app faster.
+
+### Minor new features and improvements
+
+- CSS unit inputs now respect valid ranges for their corresponding units. E.g. can't go bigger than 100% or smaller than 0px. (26324946e132f38dd4183543c51e44392649fab7 and a3f385a75cb868b245a0762cd6fa04f5942177c3)
+- You can now pass a direct path to an app in `launch_editor()`. (c931639284ed2420afe3ddc21fbb0261a289f8f4)
 
 ### Bug fixes
 
+- No longer crashes when special characters (e.g. `\` or `"`) are put into string inputs (2e241278750b6af816e44bb51750646a6f5de393)
 - Fixed bug where refreshing the page when using the editor via the `launch_editor()` function (as opposed to the vscode extension) could cause app file to be erased. (6aa03f4)
 - Fixed visual bug where headers and footers of bslib cards would show up even when nothing was in them in the vscode extension. (7d253de)
 - Fixed bug where non-bsicon versions of value boxes would be converted to `bsicons::bs_icon("undefined")`. (aefb778)
