@@ -14,7 +14,11 @@ launch_editor_addin <- function() {
     # If there's no reference point from which to run the
     # addin, try looking for a root to place the app by going to the
     # project if possible
-    cat("No active app found, defaulting to project root for new app.", "\n", file = stderr())
+    cat(
+      "No active app found, defaulting to project root for new app.", 
+      "\n", 
+      file = stderr()
+    )
 
     project_root <- rstudioapi::getActiveProject()
 

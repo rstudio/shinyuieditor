@@ -1,7 +1,7 @@
 # Validate that we're pointing to a directory. If the user has supplied a
 # direct file. E.g. a app.R or app.py file we should back up the app loc to
 # the parent location
-validateAppLoc <- function(loc) {
+validate_app_loc <- function(loc) {
 
     # If the file ends in app.R or ui.R or server.R we should back up the
     # location to the parent directory
