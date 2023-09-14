@@ -71,8 +71,14 @@ launch_editor <- function(app_loc,
   # "editing-app". This is used to know what to do on close
   server_mode <- "initializing"
 
+  # Validate that we're pointing to a directory. If the user has supplied a
+  # direct file. E.g. a app.R or app.py file we should back up the app loc to
+  # the parent location
+  app_loc <- validateAppLoc(app_loc)
+  
   # Type of app we're in. Can be "SINGLE-FILE", "MULTI-FILE", or "MISSING"
   app_type <- get_app_file_type(app_loc)
+
 
   # ----------------------------------------------------------------------------
   # Initialize classes for controling app preview and polling for updates
