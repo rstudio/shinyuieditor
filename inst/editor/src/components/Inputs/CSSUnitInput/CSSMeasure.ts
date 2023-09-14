@@ -33,7 +33,7 @@ export const infoForUnits: Record<
   auto: { defaultCount: 0, step: 1, min: 0, max: 0 },
 };
 
-type ParsedCSSMeasure =
+export type ParsedCSSMeasure =
   | { count: number; unit: CSSUnit }
   | { count: null; unit: "auto" };
 
@@ -67,4 +67,32 @@ export function parseCSSMeasure(measure: string): ParsedCSSMeasure {
 export function deparseCSSMeasure(parsed: ParsedCSSMeasure): CSSMeasure {
   if (parsed.unit === "auto") return "auto";
   return `${parsed.count}${parsed.unit}`;
+}
+
+/**
+ * Takes a count value and makes sure it fits within the allowed bounds for the given unit
+ * @param count Count for current measure. If null, will return the default count for the unit
+ * @param newUnit Unit for current measure
+ * @returns The count value
+ */
+export function validateCountAfterUnitChange(
+  count: number | null,
+  newUnit: CSSUnitWAuto
+): ParsedCSSMeasure {
+  if (newUnit === "auto") {
+    return { count: null, unit: "auto" };
+  }
+
+  const unitInfo = infoForUnits[newUnit];
+
+  const validCount =
+    count === null
+      ? unitInfo.defaultCount
+      : count < unitInfo.min
+      ? unitInfo.min
+      : count > unitInfo.max
+      ? unitInfo.max
+      : count;
+
+  return { count: validCount, unit: newUnit };
 }

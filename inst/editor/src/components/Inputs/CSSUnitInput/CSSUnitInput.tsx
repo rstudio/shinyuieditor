@@ -5,9 +5,9 @@ import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { NumberInputSimple } from "../NumberInput/NumberInput";
 
-import type { CSSUnitWAuto } from "./CSSMeasure";
-import { infoForUnits } from "./CSSMeasure";
-import { deparseCSSMeasure, parseCSSMeasure } from "./CSSMeasure";
+import type { CSSUnitWAuto, ParsedCSSMeasure } from "./CSSMeasure";
+import { validateCountAfterUnitChange } from "./CSSMeasure";
+import { deparseCSSMeasure, infoForUnits, parseCSSMeasure } from "./CSSMeasure";
 import { CSSUnitChooser } from "./CSSUnitChooser";
 import classes from "./CSSUnitInput.module.css";
 
@@ -20,6 +20,13 @@ export function CSSUnitInput({
 }: InputComponentByType<"cssMeasure">) {
   const { count, unit } = parseCSSMeasure(initialValue);
 
+  // Allow us to pass the object-form of the css measure to on change to keep
+  // code cleaner
+  const updateValue = React.useCallback(
+    (x: ParsedCSSMeasure) => onChange(deparseCSSMeasure(x)),
+    [onChange]
+  );
+
   const updateCount = React.useCallback(
     (newCount?: number) => {
       if (newCount === undefined) {
@@ -27,46 +34,28 @@ export function CSSUnitInput({
           throw new Error("Undefined count with auto units");
         }
 
-        onChange(deparseCSSMeasure({ unit, count: null }));
+        updateValue({ unit, count: null });
         return;
       }
+
       if (unit === "auto") {
         // eslint-disable-next-line no-console
         console.error("How did you change the count of an auto unit?");
         return;
       }
 
-      onChange(deparseCSSMeasure({ unit, count: newCount }));
+      updateValue({ unit, count: newCount });
     },
-    [onChange, unit]
+    [unit, updateValue]
   );
 
   const updateUnit = React.useCallback(
     (newUnit: CSSUnitWAuto) => {
-      if (newUnit === "auto") {
-        onChange(
-          deparseCSSMeasure({
-            unit: newUnit,
-            count: null,
-          })
-        );
-        return;
-      }
+      updateValue(validateCountAfterUnitChange(count, newUnit));
 
-      if (unit === "auto") {
-        onChange(
-          deparseCSSMeasure({
-            unit: newUnit,
-            count: infoForUnits[newUnit].defaultCount,
-          })
-        );
-        return;
-      }
-
-      onChange(deparseCSSMeasure({ unit: newUnit, count: count }));
       return;
     },
-    [count, onChange, unit]
+    [count, updateValue]
   );
 
   if (!units.includes(unit)) {
