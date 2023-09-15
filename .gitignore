@@ -3,7 +3,7 @@
 
 *.local
 .Rproj.user
-dist
+# dist
 dist-ssr
 inst/doc
 docs
