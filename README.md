@@ -7,10 +7,6 @@ A visual tool for building the UI portion of a Shiny application that generates 
 
 The goal of the Shiny Ui Editor is to allow people to build the broad-level UI for their Shiny app without writing code. The editor is intended for those who may not be comfortable with the HTML-style code of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
 
-## ⚠️ `shinyuieditor` is currently in Alpha.
-
-It may be unstable, and the API may change. We're excited to hear your feedback, but please don't use it for production applications just yet!
-
 ## Installing
 
 While in development the package is only available on github:
