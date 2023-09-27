@@ -44,7 +44,7 @@ Alternatively, if you wish to start a new app with the ui editor you can open th
 
 Found a bug or want to suggest a feature? Use the github issues page: [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues).
 
-More general comments can be sent via email (nick.strayer@rstudio.com) or for more public discourse, [twitter.](https://twitter.com/NicholasStrayer)
+More general comments can be sent via email (nick.strayer@posit.co) or for more public discourse, [twitter.](https://twitter.com/NicholasStrayer)
 
 The things most useful for feedback at this stage are:
 
