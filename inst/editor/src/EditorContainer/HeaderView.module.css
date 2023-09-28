@@ -24,6 +24,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  outline: var(--outline);
 }
 
 .OpenSideBySideWindowButton {

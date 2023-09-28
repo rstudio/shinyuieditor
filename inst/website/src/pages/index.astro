@@ -25,7 +25,7 @@ import "@/styles/globals.css";
       <a href="./getting-started">
         <Card className="h-full">
           <CardHeader>
-            <CardTitle>Getting Started</CardTitle>
+            <CardTitle className="flex gap-2"><Icon class="h-6" name="uil:rocket"/> Getting Started </CardTitle>
           </CardHeader>
           <CardContent>
             <p>
@@ -38,7 +38,7 @@ import "@/styles/globals.css";
       <a href="./how-to">
         <Card className="h-full">
           <CardHeader>
-            <CardTitle>How Tos</CardTitle>
+            <CardTitle className="flex gap-2"><Icon class="h-6" name="bi:card-checklist"/> How Tos </CardTitle>
           </CardHeader>
           <CardContent>
             <p>
@@ -51,24 +51,26 @@ import "@/styles/globals.css";
       <a href="./FAQs">
         <Card className="h-full">
           <CardHeader>
-            <CardTitle>FAQs</CardTitle>
+            <CardTitle className="flex gap-2"><Icon class="h-6" name="bi:question-circle"/> FAQs </CardTitle>
           </CardHeader>
           <CardContent>
             <p>Answers to common questions about the UI editor.</p>
           </CardContent>
         </Card>
       </a>
-      <a href="https://github.com/rstudio/shinyuieditor">
+      <a href="./live-demo">
         <Card className="h-full">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              Github <Icon name="mdi:github" class="h-6" />
+              <Icon class="h-6" name="bi:laptop"/>
+              Live Demo
+              
+
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p>
-              View the source code for the UI editor, submit issues and feature
-              requests.
+              See the UI editor in action by using it directly in your browser. No install needed. Provides copyable code for your app.
             </p>
           </CardContent>
         </Card>

@@ -1,6 +1,6 @@
 ---
 import Header from "../components/Header";
-import Layout from "../layouts/Layout.astro";
+import FullPageLayout from "../layouts/FullPageLayout.astro";
 
 
 import { SUE } from "editor-component-lib";
@@ -10,31 +10,14 @@ import "editor-component-lib/dist/style.css"
 import "@/styles/globals.css";
 ---
 
-<Layout title="Welcome to Astro.">
-  <Header showBorder={false} client:load />
-  <main class="h-[800px]">
-   <h1>Hi there</h1>
-   <SUE client:only="React"/>
+<FullPageLayout title="Welcome to Astro.">
+  <Header showBorder={true} client:load />
+  <!-- Need min-h-0 to avoid growing over the allotted size  -->
+  <main class="p-6 h-full w-full relative min-h-0">
+   
+    <div class="p-6 h-full max-h-full relative bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 rounded-xl">
+      <SUE client:only="React"/>
+    </div>
    
   </main>
-</Layout>
-
-<style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    font-size: 20px;
-    line-height: 1.6;
-  }
-
-  h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    margin-bottom: 1em;
-  }
- 
-</style>
+</FullPageLayout>

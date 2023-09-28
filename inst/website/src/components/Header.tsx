@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -9,6 +10,7 @@ export const navigation = [
   { name: "Getting Started", href: "/getting-started" },
   { name: "How To", href: "/how-to" },
   { name: "FAQs", href: "/FAQs" },
+  { name: "Live Demo", href: "/live-demo" },
   { name: "Github", href: "https://github.com/rstudio/shinyuieditor" },
 ];
 
@@ -20,7 +22,7 @@ export default function Header({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className={`z-50 ${showBorder ? "border-b" : ""} mb-6`}>
+    <header className={`z-50 ${showBorder ? "border-b" : ""}`}>
       <nav
         className="flex items-center justify-between px-6 py-2 lg:px-8"
         aria-label="Global"
