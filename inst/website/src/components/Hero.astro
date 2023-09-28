@@ -1,7 +1,10 @@
 ---
-import { Icon } from "astro-icon";
 
+import LinkButton from "@/components/LinkButton.astro";
 import layoutGif from "../assets/layout-editing.webp";
+import GettingStartedIcon from "@/components/icons/GettingStartedIcon.astro";
+import LiveDemoIcon from "@/components/icons/LiveDemoIcon.astro";
+
 ---
 
 <div class="bg-white">
@@ -35,24 +38,8 @@ import layoutGif from "../assets/layout-editing.webp";
             clean and proper code as you build.
           </p>
           <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a
-              href="/sue-homebase/getting-started"
-              class="rounded-md bg-rstudio-blue hover:bg-rstudio-blue/80 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 flex"
-            >
-            <Icon class="h-5 mr-2" name="uil:rocket"/> Get started
-            </a>
-            <a
-              href="/sue-homebase/live-demo"
-              class="rounded-md bg-rstudio-blue hover:bg-rstudio-blue/80 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 flex"
-            >
-            <Icon class="h-5 mr-2" name="bi:laptop"/> Live Demo
-            </a>
-            <a
-              href="https://github.com/rstudio/shinyuieditor"
-              class="rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80 px-3.5 py-2.5 text-sm font-semiboldshadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 flex"
-            >
-              <Icon name="mdi:github" class="h-5 mr-2" /> Github 
-            </a>
+            <LinkButton href="/sue-homebase/getting-started"> <GettingStartedIcon/> Get started</LinkButton>
+            <LinkButton href="/sue-homebase/live-demo" variant="secondary"> <LiveDemoIcon/> Live Demo</LinkButton>
           </div>
         </div>
         <div class="mt-16 flow-root sm:mt-24">
