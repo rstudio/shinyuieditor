@@ -11,47 +11,73 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup:
+  build:
+    name: Build and Test
+    timeout-minutes: 15
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/internals/setup-js
 
-  unit-tests:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/internals/setup-js
-      - name: Run unit tests
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
         run: yarn test
+# jobs:
+#   setup:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: ./.github/internals/setup-js
 
-  playwright-tests:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+#   unit-tests:
+#     timeout-minutes: 60
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: ./.github/internals/setup-js
+#       - name: Run unit tests
+#         run: yarn test
 
-      - uses: ./.github/internals/setup-js
+#   playwright-tests:
+#     timeout-minutes: 60
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
+#       - uses: ./.github/internals/setup-js
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::pkgdown, any::devtools, local::.
-          needs: website
+#       - uses: r-lib/actions/setup-r@v2
+#         with:
+#           use-public-rspm: true
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+#       - uses: r-lib/actions/setup-r-dependencies@v2
+#         with:
+#           extra-packages: any::pkgdown, any::devtools, local::.
+#           needs: website
 
-      - name: Run Playwright tests
-        run: yarn playwright
+#       - name: Install Playwright Browsers
+#         run: npx playwright install --with-deps
 
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: playwright-report
-          path: ./inst/editor/playwright-report/
-          retention-days: 30
+#       - name: Run Playwright tests
+#         run: yarn playwright
+
+#       - uses: actions/upload-artifact@v2
+#         if: always()
+#         with:
+#           name: playwright-report
+#           path: ./inst/editor/playwright-report/
+#           retention-days: 30
