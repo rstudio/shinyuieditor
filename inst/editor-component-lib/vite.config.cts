@@ -14,7 +14,7 @@ const setup = ({ mode }) => {
       },
     },
     build: {
-      outDir: "build",
+      outDir: "dist",
       lib: {
         entry: resolve(__dirname, "src/index.ts"),
         fileName: "index",

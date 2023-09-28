@@ -2,16 +2,16 @@
   "name": "editor-component-lib",
   "version": "0.0.0",
   "type": "module",
-  "main": "build/index.js",
-  "module": "build/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./build/index.js",
-      "require": "./build/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     },
-    "./build/*.css": {
-      "import": "./build/*.css",
-      "require": "./build/*.css"
+    "./dist/*.css": {
+      "import": "./dist/*.css",
+      "require": "./dist/*.css"
     }
   },
   "private": true,
