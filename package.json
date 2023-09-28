@@ -16,5 +16,6 @@
   },
   "devDependencies": {
     "turbo": "^1.10.12"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
