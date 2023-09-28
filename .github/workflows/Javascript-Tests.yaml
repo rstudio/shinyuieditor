@@ -44,8 +44,8 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-        extra-packages: any::pkgdown, any::devtools, local::.
-        needs: website
+          extra-packages: any::pkgdown, any::devtools, local::.
+          needs: website
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
