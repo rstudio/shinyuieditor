@@ -1,18 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import Header from "@/components/Header";
 import Hero from "@/components/Hero.astro";
 import {CardSection} from "@/components/CardSection";
 
-import { Icon } from "astro-icon";
 
 import "@/styles/globals.css";
 ---
@@ -21,8 +13,6 @@ import "@/styles/globals.css";
   <Header showBorder={false} client:load />
   <main>
     <Hero />
-
-   
     <CardSection/>
   </main>
 </Layout>
