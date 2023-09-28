@@ -4,7 +4,16 @@
   "type": "module",
   "main": "build/index.js",
   "module": "build/index.js",
-  "exports": "./build/index.js",
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "require": "./build/index.js"
+    },
+    "./build/*.css": {
+      "import": "./build/*.css",
+      "require": "./build/*.css"
+    }
+  },
   "private": true,
   "dependencies": {
     "editor": "*"

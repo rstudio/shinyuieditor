@@ -21,7 +21,7 @@ const setup = ({ mode }) => {
         formats: ["es"],
       },
       rollupOptions: {
-        external: ["vscode-webview"],
+        external: ["react", "react-dom", "react/jsx-runtime"],
         plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
       },
       emptyOutDir: true,
