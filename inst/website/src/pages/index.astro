@@ -8,8 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Header from "../components/Header";
-import Hero from "../components/Hero.astro";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero.astro";
+import {CardSection} from "@/components/CardSection";
 
 import { Icon } from "astro-icon";
 
@@ -21,61 +22,8 @@ import "@/styles/globals.css";
   <main>
     <Hero />
 
-    <ul role="list" class="link-card-grid z-50">
-      <a href="./getting-started">
-        <Card className="h-full">
-          <CardHeader>
-            <CardTitle className="flex gap-2"><Icon class="h-6" name="uil:rocket"/> Getting Started </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>
-              Learn how to get the UI editor up and running and editing your
-              first app.
-            </p>
-          </CardContent>
-        </Card>
-      </a>
-      <a href="./how-to">
-        <Card className="h-full">
-          <CardHeader>
-            <CardTitle className="flex gap-2"><Icon class="h-6" name="bi:card-checklist"/> How Tos </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>
-              Learn how to get the UI editor up and running and editing your
-              first app.
-            </p>
-          </CardContent>
-        </Card>
-      </a>
-      <a href="./FAQs">
-        <Card className="h-full">
-          <CardHeader>
-            <CardTitle className="flex gap-2"><Icon class="h-6" name="bi:question-circle"/> FAQs </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Answers to common questions about the UI editor.</p>
-          </CardContent>
-        </Card>
-      </a>
-      <a href="./live-demo">
-        <Card className="h-full">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Icon class="h-6" name="bi:laptop"/>
-              Live Demo
-              
-
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>
-              See the UI editor in action by using it directly in your browser. No install needed. Provides copyable code for your app.
-            </p>
-          </CardContent>
-        </Card>
-      </a>
-    </ul>
+   
+    <CardSection/>
   </main>
 </Layout>
 
