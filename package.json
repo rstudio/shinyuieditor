@@ -15,7 +15,7 @@
     "watch": "turbo run watch --parallel --continue"
   },
   "devDependencies": {
-    "turbo": "^1.10.12"
+    "turbo": "^1.10.14"
   },
   "packageManager": "yarn@1.22.19"
 }
