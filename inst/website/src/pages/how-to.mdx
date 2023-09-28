@@ -1,0 +1,87 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "Frequently Asked Questions"
+author: "Nick Strayer"
+date: "25 Sep 2023"
+---
+
+import { Image } from "astro:assets";
+import VideoEmbed from "../components/VideoEmbed.astro";
+
+import templateChooserScreenshot from "../assets/screenshots/template-chooser.png";
+
+This article lays out how to do some of the more common tasks you will do with the `shinyuieditor`.
+
+For the same info in a long-form video, see the [`shinyuieditor` feature tour](https://youtu.be/Zac1qdaYNsY) video.
+
+## Add a new ui element to your app
+
+To add a new ui element to your app you drag the desired element in from the "Elements" panel. Places where the element can be placed will be highlighted (if no places are available, try adding a new row or column to the app to create space.) Once you have dragged your element over an available area, release it to add it to your app.
+
+<VideoEmbed loc="/how-to-videos/add-element.webm" />
+
+## Move a ui element within your app
+
+Click and drag the ui element you wish to move. Just like adding an element, the available positions to move the element will be highlighted. Drag the element to the desired new position and drop to move it.
+
+<VideoEmbed loc="/how-to-videos/move-an-element.webm" />
+
+## Select a ui element
+
+Select the element by clicking inside it. Once the element is selected it will be given a blue outline and the "Properties" panel will update with details for the element. Alternatively, you can select the parent of the currently selected element by clicking the parent's name in the element-path visualization at the top of the "Properties" panel.
+
+<VideoEmbed loc="/how-to-videos/select-an-element.webm" />
+
+## Delete a ui element
+
+[Select the element](#select-a-ui-element). Once the element is selected, click the "Delete Element" button at the bottom of the "Properties" panel. Some elements such as a `grid_card()` will also show delete buttons right on the element itself when no children are contained. You may also delete an item using the delete/backspace key.
+
+<VideoEmbed loc="/how-to-videos/delete-an-element.webm" />
+
+## Update the settings for a ui element
+
+[Select the element](#select-a-ui-element). After element is selected, update the settings using the "Properties" panel. As inputs are updated the changes will automatically be saved and reflected in the app outline and live-preview window.
+
+<VideoEmbed loc="/how-to-videos/update-an-element.webm" />
+
+## Show row/column size widget
+
+Mouse-over the left end of a row or top of a column to reveal the sizing widget.
+
+<VideoEmbed loc="/how-to-videos/show-size-widget.webm" />
+
+## Add a row or column to the layout grid
+
+[Open the sizing widget of row or column](#show-rowcolumn-size-widget) adjacent to where you wish to add a new row or column. On either end of the widget will be plus (`+`) buttons that when clicked will add a row or column on their respective sides of the existing row or column.
+
+<VideoEmbed loc="/how-to-videos/add-tract.webm" />
+
+## Delete a row or column in the layout grid
+
+[Open the sizing widget of the row or column](#show-rowcolumn-size-widget) you wish to delete. Then click the red trash icon to delete that row from layout. If the trash icon is greyed-out the row or column can't be deleted due named areas on the grid residing entirely within it. Mousing over the greyed-out button will tell you which grid-areas these are so you can either delete them or move them to a new location.
+
+<VideoEmbed loc="/how-to-videos/delete-tract.webm" />
+
+## Resize the rows and columns of the layout grid
+
+### By dragging
+
+Click on the delineating lines between rows or columns and start dragging. Once resizing is occurring size indicators will popup on the resize-effected rows or columns. Once desired size is reached, stop dragging to finalize the resize.
+
+<VideoEmbed loc="/how-to-videos/resize-with-drag.webm" />
+
+### With row/column size widgets
+
+[Open the row/column to be resized's sizing widget](#show-rowcolumn-size-widget) Use the css unit input controls in this widget to update the size of the row or column.
+
+<VideoEmbed loc="/how-to-videos/resize-with-widget.webm" />
+
+## Undo/redo a change made to the app
+
+Use the undo button available in the upper-right corner of the app to restore your app's ui to the way it was before the last change made. If you wish to restore the change just undone, click the redo button to the right. Both undo and redo can also be performed using the keyboard shortcuts `cmd/ctrl + z` and `cmd/ctrl + shift + z` respectively.
+
+<VideoEmbed loc="/how-to-videos/undo-redo.webm" />
+
+## Stop the editor
+
+As long as the argument `stop_on_browser_close` is set at the default value of `TRUE`, then all you need to do to stop the editor is close the browser tab/window the editor is currently open in. Another way of ending is to interupt the editor server by pressing `Control/Command` + `c` in the R console used to launch the editor. If in RStudio the red stop icon will also accomplish this.
