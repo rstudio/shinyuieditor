@@ -1,0 +1,17 @@
+---
+interface Props {
+  loc: string;
+}
+
+const { loc } = Astro.props;
+---
+
+<style>
+  .how-to-video {
+    width: 100%;
+  }
+</style>
+
+<video class="how-to-video" controls autoplay loop>
+  <source src={loc} type="video/webm; codecs=vp9" />
+</video>
