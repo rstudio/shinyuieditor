@@ -6,6 +6,10 @@ author: "Nick Strayer"
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "18.x"
+
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       working-directory: ./inst/editor
@@ -19,10 +23,6 @@ runs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('inst/editor/yarn.lock')  }}
         restore-keys: |
           ${{ runner.os }}-yarn-
-
-    - uses: actions/setup-node@v3
-      with:
-        node-version: "18.x"
 
     - name: Install JS dependencies
       run: yarn install --immutable
