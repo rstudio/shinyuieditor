@@ -1,5 +1,8 @@
 import type { BackendConnection, MessageDispatcher } from "communication-types";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
+
+import type { ShinyUiRootNode } from "../ui-node-definitions/ShinyUiNode";
 
 import type { MinimalAppInfo } from "./getClientsideOnlyTree";
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
@@ -60,13 +63,23 @@ export function setupStaticBackend({
   return messagePassingMethods;
 }
 
-export function staticDispatchFromTree(defaultInfo?: MinimalAppInfo) {
+/**
+ * Create a static backend object for a given ui tree.
+ * @param defaultTree Tree to use as default. Defaults to special value of
+ * `"TEMPLATE_CHOOSER"` which will show the template chooser.
+ * @param language Language to use. Defaults to `"R"`.
+ * @returns A backend object that can be used to communicate with the frontend.
+ */
+export function staticDispatchFromTree(
+  defaultTree?: ShinyUiRootNode,
+  language: LanguageMode = "R"
+) {
   return setupStaticBackend({
     messageDispatch: makeMessageDispatcher(),
     showMessages: true,
-    defaultInfo: defaultInfo ?? {
-      ui_tree: "TEMPLATE_CHOOSER",
-      language: "R",
+    defaultInfo: {
+      language,
+      ui_tree: defaultTree ?? "TEMPLATE_CHOOSER",
     },
   });
 }

@@ -8,6 +8,7 @@ import { BackendConnectionProvider } from "./backendCommunication/useBackendMess
 import { GeneralErrorView } from "./components/ErrorCatcher/GeneralErrorView";
 import { EditorContainer } from "./EditorContainer/EditorContainer";
 import { TSParserProvider } from "./EditorContainer/TSParserProvider";
+import { staticDispatchFromTree } from "./main";
 import ReduxProvider from "./state/ReduxProvider";
 import styles from "./SUE.module.css";
 import {
@@ -18,9 +19,9 @@ import { mergeClasses } from "./utils/mergeClasses";
 
 export function SUE({
   showMessages = true,
-  backendDispatch: { sendMsg, incomingMsgs, mode },
+  backendDispatch: { sendMsg, incomingMsgs, mode } = staticDispatchFromTree(),
 }: {
-  backendDispatch: BackendConnection;
+  backendDispatch?: BackendConnection;
   showMessages?: boolean;
 }) {
   const dispatch: BackendConnection = showMessages
