@@ -6,28 +6,36 @@ author: "Nick Strayer"
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@v3
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
       with:
-        node-version: "18.x"
+        node-version: 18
+        # cache: 'npm'
 
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      working-directory: ./inst/editor
-      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      shell: bash
-
-    - uses: actions/cache@v3
-      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-      with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('inst/editor/yarn.lock')  }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-
-    - name: Install JS dependencies
-      run: yarn install --immutable
-      shell: bash
+    - name: Install dependencies
+      run: yarn install
 
     - name: Build
       run: yarn build
-      shell: bash
+
+    # - name: Get yarn cache directory path
+    #   id: yarn-cache-dir-path
+    #   working-directory: ./inst/editor
+    #   run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+    #   shell: bash
+
+    # - uses: actions/cache@v3
+    #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+    #   with:
+    #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+    #     key: ${{ runner.os }}-yarn-${{ hashFiles('inst/editor/yarn.lock')  }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-yarn-
+
+    # - name: Install JS dependencies
+    #   run: yarn install --immutable
+    #   shell: bash
+
+    # - name: Build
+    #   run: yarn build
+    #   shell: bash
