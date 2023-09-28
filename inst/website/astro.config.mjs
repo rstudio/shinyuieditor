@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
+// import builtins from "rollup-plugin-node-builtins";
 
 import mdx from "@astrojs/mdx";
 
@@ -16,4 +17,11 @@ export default defineConfig({
     }),
     mdx(),
   ],
+  // vite: {
+  //   resolve: {
+  //     alias: {
+  //       fs: await import.meta.resolve("rollup-plugin-node-builtins"),
+  //     },
+  //   },
+  // },
 });

@@ -1,5 +1,5 @@
 {
-  "name": "sue-homebase",
+  "name": "website",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -22,6 +22,7 @@
     "astro-icon": "^0.8.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "editor-component-lib": "*",
     "lucide-react": "^0.279.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,6 +31,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10"
+    "@tailwindcss/typography": "^0.5.10",
+    "rollup-plugin-node-builtins": "^2.1.2"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "editor-component-lib",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "exports": "./build/index.js",
+  "private": true,
+  "dependencies": {
+    "editor": "*"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --mode dev",
+    "gen-types": "tsc src/index.ts --esModuleInterop --declaration --emitDeclarationOnly --outDir dist"
+  },
+  "devDependencies": {
+    "@rollup/plugin-inject": "^5.0.3",
+    "autoprefixer": "^10.4.15",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "tailwindcss": "^3.3.3",
+    "shared-configs": "*",
+    "tsx": "^3.12.1",
+    "typescript": "^5.0.4",
+    "vite": "^4.2.1",
+    "vite-tsconfig-paths": "^4.0.5"
+  }
+}
