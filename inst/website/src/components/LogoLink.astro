@@ -1,14 +1,22 @@
 ---
+interface Props {
+  class?: string;
+}
+
+const { class: className  } = Astro.props;
 
 import HexStickerImg from "@/assets/shinyuieditor-hex.png";
 
 
 import { Image } from "astro:assets";
 
+
+import {cn} from "@/lib/utils"
+
 ---
 
 
-<a href="/sue-homebase/" class="-m-1.5 p-1.5">
+<a href="/sue-homebase/" class={cn( "-m-1.5 p-1.5",className??"")}>
     <span class="sr-only">ShinyUiEditor | Posit</span>
     <Image class="h-14 w-auto" height={80} width = {80} src={HexStickerImg} alt="" />
 </a>

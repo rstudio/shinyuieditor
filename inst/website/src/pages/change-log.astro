@@ -1,9 +1,12 @@
 ---
 
 import Header from "@/components/Header.astro";
+import MarkdownContainer from "@/components/MarkdownContainer.astro";
 import { Content as ChangeMd } from "../../../../NEWS.md";
 import "@/styles/globals.css";
-
+import {
+  ArrowUpRightIcon
+} from "@heroicons/react/24/outline";
 ---
 
 
@@ -14,9 +17,12 @@ import "@/styles/globals.css";
   </head>
   <body>
     <Header  />
-    <h1 class="font-lg text-xl font-bold m-8 -mb-10">ShinyUiEditor Change Log</h1>
-    <div class="prose lg:prose-xl mx-auto max-w-3xl px-8 py-8 prose-h1:pt-10 prose-h1:mt-10 prose-h1:border-t">
-      <ChangeMd />
-    </div>
+    <MarkdownContainer>
+        <h1>ShinyUiEditor Change Log</h1>
+        <p>This page is generated from the <code>NEWS.md</code> file in the shinyuieditor repo. <a href="https://github.com/rstudio/shinyuieditor/blob/main/NEWS.md">See source. <ArrowUpRightIcon className="h-4 inline-block -translate-y-[0.05em] "/> </a></p>
+
+        <ChangeMd />
+    </MarkdownContainer>
+    
   </body>
 </html>

@@ -1,6 +1,7 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
 import Header from "../components/Header.astro";
+import MarkdownContainer from "@/components/MarkdownContainer.astro";
 
 type Props = MarkdownLayoutProps<{
   // Define frontmatter props here
@@ -23,12 +24,13 @@ import "@/styles/globals.css";
   </head>
   <body>
     <Header  />
-    <div class="prose lg:prose-xl mx-auto max-w-3xl px-8 py-8">
+    <MarkdownContainer>
       <h1>{frontmatter.title}</h1>
       <slot />
       <p class="text-right italic py-6">
         Written on: {frontmatter.date} by {frontmatter.author}
       </p>
-    </div>
+    </MarkdownContainer>
+    
   </body>
 </html>
