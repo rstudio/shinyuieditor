@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import Header from "@/components/Header";
+import Header from "@/components/Header.astro";
 import Hero from "@/components/Hero.astro";
 import {CardSection} from "@/components/CardSection";
 
@@ -10,7 +10,7 @@ import "@/styles/globals.css";
 ---
 
 <Layout title="Welcome to Astro.">
-  <Header showBorder={false} client:load />
+  <Header showBorder={false} />
   <main>
     <Hero />
     <CardSection/>
