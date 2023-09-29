@@ -4,6 +4,7 @@ import LinkButton from "@/components/LinkButton.astro";
 import layoutGif from "../assets/layout-editing.webp";
 import GettingStartedIcon from "@/components/icons/GettingStartedIcon.astro";
 import LiveDemoIcon from "@/components/icons/LiveDemoIcon.astro";
+import {internalLink} from "@/lib/utils";
 
 ---
 
@@ -38,8 +39,8 @@ import LiveDemoIcon from "@/components/icons/LiveDemoIcon.astro";
             clean and proper code as you build.
           </p>
           <div class="mt-10 flex items-center justify-center gap-x-6">
-            <LinkButton href="/sue-homebase/getting-started"> <GettingStartedIcon/> Get started</LinkButton>
-            <LinkButton href="/sue-homebase/live-demo" variant="secondary"> <LiveDemoIcon/> Live Demo</LinkButton>
+            <LinkButton href={internalLink("getting-started")}> <GettingStartedIcon/> Get started</LinkButton>
+            <LinkButton href={internalLink("live-demo")} variant="secondary"> <LiveDemoIcon/> Live Demo</LinkButton>
           </div>
         </div>
         <div class="mt-16 flow-root sm:mt-24">
