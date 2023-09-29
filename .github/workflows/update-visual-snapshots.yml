@@ -39,24 +39,29 @@ jobs:
       - name: Checkout Branch
         run: git checkout ${{ steps.getbranch.outputs.branch }}
       # Continue with standard build
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
-      - name: Install JS dependencies
-        working-directory: ./inst/editor
-        run: yarn install
-        shell: bash
+          node-version: 18
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      # Make sure all assets are built
-      - name: Build all deps
-        run: yarn build
+
       # Update the snapshots
       - name: Update snapshots
         run: yarn update-visual-snapshots
+
       # Run build to fix the environment variables
       - name: Rebuild main bundle
         run: yarn build
+
       # Commit the changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
