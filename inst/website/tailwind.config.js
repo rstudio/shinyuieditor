@@ -72,6 +72,14 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: ({ theme }) => ({
+        sue: {
+          css: {
+            "--tw-prose-body": theme("colors.gray[600]"),
+            "--tw-prose-headings": theme("colors.gray[900]"),
+          },
+        },
+      }),
     },
   },
   plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")],

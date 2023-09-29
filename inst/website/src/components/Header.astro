@@ -33,12 +33,10 @@ import LogoLink from "@/components/LogoLink.astro";
 
 <header class={`z-50 ${showBorder ? "border-b" : ""}`}>
   <nav
-    class="flex items-center justify-between px-6 py-2 lg:px-8"
+    class="flex items-center justify-between px-6 py-3"
     aria-label="Global"
   >
-    <div class="flex lg:flex-1">
-      <LogoLink />
-    </div>
+    <LogoLink class="mt-0"/>
     <div class="flex lg:hidden">
       <button
         id="open-menu-button"

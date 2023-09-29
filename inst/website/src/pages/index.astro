@@ -3,7 +3,10 @@ import Layout from "../layouts/Layout.astro";
 
 import Header from "@/components/Header.astro";
 import Hero from "@/components/Hero.astro";
-import {CardSection} from "@/components/CardSection";
+import CardSection from "@/components/CardSection.astro";
+import MarkdownContainer from "@/components/MarkdownContainer.astro";
+
+import { Content as LandingProse } from "@/assets/docs/landing.md";
 
 
 import "@/styles/globals.css";
@@ -14,6 +17,10 @@ import "@/styles/globals.css";
   <main>
     <Hero />
     <CardSection/>
+    <div class="mt-12 mb-10 h-px bg-gray-200"></div>
+    <MarkdownContainer>
+      <LandingProse />
+    </MarkdownContainer>
   </main>
 </Layout>
 

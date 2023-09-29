@@ -21,7 +21,7 @@ export const sections: SectionInfo[] = [
     title: "Getting Started",
     description:
       "Learn how to get the UI editor up and running and editing your first app.",
-    href: "/getting-started",
+    href: "getting-started",
     icon: RocketLaunchIcon,
     onHomepage: true,
   },
@@ -29,29 +29,29 @@ export const sections: SectionInfo[] = [
     title: "How Tos",
     description:
       "Learn how to accomplish some common tasks with the UI editor.",
-    href: "/how-to",
+    href: "how-to",
     icon: ListBulletIcon,
     onHomepage: true,
   },
   {
     title: "FAQs",
-    description: "Answers to common questions about the UI editor.",
-    href: "/FAQs",
+    description: "Answers to some common questions about the UI editor.",
+    href: "FAQs",
     icon: QuestionMarkCircleIcon,
     onHomepage: true,
   },
   {
     title: "Live Demo",
     description:
-      "See the UI editor in action by using it directly in your browser. No install needed. Provides copyable code for your app.",
-    href: "/live-demo",
+      "Use the UI editor directly in your browser. No install needed. Provides copyable code for your app.",
+    href: "live-demo",
     icon: ComputerDesktopIcon,
     onHomepage: true,
   },
   {
     title: "Change Log",
     description: "View the change log for the UI editor.",
-    href: "/change-log",
+    href: "change-log",
     icon: InboxStackIcon,
     onHomepage: false,
   },
@@ -72,5 +72,6 @@ function processLink(link: string): string {
     return link;
   }
 
-  return `/sue-homebase/${link}`;
+  // return `/sue-homebase/${link}`;
+  return link;
 }

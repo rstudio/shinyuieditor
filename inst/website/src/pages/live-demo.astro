@@ -1,5 +1,5 @@
 ---
-import Header from "../components/Header";
+import Header from "../components/Header.astro";
 import FullPageLayout from "../layouts/FullPageLayout.astro";
 
 
@@ -11,7 +11,7 @@ import "@/styles/globals.css";
 ---
 
 <FullPageLayout title="Welcome to Astro.">
-  <Header showBorder={true} client:load />
+  <Header showBorder={true} />
   <!-- Need min-h-0 to avoid growing over the allotted size  -->
   <main class="p-6 h-full w-full relative min-h-0">
    
