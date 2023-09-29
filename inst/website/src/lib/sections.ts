@@ -6,6 +6,7 @@ import {
   InboxStackIcon,
 } from "@heroicons/react/24/outline";
 
+import { internalLink } from "./utils";
 import GithubIcon from "@/components/icons/GithubIcon.astro";
 
 type SectionInfo = {
@@ -72,6 +73,5 @@ function processLink(link: string): string {
     return link;
   }
 
-  // return `/sue-homebase/${link}`;
-  return link;
+  return internalLink(link);
 }
