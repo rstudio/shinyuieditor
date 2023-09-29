@@ -7,8 +7,8 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://nickstrayer.me",
-  base: "/sue-homebase",
+  site: "https://rstudio.github.io",
+  base: "/shinyuieditor",
   integrations: [
     react(),
     tailwind({
@@ -17,11 +17,4 @@ export default defineConfig({
     }),
     mdx(),
   ],
-  // vite: {
-  //   resolve: {
-  //     alias: {
-  //       fs: await import.meta.resolve("rollup-plugin-node-builtins"),
-  //     },
-  //   },
-  // },
 });
