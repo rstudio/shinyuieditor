@@ -77,6 +77,12 @@ module.exports = {
           css: {
             "--tw-prose-body": theme("colors.gray[600]"),
             "--tw-prose-headings": theme("colors.gray[900]"),
+            "code::before": {
+              content: '""',
+            },
+            "code::after": {
+              content: '""',
+            },
           },
         },
       }),
