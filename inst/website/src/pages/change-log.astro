@@ -1,0 +1,22 @@
+---
+
+import Header from "@/components/Header.astro";
+import { Content as ChangeMd } from "../../../../NEWS.md";
+import "@/styles/globals.css";
+
+---
+
+
+<html>
+  <head>
+    <!-- <link rel="canonical" href={new URL(url, Astro.site).pathname} /> -->
+    <title>Change Log</title>
+  </head>
+  <body>
+    <Header  />
+    <h1 class="font-lg text-xl font-bold m-8 -mb-10">ShinyUiEditor Change Log</h1>
+    <div class="prose lg:prose-xl mx-auto max-w-3xl px-8 py-8 prose-h1:pt-10 prose-h1:mt-10 prose-h1:border-t">
+      <ChangeMd />
+    </div>
+  </body>
+</html>

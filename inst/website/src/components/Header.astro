@@ -1,0 +1,97 @@
+---
+interface Props {
+  showBorder?: boolean;
+}
+const { showBorder = false } = Astro.props;
+
+import {
+  Bars3Icon,
+  XMarkIcon
+} from "@heroicons/react/24/outline";
+
+import { sections } from "@/lib/sections";
+import LogoLink from "@/components/LogoLink.astro";
+---
+
+<script>
+  // select the mobile menu open button
+  const openMenuButton = document.querySelector('#open-menu-button');
+  const closeMenuButton = document.querySelector('#close-menu-button');
+  const mobileMenuDialog = document.querySelector('#mobile-menu-dialog');
+
+  // When the button is pressed show an alert saying as such
+  openMenuButton?.addEventListener('click', () => {
+    // Set attribute `open` to true on mobileMenuDialog
+    mobileMenuDialog?.setAttribute('open', 'true');
+  });
+
+  closeMenuButton?.addEventListener('click', () => {
+    mobileMenuDialog?.removeAttribute('open');
+  });
+</script>
+
+
+<header class={`z-50 ${showBorder ? "border-b" : ""}`}>
+  <nav
+    class="flex items-center justify-between px-6 py-2 lg:px-8"
+    aria-label="Global"
+  >
+    <div class="flex lg:flex-1">
+      <LogoLink />
+    </div>
+    <div class="flex lg:hidden">
+      <button
+        id="open-menu-button"
+        type="button"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+      >
+        <span class="sr-only">Open main menu</span>
+        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      {sections.map((item) => (
+        <a
+          
+          href={item.href}
+          class="text-sm font-semibold leading-6 text-gray-900 flex items-center gap-2"
+        >
+          <item.icon className="h-4"/> {item.title}
+        </a>
+      ))}
+    </div>
+  </nav>
+  <dialog id="mobile-menu-dialog">
+    <div class="fixed inset-0 z-50" />
+    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+
+    <div class="flex items-center justify-between">
+      <LogoLink />
+      <button
+        id="close-menu-button"
+        type="button"
+        class="-m-2.5 rounded-md p-2.5 text-gray-700"
+      >
+        <span class="sr-only">Close menu</span>
+        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+      </button>
+    </div>
+    <div class="mt-6 flow-root">
+      <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="space-y-2 py-6">
+          {sections.map((item) => (
+            <a
+              href={item.href}
+              class="-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50  flex items-center gap-2"
+            >
+            <item.icon className="h-4"/> {item.title}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </dialog>
+ 
+</header>

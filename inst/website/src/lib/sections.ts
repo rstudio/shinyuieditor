@@ -3,7 +3,10 @@ import {
   ListBulletIcon,
   QuestionMarkCircleIcon,
   RocketLaunchIcon,
+  InboxStackIcon,
 } from "@heroicons/react/24/outline";
+
+import GithubIcon from "@/components/icons/GithubIcon.astro";
 
 type SectionInfo = {
   title: string;
@@ -20,7 +23,6 @@ export const sections: SectionInfo[] = [
       "Learn how to get the UI editor up and running and editing your first app.",
     href: "/getting-started",
     icon: RocketLaunchIcon,
-
     onHomepage: true,
   },
   {
@@ -29,7 +31,6 @@ export const sections: SectionInfo[] = [
       "Learn how to accomplish some common tasks with the UI editor.",
     href: "/how-to",
     icon: ListBulletIcon,
-
     onHomepage: true,
   },
   {
@@ -37,7 +38,6 @@ export const sections: SectionInfo[] = [
     description: "Answers to common questions about the UI editor.",
     href: "/FAQs",
     icon: QuestionMarkCircleIcon,
-
     onHomepage: true,
   },
   {
@@ -46,14 +46,20 @@ export const sections: SectionInfo[] = [
       "See the UI editor in action by using it directly in your browser. No install needed. Provides copyable code for your app.",
     href: "/live-demo",
     icon: ComputerDesktopIcon,
-
     onHomepage: true,
   },
   {
-    title: "Github",
+    title: "Change Log",
+    description: "View the change log for the UI editor.",
+    href: "/change-log",
+    icon: InboxStackIcon,
+    onHomepage: false,
+  },
+  {
+    title: "",
     description: "View the source code for the UI editor.",
     href: "https://github.com/rstudio/shinyuieditor",
-    icon: ComputerDesktopIcon,
+    icon: GithubIcon,
     onHomepage: false,
   },
 ].map((section) => ({

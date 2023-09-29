@@ -1,6 +1,6 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
-import Header from "../components/Header";
+import Header from "../components/Header.astro";
 
 type Props = MarkdownLayoutProps<{
   // Define frontmatter props here
@@ -22,7 +22,7 @@ import "@/styles/globals.css";
     <title>{frontmatter.title}</title>
   </head>
   <body>
-    <Header client:load />
+    <Header  />
     <div class="prose lg:prose-xl mx-auto max-w-3xl px-8 py-8">
       <h1>{frontmatter.title}</h1>
       <slot />
