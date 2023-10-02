@@ -17,4 +17,10 @@ export default defineConfig({
     }),
     mdx(),
   ],
+  redirects: {
+    // Make sure to keep the baseurl up to date here. In this case
+    // `shinyuieditor` is the baseurl
+    "/articles/ui-editor-live-demo": "/shinyuieditor/new-page",
+    "/news": "/shinyuieditor/change-log",
+  },
 });
