@@ -3,8 +3,20 @@ name: Javascript Tests
 on:
   push:
     branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
+    # Don't trigger this action when only build targets change
+    paths-ignore:
+      - "inst/editor/build/**"
+      - "inst/treesitter-parsers/dist/**"
+      - "inst/vscode-extension/build/**"
+      - "inst/vscode-extension/*.vsix"
+    pull_request:
+      branches: [main, dev]
+      # Don't trigger this action when only build targets change
+      paths-ignore:
+        - "inst/editor/build/**"
+        - "inst/treesitter-parsers/dist/**"
+        - "inst/vscode-extension/build/**"
+        - "inst/vscode-extension/*.vsix"
 
 concurrency:
   group: ci-tests-${{ github.ref }}-1
@@ -63,12 +75,6 @@ jobs:
           name: playwright-report
           path: ./inst/editor/playwright-report/
 
-      # Commit and push all changed files.
-      - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
-        # Only run on commits pushed to main
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "nstrayer@users.noreply.github.com"
-          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update Build Artifacts
