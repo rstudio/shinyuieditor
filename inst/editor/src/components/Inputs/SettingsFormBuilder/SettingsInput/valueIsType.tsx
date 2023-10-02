@@ -23,7 +23,7 @@ export function valueIsType(
     );
   }
 
-  if (type === "string") {
+  if (type === "string" || type === "id") {
     return typeof value === "string";
   }
 

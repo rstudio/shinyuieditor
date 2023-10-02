@@ -16,7 +16,7 @@ export type OffLimitsValues = {
 /**
  * A context object to hold a list of values that are off limits for the input.
  */
-const existingValuesContext = React.createContext<OffLimitsValues>({
+export const existingValuesContext = React.createContext<OffLimitsValues>({
   existingValues: new Set(),
   warningMsg: (value: string) => `The value ${value} is already taken`,
 });
