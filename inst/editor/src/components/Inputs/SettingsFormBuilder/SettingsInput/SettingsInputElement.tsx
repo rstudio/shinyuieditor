@@ -9,6 +9,7 @@ import { NumberInput } from "../../NumberInput/NumberInput";
 import { DropdownSelect } from "../../OptionsDropdown/DropdownSelect";
 import { RadioInputs } from "../../RadioInputs/RadioInputsSimple";
 
+import { IdInput } from "./IdInput";
 import { StringInput } from "./StringInput";
 
 type SettingsInputElementProps = InputOptions & {
@@ -39,6 +40,8 @@ export function SettingsInputElement(args: SettingsInputElementProps) {
       return <DropdownSelect {...args} />;
     case "radio":
       return <RadioInputs {...args} />;
+    case "id":
+      return <IdInput {...args} />;
     default:
       return (
         <div>

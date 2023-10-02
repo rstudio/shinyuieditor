@@ -3,7 +3,6 @@ import React from "react";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
-import { getAllBindingIds } from "../../../EditorContainer/getAllBindingIds";
 import type { AllInputTypes } from "../../../ui-node-definitions/inputFieldTypes";
 import type { NodePath } from "../../../ui-node-definitions/NodePath";
 import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
@@ -16,7 +15,6 @@ import type {
 } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import "./styles.scss";
-import { ExistingValuesProvider } from "./SettingsInput/StringInput";
 import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
 type SettingsObj = Record<string, unknown>;
@@ -114,46 +112,12 @@ function knownArgumentInputs({
       onUpdate: (updatedAction) => onSettingsChange(arg_name, updatedAction),
     } as SettingsInputProps;
 
-    const settingsInput = (
+    InputsComponents[arg_name] = (
       <SettingsInput
         key={node.id + arg_name + nodePath.join("-")}
         {...inputProps}
       />
     );
-
-    // This logic is to prevent the situation where we have duplicate IDs for
-    // inputs and outputs.
-    if (
-      (arg_name === "id" ||
-        arg_name === "inputId" ||
-        arg_name === "outputId") &&
-      typeof current_arg_value === "string"
-    ) {
-      const bindingIds = getAllBindingIds(app_tree);
-
-      // Just remove the first instance of a node's id from the array of seen
-      // ids. This will make sure that duplicate values will always show up as
-      // an error because if we just delete the the value from a set then it
-      // looks like it's not a duplicate.
-      const thisNodeIdIndex = bindingIds.indexOf(current_arg_value);
-      if (thisNodeIdIndex !== -1) {
-        bindingIds.splice(thisNodeIdIndex, 1);
-      }
-
-      // Now wrap this input with a context provider of off limits values.
-      InputsComponents[arg_name] = (
-        <ExistingValuesProvider
-          offLimitValues={{
-            existingValues: new Set(bindingIds),
-            warningMsg: (value: string) => `The id ${value} is already taken`,
-          }}
-        >
-          {settingsInput}
-        </ExistingValuesProvider>
-      );
-    } else {
-      InputsComponents[arg_name] = settingsInput;
-    }
   }
 
   return InputsComponents;

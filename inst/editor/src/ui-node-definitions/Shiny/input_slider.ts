@@ -25,8 +25,9 @@ export const input_slider = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     inputId: {
+      inputType: "id",
+      inputOrOutput: "input",
       label: "Input ID",
-      inputType: "string",
       defaultValue: "inputId",
     },
     label: {
