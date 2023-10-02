@@ -1,10 +1,9 @@
 ---
 
 import LinkButton from "@/components/LinkButton.astro";
-import layoutGif from "../assets/layout-editing.webp";
 import GettingStartedIcon from "@/components/icons/GettingStartedIcon.astro";
 import LiveDemoIcon from "@/components/icons/LiveDemoIcon.astro";
-import {internalLink} from "@/lib/utils";
+import { internalLink } from "@/lib/utils";
 
 ---
 
@@ -47,12 +46,11 @@ import {internalLink} from "@/lib/utils";
           <div
             class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4"
           >
-            <img
-              src={layoutGif.src}
-              alt="ShinyUiEditor layout updating"
-              height={1442}
-              class="rounded-md shadow-2xl ring-1 ring-gray-900/10"
-            />
+          <video class="how-to-video" autoplay loop muted playsinline>
+            <source src={internalLink("layout-editing.webm")} type="video/webm; codecs=vp9" />
+          </video>
+         
+         
           </div>
         </div>
       </div>
