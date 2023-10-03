@@ -31,7 +31,8 @@ export const output_plot = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     outputId: {
-      inputType: "string",
+      inputType: "id",
+      inputOrOutput: "output",
       label: "Output ID for plot",
       defaultValue: "plot",
     },

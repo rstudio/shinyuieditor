@@ -21,7 +21,8 @@ export const output_plotly = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     outputId: {
-      inputType: "string",
+      inputType: "id",
+      inputOrOutput: "output",
       label: "Output ID for plot",
       defaultValue: "plot",
     },

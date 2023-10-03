@@ -28,7 +28,8 @@ export const input_select = nodeInfoFactory<ShinySelectInputProps>()({
   takesChildren: false,
   settingsInfo: {
     inputId: {
-      inputType: "string",
+      inputType: "id",
+      inputOrOutput: "input",
       label: "inputId",
       defaultValue: "mySelectInput",
     },

@@ -21,7 +21,8 @@ export const output_dt = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     outputId: {
-      inputType: "string",
+      inputType: "id",
+      inputOrOutput: "output",
       label: "Output ID",
       defaultValue: "myTable",
     },

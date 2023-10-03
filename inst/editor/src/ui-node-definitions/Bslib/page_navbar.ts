@@ -32,7 +32,7 @@ export const page_navbar = nodeInfoFactory<{
       defaultValue: false,
     },
     id: {
-      inputType: "string",
+      inputType: "id",
       label: "Id for tabset",
       defaultValue: "tabset-default-id",
       optional: true,

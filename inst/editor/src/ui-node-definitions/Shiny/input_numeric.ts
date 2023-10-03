@@ -25,7 +25,8 @@ export const input_numeric = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     inputId: {
-      inputType: "string",
+      inputType: "id",
+      inputOrOutput: "input",
       label: "inputId",
       defaultValue: "myNumericInput",
     },
