@@ -1,7 +1,7 @@
 # Run build pipeline and commit the results so the assets users install dont ever get stale
 name: Build Assets
 on:
-  push:
+  pull_request:
     branches: [main]
     # Don't trigger this action when only build targets change
     paths-ignore:
@@ -9,14 +9,6 @@ on:
       - "inst/treesitter-parsers/dist/**"
       - "inst/vscode-extension/build/**"
       - "inst/vscode-extension/*.vsix"
-    pull_request:
-      branches: [main]
-      # Don't trigger this action when only build targets change
-      paths-ignore:
-        - "inst/editor/build/**"
-        - "inst/treesitter-parsers/dist/**"
-        - "inst/vscode-extension/build/**"
-        - "inst/vscode-extension/*.vsix"
 
 concurrency:
   group: ci-build-${{ github.ref }}-1
