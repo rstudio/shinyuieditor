@@ -74,8 +74,3 @@ jobs:
         with:
           name: playwright-report
           path: ./inst/editor/playwright-report/
-
-      - uses: EndBug/add-and-commit@v9
-        with:
-          add: "inst/editor/build/** inst/treesitter-parsers/dist/ inst/vscode-extension/*.vsix"
-          message: "Commit build assets"

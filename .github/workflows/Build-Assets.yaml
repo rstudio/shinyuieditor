@@ -19,7 +19,7 @@ on:
         - "inst/vscode-extension/*.vsix"
 
 concurrency:
-  group: ci-tests-${{ github.ref }}-1
+  group: ci-build-${{ github.ref }}-1
   cancel-in-progress: true
 
 jobs:
