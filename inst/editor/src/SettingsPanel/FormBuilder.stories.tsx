@@ -2,7 +2,7 @@ import React from "react";
 
 import omit from "just-omit";
 
-import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 
 import { FormBuilder } from "./FormBuilder";
 import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";

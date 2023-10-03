@@ -2,7 +2,7 @@ import React from "react";
 
 import icon from "../../assets/icons/shinyNumericinput.png";
 import { NumberInputSimple } from "../../components/Inputs/NumberInput/NumberInput";
-import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
+import { LabeledInputCategory } from "../../SettingsPanel/LabeledInputCategory";
 import { input_numeric } from "../../ui-node-definitions/Shiny/input_numeric";
 import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";

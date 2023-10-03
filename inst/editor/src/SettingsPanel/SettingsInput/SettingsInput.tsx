@@ -1,14 +1,14 @@
 import React from "react";
 
+import Button from "../../components/Inputs/Button/Button";
 import type {
   KnownInputFieldTypes,
   InputTypeNames,
   StaticInputOptionsByInputType,
   InputOptions,
-} from "../../../../ui-node-definitions/inputFieldTypes";
-import { makeLabelId } from "../../../../ui-node-definitions/inputFieldTypes";
-import { mergeClasses } from "../../../../utils/mergeClasses";
-import Button from "../../Button/Button";
+} from "../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../ui-node-definitions/inputFieldTypes";
+import { mergeClasses } from "../../utils/mergeClasses";
 
 import { SettingsInputElement } from "./SettingsInputElement";
 import { valueIsType } from "./valueIsType";
