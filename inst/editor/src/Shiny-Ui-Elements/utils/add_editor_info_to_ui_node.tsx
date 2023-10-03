@@ -1,5 +1,5 @@
-import type { CustomFormRenderFn } from "../../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { useMakeWrapperProps } from "../../components/UiNode/useMakeWrapperProps";
+import type { CustomFormRenderFn } from "../../SettingsPanel/FormBuilder";
 import type { UpdateAction, DeleteAction } from "../../state/app_info";
 import type { NodeInfoById } from "../../ui-node-definitions";
 import { node_info_by_id } from "../../ui-node-definitions";

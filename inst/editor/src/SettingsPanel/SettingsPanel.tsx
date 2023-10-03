@@ -4,9 +4,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
 import { Trash } from "../components/Icons";
 import Button from "../components/Inputs/Button/Button";
-import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
@@ -16,6 +13,9 @@ import {
   generateSerializedStateForError,
 } from "../utils/generate_issue_reports";
 
+import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
+import type { CustomFormRenderFn } from "./FormBuilder";
+import { FormBuilder } from "./FormBuilder";
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";

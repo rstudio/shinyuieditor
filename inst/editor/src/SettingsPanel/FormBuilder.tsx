@@ -3,18 +3,18 @@ import React from "react";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
-import type { AllInputTypes } from "../../../ui-node-definitions/inputFieldTypes";
-import type { NodePath } from "../../../ui-node-definitions/NodePath";
-import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
-import type { NamedArgsObject } from "../../../ui-node-definitions/uiNodeTypes";
+import "./styles.scss";
+import type { AllInputTypes } from "../ui-node-definitions/inputFieldTypes";
+import type { NodePath } from "../ui-node-definitions/NodePath";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+import type { NamedArgsObject } from "../ui-node-definitions/uiNodeTypes";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import type {
-  SettingsInputProps,
   SettingsUpdateAction,
+  SettingsInputProps,
 } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
-import "./styles.scss";
 import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
 type SettingsObj = Record<string, unknown>;

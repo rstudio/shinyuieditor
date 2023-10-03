@@ -1,9 +1,9 @@
 import React from "react";
 
-import { getAllBindingIds } from "../../../../EditorContainer/getAllBindingIds";
-import { useCurrentAppInfo } from "../../../../state/app_info";
-import type { InputComponentByType } from "../../../../ui-node-definitions/inputFieldTypes";
-import { makeLabelId } from "../../../../ui-node-definitions/inputFieldTypes";
+import { getAllBindingIds } from "../../EditorContainer/getAllBindingIds";
+import { useCurrentAppInfo } from "../../state/app_info";
+import type { InputComponentByType } from "../../ui-node-definitions/inputFieldTypes";
+import { makeLabelId } from "../../ui-node-definitions/inputFieldTypes";
 
 export function IdInput({
   id,

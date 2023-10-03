@@ -1,13 +1,13 @@
+import { BooleanInput } from "../../components/Inputs/BooleanInput/BooleanInputSimple";
+import { CSSUnitInput } from "../../components/Inputs/CSSUnitInput/CSSUnitInput";
+import { NamedListInput } from "../../components/Inputs/ListInput/NamedListInput";
+import { NumberInput } from "../../components/Inputs/NumberInput/NumberInput";
+import { DropdownSelect } from "../../components/Inputs/OptionsDropdown/DropdownSelect";
+import { RadioInputs } from "../../components/Inputs/RadioInputs/RadioInputsSimple";
 import type {
   InputOptions,
   KnownInputFieldTypes,
-} from "../../../../ui-node-definitions/inputFieldTypes";
-import { BooleanInput } from "../../BooleanInput/BooleanInputSimple";
-import { CSSUnitInput } from "../../CSSUnitInput/CSSUnitInput";
-import { NamedListInput } from "../../ListInput/NamedListInput";
-import { NumberInput } from "../../NumberInput/NumberInput";
-import { DropdownSelect } from "../../OptionsDropdown/DropdownSelect";
-import { RadioInputs } from "../../RadioInputs/RadioInputsSimple";
+} from "../../ui-node-definitions/inputFieldTypes";
 
 import { IdInput } from "./IdInput";
 import { StringInput } from "./StringInput";
