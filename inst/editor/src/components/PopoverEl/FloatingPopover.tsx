@@ -19,6 +19,8 @@ import {
 import type { Placement } from "@floating-ui/react";
 import ReactMarkdown from "react-markdown";
 
+import { mergeClasses } from "../../utils/mergeClasses";
+
 import styles from "./styles.module.css";
 
 export interface TooltipOptions {
@@ -179,7 +181,7 @@ export const MarkdownTooltipContent = React.forwardRef<
 export const TooltipContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLProps<HTMLDivElement>
->(function TooltipContent({ children, ...props }, propRef) {
+>(function TooltipContent({ children, className, ...props }, propRef) {
   const context = useTooltipContext();
   const ref = useMergeRefs([context.refs.setFloating, propRef]);
 
@@ -189,13 +191,17 @@ export const TooltipContent = React.forwardRef<
         <>
           <div
             ref={ref}
-            className={styles.tooltip_base}
+            className={mergeClasses(
+              "p-2 rounded-standard bg-rstudio-white",
+              className
+            )}
             style={{
               position: context.strategy,
               zIndex: 10,
               top: context.y ?? 0,
               left: context.x ?? 0,
               visibility: context.x == null ? "hidden" : "visible",
+              filter: "var(--simple-drop-shadow-filter)",
               ...props.style,
             }}
             {...context.getFloatingProps(props)}
@@ -204,7 +210,7 @@ export const TooltipContent = React.forwardRef<
             <FloatingArrow
               ref={context.arrowRef}
               context={context.context}
-              fill="var(--tooltip-bg-color, pink)"
+              fill="var(--rstudio-white, white)"
             />
           </div>
         </>

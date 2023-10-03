@@ -1,12 +1,3 @@
-.tooltip_base {
-  --tooltip-bg-color: var(--rstudio-white);
-  border-radius: var(--corner-radius);
-  background-color: var(--tooltip-bg-color);
-  /* Use a backdrop filter to provide a tiny bit of lift off the background */
-  filter: var(--simple-drop-shadow-filter);
-  padding: 5px;
-}
-
 .popoverMarkdown {
   max-width: 300px;
 }
