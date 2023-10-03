@@ -6,7 +6,7 @@ import { setup_python_parser, setup_r_parser } from "treesitter-parsers";
 
 import { parsePythonAppText } from "../backendCommunication/parse_python_app";
 import { parseRAppText } from "../backendCommunication/parse_r_app";
-import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
+import { useMetaData } from "../state/metaData";
 
 type ParseAppFn = (scripts: AppScriptInfo) => Promise<AppInfo>;
 
@@ -24,46 +24,51 @@ const TSParserContext = React.createContext<ParseAppFn>(() => {
  * @param props.children Children for composition
  */
 export function TSParserProvider({ children }: { children: React.ReactNode }) {
-  const { incomingMsgs } = useBackendConnection();
-
+  const metaData = useMetaData();
   const parseAppRef = React.useRef<ParseAppFn>(() => {
     throw new Error("No parser set up yet");
   });
 
+  const initializedParser = React.useRef(false);
+
+  // This useeffect listens for the metadata handshake from the server and
+  // initializes the parser once it knows the language to use.
   React.useEffect(() => {
-    // Watch for the checkin message that tells us what language we are in so we
-    // can set up the appropriate parser workflow
-    const infoSubscription = incomingMsgs.subscribe(
-      "CHECKIN",
-      ({ language, path_to_ts_wasm }) => {
-        const parserInitOptions: ParserInitOptions = {};
+    if (metaData === null) return;
 
-        if (path_to_ts_wasm) {
-          // If we're in a vscode extension we will have info on where to find the
-          // wasm bundle that we need to respect or else the parser will fail to load
-          const pathToWasm = path_to_ts_wasm;
-          parserInitOptions.locateFile = () => pathToWasm;
-        }
+    if (initializedParser.current) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "Parser already initialized but recieved request to re-init"
+      );
+    }
 
-        const parser =
-          language === "R"
-            ? setup_r_parser(parserInitOptions)
-            : setup_python_parser(parserInitOptions);
+    const { language, path_to_ts_wasm } = metaData;
+    const parserInitOptions: ParserInitOptions = {};
 
-        parseAppRef.current = (scripts) => {
-          // TODO: This can/probably should be memoized to avoid re-parsing if unneccesary
-          if (language === "R") {
-            return parseRAppText({ scripts, parser });
-          } else {
-            return parsePythonAppText({ scripts, parser });
-          }
-        };
+    if (path_to_ts_wasm) {
+      // If we're in a vscode extension we will have info on where to find the
+      // wasm bundle that we need to respect or else the parser will fail to load
+      const pathToWasm = path_to_ts_wasm;
+      parserInitOptions.locateFile = () => pathToWasm;
+    }
+
+    const parser =
+      language === "R"
+        ? setup_r_parser(parserInitOptions)
+        : setup_python_parser(parserInitOptions);
+
+    parseAppRef.current = (scripts) => {
+      // TODO: This can/probably should be memoized to avoid re-parsing if unneccesary
+      if (language === "R") {
+        return parseRAppText({ scripts, parser });
+      } else {
+        return parsePythonAppText({ scripts, parser });
       }
-    );
+    };
 
-    // Make sure we unsubscribe to avoid memory leaks!
-    return () => infoSubscription.unsubscribe();
-  }, [incomingMsgs]);
+    initializedParser.current = true;
+  }, [metaData]);
 
   // This callback remains referentially the same so that the parser can be
   // updated without triggering a whole app rerender
