@@ -75,6 +75,7 @@ jobs:
           name: playwright-report
           path: ./inst/editor/playwright-report/
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: EndBug/add-and-commit@v9
         with:
-          commit_message: Update Build Artifacts
+          add: "inst/editor/build/** inst/treesitter-parsers/dist/ inst/vscode-extension/*.vsix"
+          message: "Commit build assets"
