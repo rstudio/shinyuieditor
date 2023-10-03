@@ -1,19 +1,14 @@
-import React from "react";
-
 import type { MessageToBackend } from "communication-types";
 import type { LanguageMode } from "communication-types/src/AppInfo";
-import type { InputOutputLocations } from "communication-types/src/MessageToBackend";
 import { toast } from "react-toastify";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { PopoverButton } from "../components/Inputs/PopoverButton";
-import { useTsParser } from "../EditorContainer/TSParserProvider";
 import { generate_python_output_binding } from "../python-parsing";
 import { generate_r_output_binding } from "../r-parsing";
 import { useCurrentAppInfo } from "../state/app_info";
 import { useMetaData } from "../state/metaData";
-import { generateFullAppScript } from "../ui-node-definitions/code_generation/generate_full_app_script";
 import type {
   OutputBindings,
   InputBindings,
@@ -22,12 +17,15 @@ import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import { buildServerInsertion } from "../utils/code_position_utils";
 
+import { useUpToDateServerLocations } from "./useUpToDateServerLocations";
+
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg } = useBackendConnection();
 
-  const { server_aware, language } = useMetaData();
+  const metaData = useMetaData();
 
-  if (!server_aware || !node) return null;
+  if (!metaData || !node) return null;
+  const { language } = metaData;
 
   const node_info = getUiNodeInfo(node.id)[
     language === "PYTHON" ? "py_info" : "r_info"
@@ -59,42 +57,6 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
       ) : null}
     </div>
   );
-}
-
-function useUpToDateServerLocations() {
-  const current_app_info = useCurrentAppInfo();
-  const parseApp = useTsParser();
-
-  const [serverLocations, setServerLocations] =
-    React.useState<InputOutputLocations | null>(null);
-
-  React.useEffect(() => {
-    if (current_app_info.mode !== "MAIN") return;
-
-    // Because treesitter is so fast, we just regenerate the whole app script
-    // here and reparse that generated script. This takes way less time than you
-    // would expect.
-    // - Pitfalls:
-    //   - If the user has unsaved changes, this will not reflect those changes
-    //   - If a formatter was used, this will be unaware of it and give bad
-    //     positions
-    // - Potential Improvements:
-    //   - Offload this logic to the main dispatch system and just reparse the
-    //     app on every change as that's what this already does
-    const updatedAppScripts = generateFullAppScript(current_app_info, {
-      include_info: false,
-    });
-
-    parseApp(updatedAppScripts).then(({ server_locations }) => {
-      if (!server_locations) {
-        throw new Error("Could not parse app scripts");
-      }
-
-      setServerLocations(server_locations);
-    });
-  }, [current_app_info, parseApp]);
-
-  return serverLocations;
 }
 
 function GoToOutputsBtn({
