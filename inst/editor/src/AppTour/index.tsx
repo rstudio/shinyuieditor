@@ -12,7 +12,8 @@ export function AppTour() {
   const [stepIndex, setStepIndex] = React.useState(0);
   const [run, setRun] = React.useState(false);
 
-  const { app_preview } = useMetaData();
+  const metaData = useMetaData();
+  const appPreview = metaData === null ? false : metaData.app_preview;
 
   const handleJoyrideCallback: (data: CallBackProps) => void = (data) => {
     const { action, index, type } = data;
@@ -114,7 +115,7 @@ export function AppTour() {
       },
       {
         target: "[aria-label='App Preview']",
-        content: app_preview ? (
+        content: appPreview ? (
           <div>
             <p>
               At any point while editing your application you can see the code
@@ -150,7 +151,7 @@ export function AppTour() {
         placement: "bottom",
       },
     ],
-    [app_preview]
+    [appPreview]
   );
 
   return (
