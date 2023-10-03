@@ -1,0 +1,58 @@
+# Run build pipeline and commit the results so the assets users install dont ever get stale
+name: Build Assets
+on:
+  push:
+    branches: [main]
+    # Don't trigger this action when only build targets change
+    paths-ignore:
+      - "inst/editor/build/**"
+      - "inst/treesitter-parsers/dist/**"
+      - "inst/vscode-extension/build/**"
+      - "inst/vscode-extension/*.vsix"
+    pull_request:
+      branches: [main]
+      # Don't trigger this action when only build targets change
+      paths-ignore:
+        - "inst/editor/build/**"
+        - "inst/treesitter-parsers/dist/**"
+        - "inst/vscode-extension/build/**"
+        - "inst/vscode-extension/*.vsix"
+
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and Test
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+    env:
+      CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
+      CI_COMMIT_AUTHOR: Continuous Integration
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: "inst/editor/build/** inst/treesitter-parsers/dist/ inst/vscode-extension/*.vsix"
+          commit_message: "Commit build assets"
