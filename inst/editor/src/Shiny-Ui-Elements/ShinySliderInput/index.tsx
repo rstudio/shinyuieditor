@@ -1,7 +1,7 @@
 import React from "react";
 
 import sliderIcon from "../../assets/icons/shinySlider.png";
-import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
+import { LabeledInputCategory } from "../../SettingsPanel/LabeledInputCategory";
 import { input_slider } from "../../ui-node-definitions/Shiny/input_slider";
 import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentFromInfo } from "../utils/add_editor_info_to_ui_node";

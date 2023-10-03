@@ -1,14 +1,14 @@
+import { Trash } from "react-bootstrap-icons";
 import { inANotInB } from "util-functions/src/arrays";
 
-import type { UnknownUiNode } from "../../../ui-node-definitions/internal/unknown_code";
-import { isKnownShinyUiNode } from "../../../ui-node-definitions/isShinyUiNode";
-import { Trash } from "../../Icons";
+import { PopoverButton } from "../components/Inputs/PopoverButton";
 import {
   Tooltip,
-  TooltipContent,
   TooltipTrigger,
-} from "../../PopoverEl/FloatingPopover";
-import { PopoverButton } from "../PopoverButton";
+  TooltipContent,
+} from "../components/PopoverEl/FloatingPopover";
+import type { UnknownUiNode } from "../ui-node-definitions/internal/unknown_code";
+import { isKnownShinyUiNode } from "../ui-node-definitions/isShinyUiNode";
 
 import type { FormBuilderProps } from "./FormBuilder";
 

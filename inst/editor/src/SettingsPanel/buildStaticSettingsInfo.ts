@@ -7,8 +7,8 @@ import type {
   StaticInputOptions,
   MakeOmittedOption,
   InputOptions,
-} from "../../../ui-node-definitions/inputFieldTypes";
-import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
+} from "../ui-node-definitions/inputFieldTypes";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 
 type ConvertToStatic<ArgsInfo extends Record<string, Record<string, unknown>>> =
   {

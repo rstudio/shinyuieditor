@@ -3,8 +3,8 @@ import type { Equal, Expect } from "util-functions/src/TypescriptUtils";
 import {
   getFirstTabName,
   getTabNames,
-} from "../../../ui-node-definitions/Bslib/page_navbar";
-import type { ShinyUiParentNode } from "../../../ui-node-definitions/ShinyUiNode";
+} from "../ui-node-definitions/Bslib/page_navbar";
+import type { ShinyUiParentNode } from "../ui-node-definitions/ShinyUiNode";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import {

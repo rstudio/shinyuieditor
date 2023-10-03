@@ -1,10 +1,10 @@
 import React from "react";
 
 import Button from "../../../components/Inputs/Button/Button";
-import type { SettingsUpdateAction } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
-import { SettingsInput } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import PortalModal from "../../../components/PortalModal/PortalModal";
 import classes from "../../../components/PortalModal/PortalModal.module.css";
+import type { SettingsUpdateAction } from "../../../SettingsPanel/SettingsInput/SettingsInput";
+import { SettingsInput } from "../../../SettingsPanel/SettingsInput/SettingsInput";
 
 import type { NewItemInfo } from "./GridContainerElement/GridContainerElement";
 
