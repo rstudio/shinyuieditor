@@ -21,7 +21,8 @@ export const input_action_button = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     inputId: {
-      inputType: "string",
+      inputType: "id",
+      inputOrOutput: "input",
       label: "inputId",
       defaultValue: "myButton",
     },

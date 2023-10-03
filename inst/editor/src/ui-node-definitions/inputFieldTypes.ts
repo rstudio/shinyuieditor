@@ -18,7 +18,7 @@ type NamedList = Record<string, string>;
 export type InputOptions =
   // Special ID input. Like a string input but enforces things like no spaces or
   // special characters. Also checks to make sure ids are unique etc.
-  | { inputType: "id"; value: string; inputOrOutput: "input" | "output" }
+  | { inputType: "id"; value: string; inputOrOutput?: "input" | "output" }
   | { inputType: "string"; value: string; longform?: boolean }
   | {
       inputType: "number";

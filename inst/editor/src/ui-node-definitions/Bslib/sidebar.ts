@@ -25,7 +25,7 @@ export const sidebar = nodeInfoFactory<{
       defaultValue: "Sidebar Title",
     },
     id: {
-      inputType: "string",
+      inputType: "id",
       label: "Id for tabset",
       defaultValue: "tabset-default-id",
       optional: true,

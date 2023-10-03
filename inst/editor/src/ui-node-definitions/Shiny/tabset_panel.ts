@@ -19,9 +19,10 @@ export const tabset_panel = nodeInfoFactory<{
   takesChildren: true,
   settingsInfo: {
     id: {
-      inputType: "string",
+      inputType: "id",
       label: "Id for tabset",
       defaultValue: "tabset-default-id",
+      inputOrOutput: "input",
       optional: true,
     },
     selected: {

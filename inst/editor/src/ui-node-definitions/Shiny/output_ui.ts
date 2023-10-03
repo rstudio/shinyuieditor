@@ -28,8 +28,8 @@ export const output_ui = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     outputId: {
+      inputType: "id",
       label: "Output ID",
-      inputType: "string",
       defaultValue: "dynamicUiOutput",
     },
   },

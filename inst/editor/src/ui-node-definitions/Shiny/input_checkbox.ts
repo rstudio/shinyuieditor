@@ -22,7 +22,8 @@ export const input_checkbox = nodeInfoFactory<{
   takesChildren: false,
   settingsInfo: {
     inputId: {
-      inputType: "string",
+      inputType: "id",
+      inputOrOutput: "input",
       label: "inputId",
       defaultValue: "myCheckboxInput",
     },

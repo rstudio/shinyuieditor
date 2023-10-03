@@ -29,7 +29,7 @@ export const grid_card_plot = nodeInfoFactory<{
     },
     outputId: {
       label: "Output ID",
-      inputType: "string",
+      inputType: "id",
       defaultValue: function (node): string {
         if (node && "area" in node.namedArgs) {
           return node.namedArgs.area as string;
