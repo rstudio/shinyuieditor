@@ -5,10 +5,6 @@ import { useCurrentAppInfo } from "../../../../state/app_info";
 import type { InputComponentByType } from "../../../../ui-node-definitions/inputFieldTypes";
 import { makeLabelId } from "../../../../ui-node-definitions/inputFieldTypes";
 
-import { ExistingValuesProvider, existingValuesContext } from "./StringInput";
-
-const bindingIds = new Set(["myid", "taken"]);
-
 export function IdInput({
   id,
   label,
@@ -34,7 +30,9 @@ export function IdInput({
     // Check if the requested new value is already in use and set invalid if it is
     const takenId = bindingIds.includes(newValue) && newValue !== value;
 
-    // TODO: Update this to now allow spaces or other special characters in the id
+    // Replace spaces with underscores
+    newValue = newValue.replace(/ /g, "_");
+
     setCurrValue(newValue);
 
     if (takenId) {
