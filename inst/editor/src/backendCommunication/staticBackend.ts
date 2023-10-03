@@ -24,6 +24,13 @@ export function setupStaticBackend({
       logger("Static sendMsg()", msg);
       switch (msg.path) {
         case "READY-FOR-STATE": {
+          // Send initial checkin msg
+          messageDispatch.dispatch("CHECKIN", {
+            language: defaultInfo.language,
+            server_aware: false,
+            app_preview: false,
+          });
+
           getClientsideOnlyTree(defaultInfo).then(({ ui_tree, language }) => {
             if (ui_tree === "TEMPLATE_CHOOSER") {
               messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
