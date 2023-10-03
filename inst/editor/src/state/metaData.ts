@@ -7,7 +7,7 @@ import type { RootState } from "./store";
 
 export const metaDataSlice = createSlice({
   name: "metaData",
-  initialState: { server_aware: false } as MessageToClientByPath["CHECKIN"],
+  initialState: null as MessageToClientByPath["CHECKIN"] | null,
   reducers: {
     SET_META_DATA: (
       state,
