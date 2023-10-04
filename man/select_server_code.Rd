@@ -4,16 +4,13 @@
 \alias{select_server_code}
 \title{Select the code for the given app location based on client-side locations}
 \usage{
-select_server_code(locations, app_loc, app_type)
+select_server_code(locations, app_loc)
 }
 \arguments{
 \item{locations}{Locations of the code to be selected in the client}
 
 \item{app_loc}{Path to directory containing Shiny app to be visually edited
 (either containing an \code{app.R} or both a \code{ui.R} and \code{server.R}).}
-
-\item{app_type}{Type of app to get the server script for. Can be
-"SINGLE-FILE" or "MULTI-FILE". As returned by \code{get_app_file_type()}}
 }
 \description{
 Select the code for the given app location based on client-side locations
