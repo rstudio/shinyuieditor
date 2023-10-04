@@ -13,7 +13,7 @@ export type LanguageMode = "R" | "PYTHON";
 // Shared  by both single and multi-file apps.
 export type AppInfo = {
   ui_tree: ShinyUiNode;
-  scripts: AppScriptInfo;
+  app_script: string;
   language: LanguageMode;
   server_locations?: InputOutputLocations;
   app: ScriptGenerationTemplate;
@@ -36,7 +36,7 @@ export type ScriptGenerationTemplate = {
   packages: string[];
 };
 
-export type AppScriptInfo = {
-  app: string;
-  info?: AppInfo;
-};
+// export type AppScriptInfo = {
+//   app: string;
+//   info?: AppInfo;
+// };

@@ -123,7 +123,7 @@ launch_editor <- function(app_loc,
             "APP-SCRIPT-TEXT", 
             list(
               language = "R",
-              app = get_script(fs::path(app_loc, "app.R"))
+              app_script = get_script(fs::path(app_loc, "app.R"))
             )
           )
         },

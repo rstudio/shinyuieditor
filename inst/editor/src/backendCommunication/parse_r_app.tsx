@@ -20,9 +20,7 @@ async function parseSingleFileRApp(
 
   const app_info: AppInfo = {
     language: "R",
-    scripts: {
-      app,
-    },
+    app_script: app,
     ui_tree: r_treesitter_to_ui_tree(ui_node),
     server_locations,
     app: generateRAppScriptTemplate(ui_node),
@@ -32,10 +30,10 @@ async function parseSingleFileRApp(
 }
 
 export async function parseRAppText({
-  scripts,
+  app_script,
   parser: parser_promise,
 }: AppParserArgs) {
   const parser = await parser_promise;
 
-  return await parseSingleFileRApp(scripts.app, parser);
+  return await parseSingleFileRApp(app_script, parser);
 }

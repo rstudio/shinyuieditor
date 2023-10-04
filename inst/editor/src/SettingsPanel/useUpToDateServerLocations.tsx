@@ -26,11 +26,9 @@ export function useUpToDateServerLocations() {
     // - Potential Improvements:
     //   - Offload this logic to the main dispatch system and just reparse the
     //     app on every change as that's what this already does
-    const updatedAppScripts = generateFullAppScript(current_app_info, {
-      include_info: false,
-    });
+    const app_script = generateFullAppScript(current_app_info);
 
-    parseApp(updatedAppScripts).then(({ server_locations }) => {
+    parseApp(app_script).then(({ server_locations }) => {
       if (!server_locations) {
         throw new Error("Could not parse app scripts");
       }

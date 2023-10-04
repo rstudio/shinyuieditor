@@ -1,4 +1,4 @@
-import type { AppInfo, AppScriptInfo } from "communication-types/src/AppInfo";
+import type { AppInfo } from "communication-types/src/AppInfo";
 import type { TSParser } from "treesitter-parsers";
 import { get_assignment_nodes, get_ui_assignment } from "treesitter-parsers";
 import { convertMapToObject } from "util-functions/src/convertMapToObject";
@@ -12,20 +12,15 @@ import {
 import { getServerNodePosition } from "../python-parsing/get_server_node_position";
 
 export type AppParserArgs = {
-  scripts: AppScriptInfo;
+  app_script: string;
   parser: Promise<TSParser>;
 };
 
 export async function parsePythonAppText({
-  scripts,
+  app_script,
   parser: parser_promise,
 }: AppParserArgs) {
-  if (!("app" in scripts)) {
-    throw new Error("Multifile python apps are not supported");
-  }
-  const app = scripts.app;
-
-  const parsed_app = (await parser_promise).parse(app);
+  const parsed_app = (await parser_promise).parse(app_script);
   const assignment_nodes = get_assignment_nodes(parsed_app);
   const ui_node = get_ui_assignment(assignment_nodes);
 
@@ -38,9 +33,7 @@ export async function parsePythonAppText({
 
   const app_info: AppInfo = {
     language: "PYTHON",
-    scripts: {
-      app: app,
-    },
+    app_script: app_script,
     ui_tree: treesitter_to_ui_tree(ui_node),
     server_locations: {
       input_positions: convertMapToObject(input_positions),

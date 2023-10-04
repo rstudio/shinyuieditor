@@ -1,7 +1,6 @@
 import type { ShinyUiNode } from "editor/src/ui-node-definitions/ShinyUiNode";
 import type { getNodePositionAndIndent } from "treesitter-parsers";
 
-import type { AppScriptInfo } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -10,7 +9,7 @@ import type { MessageUnion } from "./MessageUnion";
  */
 export type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
-  "UPDATED-APP": AppScriptInfo;
+  "UPDATED-APP": { app_script: string };
   "ENTERED-TEMPLATE-SELECTOR": null;
   "APP-PREVIEW-REQUEST": null;
   "APP-PREVIEW-RESTART": null;
