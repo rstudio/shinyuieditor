@@ -4,7 +4,7 @@
 \alias{insert_server_code}
 \title{Insert code into the server script at the given location}
 \usage{
-insert_server_code(snippet, insert_at, app_loc, app_type)
+insert_server_code(snippet, insert_at, app_loc)
 }
 \arguments{
 \item{snippet}{Code to be inserted}
@@ -13,9 +13,6 @@ insert_server_code(snippet, insert_at, app_loc, app_type)
 
 \item{app_loc}{Path to directory containing Shiny app to be visually edited
 (either containing an \code{app.R} or both a \code{ui.R} and \code{server.R}).}
-
-\item{app_type}{Type of app to get the server script for. Can be
-"SINGLE-FILE" or "MULTI-FILE". As returned by \code{get_app_file_type()}}
 }
 \description{
 Insert code into the server script at the given location
