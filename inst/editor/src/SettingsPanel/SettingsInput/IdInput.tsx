@@ -89,7 +89,7 @@ export function IdInput({
     <>
       <div className="flex items-center gap-1">
         <input {...common_props} type="text" />
-        {boundToServer && (
+        {/* {boundToServer && (
           <Tooltip placement="right-start">
             <TooltipTrigger asChild>
               <div className="relative">
@@ -128,7 +128,7 @@ export function IdInput({
               </p>
             </TooltipContent>
           </Tooltip>
-        )}
+        )} */}
       </div>
       {invalidMsg && (
         <div className="text-danger">
