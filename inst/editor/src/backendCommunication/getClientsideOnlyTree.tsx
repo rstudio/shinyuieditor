@@ -1,9 +1,7 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
 
-import type { ShinyUiRootNode } from "../ui-node-definitions/ShinyUiNode";
-
 export type MinimalAppInfo = {
-  ui_tree: ShinyUiRootNode;
+  app_script: string;
   language: LanguageMode;
 };
 /**
@@ -21,7 +19,7 @@ export async function getClientsideOnlyTree(defaultInfo: MinimalAppInfo) {
         return r.json();
       })
       .then((r) => {
-        if ("ui_tree" in r && "language" in r) {
+        if ("app_script" in r && "language" in r) {
           resolve(r);
         } else {
           reject("No ui_tree or language in response");

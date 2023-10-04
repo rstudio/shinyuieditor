@@ -63,3 +63,66 @@ export const basicGridPage: KnownShinyUiNode = {
     },
   ],
 };
+
+export const basicGridPageScript = `
+library(shiny)
+library(bslib)
+library(gridlayout)
+
+ui <- grid_page(
+  layout = c(
+    "header  header   ",
+    "sidebar timePlot",
+    "sidebar timePlot    "
+  ),
+  row_sizes = c(
+    "100px",
+    "1fr",
+    "1fr"
+  ),
+  col_sizes = c(
+    "400px",
+    "1fr"
+  ),
+  gap_size = "10px",
+  grid_card(
+    area = "sidebar",
+    card_header("Settings"),
+    card_body(
+      gap = "10px",
+      max_height = "100px",
+      min_height = "500px",
+      checkboxGroupInput(
+        inputId = "myCheckboxGroup",
+        label = "City To Look At",
+        choices = list("PM2.5" = "PM25", "pee" = "OZONE")
+      ),
+      radioButtons(
+        inputId = "myRadioButtons",
+        label = "A",
+        choices = list("choice a" = "a", "myKey4" = "myValue4"),
+        width = "50%"
+      ),
+      radioButtons(
+        inputId = "myRadioButtons",
+        label = "B",
+        choices = list("choice a" = "a", "myKey4" = "myValue4"),
+        width = "100%"
+      )
+    )
+  ),
+  grid_card_text(
+    area = "header",
+    content = "Geysers!",
+    alignment = "start",
+    is_title = FALSE
+  ),
+  grid_card_plot(area = "timePlot"),
+)
+
+
+server <- function(input, output) {
+
+}
+
+`;

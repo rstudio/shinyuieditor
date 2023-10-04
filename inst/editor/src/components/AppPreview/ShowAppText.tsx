@@ -18,9 +18,7 @@ import styles from "./ShowAppText.module.css";
 
 function AppFilesViewer({ info }: { info: AppInfo }) {
   const language = useLanguageMode();
-  const app_scripts = generateFullAppScript(info, {
-    include_info: false,
-  });
+  const app_script = generateFullAppScript(info);
 
   return (
     <>
@@ -36,10 +34,7 @@ function AppFilesViewer({ info }: { info: AppInfo }) {
           <span>Want to start coding your app? </span>
           <Button
             onClick={() => {
-              const editor_url = pythonAppToShinyliveUrl(
-                app_scripts.app,
-                "editor"
-              );
+              const editor_url = pythonAppToShinyliveUrl(app_script, "editor");
               window.open(editor_url);
             }}
           >
@@ -50,7 +45,7 @@ function AppFilesViewer({ info }: { info: AppInfo }) {
       ) : null}
       <div className={styles.code_holder}>
         <label>app.R</label>
-        <pre>{app_scripts.app}</pre>
+        <pre>{app_script}</pre>
       </div>
     </>
   );

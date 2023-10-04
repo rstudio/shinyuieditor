@@ -2,8 +2,6 @@ import type { BackendConnection, MessageDispatcher } from "communication-types";
 import type { LanguageMode } from "communication-types/src/AppInfo";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 
-import type { ShinyUiRootNode } from "../ui-node-definitions/ShinyUiNode";
-
 import type { MinimalAppInfo } from "./getClientsideOnlyTree";
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
@@ -31,29 +29,24 @@ export function setupStaticBackend({
             app_preview: false,
           });
 
-          getClientsideOnlyTree(defaultInfo).then(({ ui_tree, language }) => {
-            if (ui_tree === "TEMPLATE_CHOOSER") {
-              messageDispatch.dispatch("TEMPLATE_CHOOSER", "please");
-            } else {
-              messageDispatch.dispatch("APP-INFO", {
-                ui_tree,
-                scripts: {
-                  app: "",
-                },
-                language,
-                app: {
-                  code: "",
-                  packages: ["shiny"],
-                },
-              });
+          getClientsideOnlyTree(defaultInfo).then(
+            ({ app_script, language }) => {
+              if (app_script === "TEMPLATE_CHOOSER") {
+                messageDispatch.dispatch("TEMPLATE_CHOOSER", "please");
+              } else {
+                messageDispatch.dispatch("APP-SCRIPT-TEXT", {
+                  language,
+                  app_script,
+                });
+              }
             }
-          });
+          );
           return;
         }
         case "UPDATED-APP": {
-          if (msg.payload.info) {
-            messageDispatch.dispatch("APP-INFO", msg.payload.info);
-          }
+          // if (msg.payload.info) {
+          //   messageDispatch.dispatch("APP-INFO", msg.payload.info);
+          // }
           return;
         }
         case "APP-PREVIEW-REQUEST": {
@@ -76,7 +69,7 @@ export function setupStaticBackend({
  * @returns A backend object that can be used to communicate with the frontend.
  */
 export function staticDispatchFromTree(
-  defaultTree?: ShinyUiRootNode,
+  defaultApp?: string,
   language: LanguageMode = "R"
 ) {
   return setupStaticBackend({
@@ -84,7 +77,7 @@ export function staticDispatchFromTree(
     showMessages: true,
     defaultInfo: {
       language,
-      ui_tree: defaultTree ?? "TEMPLATE_CHOOSER",
+      app_script: defaultApp ?? "TEMPLATE_CHOOSER",
     },
   });
 }

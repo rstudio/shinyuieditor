@@ -61,14 +61,14 @@ export function useSyncUiWithBackend() {
       subscribe("CHECKIN", (info) => {
         dispatch(SET_META_DATA(info));
       }),
-      subscribe("APP-INFO", (info) => dispatch(SET_APP_INFO(info))),
-      subscribe("APP-SCRIPT-TEXT", (scripts) => {
+      // subscribe("APP-INFO", (info) => dispatch(SET_APP_INFO(info))),
+      subscribe("APP-SCRIPT-TEXT", ({ app_script }) => {
         if (!parseApp) {
           throw new Error(
             "No parser initialized. Checkin handshake must not have happened."
           );
         }
-        parseApp(scripts).then((info) => {
+        parseApp(app_script).then((info) => {
           dispatch(SET_APP_INFO(info));
         });
       }),
@@ -117,13 +117,9 @@ export function useSyncUiWithBackend() {
       return;
     }
 
-    const updatedAppScripts = generateFullAppScript(state, {
-      include_info: false,
-    });
-
     debouncedSendMsg({
       path: "UPDATED-APP",
-      payload: updatedAppScripts,
+      payload: { app_script: generateFullAppScript(state) },
     });
   }, [debouncedSendMsg, language, sendMsg, state]);
 

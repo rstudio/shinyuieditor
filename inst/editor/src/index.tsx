@@ -9,6 +9,7 @@ import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
+import { basicGridPageScript } from "./ui-node-definitions/sample_ui_trees/basicGridPage";
 import { basicNavbarPage as devModeTree } from "./ui-node-definitions/sample_ui_trees/basicNavbarPage";
 import type { ShinyUiRootNode } from "./ui-node-definitions/ShinyUiNode";
 // import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
@@ -33,7 +34,7 @@ const { pathToWebsocket, defaultTree } = DEV_MODE
 
 const defaultInfo: MinimalAppInfo = {
   language: "R",
-  ui_tree: defaultTree,
+  app_script: basicGridPageScript,
 };
 
 const showMessages = true;

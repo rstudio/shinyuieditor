@@ -26,7 +26,7 @@ export function templateToAppContents(
   language: LanguageMode
 ): MessageToBackendByPath["UPDATED-APP"] {
   const app_info = templateToSingleFileInfo(selection);
-  return generateFullAppScript(app_info, { include_info: true });
+  return { app_script: generateFullAppScript(app_info) };
 }
 
 function templateToSingleFileInfo(template_info: TemplateSelection): AppInfo {
@@ -55,9 +55,7 @@ shinyApp(ui, server)
 
   return {
     ui_tree: uiTree,
-    scripts: {
-      app: code,
-    },
+    app_script: code,
     language: "R",
     app: {
       code,

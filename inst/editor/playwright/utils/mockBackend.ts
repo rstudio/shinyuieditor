@@ -9,7 +9,7 @@ export async function mockBackendState(
   // If we only have the language passed then we are in the template chooser mode
   if (!("ui_tree" in info)) {
     info = {
-      ui_tree: "TEMPLATE_CHOOSER",
+      app_script: "TEMPLATE_CHOOSER",
       language: info.language,
     };
   }

@@ -1,4 +1,4 @@
-import type { AppInfo, AppScriptInfo, LanguageMode } from "./AppInfo";
+import type { LanguageMode } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -15,9 +15,8 @@ type NewType = {
   };
   "APP-SCRIPT-TEXT": {
     language: LanguageMode;
-  } & AppScriptInfo;
-  // TODO: Remove this because it's only used for the static backend mode
-  "APP-INFO": AppInfo;
+    app_script: string;
+  };
   "CONNECTION-LOST": {
     msg: string;
   };
