@@ -30,9 +30,6 @@ test("Template chooser can change between templates mid-session", async ({
     .first()
     .click();
 
-  // Make sure we're in single-file output mode
-  await page.getByLabel("Single file mode").check();
-
   await page
     .getByRole("button", { name: "Start editor with selected template" })
     .click();
@@ -58,9 +55,6 @@ test("Template chooser can change between templates mid-session", async ({
   // Make sure we're back in the template view
   await expect(page.locator(`text=Choose App Template`)).toBeVisible();
 
-  // Switch to multi-file output mode
-  await page.getByLabel("Multi file mode").check();
-
   // Select last template and go into editor
   await page
     .getByRole("article", { name: "App template preview card" })
@@ -81,12 +75,6 @@ test("Template chooser can change between templates mid-session", async ({
   // 2) The contents are different from the previous view (the actual app previewed changed)
   const secondPreviewAppContents = await previewAppBody.innerHTML();
   expect(firstPreviewAppContents).not.toBe(secondPreviewAppContents);
-
-  const multiFileModeFiles = await backendServer.get_app_folder_contents();
-  // Contains both ui and server files and doesn't contain an app.r file
-  expect(containsAppFile(multiFileModeFiles, "ui")).toBe(true);
-  expect(containsAppFile(multiFileModeFiles, "server")).toBe(true);
-  expect(containsAppFile(multiFileModeFiles, "app")).toBe(false);
 });
 
 test("Ending on template chooser will clear any template files written", async ({
