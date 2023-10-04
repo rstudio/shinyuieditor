@@ -11,6 +11,10 @@ on:
   schedule:
     - cron: "0 13 * * 1" # every monday
 
+concurrency:
+  group: ci-pkg-checks-${{ github.ref }}-1
+  cancel-in-progress: true
+
 name: Package checks
 
 jobs:
