@@ -3,8 +3,8 @@ name: Javascript Tests
 on:
   push:
     branches: [main, dev]
-    pull_request:
-      branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 concurrency:
   group: ci-tests-${{ github.ref }}-1
