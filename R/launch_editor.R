@@ -7,7 +7,7 @@
 #'
 #' @inheritParams httpuv::startServer
 #' @param app_loc Path to directory containing Shiny app to be visually edited
-#'   (either containing an `app.R` or both a `ui.R` and `server.R`). If the
+#'   (only single-file apps using an `app.R` are supported.) If the
 #'   provided location doesn't exist, or doesn't contain an app, the app will
 #'   start in an interface to select from a series of starter templates which
 #'   will then be written to the location specified.
@@ -76,9 +76,9 @@ launch_editor <- function(app_loc,
   # the parent location
   app_loc <- validate_app_loc(app_loc)
   
-  # Type of app we're in. Can be "SINGLE-FILE", "MULTI-FILE", or "MISSING"
-  app_type <- get_app_file_type(app_loc)
-
+  # This checks to make sure we're working with a single-file app. It will give
+  # a depreciation error if it detects multifile apps
+  has_app <- check_for_app_file(app_loc)
 
   # ----------------------------------------------------------------------------
   # Initialize classes for controling app preview and polling for updates
@@ -109,28 +109,6 @@ launch_editor <- function(app_loc,
   )
 
 
-  # Turn off app preview and delete the watched files. This should only happen
-  # when the user has backed out of editing a template app and chosen a new file
-  # type
-  reset_app_type <- function() {
-    app_preview_obj$stop_app()
-    file_change_watcher$delete_files()
-  }
-
-  # Sets app type variable and also makes sure the files being watched are set.
-  # I'm not a huge fan of this pattern but it's the best I could come up with
-  # for now and since we probably will eventually rewrite this in another
-  # language it feels acceptable for now
-  setup_new_app_type <- function(new_app_type = app_type) {
-    # If app type is an existing app then we need to make sure the files being
-    # watched are properly recorded
-    is_existing_app <- !identical(new_app_type, "MISSING")
-    if (is_existing_app) {
-      file_change_watcher$set_watched_files(app_type_to_files[[new_app_type]])
-    }
-    app_type <<- new_app_type
-  }
-
 
   # ----------------------------------------------------------------------------
   # Main logic for responding to messages from the client. Messages have a path
@@ -141,7 +119,13 @@ launch_editor <- function(app_loc,
     send_app_info_to_client <- function() {
       tryCatch(
         {
-          send_msg("APP-SCRIPT-TEXT", get_app_scripts(app_loc))
+          send_msg(
+            "APP-SCRIPT-TEXT", 
+            list(
+              language = "R",
+              app = get_script(fs::path(app_loc, "app.R"))
+            )
+          )
         },
         error = function(error) {
           send_msg(
@@ -156,7 +140,8 @@ launch_editor <- function(app_loc,
     }
 
     load_new_app <- function() {
-      if (identical(app_type, "MISSING")) {
+
+      if (!has_app) {
         send_msg("TEMPLATE_CHOOSER", "USER-CHOICE")
         server_mode <<- "template-chooser"
         return()
@@ -189,33 +174,19 @@ launch_editor <- function(app_loc,
 
     # Handles message from client with new app info
     handle_new_ui_from_client <- function(update_payload) {
-      update_type <- update_payload$app_type
 
-      # If the file update doesn't match the existing app type, remove the old
-      # files and update the app type
-      changed_app_type <- !identical(update_type, app_type)
-      if (changed_app_type) {
-        reset_app_type()
-        setup_new_app_type(update_type)
+      updated_scripts <- list(app = update_payload$app)
+
+      if (!has_app) {
+        file_change_watcher$set_watched_files("app.R")
+        has_app <<- TRUE
       }
-
-      updated_scripts <- switch(update_type,
-        "SINGLE-FILE" = {
-          list(app = update_payload$app)
-        },
-        "MULTI-FILE" = {
-          list(ui = update_payload$ui, server = update_payload$server)
-        },
-        {
-          stop("Don't know how to deal with that type...")
-        }
-      )
 
       file_change_watcher$update_files(updated_scripts)
 
       # If we're coming from the server mode or a new app type, then we need to
       # load the new app as well
-      if (changed_app_type || identical(server_mode, "template-chooser")) {
+      if (identical(server_mode, "template-chooser")) {
         # Setup files
         load_new_app()
       }
@@ -254,7 +225,9 @@ launch_editor <- function(app_loc,
           app_preview_obj$stop_app()
         },
         "READY-FOR-STATE" = {
-          setup_new_app_type()
+          if (has_app) {
+            file_change_watcher$set_watched_files("app.R")
+          }
           load_new_app()
         },
         "UPDATED-APP" = {

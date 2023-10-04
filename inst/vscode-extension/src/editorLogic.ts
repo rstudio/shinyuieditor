@@ -87,7 +87,7 @@ export async function editorLogic({
   function requestTemplateChooser() {
     sendMessage({
       path: "TEMPLATE_CHOOSER",
-      payload: "SINGLE-FILE",
+      payload: "PLEASE",
     });
   }
 
@@ -176,7 +176,6 @@ export async function editorLogic({
         path: "APP-SCRIPT-TEXT",
         payload: {
           language,
-          app_type: "SINGLE-FILE",
           app: appFileText,
         },
       });
@@ -254,8 +253,6 @@ export async function editorLogic({
           return;
 
         case "UPDATED-APP": {
-          if (msg.payload.app_type === "MULTI-FILE") return;
-
           const app_file_was_updated = await updateAppFile({
             script_text: msg.payload.app,
             document,

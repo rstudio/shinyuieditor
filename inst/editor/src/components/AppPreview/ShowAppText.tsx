@@ -22,56 +22,35 @@ function AppFilesViewer({ info }: { info: AppInfo }) {
     include_info: false,
   });
 
-  if (app_scripts.app_type === "SINGLE-FILE") {
-    return (
-      <>
-        <h2 className={styles.title}>App script</h2>
-        <p className={styles.description}>
-          The following code defines the currently being edited app. Copy and
-          paste it to an <code>app.{language === "PYTHON" ? "py" : "R"}</code>{" "}
-          file to use.
-        </p>
-
-        {language === "PYTHON" ? (
-          <div className={styles.openButtons}>
-            <span>Want to start coding your app? </span>
-            <Button
-              onClick={() => {
-                const editor_url = pythonAppToShinyliveUrl(
-                  app_scripts.app,
-                  "editor"
-                );
-                window.open(editor_url);
-              }}
-            >
-              <ArrowUpRightSquare />
-              Open in ShinyLive Editor
-            </Button>
-          </div>
-        ) : null}
-        <div className={styles.code_holder}>
-          <label>app.R</label>
-          <pre>{app_scripts.app}</pre>
-        </div>
-      </>
-    );
-  }
-
   return (
     <>
-      <h2 className={styles.title}>App scripts</h2>
+      <h2 className={styles.title}>App script</h2>
       <p className={styles.description}>
         The following code defines the currently being edited app. Copy and
-        paste the ui and server scripts into <code>ui.R</code> and{" "}
-        <code>server.R</code> files to use.
+        paste it to an <code>app.{language === "PYTHON" ? "py" : "R"}</code>{" "}
+        file to use.
       </p>
+
+      {language === "PYTHON" ? (
+        <div className={styles.openButtons}>
+          <span>Want to start coding your app? </span>
+          <Button
+            onClick={() => {
+              const editor_url = pythonAppToShinyliveUrl(
+                app_scripts.app,
+                "editor"
+              );
+              window.open(editor_url);
+            }}
+          >
+            <ArrowUpRightSquare />
+            Open in ShinyLive Editor
+          </Button>
+        </div>
+      ) : null}
       <div className={styles.code_holder}>
-        <label>ui.R</label>
-        <pre>{app_scripts.ui}</pre>
-      </div>
-      <div className={styles.code_holder}>
-        <label>server.R</label>
-        <pre>{app_scripts.server}</pre>
+        <label>app.R</label>
+        <pre>{app_scripts.app}</pre>
       </div>
     </>
   );

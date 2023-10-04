@@ -1,7 +1,7 @@
 import type { ShinyUiNode } from "editor/src/ui-node-definitions/ShinyUiNode";
 import type { getNodePositionAndIndent } from "treesitter-parsers";
 
-import type { AppScriptInfo, AppType } from "./AppInfo";
+import type { AppScriptInfo } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -108,7 +108,6 @@ export type InputOutputLocations = {
 export type ParsedAppInfo = {
   file_lines: string[];
   loaded_libraries: string[];
-  type: AppType;
   ui_bounds: { start: number; end: number };
   ui_tree: ShinyUiNode;
 };

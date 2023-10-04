@@ -38,9 +38,7 @@ export async function parsePythonAppText({
 
   const app_info: AppInfo = {
     language: "PYTHON",
-    app_type: "SINGLE-FILE",
     scripts: {
-      app_type: "SINGLE-FILE",
       app: app,
     },
     ui_tree: treesitter_to_ui_tree(ui_node),

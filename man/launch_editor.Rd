@@ -18,7 +18,7 @@ launch_editor(
 }
 \arguments{
 \item{app_loc}{Path to directory containing Shiny app to be visually edited
-(either containing an \code{app.R} or both a \code{ui.R} and \code{server.R}). If the
+(only single-file apps using an \code{app.R} are supported.) If the
 provided location doesn't exist, or doesn't contain an app, the app will
 start in an interface to select from a series of starter templates which
 will then be written to the location specified.}

@@ -1,4 +1,4 @@
-import type { AppInfo, AppScriptInfo, AppType, LanguageMode } from "./AppInfo";
+import type { AppInfo, AppScriptInfo, LanguageMode } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -32,7 +32,7 @@ type NewType = {
       };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];
-  TEMPLATE_CHOOSER: AppType | "USER-CHOICE";
+  TEMPLATE_CHOOSER: string;
 };
 
 /**

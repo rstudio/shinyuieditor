@@ -111,10 +111,7 @@ function AppStateToShinyLiveUrl(state: MainStateOption): string {
     include_info: false,
   });
 
-  const url = pythonAppToShinyliveUrl(
-    script_text.app_type === "SINGLE-FILE" ? script_text.app : "",
-    "app"
-  );
+  const url = pythonAppToShinyliveUrl(script_text.app, "app");
 
   return url;
 }

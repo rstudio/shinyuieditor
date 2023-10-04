@@ -3,20 +3,8 @@ name: Javascript Tests
 on:
   push:
     branches: [main, dev]
-    # Don't trigger this action when only build targets change
-    paths-ignore:
-      - "inst/editor/build/**"
-      - "inst/treesitter-parsers/dist/**"
-      - "inst/vscode-extension/build/**"
-      - "inst/vscode-extension/*.vsix"
     pull_request:
       branches: [main, dev]
-      # Don't trigger this action when only build targets change
-      paths-ignore:
-        - "inst/editor/build/**"
-        - "inst/treesitter-parsers/dist/**"
-        - "inst/vscode-extension/build/**"
-        - "inst/vscode-extension/*.vsix"
 
 concurrency:
   group: ci-tests-${{ github.ref }}-1
