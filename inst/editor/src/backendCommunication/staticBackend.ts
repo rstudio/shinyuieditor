@@ -2,6 +2,9 @@ import type { BackendConnection, MessageDispatcher } from "communication-types";
 import type { LanguageMode } from "communication-types/src/AppInfo";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 
+import { generateUiScript } from "../ui-node-definitions/code_generation/generate_ui_script";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
+
 import type { MinimalAppInfo } from "./getClientsideOnlyTree";
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
@@ -14,8 +17,11 @@ export function setupStaticBackend({
   showMessages: boolean;
   defaultInfo: MinimalAppInfo;
 }) {
+  const language = defaultInfo.language;
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
+
+  let inTemplateChooser = defaultInfo.app_script === "TEMPLATE_CHOOSER";
 
   const messagePassingMethods: BackendConnection = {
     sendMsg: (msg) => {
@@ -24,7 +30,7 @@ export function setupStaticBackend({
         case "READY-FOR-STATE": {
           // Send initial checkin msg
           messageDispatch.dispatch("CHECKIN", {
-            language: defaultInfo.language,
+            language,
             server_aware: false,
             app_preview: false,
           });
@@ -43,10 +49,24 @@ export function setupStaticBackend({
           );
           return;
         }
+        case "ENTERED-TEMPLATE-SELECTOR": {
+          inTemplateChooser = true;
+          return;
+        }
         case "UPDATED-APP": {
-          // if (msg.payload.info) {
-          //   messageDispatch.dispatch("APP-INFO", msg.payload.info);
-          // }
+          const appIsTemplateChooser =
+            msg.payload.app_script === "TEMPLATE_CHOOSER";
+
+          // We only need to send the message if the app script has changed from
+          // or to template chooser mode. Otherwise the client state will take
+          // care of it for us.
+          if (inTemplateChooser !== appIsTemplateChooser) {
+            inTemplateChooser = appIsTemplateChooser;
+            messageDispatch.dispatch("APP-SCRIPT-TEXT", {
+              ...msg.payload,
+              language,
+            });
+          }
           return;
         }
         case "APP-PREVIEW-REQUEST": {
@@ -69,7 +89,7 @@ export function setupStaticBackend({
  * @returns A backend object that can be used to communicate with the frontend.
  */
 export function staticDispatchFromTree(
-  defaultApp?: string,
+  defaultTree?: ShinyUiNode,
   language: LanguageMode = "R"
 ) {
   return setupStaticBackend({
@@ -77,7 +97,31 @@ export function staticDispatchFromTree(
     showMessages: true,
     defaultInfo: {
       language,
-      app_script: defaultApp ?? "TEMPLATE_CHOOSER",
+      app_script: defaultTree
+        ? ui_tree_to_script({ ui_tree: defaultTree, language })
+        : "TEMPLATE_CHOOSER",
     },
+  });
+}
+
+/**
+ * Go from a ui tree to a simple bare-bones app script. Used primarily so we can
+ * have type-safe demo trees for testing
+ * @param ui_tree The ui tree to convert
+ * @param language The language to use
+ * @returns A simple app script
+ */
+export function ui_tree_to_script({
+  ui_tree,
+  language,
+}: {
+  ui_tree: ShinyUiNode;
+  language: LanguageMode;
+}): string {
+  return generateUiScript({
+    ui_tree,
+    language,
+    packages: [],
+    code: "",
   });
 }

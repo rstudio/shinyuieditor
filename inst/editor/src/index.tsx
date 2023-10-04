@@ -1,20 +1,22 @@
 /* eslint-disable no-console */
 import type { BackendConnection } from "communication-types";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 
 // import { pythonSidebarAndTabs as devModeTree } from "ui-node-definitions/src/sample_ui_trees/pythonSidebarAndTabs";
 
-import type { MinimalAppInfo } from "./backendCommunication/getClientsideOnlyTree";
-import { setupStaticBackend } from "./backendCommunication/staticBackend";
+import {
+  setupStaticBackend,
+  ui_tree_to_script,
+} from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
-import { basicGridPageScript } from "./ui-node-definitions/sample_ui_trees/basicGridPage";
-import { basicNavbarPage as devModeTree } from "./ui-node-definitions/sample_ui_trees/basicNavbarPage";
+// import { basicNavbarPage as devModeTree } from "./ui-node-definitions/sample_ui_trees/basicNavbarPage";
 import type { ShinyUiRootNode } from "./ui-node-definitions/ShinyUiNode";
 // import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
 // import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
-// const devModeTree = "TEMPLATE_CHOOSER" as ShinyUiRootNode;
+const devModeTree = "TEMPLATE_CHOOSER";
 
 // const language: LanguageMode = "PYTHON";
 // const language: LanguageMode = "R";
@@ -22,20 +24,8 @@ import type { ShinyUiRootNode } from "./ui-node-definitions/ShinyUiNode";
 const container = document.getElementById("root");
 
 // If we're in dev, look at localhost 8888, otherwise use default
-const { pathToWebsocket, defaultTree } = DEV_MODE
-  ? {
-      pathToWebsocket: "localhost:8888",
-      defaultTree: devModeTree,
-    }
-  : {
-      pathToWebsocket: undefined,
-      defaultTree: "TEMPLATE_CHOOSER" as ShinyUiRootNode,
-    };
 
-const defaultInfo: MinimalAppInfo = {
-  language: "R",
-  app_script: basicGridPageScript,
-};
+const language: LanguageMode = "R";
 
 const showMessages = true;
 (async () => {
@@ -45,7 +35,7 @@ const showMessages = true;
     const websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
       onClose: () => console.log("Websocket closed!!"),
-      pathToWebsocket,
+      pathToWebsocket: DEV_MODE ? "localhost:8888" : undefined,
     });
 
     const backendDispatch: BackendConnection =
@@ -53,7 +43,13 @@ const showMessages = true;
         ? setupStaticBackend({
             messageDispatch,
             showMessages,
-            defaultInfo,
+            defaultInfo: {
+              language: "R",
+              app_script:
+                DEV_MODE && devModeTree !== "TEMPLATE_CHOOSER"
+                  ? ui_tree_to_script({ ui_tree: devModeTree, language })
+                  : ("TEMPLATE_CHOOSER" satisfies ShinyUiRootNode),
+            },
           })
         : websocketDispatch;
 

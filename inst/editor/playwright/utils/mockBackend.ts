@@ -1,22 +1,21 @@
 import type { Page } from "@playwright/test";
+import type { LanguageMode } from "communication-types/src/AppInfo";
 
-import type { MinimalAppInfo } from "../../src/backendCommunication/getClientsideOnlyTree";
+import type { ShinyUiNode } from "../../src/ui-node-definitions/ShinyUiNode";
 
 export async function mockBackendState(
   page: Page,
-  info: MinimalAppInfo | Omit<MinimalAppInfo, "ui_tree">
+  info: { language: LanguageMode } & ({ ui_tree: ShinyUiNode } | {})
 ) {
-  // If we only have the language passed then we are in the template chooser mode
-  if (!("ui_tree" in info)) {
-    info = {
-      app_script: "TEMPLATE_CHOOSER",
-      language: info.language,
-    };
-  }
+  const payload = JSON.stringify({
+    ui_tree: "ui_tree" in info ? info.ui_tree : "TEMPLATE_CHOOSER",
+    language: info.language,
+  });
+
   await page.route("/testing-tree", (route) =>
     route.fulfill({
       status: 200,
-      body: JSON.stringify(info),
+      body: payload,
     })
   );
 }
