@@ -15,6 +15,10 @@ The following are a list of common questions one may have about the `shinyuiedit
 
 Currently only `gridlayout::grid_page` and `shiny::navbarPage()` are supported as the root of your app. More options for app layout are planned.
 
+## Can I use the editor on multi-file apps?
+
+The UI Editor only supports single file apps. The app needs to have the ui and server code declared in a single `app.R` file. If you use the editor to create a new app from a template, it will be emited in this same format.
+
 ## I have an existing app, can I use the `shinyuieditor` on it?
 
 Yes! If you point `launch_editor()` at your existing app, then it will be read into the ui editor. If the ui can't be parsed then the editor will ask you if you want to replace it with a `shinyuieditor`-friendly starter template which you will then need to update to match the inputs/outputs of your app's server code. (Note that this template replacement works only for two-file apps currently.)

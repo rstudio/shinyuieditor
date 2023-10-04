@@ -1,3 +1,9 @@
+# Development version
+
+### Major changes
+
+- Removed support for multi-file apps. This was a major source of bugs and complexity and was not used by many people.
+
 # shinyuieditor 0.5.0
 
 ### Major new features and improvements
