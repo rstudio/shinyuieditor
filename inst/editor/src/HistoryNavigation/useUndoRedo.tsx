@@ -6,6 +6,8 @@ import StateHistory from "../HistoryNavigation/StateHistory";
 import type { MainStateOption } from "../state/app_info";
 import { SET_FULL_STATE } from "../state/app_info";
 import type { RootState } from "../state/store";
+import { uiTreesAreSame } from "../state/uiTreesAreSame";
+
 type HistoryEntry = MainStateOption;
 
 export type HistoryInfo = {
@@ -85,7 +87,7 @@ function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
   }
 
   if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
-    return oldEntry.ui_tree === newEntry.ui_tree;
+    return uiTreesAreSame(oldEntry.ui_tree, newEntry.ui_tree);
   }
 
   return false;

@@ -1,5 +1,7 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
 
+import { ui_tree_to_script } from "./staticBackend";
+
 export type MinimalAppInfo = {
   app_script: string;
   language: LanguageMode;
@@ -19,8 +21,26 @@ export async function getClientsideOnlyTree(defaultInfo: MinimalAppInfo) {
         return r.json();
       })
       .then((r) => {
-        if ("app_script" in r && "language" in r) {
-          resolve(r);
+        if ("ui_tree" in r && "language" in r) {
+          // Convert UI tree to basic app script
+          // If a ui tree has been passed, then we should convert that into a simple app
+          // before sending over
+          const ui_tree = r.ui_tree;
+
+          const info: MinimalAppInfo = {
+            app_script:
+              ui_tree === "TEMPLATE_CHOOSER"
+                ? ui_tree
+                : ui_tree_to_script({
+                    ui_tree: ui_tree,
+                    language: r.language,
+                  }),
+            language: r.language,
+          };
+
+          console.log("Generated info from tree", info);
+
+          resolve(info);
         } else {
           reject("No ui_tree or language in response");
         }

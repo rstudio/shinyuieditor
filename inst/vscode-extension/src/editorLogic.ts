@@ -176,7 +176,7 @@ export async function editorLogic({
         path: "APP-SCRIPT-TEXT",
         payload: {
           language,
-          app: appFileText,
+          app_script: appFileText,
         },
       });
     } catch (e) {
@@ -254,12 +254,12 @@ export async function editorLogic({
 
         case "UPDATED-APP": {
           const app_file_was_updated = await updateAppFile({
-            script_text: msg.payload.app,
+            script_text: msg.payload.app_script,
             document,
           });
 
           if (app_file_was_updated) {
-            latestAppWrite = msg.payload.app;
+            latestAppWrite = msg.payload.app_script;
           }
 
           return;
