@@ -1,4 +1,4 @@
-import type { AppInfo, AppType } from "communication-types/src/AppInfo";
+import type { AppInfo } from "communication-types/src/AppInfo";
 import type {
   ScriptRange,
   ServerPositions,
@@ -7,7 +7,6 @@ import type {
 import type { CommandOutputGeneric } from "./R-Utils/runRCommand";
 
 export type ServerInfo = {
-  app_type: AppType;
   server_pos: {
     server_fn: ScriptRange;
     indent: number;

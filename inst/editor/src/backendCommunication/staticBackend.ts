@@ -26,16 +26,14 @@ export function setupStaticBackend({
         case "READY-FOR-STATE": {
           getClientsideOnlyTree(defaultInfo).then(({ ui_tree, language }) => {
             if (ui_tree === "TEMPLATE_CHOOSER") {
-              messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
+              messageDispatch.dispatch("TEMPLATE_CHOOSER", "please");
             } else {
               messageDispatch.dispatch("APP-INFO", {
                 ui_tree,
                 scripts: {
-                  app_type: "SINGLE-FILE",
                   app: "",
                 },
                 language,
-                app_type: "SINGLE-FILE",
                 app: {
                   code: "",
                   packages: ["shiny"],

@@ -1,65 +1,63 @@
 #' Get the file type a shiny app directory
+#' 
+#' Also checks for multifile apps and emits a depreciation error
 #'
 #' @param app_loc Path to a shiny app
 #' @param error_on_missing Should the lack of
 #' app ui file trigger an error? If not returns a type of "missing" and no path
 #'
-#' @return either "SINGLE-FILE" (`app.R``), "MULTI-FILE" (`ui.R` and
-#' `server.R`), or "MISSING" (empty directory)
+#' @return either `TRUE` if it finds an (`app.R`) or `FALSE` if no app detected
 #'
 #' @keywords internal
 #'
-get_app_file_type <- function(app_loc, error_on_missing = FALSE) {
+check_for_app_file <- function(app_loc, error_on_missing = FALSE) {
   if (
     fs::file_exists(fs::path(app_loc, "app.r")) ||
       fs::file_exists(fs::path(app_loc, "app.R"))
   ) {
-    return("SINGLE-FILE")
+    return(TRUE)
   }
 
   if (
     fs::file_exists(fs::path(app_loc, "ui.r")) ||
       fs::file_exists(fs::path(app_loc, "ui.R"))
   ) {
-    return("MULTI-FILE")
+    multifile_depreciation_error()
   }
 
   if (error_on_missing) {
     stop(
-      "Can't find an app.R or ui.R file in the provided app_loc. ",
+      "Can't find an app.R file in the provided app_loc. ",
       "Make sure your working directory is properly set"
     )
   }
 
-  "MISSING"
+  return(FALSE)
+
+ 
 }
 
-app_type_to_files <- list(
-  "SINGLE-FILE" = "app.R",
-  "MULTI-FILE" = c("ui.R", "server.R")
-)
 
 get_app_scripts <- function(app_loc) {
-  app_type <- get_app_file_type(app_loc)
-
-  if (identical(app_type, "SINGLE-FILE")) {
+  
     list(
       language = "R",
-      app_type = "SINGLE-FILE",
       app = get_script(fs::path(app_loc, "app.R"))
     )
-  } else {
-    list(
-      language = "R",
-      app_type = "MULTI-FILE",
-      ui = get_script(fs::path(app_loc, "ui.R")),
-      server = get_script(fs::path(app_loc, "server.R"))
-    )
-  }
+
+  
 }
 
 
 get_script <- function(script_loc) {
   file_lines <- readLines(script_loc)
   paste(file_lines, collapse = "\n")
+}
+
+
+multifile_depreciation_error <- function() {
+  stop(
+    "Support for multifile apps in the UI editor has been depreciated. ",
+    "Please use a single file app. Sorry for the inconvenience!"
+  )
 }

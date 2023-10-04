@@ -2,10 +2,6 @@ import type { ShinyUiNode } from "editor/src/ui-node-definitions/ShinyUiNode";
 
 import type { InputOutputLocations } from "./MessageToBackend";
 
-type SingleFileAppType = "SINGLE-FILE";
-type MultiFileAppType = "MULTI-FILE";
-export type AppType = SingleFileAppType | MultiFileAppType;
-
 /**
  * What mode is the editor currently in. This will influence what code is
  * generated and elements are visible in the elements palette
@@ -20,17 +16,8 @@ export type AppInfo = {
   scripts: AppScriptInfo;
   language: LanguageMode;
   server_locations?: InputOutputLocations;
-} & (
-  | {
-      app_type: SingleFileAppType;
-      app: ScriptGenerationTemplate;
-    }
-  | {
-      app_type: MultiFileAppType;
-      ui: ScriptGenerationTemplate;
-      server: Pick<ScriptGenerationTemplate, "code">;
-    }
-);
+  app: ScriptGenerationTemplate;
+};
 
 /**
  * Contextual information neccesary to produce a full ui definition for an
@@ -49,15 +36,7 @@ export type ScriptGenerationTemplate = {
   packages: string[];
 };
 
-export type AppScriptInfo =
-  | {
-      app_type: SingleFileAppType;
-      app: string;
-      info?: AppInfo;
-    }
-  | {
-      app_type: MultiFileAppType;
-      ui: string;
-      server: string;
-      info?: AppInfo;
-    };
+export type AppScriptInfo = {
+  app: string;
+  info?: AppInfo;
+};

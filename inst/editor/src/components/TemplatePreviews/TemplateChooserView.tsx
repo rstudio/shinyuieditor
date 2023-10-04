@@ -5,14 +5,11 @@ import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import Button from "../Inputs/Button/Button";
 
 import { useFilteredTemplates } from "./filterTemplates";
-import { OutputTypeForm } from "./OutputTypeForm";
 import "./styles.scss";
 import { TemplateFiltersForm } from "./TemplateFiltersForm";
 import { TemplatePreviewGrid } from "./TemplatePreviewGrid";
 
-export type TemplateChooserOptions = {
-  outputChoices: MessageToClientByPath["TEMPLATE_CHOOSER"];
-};
+export type TemplateChooserOptions = {};
 export function TemplateChooserView(opts: TemplateChooserOptions) {
   const {
     filterState,
@@ -21,8 +18,6 @@ export function TemplateChooserView(opts: TemplateChooserOptions) {
     selectedTemplate,
     setSelectedTemplate,
     finishSelection,
-    selectedOutput,
-    setSelectedOutput,
   } = useFilteredTemplates(opts);
 
   const canProceed = selectedTemplate !== null;
@@ -50,13 +45,6 @@ export function TemplateChooserView(opts: TemplateChooserOptions) {
               filterState={filterState}
               setFilterState={setFilterState}
             />
-
-            {opts.outputChoices === "USER-CHOICE" ? (
-              <OutputTypeForm
-                selectedOutput={selectedOutput}
-                setSelectedOutput={setSelectedOutput}
-              />
-            ) : null}
 
             <Button
               disabled={!canProceed}

@@ -1,16 +1,12 @@
 import type { MessageToBackendByPath } from "communication-types";
 import type { AppInfo, LanguageMode } from "communication-types/src/AppInfo";
 import type {
-  MultiFileTemplateSelection,
-  SingleFileTemplateSelection,
+  TemplateSelection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
 
 import { generateFullAppScript } from "../../ui-node-definitions/code_generation/generate_full_app_script";
-import {
-  SCRIPT_LOC_KEYS,
-  writeRLibraryCalls,
-} from "../../ui-node-definitions/code_generation/generate_ui_script";
+import { SCRIPT_LOC_KEYS } from "../../ui-node-definitions/code_generation/generate_ui_script";
 import { indentLineBreaks } from "../../ui-node-definitions/code_generation/utils";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
@@ -26,19 +22,14 @@ export const app_templates: TemplateInfo[] = [
 ];
 
 export function templateToAppContents(
-  selection: SingleFileTemplateSelection | MultiFileTemplateSelection,
+  selection: TemplateSelection,
   language: LanguageMode
 ): MessageToBackendByPath["UPDATED-APP"] {
-  const app_info =
-    selection.outputType === "SINGLE-FILE"
-      ? templateToSingleFileInfo(selection)
-      : templateToMultiFileInfo(selection);
+  const app_info = templateToSingleFileInfo(selection);
   return generateFullAppScript(app_info, { include_info: true });
 }
 
-function templateToSingleFileInfo(
-  template_info: SingleFileTemplateSelection
-): AppInfo {
+function templateToSingleFileInfo(template_info: TemplateSelection): AppInfo {
   const {
     uiTree,
     otherCode: {
@@ -65,58 +56,12 @@ shinyApp(ui, server)
   return {
     ui_tree: uiTree,
     scripts: {
-      app_type: "SINGLE-FILE",
       app: code,
     },
     language: "R",
-    app_type: "SINGLE-FILE",
     app: {
       code,
       packages: ["shiny", ...serverLibraries],
-    },
-  };
-}
-
-function templateToMultiFileInfo(
-  template_info: MultiFileTemplateSelection
-): AppInfo {
-  const {
-    uiTree,
-    otherCode: {
-      uiExtra = "",
-      serverExtra = "",
-      serverFunctionBody = "",
-      serverLibraries = [],
-    },
-  } = template_info;
-  const ui_code = `${SCRIPT_LOC_KEYS.packages}
-
-${uiExtra}
-ui <- ${SCRIPT_LOC_KEYS.ui}
-`;
-  const server_code = `${writeRLibraryCalls(serverLibraries)}
-
-${serverExtra}
-server <- function(input, output) {
-  ${indentLineBreaks(serverFunctionBody)}
-}
-`;
-
-  return {
-    app_type: "MULTI-FILE",
-    scripts: {
-      app_type: "MULTI-FILE",
-      ui: ui_code,
-      server: server_code,
-    },
-    language: "R",
-    ui_tree: uiTree,
-    ui: {
-      code: ui_code,
-      packages: ["shiny", ...serverLibraries],
-    },
-    server: {
-      code: server_code,
     },
   };
 }

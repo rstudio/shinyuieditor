@@ -1,6 +1,5 @@
 import React from "react";
 
-import type { AppType } from "communication-types/src/AppInfo";
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
 import { app_templates } from "../../assets/app-templates/app_templates";
@@ -16,9 +15,7 @@ export const allLayoutTypes: LayoutType[] = ["grid", "navbarPage"];
 export type TemplateFilterState = {
   layoutTypes: LayoutType[];
 };
-export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
-  outputType: AppType;
-};
+export type TemplateSelection = Omit<TemplateInfo, "title" | "description">;
 
 function filteredTemplates(filters: TemplateFilterState): TemplateInfo[] {
   return app_templates.filter(({ uiTree }) => {
@@ -29,9 +26,7 @@ function filteredTemplates(filters: TemplateFilterState): TemplateInfo[] {
   });
 }
 
-export function useFilteredTemplates({
-  outputChoices,
-}: TemplateChooserOptions) {
+export function useFilteredTemplates({}: TemplateChooserOptions) {
   const requestTemplate = useRequestTemplate();
 
   const [filterState, setFilterState] = React.useState<TemplateFilterState>({
@@ -40,10 +35,6 @@ export function useFilteredTemplates({
 
   const [selectedTemplate, setSelectedTemplate] = React.useState<string | null>(
     null
-  );
-
-  const [selectedOutput, setSelectedOutput] = React.useState<AppType>(
-    outputChoices === "USER-CHOICE" ? "SINGLE-FILE" : outputChoices
   );
 
   const setTemplateSelection = (title: string) => {
@@ -81,7 +72,6 @@ export function useFilteredTemplates({
     requestTemplate({
       ...chosenTemplate,
       ...template_ui_code,
-      outputType: selectedOutput,
     });
   };
 
@@ -91,8 +81,6 @@ export function useFilteredTemplates({
     shownTemplates,
     selectedTemplate,
     setSelectedTemplate: setTemplateSelection,
-    selectedOutput,
-    setSelectedOutput,
     finishSelection,
   };
 }

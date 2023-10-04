@@ -20,39 +20,12 @@ async function parseSingleFileRApp(
 
   const app_info: AppInfo = {
     language: "R",
-    app_type: "SINGLE-FILE",
     scripts: {
-      app_type: "SINGLE-FILE",
       app,
     },
     ui_tree: r_treesitter_to_ui_tree(ui_node),
     server_locations,
     app: generateRAppScriptTemplate(ui_node),
-  };
-
-  return app_info;
-}
-
-async function parseMultiFileRApp(
-  ui: string,
-  server: string,
-  parser: TSParser
-): Promise<AppInfo> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { ui_node, server_locations } = parse_r_app(parser, ui, server);
-
-  const app_info: AppInfo = {
-    language: "R",
-    app_type: "MULTI-FILE",
-    scripts: {
-      app_type: "MULTI-FILE",
-      ui,
-      server,
-    },
-    server_locations,
-    ui_tree: r_treesitter_to_ui_tree(ui_node),
-    ui: generateRAppScriptTemplate(ui_node),
-    server: { code: server },
   };
 
   return app_info;
@@ -64,9 +37,5 @@ export async function parseRAppText({
 }: AppParserArgs) {
   const parser = await parser_promise;
 
-  if ("app" in scripts) {
-    return await parseSingleFileRApp(scripts.app, parser);
-  } else {
-    return await parseMultiFileRApp(scripts.ui, scripts.server, parser);
-  }
+  return await parseSingleFileRApp(scripts.app, parser);
 }
