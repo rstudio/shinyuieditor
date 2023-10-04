@@ -48,9 +48,9 @@ export function IdInput({
 
   if (appInfo.mode !== "MAIN") return null;
 
-  const app_tree = appInfo.ui_tree;
+  const { ui_tree } = appInfo;
 
-  const bindingIds = getAllBindingIds(app_tree);
+  const bindingIds = getAllBindingIds(ui_tree);
 
   const updateValue = (newValue: string) => {
     // Check if the requested new value is already in use and set invalid if it is
@@ -90,12 +90,12 @@ export function IdInput({
       <div className="flex items-center gap-1">
         <input {...common_props} type="text" />
         {boundToServer && (
-          <Tooltip placement="right-start" initialOpen={true}>
-            <TooltipTrigger>
+          <Tooltip placement="right-start">
+            <TooltipTrigger asChild>
               <div className="relative">
                 <Link45deg
                   className={mergeClasses(
-                    "text-xl relative",
+                    "text-xl relative ",
                     syncStatus === "synced"
                       ? ["text-rstudio-blue"]
                       : [
