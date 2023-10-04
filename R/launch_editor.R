@@ -240,16 +240,14 @@ launch_editor <- function(app_loc,
         "SELECT-SERVER-CODE" = {
           select_server_code(
             locations = msg$payload$positions,
-            app_loc = app_loc,
-            app_type = app_type
+            app_loc = app_loc
           )
         },
         "INSERT-SNIPPET" = {
           insert_server_code(
             snippet = msg$payload$snippet,
             insert_at = msg$payload$insert_at,
-            app_loc = app_loc,
-            app_type = app_type
+            app_loc = app_loc
           )
         }
       )
