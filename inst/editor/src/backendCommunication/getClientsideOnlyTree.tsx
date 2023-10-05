@@ -41,6 +41,8 @@ export async function getClientsideOnlyTree(defaultInfo: MinimalAppInfo) {
           console.log("Generated info from tree", info);
 
           resolve(info);
+        } else if ("app_script" in r) {
+          resolve(r);
         } else {
           reject("No ui_tree or language in response");
         }
