@@ -73,6 +73,12 @@ export function IdInput({
       return;
     }
 
+    // If the id is empty, don't send that as that's not a valid ID
+    if (newValue === "") {
+      setInvalidMsg("ID cannot be empty");
+      return;
+    }
+
     onChange(newValue);
     setInvalidMsg(null);
 
@@ -97,6 +103,7 @@ export function IdInput({
     "aria-label": label,
     "aria-labelledby": makeLabelId(id),
     "aria-invalid": isInvalid,
+    autocomplete: "off",
     id,
     value: currValue,
     onChange: (
