@@ -24,7 +24,8 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 
   const metaData = useMetaData();
 
-  if (!metaData || !node) return null;
+  if (!(node && metaData && metaData.server_aware)) return null;
+
   const { language } = metaData;
 
   const node_info = getUiNodeInfo(node.id)[
