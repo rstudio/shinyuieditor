@@ -2,7 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
 import type { AppInfo } from "communication-types/src/AppInfo";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
@@ -61,26 +61,19 @@ export const mainStateSlice = createSlice({
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app
     SET_APP_INFO: (state, action: PayloadAction<AppInfo>) => {
-      try {
-        return {
-          ...state,
-          mode: "MAIN",
-          ...action.payload,
-        };
-      } catch (error) {
-        const error_msg = error instanceof Error ? error.message : null;
+      return {
+        ...state,
+        mode: "MAIN",
+        ...action.payload,
+      };
+    },
 
-        if (error_msg === null) {
-          // eslint-disable-next-line no-console
-          console.error("Unknown error type seen", error);
-        }
-        return {
-          ...state,
-          mode: "ERROR",
-          msg: error_msg ?? "Unknown error",
-          context: "Parsing app information from backend",
-        };
+    SET_APP_CODE_TEMPLATE: (state, action: PayloadAction<string>) => {
+      if (state.mode !== "MAIN") {
+        throw new Error("Tried to set app script when not in main mode");
       }
+
+      return { ...state, app: { ...state.app, code: action.payload } };
     },
     SET_ERROR: (
       state,
@@ -137,6 +130,7 @@ export const {
   PLACE_NODE,
   DELETE_NODE,
   SET_APP_INFO,
+  SET_APP_CODE_TEMPLATE,
   SET_ERROR,
   SET_FULL_STATE,
   SHOW_TEMPLATE_CHOOSER,
@@ -155,6 +149,18 @@ export type DeleteAction = (
 
 export function useCurrentAppInfo() {
   return useSelector((state: RootState) => state.app_info);
+}
+
+/**
+ * Hook to enable easy updating of the script in the app info.
+ * @returns Function to update app script in state.
+ */
+export function useSetAppCodeTemplate() {
+  const dispatch = useDispatch();
+
+  return (script: string) => {
+    dispatch(SET_APP_CODE_TEMPLATE(script));
+  };
 }
 
 export default mainStateSlice.reducer;

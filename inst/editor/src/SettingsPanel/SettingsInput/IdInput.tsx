@@ -1,5 +1,9 @@
 import React from "react";
 
+import type {
+  InputOutputLocations,
+  ServerPositions,
+} from "communication-types/src/MessageToBackend";
 import { Link45deg } from "react-bootstrap-icons";
 
 import {
@@ -8,11 +12,13 @@ import {
   TooltipContent,
 } from "../../components/PopoverEl/FloatingPopover";
 import { getAllBindingIds } from "../../EditorContainer/getAllBindingIds";
-import { useCurrentAppInfo } from "../../state/app_info";
+import { useCurrentAppInfo, useSetAppCodeTemplate } from "../../state/app_info";
 import type { InputComponentByType } from "../../ui-node-definitions/inputFieldTypes";
 import { makeLabelId } from "../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../utils/mergeClasses";
 import { useUpToDateServerLocations } from "../useUpToDateServerLocations";
+
+import { updateServerWithNewId } from "./updateServerWithNewId";
 
 export function IdInput({
   id,
@@ -25,6 +31,7 @@ export function IdInput({
   // UI tree down instead. Right now performance seems fine though especially
   // since this is a leaf node
   const appInfo = useCurrentAppInfo();
+  const setAppScript = useSetAppCodeTemplate();
   const serverLocations = useUpToDateServerLocations();
 
   const [syncStatus, setSyncStatus] = React.useState<
@@ -34,9 +41,9 @@ export function IdInput({
   const [invalidMsg, setInvalidMsg] = React.useState<null | string>(null);
 
   // Check if the current value exists in the server locations
-  const boundToServer =
-    serverLocations?.input_positions[value] !== undefined ||
-    serverLocations?.output_positions[value] !== undefined;
+  const locationsOfId = getLocationsInServerOfId(value, serverLocations);
+
+  const boundToServer = locationsOfId !== null;
 
   React.useEffect(() => {
     if (boundToServer) {
@@ -48,7 +55,7 @@ export function IdInput({
 
   if (appInfo.mode !== "MAIN") return null;
 
-  const { ui_tree } = appInfo;
+  const { ui_tree, language } = appInfo;
 
   const bindingIds = getAllBindingIds(ui_tree);
 
@@ -63,9 +70,23 @@ export function IdInput({
 
     if (takenId) {
       setInvalidMsg(`The id ${newValue} is already taken`);
-    } else {
-      onChange(newValue);
-      setInvalidMsg(null);
+      return;
+    }
+
+    onChange(newValue);
+    setInvalidMsg(null);
+
+    if (locationsOfId !== null) {
+      const appScript = appInfo.app.code;
+
+      const updated_script = updateServerWithNewId({
+        oldId: value,
+        newId: newValue,
+        positions: locationsOfId,
+        appScript,
+        language,
+      });
+      setAppScript(updated_script);
     }
   };
 
@@ -89,7 +110,7 @@ export function IdInput({
     <>
       <div className="flex items-center gap-1">
         <input {...common_props} type="text" />
-        {/* {boundToServer && (
+        {boundToServer && (
           <Tooltip placement="right-start">
             <TooltipTrigger asChild>
               <div className="relative">
@@ -128,7 +149,7 @@ export function IdInput({
               </p>
             </TooltipContent>
           </Tooltip>
-        )} */}
+        )}
       </div>
       {invalidMsg && (
         <div className="text-danger">
@@ -137,4 +158,23 @@ export function IdInput({
       )}
     </>
   );
+}
+
+function getLocationsInServerOfId(
+  id: string,
+  serverLocations: InputOutputLocations | null
+): ServerPositions | null {
+  if (serverLocations === null) return null;
+
+  const { input_positions, output_positions } = serverLocations;
+
+  if (input_positions[id] !== undefined) {
+    return input_positions[id];
+  }
+
+  if (output_positions[id] !== undefined) {
+    return output_positions[id];
+  }
+
+  return null;
 }
