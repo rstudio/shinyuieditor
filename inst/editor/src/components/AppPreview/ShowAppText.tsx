@@ -45,7 +45,7 @@ function AppFilesViewer({ info }: { info: AppInfo }) {
       ) : null}
       <div className={styles.code_holder}>
         <label>app.R</label>
-        <pre>{app_script}</pre>
+        <pre aria-label="App script">{app_script}</pre>
       </div>
     </>
   );
