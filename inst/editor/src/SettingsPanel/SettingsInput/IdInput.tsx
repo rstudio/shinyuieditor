@@ -76,7 +76,7 @@ export function IdInput({
     onChange(newValue);
     setInvalidMsg(null);
 
-    if (locationsOfId !== null) {
+    if (syncStatus === "synced" && locationsOfId !== null) {
       const appScript = appInfo.app.code;
 
       const updated_script = updateServerWithNewId({
