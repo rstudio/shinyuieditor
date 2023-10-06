@@ -1,7 +1,6 @@
 import type { MessageToBackend } from "communication-types";
 import type { LanguageMode } from "communication-types/src/AppInfo";
 import { toast } from "react-toastify";
-import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { PopoverButton } from "../components/Inputs/PopoverButton";
@@ -9,10 +8,7 @@ import { generate_python_output_binding } from "../python-parsing";
 import { generate_r_output_binding } from "../r-parsing";
 import { useCurrentAppInfo } from "../state/app_info";
 import { useMetaData } from "../state/metaData";
-import type {
-  OutputBindings,
-  InputBindings,
-} from "../ui-node-definitions/nodeInfoFactory";
+import type { OutputBindings } from "../ui-node-definitions/nodeInfoFactory";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import { buildServerInsertion } from "../utils/code_position_utils";
@@ -28,30 +24,33 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 
   const { language } = metaData;
 
+  const nodeInfo = getUiNodeInfo(node.id);
+  const boundIdInfo = nodeInfo.serverBindingInfo;
+
   const node_info = getUiNodeInfo(node.id)[
     language === "PYTHON" ? "py_info" : "r_info"
   ];
+
+  if (boundIdInfo === null) return null;
 
   const output_bindings = (
     "output_bindings" in node_info ? node_info.output_bindings : null
   ) as OutputBindings | null;
 
-  const input_bindings =
-    "input_bindings" in node_info ? node_info.input_bindings : null;
-
   return (
     <div>
-      {output_bindings ? (
+      {boundIdInfo.argType === "output" && output_bindings ? (
         <GoToOutputsBtn
           language={language}
-          serverOutputInfo={output_bindings}
+          output_info={output_bindings}
+          keyForOutput={boundIdInfo.argName}
           node={node}
           sendMsg={sendMsg}
         />
       ) : null}
-      {input_bindings ? (
+      {boundIdInfo.argType === "input" ? (
         <GoToInputsBtn
-          serverInputInfo={input_bindings}
+          keyForInputId={boundIdInfo.argName}
           node={node}
           sendMsg={sendMsg}
         />
@@ -62,33 +61,27 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 
 function GoToOutputsBtn({
   language,
-  serverOutputInfo,
+  keyForOutput,
+  output_info,
   node: { namedArgs },
   sendMsg,
 }: {
   language: LanguageMode;
   node: ShinyUiNode;
-  serverOutputInfo: OutputBindings;
+  keyForOutput: string;
+  output_info: OutputBindings;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
-  const current_app_info = useCurrentAppInfo();
   const serverLocations = useUpToDateServerLocations();
+  const current_app_info = useCurrentAppInfo();
 
   if (!(current_app_info.mode === "MAIN" && serverLocations)) return null;
 
-  const { outputIdKey = "outputId" } = serverOutputInfo;
-
-  // I have no idea why I have to do this coercsian but for some reason this
-  // keeps getting narrowed to never type for args unless I do it.
-  const keyForOutput =
-    typeof outputIdKey === "string"
-      ? outputIdKey
-      : (outputIdKey as PickKeyFn<typeof namedArgs>)(namedArgs);
-
-  const outputId = namedArgs[keyForOutput as keyof typeof namedArgs];
-  if (typeof outputId !== "string") return null;
+  const outputId = namedArgs[keyForOutput as keyof typeof namedArgs] as string;
 
   const existing_output_locations = serverLocations.output_positions[outputId];
+
+  if (!existing_output_locations) return null;
 
   return (
     <PopoverButton
@@ -113,7 +106,7 @@ function GoToOutputsBtn({
             snippet: buildSnippetText({
               language,
               output_id: outputId,
-              output_info: serverOutputInfo,
+              output_info,
             }),
             language,
           });
@@ -132,32 +125,23 @@ function GoToOutputsBtn({
 }
 
 function GoToInputsBtn({
-  serverInputInfo,
+  keyForInputId,
   node: { namedArgs },
   sendMsg,
 }: {
   node: ShinyUiNode;
-  serverInputInfo: InputBindings;
+  keyForInputId: string;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
   const current_app_info = useCurrentAppInfo();
   const serverLocations = useUpToDateServerLocations();
+  const inputId = namedArgs[keyForInputId];
 
-  if (!(current_app_info.mode === "MAIN" && serverLocations)) return null;
-
-  const inputIdKey =
-    typeof serverInputInfo === "boolean" ? "inputId" : serverInputInfo;
-
-  // I have no idea why I have to do this coercsian but for some reason this
-  // keeps getting narrowed to never type for args unless I do it.
-  const keyForInputId =
-    typeof inputIdKey === "string"
-      ? inputIdKey
-      : (inputIdKey as PickKeyFn<typeof namedArgs>)(namedArgs);
-
-  const inputId = namedArgs[keyForInputId as keyof typeof namedArgs];
-
-  if (typeof inputId !== "string") return null;
+  if (
+    !(current_app_info.mode === "MAIN" && serverLocations) ||
+    typeof inputId !== "string"
+  )
+    return null;
 
   const inputLocations = serverLocations.input_positions[inputId];
 
