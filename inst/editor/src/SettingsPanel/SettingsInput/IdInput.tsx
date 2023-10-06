@@ -11,7 +11,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "../../components/PopoverEl/FloatingPopover";
-import { getAllBindingIds } from "../../EditorContainer/getAllBindingIds";
+import { getAllInputOutputIdsInApp } from "../../EditorContainer/getAllInputOutputIdsInApp";
 import { useCurrentAppInfo, useSetAppCodeTemplate } from "../../state/app_info";
 import type { InputComponentByType } from "../../ui-node-definitions/inputFieldTypes";
 import { makeLabelId } from "../../ui-node-definitions/inputFieldTypes";
@@ -57,7 +57,7 @@ export function IdInput({
 
   const { ui_tree, language } = appInfo;
 
-  const bindingIds = getAllBindingIds(ui_tree);
+  const bindingIds = getAllInputOutputIdsInApp(ui_tree);
 
   const updateValue = (newValue: string) => {
     // Check if the requested new value is already in use and set invalid if it is
