@@ -13,25 +13,76 @@ import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
 // import { basicNavbarPage as devModeTree } from "./ui-node-definitions/sample_ui_trees/basicNavbarPage";
-import type { ShinyUiRootNode } from "./ui-node-definitions/ShinyUiNode";
 // import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
 // import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
-const devModeTree = "TEMPLATE_CHOOSER";
+// const devModeApp = "TEMPLATE_CHOOSER";
 
 // const language: LanguageMode = "PYTHON";
 // const language: LanguageMode = "R";
 
-const container = document.getElementById("root");
+const devModeApp = `library(shiny)
+library(gridlayout)
+library(bslib)
+library(DT)
 
-// If we're in dev, look at localhost 8888, otherwise use default
+ui <- grid_page(
+  layout = c(
+    "sidebar",
+    "table  "
+  ),
+  gap_size = "1rem",
+  col_sizes = c(
+    "1fr"
+  ),
+  row_sizes = c(
+    "1fr",
+    "1fr"
+  ),
+  grid_card(
+    area = "sidebar",
+    card_body(
+      numericInput(
+        inputId = "numRows",
+        label = "Number of table rows",
+        value = 10,
+        min = 1,
+        step = 1,
+        width = "100%"
+      )
+    )
+  ),
+  grid_card(
+    area = "table",
+    card_body(DTOutput(outputId = "myTable", width = "100%"))
+  )
+)
+
+server <- function(input, output) {
+   
+  output$myTable <- renderDT({
+    head(faithful, input$numRows)
+  })
+
+  output$myTable2 <- renderDT({
+    head(faithful, input$numRows1)
+  })
+}
+
+shinyApp(ui, server)
+`;
 
 const language: LanguageMode = "R";
+const app_script =
+  DEV_MODE && typeof devModeApp !== "string"
+    ? ui_tree_to_script({ ui_tree: devModeApp, language })
+    : devModeApp;
 
 const showMessages = true;
 (async () => {
   try {
     const messageDispatch = makeMessageDispatcher();
 
+    // If we're in dev, look at localhost 8888, otherwise use default
     const websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
       onClose: () => console.log("Websocket closed!!"),
@@ -43,16 +94,14 @@ const showMessages = true;
         ? setupStaticBackend({
             messageDispatch,
             showMessages,
-            defaultInfo: {
-              language: "R",
-              app_script:
-                DEV_MODE && devModeTree !== "TEMPLATE_CHOOSER"
-                  ? ui_tree_to_script({ ui_tree: devModeTree, language })
-                  : ("TEMPLATE_CHOOSER" satisfies ShinyUiRootNode),
-            },
+            defaultInfo: { language, app_script },
           })
         : websocketDispatch;
 
-    runSUE({ container, backendDispatch, showMessages });
+    runSUE({
+      container: document.getElementById("root"),
+      backendDispatch,
+      showMessages,
+    });
   } catch (e) {}
 })();
