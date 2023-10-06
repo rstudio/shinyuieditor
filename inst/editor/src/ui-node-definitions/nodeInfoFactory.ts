@@ -18,6 +18,17 @@ import type { ShinyUiNode } from "./ShinyUiNode";
 import type { NamedArgsObject } from "./uiNodeTypes";
 
 /**
+ * Info on server binding for a node. This is used for checking for server
+ * bindings
+ * @param argName - Name of the argument that links to the server code
+ * @param argType - Is this an input or output argument
+ */
+type ServerBindingInfo = {
+  argName: string;
+  argType: "input" | "output";
+};
+
+/**
  * Typescript factory function that takes as a type parameter the arguments type
  * for your node and then produces a function that will type check the info
  * object provided along with preserving some information like library and node
@@ -59,6 +70,14 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       info.settingsInfo as DynamicArgumentInfo
     );
 
+    let serverBindingInfo: null | ServerBindingInfo = null;
+    for (const [argName, argInfo] of Object.entries(info.settingsInfo)) {
+      if (argInfo.inputType === "id") {
+        serverBindingInfo = { argName, argType: argInfo.inputOrOutput };
+        break;
+      }
+    }
+
     const py_arg_name_to_sue_arg_name = new Map<string, string>();
     for (const [arg_name, arg_info] of Object.entries(info.settingsInfo)) {
       if (arg_info.py_name) {
@@ -97,6 +116,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       r_arg_name_to_sue_arg_name,
       required_arg_names,
       get_arg_info,
+      serverBindingInfo,
       ...info,
     } as {
       id: ID;
@@ -287,6 +307,12 @@ type CommonInfo<Args extends NamedArgsObject, TakesChildren extends boolean> = {
    * the info objects and provide autocomplete later. Not used at runtime ever
    */
   example_args?: Args;
+
+  /**
+   * Info about if there is a server binding for this node. Will be non null if
+   * node is an input or output node.
+   */
+  serverBindingInfo?: null | ServerBindingInfo;
 };
 
 /**
