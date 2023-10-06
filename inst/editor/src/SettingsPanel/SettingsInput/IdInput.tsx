@@ -103,7 +103,7 @@ export function IdInput({
     "aria-label": label,
     "aria-labelledby": makeLabelId(id),
     "aria-invalid": isInvalid,
-    autocomplete: "off",
+    autoComplete: "off",
     id,
     value: currValue,
     onChange: (
