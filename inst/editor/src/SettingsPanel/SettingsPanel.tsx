@@ -19,6 +19,7 @@ import { FormBuilder } from "./FormBuilder";
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
+import { useGetNodeServerBindingInfo } from "./useGetNodeServerBindingInfo";
 import { useUpdateSettings } from "./useUpdateSettings";
 
 export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
@@ -31,6 +32,8 @@ export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
     deleteNode,
   } = useUpdateSettings(app_tree);
 
+  const getServerBindingInfo = useGetNodeServerBindingInfo();
+
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
   }
@@ -40,6 +43,8 @@ export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
   }
 
   const isRootNode = selectedPath.length === 0;
+
+  const serverBindingInfo = getServerBindingInfo(currentNode);
 
   const { id, namedArgs } = currentNode;
 
@@ -94,7 +99,9 @@ export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
               }
             }}
           />
-          <GoToSourceBtns node={currentNode} />
+          {serverBindingInfo && (
+            <GoToSourceBtns bindingInfo={serverBindingInfo} />
+          )}
           <div className="mt-auto py-vertical-spacing flex flex-col justify-around items-center gap-vertical-spacing">
             {!isRootNode && (
               <Button

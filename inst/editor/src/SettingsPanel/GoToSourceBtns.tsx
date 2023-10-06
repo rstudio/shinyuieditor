@@ -1,112 +1,90 @@
 import type { MessageToBackend } from "communication-types";
 import type { LanguageMode } from "communication-types/src/AppInfo";
+import type { InputOutputLocations } from "communication-types/src/MessageToBackend";
 import { toast } from "react-toastify";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { PopoverButton } from "../components/Inputs/PopoverButton";
 import { generate_python_output_binding } from "../python-parsing";
 import { generate_r_output_binding } from "../r-parsing";
-import { useCurrentAppInfo } from "../state/app_info";
 import { useMetaData } from "../state/metaData";
 import type { OutputBindings } from "../ui-node-definitions/nodeInfoFactory";
-import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
-import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import { buildServerInsertion } from "../utils/code_position_utils";
 
+import type {
+  ServerBindingInfo,
+  ServerInputBindingInfo,
+  ServerOutputBindingInfo,
+} from "./useGetNodeServerBindingInfo";
 import { useUpToDateServerLocations } from "./useUpToDateServerLocations";
 
-export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
+export function GoToSourceBtns({
+  bindingInfo,
+}: {
+  bindingInfo: ServerBindingInfo;
+}) {
+  const metaData = useMetaData();
+  const currentServerLocations = useUpToDateServerLocations();
   const { sendMsg } = useBackendConnection();
 
-  const metaData = useMetaData();
+  if (!currentServerLocations) return null;
 
-  if (!(node && metaData && metaData.server_aware)) return null;
-
-  const { language } = metaData;
-
-  const nodeInfo = getUiNodeInfo(node.id);
-  const boundIdInfo = nodeInfo.serverBindingInfo;
-
-  const node_info = getUiNodeInfo(node.id)[
-    language === "PYTHON" ? "py_info" : "r_info"
-  ];
-
-  if (boundIdInfo === null) return null;
-
-  const output_bindings = (
-    "output_bindings" in node_info ? node_info.output_bindings : null
-  ) as OutputBindings | null;
+  if (!(metaData && metaData.server_aware)) return null;
 
   return (
     <div>
-      {boundIdInfo.argType === "output" && output_bindings ? (
+      {bindingInfo.inputOrOutput === "output" ? (
         <GoToOutputsBtn
-          language={language}
-          output_info={output_bindings}
-          keyForOutput={boundIdInfo.argName}
-          node={node}
+          info={bindingInfo}
           sendMsg={sendMsg}
+          language={metaData.language}
+          server_position={currentServerLocations.server_fn}
         />
       ) : null}
-      {boundIdInfo.argType === "input" ? (
-        <GoToInputsBtn
-          keyForInputId={boundIdInfo.argName}
-          node={node}
-          sendMsg={sendMsg}
-        />
+      {bindingInfo.inputOrOutput === "input" ? (
+        <GoToInputsBtn info={bindingInfo} sendMsg={sendMsg} />
       ) : null}
     </div>
   );
 }
 
 function GoToOutputsBtn({
-  language,
-  keyForOutput,
-  output_info,
-  node: { namedArgs },
+  info: { currentId, positions, renderScaffold },
   sendMsg,
+  language,
+  server_position,
 }: {
-  language: LanguageMode;
-  node: ShinyUiNode;
-  keyForOutput: string;
-  output_info: OutputBindings;
+  info: ServerOutputBindingInfo;
   sendMsg: (msg: MessageToBackend) => void;
+  language: LanguageMode;
+  server_position: InputOutputLocations["server_fn"];
 }) {
-  const serverLocations = useUpToDateServerLocations();
-  const current_app_info = useCurrentAppInfo();
-
-  if (!(current_app_info.mode === "MAIN" && serverLocations)) return null;
-
-  const outputId = namedArgs[keyForOutput as keyof typeof namedArgs] as string;
-
-  const existing_output_locations = serverLocations.output_positions[outputId];
-
-  if (!existing_output_locations) return null;
+  const existsInServer = positions !== null;
 
   return (
     <PopoverButton
       popoverContent={
-        existing_output_locations
+        existsInServer
           ? "Show output declaration in app script"
           : "Create output binding in app server"
       }
       placement="left"
       variant="regular"
       onClick={() => {
-        if (existing_output_locations) {
+        if (positions) {
           sendMsg({
             path: "SELECT-SERVER-CODE",
-            payload: { positions: existing_output_locations },
+            payload: { positions },
           });
 
           toast("Highlighted output declaration in server");
         } else {
           const snippet_insertion_point = buildServerInsertion({
-            server_position: serverLocations.server_fn,
+            server_position,
             snippet: buildSnippetText({
               language,
-              output_id: outputId,
-              output_info,
+              output_id: currentId,
+              renderScaffold,
             }),
             language,
           });
@@ -119,44 +97,30 @@ function GoToOutputsBtn({
         }
       }}
     >
-      {existing_output_locations ? "Show in server" : "Generate server code"}
+      {existsInServer ? "Show in server" : "Generate server code"}
     </PopoverButton>
   );
 }
 
 function GoToInputsBtn({
-  keyForInputId,
-  node: { namedArgs },
+  info: { positions, currentId },
   sendMsg,
 }: {
-  node: ShinyUiNode;
-  keyForInputId: string;
+  info: ServerInputBindingInfo;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
-  const current_app_info = useCurrentAppInfo();
-  const serverLocations = useUpToDateServerLocations();
-  const inputId = namedArgs[keyForInputId];
-
-  if (
-    !(current_app_info.mode === "MAIN" && serverLocations) ||
-    typeof inputId !== "string"
-  )
-    return null;
-
-  const inputLocations = serverLocations.input_positions[inputId];
-
-  if (!inputLocations) return null;
+  if (!positions) return null;
 
   return (
     <PopoverButton
-      popoverContent={`Find uses of bound input (\`input$${inputId}\`) in app script`}
+      popoverContent={`Find uses of bound input (\`input$${currentId}\`) in app script`}
       use_markdown
       placement="left"
       variant="regular"
       onClick={() => {
         sendMsg({
           path: "SELECT-SERVER-CODE",
-          payload: { positions: inputLocations },
+          payload: { positions },
         });
 
         toast("Highlighted uses of input variable in server");
@@ -170,11 +134,11 @@ function GoToInputsBtn({
 function buildSnippetText({
   language,
   output_id,
-  output_info: { renderScaffold },
+  renderScaffold,
 }: {
   language: LanguageMode;
   output_id: string;
-  output_info: OutputBindings;
+  renderScaffold: OutputBindings["renderScaffold"];
 }): string {
   return language === "PYTHON"
     ? generate_python_output_binding(output_id, renderScaffold)
