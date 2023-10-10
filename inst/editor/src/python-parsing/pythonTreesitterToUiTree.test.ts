@@ -2,7 +2,8 @@ import { get_assignment_nodes, setup_python_parser } from "treesitter-parsers";
 
 import type { KnownShinyUiNode } from "../ui-node-definitions/uiNodeTypes";
 
-import { parsePythonScript, treesitter_to_ui_tree } from ".";
+import { parsePythonApp } from "./parsePythonApp";
+import { pythonTreesitterToUiTree } from "./pythonTreesitterToUiTree";
 
 export const basicNavbarPage = {
   id: "navbarPage",
@@ -64,15 +65,13 @@ my_slider = ui.input_slider(
 )
 `;
 
-    const assigned_nodes = get_assignment_nodes(
-      parsePythonScript(parser, sliderInputDef)
-    );
+    const assigned_nodes = get_assignment_nodes(parser.parse(sliderInputDef));
 
     const slider_node = assigned_nodes.get("my_slider");
 
     expect(slider_node).not.toBeUndefined();
 
-    const converted_node = treesitter_to_ui_tree(slider_node!);
+    const converted_node = pythonTreesitterToUiTree(slider_node!);
 
     expect(converted_node).toStrictEqual({
       id: "sliderInput",
@@ -94,15 +93,13 @@ my_slider = ui.input_slider(
       ui.output_plot(id = "MyPlot")
     )
     `;
-    const assigned_nodes = get_assignment_nodes(
-      parsePythonScript(parser, navDef)
-    );
+    const assigned_nodes = get_assignment_nodes(parser.parse(navDef));
 
     const nav_node = assigned_nodes.get("my_nav");
 
     expect(nav_node).not.toBeUndefined();
 
-    const converted_node = treesitter_to_ui_tree(nav_node!);
+    const converted_node = pythonTreesitterToUiTree(nav_node!);
 
     expect(converted_node).toStrictEqual({
       id: "tabPanel",
@@ -122,11 +119,9 @@ my_slider = ui.input_slider(
 
   test("Handle when a leaf node has all its argument passed positionally", () => {
     const nodeCode = `my_node =  ui.input_slider("n", "N", 0, 100, 20)`;
-    const assigned_nodes = get_assignment_nodes(
-      parsePythonScript(parser, nodeCode)
-    );
+    const assigned_nodes = get_assignment_nodes(parser.parse(nodeCode));
 
-    const converted_node = treesitter_to_ui_tree(
+    const converted_node = pythonTreesitterToUiTree(
       assigned_nodes.get("my_node")!
     );
     expect(converted_node).toStrictEqual({

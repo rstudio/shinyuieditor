@@ -1,7 +1,7 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { parseRScript } from "./parse_r_script";
-import { rTreesitterToUiTree } from "./r_treesitter_to_ui_tree";
+import { parseRScript } from "./parseRScript";
+import { rTreesitterToUiTree } from "./rTreesitterToUiTree";
 
 describe("Can go from treesitter to UI tree", async () => {
   const my_parser = await setup_r_parser();

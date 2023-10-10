@@ -1,8 +1,8 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { getServerPositions } from "./get_server_positions";
-import { parseRApp } from "./parse_r_app";
-import { parseRScript } from "./parse_r_script";
+import { getServerPositions } from "./getKnownRInputs";
+import { parseRApp } from "./parseRApp";
+import { parseRScript } from "./parseRScript";
 
 describe("Can find output positions in server of single file app", async () => {
   const { server_node } = parseRApp(

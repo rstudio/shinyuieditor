@@ -1,8 +1,7 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { parse_r_app } from ".";
-
 import { generateRAppScriptTemplate } from "./generate_app_script_template";
+import { parseRApp } from "./parseRApp";
 
 const app_script = `
 library(shiny)
@@ -41,7 +40,7 @@ shinyApp(ui, server)
 
 test("Can produce a template from a parsed ui script", async () => {
   const my_parser = await setup_r_parser();
-  const { ui_node } = parse_r_app(my_parser, app_script);
+  const { ui_node } = parseRApp(my_parser, app_script);
 
   const generated_template = generateRAppScriptTemplate(ui_node).code;
 

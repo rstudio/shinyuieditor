@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { PopoverButton } from "../components/Inputs/PopoverButton";
-import { generate_python_output_binding } from "../python-parsing";
-import { generate_r_output_binding } from "../r-parsing";
+import { generatePythonOutputBinding } from "../python-parsing/generate_output_binding";
+import { generate_r_output_binding } from "../r-parsing/generate_output_binding";
 import { useMetaData } from "../state/metaData";
 import type { OutputBindings } from "../ui-node-definitions/nodeInfoFactory";
 import { buildServerInsertion } from "../utils/code_position_utils";
@@ -141,6 +141,6 @@ function buildSnippetText({
   renderScaffold: OutputBindings["renderScaffold"];
 }): string {
   return language === "PYTHON"
-    ? generate_python_output_binding(output_id, renderScaffold)
+    ? generatePythonOutputBinding(output_id, renderScaffold)
     : generate_r_output_binding(output_id, renderScaffold);
 }

@@ -3,7 +3,7 @@
 import { setup_r_parser } from "treesitter-parsers";
 
 import { generateRAppScriptTemplate } from "./generate_app_script_template";
-import { parseRScript } from "./parse_r_script";
+import { parseRScript } from "./parseRScript";
 
 const my_parser = await setup_r_parser();
 

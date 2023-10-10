@@ -1,14 +1,14 @@
 import React from "react";
 
-import type { AppInfo } from "communication-types/src/AppInfo";
 import type { ParserInitOptions } from "treesitter-parsers";
 import { setup_python_parser, setup_r_parser } from "treesitter-parsers";
 
-import { parsePythonAppText } from "../backendCommunication/parse_python_app";
-import { parseRAppText } from "../backendCommunication/parse_r_app";
+import type { ParsedAppInfo } from "../parsing/ParsedAppInfo";
+import { parsePythonApp } from "../python-parsing/parsePythonApp";
+import { parseRApp } from "../r-parsing/parseRApp";
 import { useMetaData } from "../state/metaData";
 
-type ParseAppFn = (app_script: string) => Promise<AppInfo>;
+type ParseAppFn = (app_script: string) => Promise<ParsedAppInfo>;
 
 const TSParserContext = React.createContext<ParseAppFn>(() => {
   throw new Error("No context available for parser");
@@ -58,12 +58,13 @@ export function TSParserProvider({ children }: { children: React.ReactNode }) {
         ? setup_r_parser(parserInitOptions)
         : setup_python_parser(parserInitOptions);
 
-    parseAppRef.current = (app_script) => {
+    parseAppRef.current = async (app_script) => {
       // TODO: This can/probably should be memoized to avoid re-parsing if unneccesary
+      const ready_parser = await parser;
       if (language === "R") {
-        return parseRAppText({ app_script, parser });
+        return parseRApp(ready_parser, app_script);
       } else {
-        return parsePythonAppText({ app_script, parser });
+        return parsePythonApp(ready_parser, app_script);
       }
     };
 

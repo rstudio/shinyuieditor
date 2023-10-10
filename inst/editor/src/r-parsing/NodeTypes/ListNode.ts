@@ -1,7 +1,7 @@
 import type { ParserNode } from "treesitter-parsers";
 import type { Brand } from "util-functions/src/TypescriptUtils";
 
-import type { Primatives } from "..";
+import type { Primatives } from "../../parsing/Primatives";
 
 import { extract_number_content, is_number_node } from "./NumberNode";
 import { extract_string_content, is_string_node } from "./StringNode";

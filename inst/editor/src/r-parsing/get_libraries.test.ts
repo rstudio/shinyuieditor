@@ -1,7 +1,7 @@
 import { setup_r_parser } from "treesitter-parsers";
 
 import { getRPackagesInScript } from "./get_r_packages_in_script";
-import { parseRScript } from "./parse_r_script";
+import { parseRScript } from "./parseRScript";
 
 const app_script = `
 library(shiny)

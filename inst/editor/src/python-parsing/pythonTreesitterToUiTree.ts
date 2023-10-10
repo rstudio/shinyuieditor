@@ -13,7 +13,7 @@ import {
 import { extractNumberContent, isNumberNode } from "./NodeTypes/NumberNode";
 import { extractStringContent, isStringNode } from "./NodeTypes/StringNode";
 
-export function treesitterToUiTree(node: ParserNode): ShinyUiNode {
+export function pythonTreesitterToUiTree(node: ParserNode): ShinyUiNode {
   if (!is_call_node(node)) {
     return makeUnknownUiFunction(node.text);
   }
@@ -78,7 +78,7 @@ export function treesitterToUiTree(node: ParserNode): ShinyUiNode {
     if (known_info.takesChildren) {
       // Must be a child node, so add it to the children array. This may be an
       // issue with simple nodes like strings that can be children
-      children_nodes.push(treesitterToUiTree(arg));
+      children_nodes.push(pythonTreesitterToUiTree(arg));
       continue;
     }
 
@@ -128,5 +128,5 @@ function parseArgNode(node: ParserNode) {
     return extractBooleanContent(node);
   }
 
-  return treesitterToUiTree(node);
+  return pythonTreesitterToUiTree(node);
 }

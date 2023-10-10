@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { useTsParser } from "../EditorContainer/TSParserProvider";
 import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
+import { parsedAppToAppInfo } from "../parsing/parsedRAppToAppInfo";
 import {
   SET_APP_INFO,
   SET_CONNECTION_LOST,
@@ -69,7 +70,15 @@ export function useSyncUiWithBackend() {
           );
         }
         parseApp(app_script).then((info) => {
-          dispatch(SET_APP_INFO(info));
+          dispatch(
+            SET_APP_INFO(
+              parsedAppToAppInfo({
+                ...info,
+                language,
+                app_script,
+              })
+            )
+          );
         });
       }),
       subscribe("TEMPLATE_CHOOSER", (outputChoices) =>

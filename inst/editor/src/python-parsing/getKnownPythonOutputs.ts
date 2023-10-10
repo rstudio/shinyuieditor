@@ -1,5 +1,5 @@
 import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
-import type { ParserTree } from "treesitter-parsers";
+import type { ParserNode } from "treesitter-parsers";
 import { getNodePosition } from "treesitter-parsers";
 
 /**
@@ -7,13 +7,13 @@ import { getNodePosition } from "treesitter-parsers";
  * @param app_tree A tree-sitter tree of the whole app script
  * @returns Mapping of the output's `id` its position in app script
  */
-export function getKnownOutputs(app_tree: ParserTree): ServerPositionMap {
+export function getKnownPythonOutputs(
+  serverNode: ParserNode
+): ServerPositionMap {
   const outputs: ServerPositionMap = new Map();
 
   // Get all the nodes that represent decorated functions in the script
-  const decorated_fns = app_tree.rootNode.descendantsOfType(
-    "decorated_definition"
-  );
+  const decorated_fns = serverNode.descendantsOfType("decorated_definition");
 
   decorated_fns.forEach((decorated_def) => {
     // First we need to ensure we're getting an output function by checking if
