@@ -1,7 +1,5 @@
 import type { ShinyUiNode } from "editor/src/ui-node-definitions/ShinyUiNode";
 
-import type { InputOutputLocations } from "./MessageToBackend";
-
 /**
  * What mode is the editor currently in. This will influence what code is
  * generated and elements are visible in the elements palette
@@ -15,7 +13,6 @@ export type AppInfo = {
   ui_tree: ShinyUiNode;
   app_script: string;
   language: LanguageMode;
-  server_locations?: InputOutputLocations;
   app: ScriptGenerationTemplate;
 };
 
