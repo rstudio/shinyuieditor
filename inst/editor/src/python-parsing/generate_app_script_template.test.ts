@@ -6,9 +6,7 @@ import {
 
 import { SCRIPT_LOC_KEYS } from "../ui-node-definitions/code_generation/generate_ui_script";
 
-import { parsePythonScript } from ".";
-
-import { generateAppScriptTemplate } from "./generate_app_script_template";
+import { generatePythonAppScriptTemplate } from "./generate_app_script_template";
 
 test("Can generate templates for filling in app from ", async () => {
   const navbar_page_app = `from shiny import *
@@ -56,10 +54,10 @@ app = App(app_ui, server)
   const parser = await setup_python_parser();
 
   const ui_node = get_ui_assignment(
-    get_assignment_nodes(parsePythonScript(parser, navbar_page_app))
+    get_assignment_nodes(parser.parse(navbar_page_app))
   );
 
-  expect(generateAppScriptTemplate(ui_node!)).toStrictEqual({
+  expect(generatePythonAppScriptTemplate(ui_node!)).toStrictEqual({
     code: templated_version,
     packages: ["shiny"],
   });

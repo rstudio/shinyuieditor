@@ -1,6 +1,6 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { parseRScript } from "../parse_r_script";
+import { parseRScript } from "../parseRScript";
 
 import { is_array_node, extract_array_contents } from "./ArrayNode";
 

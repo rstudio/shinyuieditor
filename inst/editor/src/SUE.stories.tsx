@@ -1,5 +1,5 @@
 import { staticDispatchFromTree } from "./backendCommunication/staticBackend";
-import { basicNavbarPage } from "./python-parsing/python_ast_to_shiny_ui_node.test";
+import { basicNavbarPage } from "./python-parsing/pythonTreesitterToUiTree.test";
 import { SUE } from "./SUE";
 import { basicGridPage } from "./ui-node-definitions/sample_ui_trees/basicGridPage";
 import { bslibCards } from "./ui-node-definitions/sample_ui_trees/bslibCards";

@@ -3,6 +3,8 @@ import React from "react";
 import type { InputOutputLocations } from "communication-types/src/MessageToBackend";
 
 import { useTsParser } from "../EditorContainer/TSParserProvider";
+import { getPythonServerLocations } from "../python-parsing/parsePythonApp";
+import { getRServerLocations } from "../r-parsing/parseRApp";
 import { useCurrentAppInfo } from "../state/app_info";
 import { generateFullAppScript } from "../ui-node-definitions/code_generation/generate_full_app_script";
 
@@ -28,7 +30,12 @@ export function useUpToDateServerLocations() {
     //     app on every change as that's what this already does
     const app_script = generateFullAppScript(current_app_info);
 
-    parseApp(app_script).then(({ server_locations }) => {
+    parseApp(app_script).then((info) => {
+      const server_locations =
+        current_app_info.language === "R"
+          ? getRServerLocations(info.server_node)
+          : getPythonServerLocations(info.server_node);
+
       if (!server_locations) {
         throw new Error("Could not parse app scripts");
       }

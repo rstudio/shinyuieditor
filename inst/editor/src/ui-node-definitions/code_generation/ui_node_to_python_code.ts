@@ -1,4 +1,4 @@
-import type { Primatives } from "../../r-parsing";
+import type { Primatives } from "../../parsing/Primatives";
 
 import { isNamedList, printNamedPythonList } from "./print_named_list";
 import { printPrimative } from "./printPrimative";

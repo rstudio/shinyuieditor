@@ -2,9 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { setup_python_parser } from "treesitter-parsers";
 
-import { parsePythonScript } from ".";
-
-import { getServerNodePosition } from "./get_server_node_position";
+import { parsePythonApp } from "./parsePythonApp";
 
 const app_script = `
 import matplotlib.pyplot as plt
@@ -43,9 +41,8 @@ app = App(app_ui, server)
 `;
 const my_parser = await setup_python_parser();
 
-const parsed_app = parsePythonScript(my_parser, app_script);
+const parsed_app = parsePythonApp(my_parser, app_script);
 
-const server_node_pos = getServerNodePosition(parsed_app);
 // const server_node = get_server_node(parsed_app);
 
 console.log(parsed_app);

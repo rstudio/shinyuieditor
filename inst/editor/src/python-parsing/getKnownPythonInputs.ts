@@ -1,5 +1,5 @@
 import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
-import type { ParserTree } from "treesitter-parsers";
+import type { ParserNode } from "treesitter-parsers";
 import { getNodePosition } from "treesitter-parsers";
 
 /**
@@ -7,10 +7,12 @@ import { getNodePosition } from "treesitter-parsers";
  * @param app_tree Parsed app script as returned by `parse_python_script()`
  * @returns A map of the input's `id` to the positions it appears in the app script
  */
-export function getKnownInputs(app_tree: ParserTree): ServerPositionMap {
+export function getKnownPythonInputs(
+  serverNode: ParserNode
+): ServerPositionMap {
   const inputs: ServerPositionMap = new Map();
 
-  app_tree.rootNode.descendantsOfType("attribute").forEach((node) => {
+  serverNode.descendantsOfType("attribute").forEach((node) => {
     const { firstNamedChild, lastNamedChild } = node;
 
     if (

@@ -4,7 +4,7 @@ import type {
   PickKeyFn,
 } from "util-functions/src/TypescriptUtils";
 
-import type { Primatives } from "../r-parsing";
+import type { Primatives } from "../parsing/Primatives";
 import type { Parsed_Kwarg_Node } from "../r-parsing/NodeTypes/KeywordArgNode";
 
 import type {

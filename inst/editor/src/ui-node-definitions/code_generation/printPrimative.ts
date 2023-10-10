@@ -1,4 +1,4 @@
-import type { Primatives } from "../../r-parsing";
+import type { Primatives } from "../../parsing/Primatives";
 
 /**
  * Print a primative value to R or python code.

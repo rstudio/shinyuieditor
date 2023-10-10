@@ -11,7 +11,7 @@ import { SCRIPT_LOC_KEYS } from "../ui-node-definitions/code_generation/generate
  * app scripts from new ui on the client by just regexing away the markers for
  * packages and ui
  */
-export function generateAppScriptTemplate(
+export function generatePythonAppScriptTemplate(
   ui_node: Parser.SyntaxNode
 ): ScriptGenerationTemplate {
   let packages: string[] = ["shiny"];
