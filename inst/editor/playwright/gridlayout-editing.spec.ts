@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
 import { dragInDir } from "./utils/dragInDir";
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 
 const basicGridApp: ShinyUiNode = {
   id: "grid_page",
@@ -49,12 +49,7 @@ const basicGridApp: ShinyUiNode = {
 };
 
 test("Can resize tracts of the layout by dragging", async ({ page }) => {
-  await mockBackendState(page, { ui_tree: basicGridApp, language: "R" });
-
-  await page.goto("/");
-
-  // Make sure we get past the loading splash page
-  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+  await startupMockedApp(page, { ui_tree: basicGridApp, language: "R" });
 
   // ====== Test that we can resize tracts of the layout by dragging =======
   const cardASelector = page.locator(`[data-sue-path="0"]`);
@@ -78,12 +73,7 @@ test("Can resize tracts of the layout by dragging", async ({ page }) => {
 test("Can update the positions of cards by dragging edges", async ({
   page,
 }) => {
-  await mockBackendState(page, { ui_tree: basicGridApp, language: "R" });
-
-  await page.goto("/");
-
-  // Make sure we get past the loading splash page
-  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+  await startupMockedApp(page, { ui_tree: basicGridApp, language: "R" });
 
   // Select the B card (doing this so it's easier to query for its size)
   await page.getByText(/^B$/).click();

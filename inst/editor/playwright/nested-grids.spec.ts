@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
   id: "navbarPage",
@@ -67,9 +67,7 @@ const basicNavbarPage: ShinyUiNode = {
 test("Updating the area name of a grid item propigates through rest of app properly", async ({
   page,
 }) => {
-  await mockBackendState(page, { ui_tree: basicNavbarPage, language: "R" });
-
-  await page.goto("/");
+  await startupMockedApp(page, { ui_tree: basicNavbarPage, language: "R" });
 
   // Navigate to the nested grid tab
   await page.locator(`[aria-label="navbarPage"] >> text=Grid Tab`).click();

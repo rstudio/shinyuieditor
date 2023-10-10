@@ -1,8 +1,8 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 const testingUiTree: ShinyUiNode = {
   id: "grid_page",
   namedArgs: {
@@ -15,9 +15,7 @@ const testingUiTree: ShinyUiNode = {
 };
 
 test("Drag and drop an item onto the grid and name area", async ({ page }) => {
-  await mockBackendState(page, { ui_tree: testingUiTree, language: "R" });
-
-  await page.goto("/");
+  await startupMockedApp(page, { ui_tree: testingUiTree, language: "R" });
 
   // Drag and drop a numeric input onto the upper-left grid cell
   await page.dragAndDrop("text=/^Action Button$/", `[data-cell-pos="1-1"]`);

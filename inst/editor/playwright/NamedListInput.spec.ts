@@ -1,8 +1,8 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 
 const testingUiTree: ShinyUiNode = {
   id: "grid_page",
@@ -52,12 +52,7 @@ const testingUiTree: ShinyUiNode = {
 test("Switching between two inputs doesn't swap their values", async ({
   page,
 }) => {
-  await mockBackendState(page, { ui_tree: testingUiTree, language: "R" });
-
-  await page.goto("/");
-
-  // Make sure we get past the loading splash page
-  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+  await startupMockedApp(page, { ui_tree: testingUiTree, language: "R" });
 
   // Select first radio buttons node
   await page.getByText("Radio A").click();
@@ -93,9 +88,7 @@ test("Switching between two inputs doesn't swap their values", async ({
 });
 
 test("Can add new element to a named list", async ({ page }) => {
-  await mockBackendState(page, { ui_tree: testingUiTree, language: "R" });
-
-  await page.goto("/");
+  await startupMockedApp(page, { ui_tree: testingUiTree, language: "R" });
 
   const propertiesPanel = page.getByLabel(/properties panel/i);
 

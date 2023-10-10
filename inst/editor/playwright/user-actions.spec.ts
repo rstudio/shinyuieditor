@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
   id: "navbarPage",
@@ -68,9 +68,7 @@ const redoKeys = `${onMac ? "Meta" : "Control"}+Shift+z`;
 test("Can delete elements and undo/redo those changes with keyboard shortcuts", async ({
   page,
 }) => {
-  await mockBackendState(page, { ui_tree: basicNavbarPage, language: "R" });
-
-  await page.goto("/");
+  await startupMockedApp(page, { ui_tree: basicNavbarPage, language: "R" });
 
   const plotTab = page.locator(`[aria-label="navbarPage"] >> text=Plot 1`);
   // First we switch to a different tab

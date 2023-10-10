@@ -3,7 +3,7 @@ import type { LanguageMode } from "communication-types/src/AppInfo";
 
 import type { ShinyUiNode } from "../../src/ui-node-definitions/ShinyUiNode";
 
-export async function mockBackendState(
+export async function startupMockedApp(
   page: Page,
   info: { language: LanguageMode } & (
     | { ui_tree: ShinyUiNode }
@@ -30,4 +30,15 @@ export async function mockBackendState(
       body: JSON.stringify(payload),
     })
   );
+
+  await page.goto("/");
+
+  // Make sure we get past the loading splash page
+  if ("ui_tree" in info || "app_script" in info) {
+    await page.getByRole("heading", { name: "Elements" }).isVisible();
+  } else {
+    await page
+      .getByRole("heading", { name: "Choose App Template" })
+      .isVisible();
+  }
 }

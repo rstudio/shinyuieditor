@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 
 const appScript = `library(shiny)
 library(gridlayout)
@@ -56,12 +56,7 @@ shinyApp(ui, server)
 test("Switching between two inputs doesn't swap their values", async ({
   page,
 }) => {
-  await mockBackendState(page, { app_script: appScript, language: "R" });
-
-  await page.goto("/");
-
-  // Make sure we get past the loading splash page
-  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+  await startupMockedApp(page, { app_script: appScript, language: "R" });
 
   // Click the "Get app script" button to open the app script modal
   await page.click("text=Get app script");
