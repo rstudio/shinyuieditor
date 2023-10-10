@@ -1,36 +1,40 @@
 import React from "react";
 
-import type {
-  InputOutputLocations,
-  ServerPositions,
-} from "communication-types/src/MessageToBackend";
+import type { ParserNode } from "treesitter-parsers";
 
 import { useMetaData } from "../state/metaData";
 import type { OutputBindingScaffold } from "../ui-node-definitions/nodeInfoFactory";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 
-import { useUpToDateServerLocations } from "./useUpToDateServerLocations";
-
-export type ServerOutputBindingInfo = {
-  inputOrOutput: "output";
-  currentId: string;
-  positions?: ServerPositions;
-  renderScaffold: OutputBindingScaffold;
-};
-
-export type ServerInputBindingInfo = {
-  inputOrOutput: "input";
-  currentId: string;
-  positions?: ServerPositions;
-};
+import { useCurrentServerNodes } from "./useUpToDateServerLocations";
 
 /**
  * Information regarding the server binding of an input or output node
  */
 export type ServerBindingInfo = {
-  serverNode: InputOutputLocations["server_fn"];
-} & (ServerOutputBindingInfo | ServerInputBindingInfo);
+  serverNode: ParserNode;
+  currentId: string;
+  nodes?: ParserNode[];
+} & (
+  | {
+      inputOrOutput: "output";
+      renderScaffold: OutputBindingScaffold;
+    }
+  | {
+      inputOrOutput: "input";
+    }
+);
+
+export type ServerOutputBindingInfo = Extract<
+  ServerBindingInfo,
+  { inputOrOutput: "output" }
+>;
+
+export type ServerInputBindingInfo = Extract<
+  ServerBindingInfo,
+  { inputOrOutput: "input" }
+>;
 
 /**
  * Hook to get a function for getting the server binding info for a node.
@@ -46,12 +50,12 @@ export function useGetNodeServerBindingInfo(): (
 
   const language = metaData?.language ?? "R";
 
-  const currentServerLocations = useUpToDateServerLocations();
+  const currentServerNodes = useCurrentServerNodes();
 
   const getNodeServerBindingInfo = React.useCallback(
     (node: ShinyUiNode) => {
       const nodeInfo = getUiNodeInfo(node.id);
-      if (currentServerLocations === null) return null;
+      if (currentServerNodes === null) return null;
 
       const boundIdInfo = nodeInfo.serverBindingInfo;
 
@@ -71,11 +75,6 @@ export function useGetNodeServerBindingInfo(): (
         return null;
       }
 
-      const positions =
-        currentServerLocations[
-          argType === "input" ? "input_positions" : "output_positions"
-        ]?.[currentId] ?? null;
-
       if (argType === "output") {
         const langInfo = nodeInfo[language === "PYTHON" ? "py_info" : "r_info"];
 
@@ -91,19 +90,19 @@ export function useGetNodeServerBindingInfo(): (
           inputOrOutput: argType,
           renderScaffold,
           currentId,
-          positions,
-          serverNode: currentServerLocations.server_fn,
+          nodes: currentServerNodes.outputNodes.get(currentId),
+          serverNode: currentServerNodes.serverNode,
         };
       }
 
       return {
         inputOrOutput: argType,
         currentId,
-        positions,
-        serverNode: currentServerLocations.server_fn,
+        nodes: currentServerNodes.inputNodes.get(currentId),
+        serverNode: currentServerNodes.serverNode,
       };
     },
-    [currentServerLocations, language]
+    [currentServerNodes, language]
   );
 
   return getNodeServerBindingInfo;

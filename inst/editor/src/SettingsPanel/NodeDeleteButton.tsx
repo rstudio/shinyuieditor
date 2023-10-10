@@ -35,7 +35,7 @@ export function NodeDeleteButton({
   const deletingWillDeleteServerCode =
     serverBindingInfo &&
     serverBindingInfo.inputOrOutput === "output" &&
-    serverBindingInfo.positions !== null;
+    serverBindingInfo.nodes;
 
   React.useEffect(() => {
     // Reset the delete warning when the server binding info changes
@@ -43,9 +43,8 @@ export function NodeDeleteButton({
   }, [serverBindingInfo]);
 
   const deleteServerCode = () => {
-    if (!(appScript && serverBindingInfo && serverBindingInfo.positions))
-      return;
-    const { positions, serverNode } = serverBindingInfo;
+    if (!(appScript && serverBindingInfo && serverBindingInfo.nodes)) return;
+    const { nodes } = serverBindingInfo;
 
     // Grab current app script]
     console.log("Trying to delete from here");

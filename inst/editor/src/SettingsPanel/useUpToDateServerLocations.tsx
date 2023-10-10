@@ -1,19 +1,24 @@
 import React from "react";
 
-import type { InputOutputLocations } from "communication-types/src/MessageToBackend";
-
 import { useTsParser } from "../EditorContainer/TSParserProvider";
+import type { ParsedAppServerNodes } from "../parsing/ParsedAppInfo";
 import { getPythonServerLocations } from "../python-parsing/parsePythonApp";
 import { getRServerLocations } from "../r-parsing/parseRApp";
 import { useCurrentAppInfo } from "../state/app_info";
 import { generateFullAppScript } from "../ui-node-definitions/code_generation/generate_full_app_script";
 
-export function useUpToDateServerLocations() {
+/**
+ * Hook to get the current parser nodes corresponding to input and output nodes
+ * in the app script.
+ * @returns The current server nodes if the app is in server aware mode, null
+ * otherwise
+ */
+export function useCurrentServerNodes() {
   const current_app_info = useCurrentAppInfo();
   const parseApp = useTsParser();
 
-  const [serverLocations, setServerLocations] =
-    React.useState<InputOutputLocations | null>(null);
+  const [serverNodes, setServerNodes] =
+    React.useState<ParsedAppServerNodes | null>(null);
 
   React.useEffect(() => {
     if (current_app_info.mode !== "MAIN") return;
@@ -40,9 +45,9 @@ export function useUpToDateServerLocations() {
         throw new Error("Could not parse app scripts");
       }
 
-      setServerLocations(server_locations);
+      setServerNodes(server_locations);
     });
   }, [current_app_info, parseApp]);
 
-  return serverLocations;
+  return serverNodes;
 }

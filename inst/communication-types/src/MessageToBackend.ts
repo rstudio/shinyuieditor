@@ -1,5 +1,4 @@
 import type { ShinyUiNode } from "editor/src/ui-node-definitions/ShinyUiNode";
-import type { getNodePositionAndIndent } from "treesitter-parsers";
 
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
@@ -66,43 +65,24 @@ export type CompanionEditorPosition = "BESIDE";
 /**
  * Single location in a script
  */
-export type ScriptPosition = {
+type ScriptPosition = {
   row: number;
   column: number;
-};
-/**
- * Range within a script. For something like a function definition etc..
- */
-export type ScriptRange = {
-  start: ScriptPosition;
-  end: ScriptPosition;
 };
 
 /**
  * List of ranges within a script where a given set of server code is located
  */
-export type ServerPositions = ScriptRange[];
-
-/**
- * Key-value store using an object pointing to where in the server code a given input or
- * output's references live.
- */
-export type ServerLocations = Record<string, ServerPositions>;
+export type ServerPositions = {
+  start: ScriptPosition;
+  end: ScriptPosition;
+}[];
 
 /**
  * Key-value store using `Map` pointing to where in the server code a given input or
  * output's references live.
  */
 export type ServerPositionMap = Map<string, ServerPositions>;
-
-/**
- * Locations of inputs and outputs in the server
- */
-export type InputOutputLocations = {
-  input_positions: ServerLocations;
-  output_positions: ServerLocations;
-  server_fn: ReturnType<typeof getNodePositionAndIndent>;
-};
 
 export type ParsedAppInfo = {
   file_lines: string[];

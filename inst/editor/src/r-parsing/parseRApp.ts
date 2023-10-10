@@ -1,8 +1,9 @@
 import type { ParserNode, TSParser } from "treesitter-parsers";
-import { getNodePositionAndIndent } from "treesitter-parsers";
 
-import { idToNodeMapToIdToPositionRecord } from "../parsing/idToNodeMapToIdToPositionMap";
-import type { ParsedAppInfo } from "../parsing/ParsedAppInfo";
+import type {
+  ParsedAppInfo,
+  ParsedAppServerNodes,
+} from "../parsing/ParsedAppInfo";
 
 import { getRInfoIfKnown } from "./get_r_info_if_known";
 import { getKnownRInputsNodes } from "./getKnownRInputs";
@@ -34,15 +35,13 @@ export function parseRApp(parser: TSParser, app_script: string): ParsedAppInfo {
   };
 }
 
-export function getRServerLocations(server_node: ParsedAppInfo["server_node"]) {
+export function getRServerLocations(
+  serverNode: ParsedAppInfo["server_node"]
+): ParsedAppServerNodes {
   return {
-    input_positions: idToNodeMapToIdToPositionRecord(
-      getKnownRInputsNodes(server_node)
-    ),
-    output_positions: idToNodeMapToIdToPositionRecord(
-      getKnownROutputNodes(server_node)
-    ),
-    server_fn: getNodePositionAndIndent(server_node),
+    inputNodes: getKnownRInputsNodes(serverNode),
+    outputNodes: getKnownROutputNodes(serverNode),
+    serverNode,
   };
 }
 

@@ -1,6 +1,6 @@
 import type { ParserNode } from "treesitter-parsers";
 
-import type { IdToNodeMap } from "../parsing/idToNodeMapToIdToPositionMap";
+import type { IdToNodeMap } from "../parsing/nodesToLocations";
 
 /**
  * Grab all known outputs in the PyShiny app as a map of ID to tree-sitter node

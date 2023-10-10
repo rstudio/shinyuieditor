@@ -1,6 +1,6 @@
 import type { ParserNode } from "treesitter-parsers";
 
-import type { IdToNodeMap } from "../parsing/idToNodeMapToIdToPositionMap";
+import type { IdToNodeMap } from "../parsing/nodesToLocations";
 
 /**
  * Get a mapping of all known inputs in the app script to their tree-sitter nodes

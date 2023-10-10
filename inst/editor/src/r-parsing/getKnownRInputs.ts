@@ -1,5 +1,7 @@
 import type { ParserNode } from "treesitter-parsers";
 
+import type { IdToNodeMap } from "../parsing/nodesToLocations";
+
 import { getNameOfAccessedProperty } from "./get_name_of_accessed_property";
 
 /**
@@ -7,10 +9,8 @@ import { getNameOfAccessedProperty } from "./get_name_of_accessed_property";
  * @param server_node Node representing the server function definition
  * @returns Map from input id to all nodes that access that input
  */
-export function getKnownRInputsNodes(
-  server_node: ParserNode
-): Map<string, ParserNode[]> {
-  const inputNodes = new Map<string, ParserNode[]>();
+export function getKnownRInputsNodes(server_node: ParserNode): IdToNodeMap {
+  const inputNodes: IdToNodeMap = new Map();
 
   server_node.descendantsOfType("dollar").forEach((node) => {
     const input_name = getNameOfAccessedProperty(node, "input");
