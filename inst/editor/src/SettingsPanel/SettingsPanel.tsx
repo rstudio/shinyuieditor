@@ -1,9 +1,9 @@
+import React from "react";
+
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
-import { Trash } from "../components/Icons";
-import Button from "../components/Inputs/Button/Button";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
@@ -17,6 +17,7 @@ import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "./FormBuilder";
 import { FormBuilder } from "./FormBuilder";
 import { GoToSourceBtns } from "./GoToSourceBtns";
+import { NodeDeleteButton } from "./NodeDeleteButton";
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
 import { useGetNodeServerBindingInfo } from "./useGetNodeServerBindingInfo";
@@ -104,22 +105,10 @@ export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
           )}
           <div className="mt-auto py-vertical-spacing flex flex-col justify-around items-center gap-vertical-spacing">
             {!isRootNode && (
-              <Button
-                className="text-danger flex items-center justify-start h-[40px] w-100 border-0"
-                onClick={(e) => {
-                  // Stop propigation of click event in case we have other click listeners
-                  // that try and do things like set selection
-                  e.stopPropagation();
-                  deleteNode();
-                }}
-                aria-label="Delete Selected Node"
-                title="Delete Selected Node"
-                variant="delete"
-                type="button"
-              >
-                <Trash className="text-2xl" />
-                Delete Element
-              </Button>
+              <NodeDeleteButton
+                serverBindingInfo={serverBindingInfo}
+                onDelete={deleteNode}
+              />
             )}
           </div>
         </div>
@@ -127,6 +116,7 @@ export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
     </>
   );
 }
+
 const SettingsPanelErrorFallback = (fallbackProps: FallbackProps) => {
   return (
     <GeneralErrorView
