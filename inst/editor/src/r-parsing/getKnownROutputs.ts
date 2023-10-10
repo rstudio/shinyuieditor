@@ -1,8 +1,6 @@
-import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
 
 import type { IdToNodeMap } from "../parsing/idToNodeMapToIdToPositionMap";
-import { idToNodeMapToIdToPositionMap } from "../parsing/idToNodeMapToIdToPositionMap";
 
 import { getNameOfAccessedProperty } from "./get_name_of_accessed_property";
 
@@ -11,7 +9,7 @@ import { getNameOfAccessedProperty } from "./get_name_of_accessed_property";
  * @param server_node Node representing the server function definition
  * @returns Map from output id to all nodes that access that output
  */
-function getKnownROutputNodes(server_node: ParserNode): IdToNodeMap {
+export function getKnownROutputNodes(server_node: ParserNode): IdToNodeMap {
   const outputNodes: IdToNodeMap = new Map();
 
   const assignments = server_node.descendantsOfType("left_assignment");
@@ -39,10 +37,4 @@ function getKnownROutputNodes(server_node: ParserNode): IdToNodeMap {
   });
 
   return outputNodes;
-}
-
-export function getKnownROutputLocations(
-  server_node: ParserNode
-): ServerPositionMap {
-  return idToNodeMapToIdToPositionMap(getKnownROutputNodes(server_node));
 }

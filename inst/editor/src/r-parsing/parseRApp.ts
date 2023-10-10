@@ -1,12 +1,12 @@
 import type { ParserNode, TSParser } from "treesitter-parsers";
 import { getNodePositionAndIndent } from "treesitter-parsers";
-import { convertMapToObject } from "util-functions/src/convertMapToObject";
 
+import { idToNodeMapToIdToPositionRecord } from "../parsing/idToNodeMapToIdToPositionMap";
 import type { ParsedAppInfo } from "../parsing/ParsedAppInfo";
 
 import { getRInfoIfKnown } from "./get_r_info_if_known";
-import { getKnownRInputLocations } from "./getKnownRInputs";
-import { getKnownROutputLocations } from "./getKnownROutputs";
+import { getKnownRInputsNodes } from "./getKnownRInputs";
+import { getKnownROutputNodes } from "./getKnownROutputs";
 import { parseRScript } from "./parseRScript";
 
 export function parseRApp(parser: TSParser, app_script: string): ParsedAppInfo {
@@ -35,12 +35,13 @@ export function parseRApp(parser: TSParser, app_script: string): ParsedAppInfo {
 }
 
 export function getRServerLocations(server_node: ParsedAppInfo["server_node"]) {
-  const input_positions = getKnownRInputLocations(server_node);
-  const output_positions = getKnownROutputLocations(server_node);
-
   return {
-    input_positions: convertMapToObject(input_positions),
-    output_positions: convertMapToObject(output_positions),
+    input_positions: idToNodeMapToIdToPositionRecord(
+      getKnownRInputsNodes(server_node)
+    ),
+    output_positions: idToNodeMapToIdToPositionRecord(
+      getKnownROutputNodes(server_node)
+    ),
     server_fn: getNodePositionAndIndent(server_node),
   };
 }

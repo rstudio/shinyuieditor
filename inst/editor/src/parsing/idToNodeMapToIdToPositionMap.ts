@@ -1,4 +1,7 @@
-import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
+import type {
+  ServerLocations,
+  ServerPositionMap,
+} from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
 import { getNodePosition } from "treesitter-parsers";
 
@@ -16,6 +19,18 @@ export function idToNodeMapToIdToPositionMap(
 
   idToNodeMap.forEach((nodes, id) => {
     idToPositionMap.set(id, nodes.map(getNodePosition));
+  });
+
+  return idToPositionMap;
+}
+
+export function idToNodeMapToIdToPositionRecord(
+  idToNodeMap: IdToNodeMap
+): ServerLocations {
+  const idToPositionMap: ServerLocations = {};
+
+  idToNodeMap.forEach((nodes, id) => {
+    idToPositionMap[id] = nodes.map(getNodePosition);
   });
 
   return idToPositionMap;

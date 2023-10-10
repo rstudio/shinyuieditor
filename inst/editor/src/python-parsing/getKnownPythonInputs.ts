@@ -1,16 +1,14 @@
-import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
-import { getNodePosition } from "treesitter-parsers";
+
+import type { IdToNodeMap } from "../parsing/idToNodeMapToIdToPositionMap";
 
 /**
- * Get a mapping of all known inputs in the app script to output positions
+ * Get a mapping of all known inputs in the app script to their tree-sitter nodes
  * @param app_tree Parsed app script as returned by `parse_python_script()`
  * @returns A map of the input's `id` to the positions it appears in the app script
  */
-export function getKnownPythonInputs(
-  serverNode: ParserNode
-): ServerPositionMap {
-  const inputs: ServerPositionMap = new Map();
+export function getKnownPythonInputNodes(serverNode: ParserNode): IdToNodeMap {
+  const inputNodesMap: IdToNodeMap = new Map();
 
   serverNode.descendantsOfType("attribute").forEach((node) => {
     const { firstNamedChild, lastNamedChild } = node;
@@ -30,16 +28,15 @@ export function getKnownPythonInputs(
     if (!input_call || input_call.type !== "call") {
       return;
     }
-    const position = getNodePosition(input_call);
 
-    const existing_entry = inputs.get(input_id);
+    const existing_entry = inputNodesMap.get(input_id);
 
     if (!existing_entry) {
-      inputs.set(input_id, [position]);
+      inputNodesMap.set(input_id, [input_call]);
     } else {
-      existing_entry.push(position);
+      existing_entry.push(input_call);
     }
   });
 
-  return inputs;
+  return inputNodesMap;
 }

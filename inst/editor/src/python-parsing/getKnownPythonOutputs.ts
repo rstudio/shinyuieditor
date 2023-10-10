@@ -1,16 +1,14 @@
-import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
-import { getNodePosition } from "treesitter-parsers";
+
+import type { IdToNodeMap } from "../parsing/idToNodeMapToIdToPositionMap";
 
 /**
- * Grab all known outputs in the PyShiny app
+ * Grab all known outputs in the PyShiny app as a map of ID to tree-sitter node
  * @param app_tree A tree-sitter tree of the whole app script
- * @returns Mapping of the output's `id` its position in app script
+ * @returns Mapping of the output's id to the tree-sitter node
  */
-export function getKnownPythonOutputs(
-  serverNode: ParserNode
-): ServerPositionMap {
-  const outputs: ServerPositionMap = new Map();
+export function getKnownPythonOutputNodes(serverNode: ParserNode): IdToNodeMap {
+  const outputNodesMap: IdToNodeMap = new Map();
 
   // Get all the nodes that represent decorated functions in the script
   const decorated_fns = serverNode.descendantsOfType("decorated_definition");
@@ -31,16 +29,14 @@ export function getKnownPythonOutputs(
 
     if (!output_id) return;
 
-    const position = getNodePosition(decorated_def);
-
-    const existing_entry = outputs.get(output_id);
+    const existing_entry = outputNodesMap.get(output_id);
 
     if (!existing_entry) {
-      outputs.set(output_id, [position]);
+      outputNodesMap.set(output_id, [decorated_def]);
     } else {
-      existing_entry.push(position);
+      existing_entry.push(decorated_def);
     }
   });
 
-  return outputs;
+  return outputNodesMap;
 }

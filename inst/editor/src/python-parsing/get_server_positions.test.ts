@@ -1,8 +1,10 @@
 import { setup_python_parser } from "treesitter-parsers";
 
-import { getKnownPythonInputs } from "./getKnownPythonInputs";
-import { getKnownPythonOutputs } from "./getKnownPythonOutputs";
-import { getServerNode, parsePythonApp } from "./parsePythonApp";
+import { idToNodeMapToIdToPositionMap } from "../parsing/idToNodeMapToIdToPositionMap";
+
+import { getKnownPythonInputNodes } from "./getKnownPythonInputs";
+import { getKnownPythonOutputNodes } from "./getKnownPythonOutputs";
+import { parsePythonApp } from "./parsePythonApp";
 
 const app_script = `
 import matplotlib.pyplot as plt
@@ -32,7 +34,7 @@ test("Can find outputs in server code", async () => {
   const parsed_app = parsePythonApp(await setup_python_parser(), app_script);
   const serverNode = parsed_app.server_node;
 
-  const outputs = getKnownPythonOutputs(serverNode!);
+  const outputs = getKnownPythonOutputNodes(serverNode!);
 
   expect(outputs.has("histogram")).toBe(true);
   expect(outputs.has("second_plot")).toBe(true);
@@ -43,7 +45,9 @@ test("Can find inputs in server code", async () => {
     app_script
   );
 
-  const inputs = getKnownPythonInputs(serverNode!);
+  const inputs = idToNodeMapToIdToPositionMap(
+    getKnownPythonInputNodes(serverNode!)
+  );
 
   expect(inputs.size).toBe(2);
 
