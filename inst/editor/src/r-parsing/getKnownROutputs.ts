@@ -1,11 +1,18 @@
 import type { ServerPositionMap } from "communication-types/src/MessageToBackend";
 import type { ParserNode } from "treesitter-parsers";
-import { getNodePosition } from "treesitter-parsers";
+
+import type { IdToNodeMap } from "../parsing/idToNodeMapToIdToPositionMap";
+import { idToNodeMapToIdToPositionMap } from "../parsing/idToNodeMapToIdToPositionMap";
 
 import { getNameOfAccessedProperty } from "./get_name_of_accessed_property";
 
-export function getKnownROutputs(server_node: ParserNode): ServerPositionMap {
-  const output_positions: ServerPositionMap = new Map();
+/**
+ * Gather all output nodes into a map keyed by id
+ * @param server_node Node representing the server function definition
+ * @returns Map from output id to all nodes that access that output
+ */
+function getKnownROutputNodes(server_node: ParserNode): IdToNodeMap {
+  const outputNodes: IdToNodeMap = new Map();
 
   const assignments = server_node.descendantsOfType("left_assignment");
 
@@ -21,17 +28,21 @@ export function getKnownROutputs(server_node: ParserNode): ServerPositionMap {
       return;
     }
 
-    const output_loc = getNodePosition(assignment);
-
-    if (output_positions.has(output_name)) {
-      output_positions.set(
+    if (outputNodes.has(output_name)) {
+      outputNodes.set(
         output_name,
-        output_positions.get(output_name)!.concat(output_loc)
+        outputNodes.get(output_name)!.concat(assignment)
       );
     } else {
-      output_positions.set(output_name, [output_loc]);
+      outputNodes.set(output_name, [assignment]);
     }
   });
 
-  return output_positions;
+  return outputNodes;
+}
+
+export function getKnownROutputLocations(
+  server_node: ParserNode
+): ServerPositionMap {
+  return idToNodeMapToIdToPositionMap(getKnownROutputNodes(server_node));
 }

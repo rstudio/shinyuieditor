@@ -5,7 +5,8 @@ import { convertMapToObject } from "util-functions/src/convertMapToObject";
 import type { ParsedAppInfo } from "../parsing/ParsedAppInfo";
 
 import { getRInfoIfKnown } from "./get_r_info_if_known";
-import { getServerPositions } from "./getKnownRInputs";
+import { getKnownRInputLocations } from "./getKnownRInputs";
+import { getKnownROutputLocations } from "./getKnownROutputs";
 import { parseRScript } from "./parseRScript";
 
 export function parseRApp(parser: TSParser, app_script: string): ParsedAppInfo {
@@ -34,11 +35,12 @@ export function parseRApp(parser: TSParser, app_script: string): ParsedAppInfo {
 }
 
 export function getRServerLocations(server_node: ParsedAppInfo["server_node"]) {
-  const positionMaps = getServerPositions(server_node);
+  const input_positions = getKnownRInputLocations(server_node);
+  const output_positions = getKnownROutputLocations(server_node);
 
   return {
-    input_positions: convertMapToObject(positionMaps.input_positions),
-    output_positions: convertMapToObject(positionMaps.output_positions),
+    input_positions: convertMapToObject(input_positions),
+    output_positions: convertMapToObject(output_positions),
     server_fn: getNodePositionAndIndent(server_node),
   };
 }
