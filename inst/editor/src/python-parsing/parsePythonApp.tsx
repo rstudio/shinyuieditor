@@ -1,15 +1,19 @@
 import type { ParserNode, TSParser } from "treesitter-parsers";
 import {
-  getNodePositionAndIndent,
   get_assignment_nodes,
   get_ui_assignment,
+  getNodePositionAndIndent,
 } from "treesitter-parsers";
 import { convertMapToObject } from "util-functions/src/convertMapToObject";
 
+import {
+  idToNodeMapToIdToPositionMap,
+  idToNodeMapToIdToPositionRecord,
+} from "../parsing/idToNodeMapToIdToPositionMap";
 import type { ParsedAppInfo } from "../parsing/ParsedAppInfo";
 
-import { getKnownPythonInputs } from "./getKnownPythonInputs";
-import { getKnownPythonOutputs } from "./getKnownPythonOutputs";
+import { getKnownPythonInputNodes } from "./getKnownPythonInputs";
+import { getKnownPythonOutputNodes } from "./getKnownPythonOutputs";
 
 export type AppParserArgs = {
   app_script: string;
@@ -39,12 +43,13 @@ export function parsePythonApp(
 export function getPythonServerLocations(
   server_node: ParsedAppInfo["server_node"]
 ) {
-  const input_positions = getKnownPythonInputs(server_node);
-  const output_positions = getKnownPythonOutputs(server_node);
-
   return {
-    input_positions: convertMapToObject(input_positions),
-    output_positions: convertMapToObject(output_positions),
+    input_positions: idToNodeMapToIdToPositionRecord(
+      getKnownPythonInputNodes(server_node)
+    ),
+    output_positions: idToNodeMapToIdToPositionRecord(
+      getKnownPythonOutputNodes(server_node)
+    ),
     server_fn: getNodePositionAndIndent(server_node),
   };
 }
