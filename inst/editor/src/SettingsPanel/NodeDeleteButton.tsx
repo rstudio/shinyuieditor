@@ -4,10 +4,13 @@ import { X } from "react-bootstrap-icons";
 
 import { Trash } from "../components/Icons";
 import Button from "../components/Inputs/Button/Button";
-import { Tooltip } from "../components/PopoverEl/FloatingPopover";
-import { TooltipTrigger } from "../components/PopoverEl/FloatingPopover";
-import { TooltipContent } from "../components/PopoverEl/FloatingPopover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../components/PopoverEl/FloatingPopover";
 import { useCurrentAppInfo } from "../state/app_info";
+import { useUpdateServerCode } from "../state/useUpdateServerCode";
 import { mergeClasses } from "../utils/mergeClasses";
 
 import type { ServerBindingInfo } from "./useGetNodeServerBindingInfo";
@@ -30,6 +33,7 @@ export function NodeDeleteButton({
   onDelete: () => void;
 }) {
   const appScript = useCurrentAppScript();
+  const updateServerCode = useUpdateServerCode();
   const [showDeleteWarning, setShowDeleteWarning] = React.useState(false);
 
   const deletingWillDeleteServerCode =
@@ -44,10 +48,13 @@ export function NodeDeleteButton({
 
   const deleteServerCode = () => {
     if (!(appScript && serverBindingInfo && serverBindingInfo.nodes)) return;
-    const { nodes } = serverBindingInfo;
 
-    // Grab current app script]
-    console.log("Trying to delete from here");
+    const codeToDelete = serverBindingInfo.nodes.map((node) => node.text);
+
+    updateServerCode((oldScript) => {
+      const newAppScript = oldScript.replace(codeToDelete.join(""), "");
+      return newAppScript;
+    });
   };
 
   return (
