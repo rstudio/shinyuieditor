@@ -1,6 +1,9 @@
 import React from "react";
 
-import type { ServerPositions } from "communication-types/src/MessageToBackend";
+import type {
+  InputOutputLocations,
+  ServerPositions,
+} from "communication-types/src/MessageToBackend";
 
 import { useMetaData } from "../state/metaData";
 import type { OutputBindingScaffold } from "../ui-node-definitions/nodeInfoFactory";
@@ -25,9 +28,9 @@ export type ServerInputBindingInfo = {
 /**
  * Information regarding the server binding of an input or output node
  */
-export type ServerBindingInfo =
-  | ServerOutputBindingInfo
-  | ServerInputBindingInfo;
+export type ServerBindingInfo = {
+  serverNode: InputOutputLocations["server_fn"];
+} & (ServerOutputBindingInfo | ServerInputBindingInfo);
 
 /**
  * Hook to get a function for getting the server binding info for a node.
@@ -89,6 +92,7 @@ export function useGetNodeServerBindingInfo(): (
           renderScaffold,
           currentId,
           positions,
+          serverNode: currentServerLocations.server_fn,
         };
       }
 
@@ -96,6 +100,7 @@ export function useGetNodeServerBindingInfo(): (
         inputOrOutput: argType,
         currentId,
         positions,
+        serverNode: currentServerLocations.server_fn,
       };
     },
     [currentServerLocations, language]
