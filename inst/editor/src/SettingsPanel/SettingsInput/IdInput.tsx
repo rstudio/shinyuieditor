@@ -11,7 +11,8 @@ import {
 } from "../../components/PopoverEl/FloatingPopover";
 import { getAllInputOutputIdsInApp } from "../../EditorContainer/getAllInputOutputIdsInApp";
 import type { ParsedAppServerNodes } from "../../parsing/ParsedAppInfo";
-import { useCurrentAppInfo, useSetAppCodeTemplate } from "../../state/app_info";
+import { useCurrentAppInfo } from "../../state/app_info";
+import { useUpdateServerCode } from "../../state/useUpdateServerCode";
 import type { InputComponentByType } from "../../ui-node-definitions/inputFieldTypes";
 import { makeLabelId } from "../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../utils/mergeClasses";
@@ -30,7 +31,8 @@ export function IdInput({
   // UI tree down instead. Right now performance seems fine though especially
   // since this is a leaf node
   const appInfo = useCurrentAppInfo();
-  const setAppScript = useSetAppCodeTemplate();
+  const updateServerCode = useUpdateServerCode();
+
   const serverNodes = useCurrentServerNodes();
 
   const [syncStatus, setSyncStatus] = React.useState<
@@ -82,16 +84,17 @@ export function IdInput({
     setInvalidMsg(null);
 
     if (syncStatus === "synced" && locationsOfId !== null) {
-      const appScript = appInfo.app.code;
+      updateServerCode((oldScript) => {
+        const updated_script = updateServerWithNewId({
+          oldId: value,
+          newId: newValue,
+          positions: locationsOfId,
+          appScript: oldScript,
+          language,
+        });
 
-      const updated_script = updateServerWithNewId({
-        oldId: value,
-        newId: newValue,
-        positions: locationsOfId,
-        appScript,
-        language,
+        return updated_script;
       });
-      setAppScript(updated_script);
     }
   };
 

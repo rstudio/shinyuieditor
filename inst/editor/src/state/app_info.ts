@@ -2,7 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
 import type { AppInfo } from "communication-types/src/AppInfo";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
@@ -149,18 +149,6 @@ export type DeleteAction = (
 
 export function useCurrentAppInfo() {
   return useSelector((state: RootState) => state.app_info);
-}
-
-/**
- * Hook to enable easy updating of the script in the app info.
- * @returns Function to update app script in state.
- */
-export function useSetAppCodeTemplate() {
-  const dispatch = useDispatch();
-
-  return (script: string) => {
-    dispatch(SET_APP_CODE_TEMPLATE(script));
-  };
 }
 
 export default mainStateSlice.reducer;
