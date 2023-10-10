@@ -1,22 +1,21 @@
 import React from "react";
 
-import type {
-  InputOutputLocations,
-  ServerPositions,
-} from "communication-types/src/MessageToBackend";
+import type { ServerPositions } from "communication-types/src/MessageToBackend";
 import { Link45deg } from "react-bootstrap-icons";
+import { getNodePosition } from "treesitter-parsers";
 
 import {
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
+  TooltipTrigger,
 } from "../../components/PopoverEl/FloatingPopover";
 import { getAllInputOutputIdsInApp } from "../../EditorContainer/getAllInputOutputIdsInApp";
+import type { ParsedAppServerNodes } from "../../parsing/ParsedAppInfo";
 import { useCurrentAppInfo, useSetAppCodeTemplate } from "../../state/app_info";
 import type { InputComponentByType } from "../../ui-node-definitions/inputFieldTypes";
 import { makeLabelId } from "../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../utils/mergeClasses";
-import { useUpToDateServerLocations } from "../useUpToDateServerLocations";
+import { useCurrentServerNodes } from "../useUpToDateServerLocations";
 
 import { updateServerWithNewId } from "./updateServerWithNewId";
 
@@ -32,7 +31,7 @@ export function IdInput({
   // since this is a leaf node
   const appInfo = useCurrentAppInfo();
   const setAppScript = useSetAppCodeTemplate();
-  const serverLocations = useUpToDateServerLocations();
+  const serverNodes = useCurrentServerNodes();
 
   const [syncStatus, setSyncStatus] = React.useState<
     "synced" | "unsynced" | null
@@ -41,7 +40,7 @@ export function IdInput({
   const [invalidMsg, setInvalidMsg] = React.useState<null | string>(null);
 
   // Check if the current value exists in the server locations
-  const locationsOfId = getLocationsInServerOfId(value, serverLocations);
+  const locationsOfId = getLocationsInServerOfId(value, serverNodes);
 
   const boundToServer = locationsOfId !== null;
 
@@ -169,18 +168,18 @@ export function IdInput({
 
 function getLocationsInServerOfId(
   id: string,
-  serverLocations: InputOutputLocations | null
+  serverLocations: ParsedAppServerNodes | null
 ): ServerPositions | null {
   if (serverLocations === null) return null;
 
-  const { input_positions, output_positions } = serverLocations;
+  const { inputNodes, outputNodes } = serverLocations;
 
-  if (input_positions[id] !== undefined) {
-    return input_positions[id];
+  if (inputNodes.has(id)) {
+    return inputNodes.get(id)!.map(getNodePosition);
   }
 
-  if (output_positions[id] !== undefined) {
-    return output_positions[id];
+  if (outputNodes.has(id)) {
+    return outputNodes.get(id)!.map(getNodePosition);
   }
 
   return null;

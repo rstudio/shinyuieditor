@@ -1,10 +1,11 @@
 import type { MessageToBackend } from "communication-types";
 import type { LanguageMode } from "communication-types/src/AppInfo";
-import type { InputOutputLocations } from "communication-types/src/MessageToBackend";
 import { toast } from "react-toastify";
+import { getNodePositionAndIndent } from "treesitter-parsers";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { PopoverButton } from "../components/Inputs/PopoverButton";
+import { nodesToLocations } from "../parsing/nodesToLocations";
 import { generatePythonOutputBinding } from "../python-parsing/generate_output_binding";
 import { generate_r_output_binding } from "../r-parsing/generate_output_binding";
 import { useMetaData } from "../state/metaData";
@@ -16,7 +17,7 @@ import type {
   ServerInputBindingInfo,
   ServerOutputBindingInfo,
 } from "./useGetNodeServerBindingInfo";
-import { useUpToDateServerLocations } from "./useUpToDateServerLocations";
+import { useCurrentServerNodes } from "./useUpToDateServerLocations";
 
 export function GoToSourceBtns({
   bindingInfo,
@@ -24,10 +25,10 @@ export function GoToSourceBtns({
   bindingInfo: ServerBindingInfo;
 }) {
   const metaData = useMetaData();
-  const currentServerLocations = useUpToDateServerLocations();
+  const currentServerNodes = useCurrentServerNodes();
   const { sendMsg } = useBackendConnection();
 
-  if (!currentServerLocations) return null;
+  if (!currentServerNodes) return null;
 
   if (!(metaData && metaData.server_aware)) return null;
 
@@ -38,7 +39,6 @@ export function GoToSourceBtns({
           info={bindingInfo}
           sendMsg={sendMsg}
           language={metaData.language}
-          server_position={currentServerLocations.server_fn}
         />
       ) : null}
       {bindingInfo.inputOrOutput === "input" ? (
@@ -49,17 +49,15 @@ export function GoToSourceBtns({
 }
 
 function GoToOutputsBtn({
-  info: { currentId, positions, renderScaffold },
+  info: { currentId, nodes, renderScaffold, serverNode },
   sendMsg,
   language,
-  server_position,
 }: {
   info: ServerOutputBindingInfo;
   sendMsg: (msg: MessageToBackend) => void;
   language: LanguageMode;
-  server_position: InputOutputLocations["server_fn"];
 }) {
-  const existsInServer = positions !== null;
+  const existsInServer = Boolean(nodes);
 
   return (
     <PopoverButton
@@ -71,16 +69,16 @@ function GoToOutputsBtn({
       placement="left"
       variant="regular"
       onClick={() => {
-        if (positions) {
+        if (nodes) {
           sendMsg({
             path: "SELECT-SERVER-CODE",
-            payload: { positions },
+            payload: { positions: nodesToLocations(nodes) },
           });
 
           toast("Highlighted output declaration in server");
         } else {
           const snippet_insertion_point = buildServerInsertion({
-            server_position,
+            server_position: getNodePositionAndIndent(serverNode),
             snippet: buildSnippetText({
               language,
               output_id: currentId,
@@ -103,13 +101,13 @@ function GoToOutputsBtn({
 }
 
 function GoToInputsBtn({
-  info: { positions, currentId },
+  info: { nodes, currentId },
   sendMsg,
 }: {
   info: ServerInputBindingInfo;
   sendMsg: (msg: MessageToBackend) => void;
 }) {
-  if (!positions) return null;
+  if (!nodes) return null;
 
   return (
     <PopoverButton
@@ -120,7 +118,7 @@ function GoToInputsBtn({
       onClick={() => {
         sendMsg({
           path: "SELECT-SERVER-CODE",
-          payload: { positions },
+          payload: { positions: nodesToLocations(nodes) },
         });
 
         toast("Highlighted uses of input variable in server");

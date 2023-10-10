@@ -1,7 +1,5 @@
 import { setup_python_parser } from "treesitter-parsers";
 
-import { idToNodeMapToIdToPositionMap } from "../parsing/idToNodeMapToIdToPositionMap";
-
 import { getKnownPythonInputNodes } from "./getKnownPythonInputs";
 import { getKnownPythonOutputNodes } from "./getKnownPythonOutputs";
 import { parsePythonApp } from "./parsePythonApp";
@@ -45,9 +43,7 @@ test("Can find inputs in server code", async () => {
     app_script
   );
 
-  const inputs = idToNodeMapToIdToPositionMap(
-    getKnownPythonInputNodes(serverNode!)
-  );
+  const inputs = getKnownPythonInputNodes(serverNode!);
 
   expect(inputs.size).toBe(2);
 
@@ -56,10 +52,10 @@ test("Can find inputs in server code", async () => {
   // There are two instances of input.n being called in the server code
   expect((n_inputs ?? []).length).toBe(2);
 
-  const n_input_loc = n_inputs![0];
+  const n_input_node = n_inputs![0];
 
   // Expect the selection to include the calling parens
-  expect(n_input_loc.end.column - n_input_loc.start.column).toBe(9);
+  expect(n_input_node.text).toContain("input.n()");
 
   // There is just one instance of input.bins
   expect((inputs.get("bins") ?? []).length).toBe(1);
