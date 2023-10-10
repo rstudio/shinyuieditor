@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/ui-node-definitions/ShinyUiNode";
 
 import { dragDrop } from "./utils/dragDrop";
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
   id: "navbarPage",
@@ -63,9 +63,7 @@ const basicNavbarPage: ShinyUiNode = {
 };
 
 test("Basic usage of navbar page", async ({ page }) => {
-  await mockBackendState(page, { ui_tree: basicNavbarPage, language: "R" });
-
-  await page.goto("/");
+  await startupMockedApp(page, { ui_tree: basicNavbarPage, language: "R" });
 
   // First we switch to a different tab
   await page.locator(`[aria-label="navbarPage"] >> text=Plot 1`).click();

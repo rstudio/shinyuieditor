@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import type { KnownShinyUiNode } from "../src/ui-node-definitions/uiNodeTypes";
 
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 const shortCardTree: KnownShinyUiNode = {
   id: "grid_page",
   namedArgs: {
@@ -77,12 +77,7 @@ const shortCardTree: KnownShinyUiNode = {
 test("Make sure cards with too much content don't overflow visually", async ({
   page,
 }) => {
-  await mockBackendState(page, { ui_tree: shortCardTree, language: "R" });
-
-  await page.goto("/");
-
-  // Make sure we get past the loading splash page
-  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+  await startupMockedApp(page, { ui_tree: shortCardTree, language: "R" });
 
   await expect(page).toHaveScreenshot();
 });

@@ -1,14 +1,12 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "@playwright/test";
 
-import { mockBackendState } from "./utils/mockBackend";
+import { startupMockedApp } from "./utils/mockBackend";
 
 test("Updating the area name of a grid item propigates through rest of app properly", async ({
   page,
 }) => {
-  await mockBackendState(page, { language: "R" });
-
-  await page.goto("/");
+  await startupMockedApp(page, { language: "R" });
 
   // The default state is no selection thus the proceed button shouldn't be allowed
   await expect(page.locator(`text=Select a template`)).toBeDisabled();
@@ -79,9 +77,7 @@ test("Updating the area name of a grid item propigates through rest of app prope
 test("Non-main state data is reset when navigating between templates", async ({
   page,
 }) => {
-  await mockBackendState(page, { language: "R" });
-
-  await page.goto("/");
+  await startupMockedApp(page, { language: "R" });
 
   // Select first available template
   await page
