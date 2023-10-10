@@ -1,8 +1,8 @@
 import { setup_r_parser } from "treesitter-parsers";
 
-import { getServerPositions } from "./getKnownRInputs";
+import { getKnownRInputLocations } from "./getKnownRInputs";
+import { getKnownROutputLocations } from "./getKnownROutputs";
 import { parseRApp } from "./parseRApp";
-import { parseRScript } from "./parseRScript";
 
 describe("Can find output positions in server of single file app", async () => {
   const { server_node } = parseRApp(
@@ -33,7 +33,8 @@ describe("Can find output positions in server of single file app", async () => {
     shinyApp(ui, server)`
   );
 
-  const { input_positions, output_positions } = getServerPositions(server_node);
+  const input_positions = getKnownRInputLocations(server_node);
+  const output_positions = getKnownROutputLocations(server_node);
 
   test("Output bindings", () => {
     expect(output_positions.has("dists")).toBe(true);
