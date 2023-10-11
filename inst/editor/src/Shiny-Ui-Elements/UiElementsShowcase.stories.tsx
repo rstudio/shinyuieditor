@@ -10,16 +10,21 @@ import "../App.css";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
-} from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
+} from "../SettingsPanel/buildStaticSettingsInfo";
+import { FormBuilder } from "../SettingsPanel/FormBuilder";
 import ReduxProvider from "../state/ReduxProvider";
+import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { shinyids } from "../ui-node-definitions/uiNodeTypes";
 
 import { getUiNodeInfo } from "./registered_ui_nodes";
 import classes from "./UiElementsShowcase.module.css";
 
-function UiNodeAndSettings({ id, namedArgs }) {
-  const [infoToRender, setInfoToRender] = React.useState(null);
+function UiNodeAndSettings({ id, namedArgs }: ShinyUiNode) {
+  const [infoToRender, setInfoToRender] = React.useState<{
+    node: ShinyUiNode;
+    Comp: (props: any) => JSX.Element;
+    settingsInfo: ReturnType<typeof buildStaticFormInfo>;
+  } | null>(null);
 
   React.useEffect(() => {
     const nodeInfo = getUiNodeInfo(id);
@@ -38,32 +43,35 @@ function UiNodeAndSettings({ id, namedArgs }) {
     });
   }, [namedArgs, id]);
 
-  const updateSettings = React.useCallback((name, action) => {
-    setInfoToRender((info) => {
-      if (!info) return null;
-      const { node } = info;
+  const updateSettings = React.useCallback(
+    (name: string, action: Record<string, unknown>) => {
+      setInfoToRender((info) => {
+        if (!info) return null;
+        const { node } = info;
 
-      const prevSettings = node.namedArgs;
-      const newSettings =
-        action.type === "UPDATE"
-          ? { ...prevSettings, [name]: action.value }
-          : omit(prevSettings, name);
+        const prevSettings = node.namedArgs;
+        const newSettings =
+          action.type === "UPDATE"
+            ? { ...prevSettings, [name]: action.value }
+            : omit(prevSettings, name);
 
-      const newNode = {
-        ...node,
-        namedArgs: newSettings,
-      };
+        const newNode = {
+          ...node,
+          namedArgs: newSettings,
+        };
 
-      return {
-        ...info,
-        node: newNode,
-        settingsInfo: buildStaticFormInfo(
-          getUiNodeInfo(node.id).settingsInfo,
-          newNode
-        ),
-      };
-    });
-  }, []);
+        return {
+          ...info,
+          node: newNode,
+          settingsInfo: buildStaticFormInfo(
+            getUiNodeInfo(node.id).settingsInfo,
+            newNode
+          ),
+        };
+      });
+    },
+    []
+  );
 
   if (!infoToRender) return <div>Setting up the settings info...</div>;
 
@@ -81,7 +89,7 @@ function UiNodeAndSettings({ id, namedArgs }) {
               namedArgs={infoToRender.node.namedArgs}
               path={[0]}
               wrapperProps={{
-                onClick: (e) => {
+                onClick: (e: unknown) => {
                   console.log("Clicked node", e);
                 },
                 "data-sue-path": "0",
@@ -94,6 +102,9 @@ function UiNodeAndSettings({ id, namedArgs }) {
         <div>
           <h1>Settings Panel</h1>
           <FormBuilder
+            node={infoToRender.node}
+            app_tree={infoToRender.node}
+            nodePath={[]}
             settings={infoToRender.node.namedArgs}
             settingsInfo={infoToRender.settingsInfo}
             onSettingsChange={updateSettings}
@@ -109,7 +120,11 @@ export default {
   component: UiNodeAndSettings,
 };
 
-export const UiElementsShowcase = ({ nameOfElement }) => {
+export const UiElementsShowcase = ({
+  nameOfElement,
+}: {
+  nameOfElement: string;
+}) => {
   const defaultSettings = getDefaultSettings(
     getUiNodeInfo(nameOfElement).settingsInfo
   );
