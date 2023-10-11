@@ -2,7 +2,6 @@ import { get_assignment_nodes, setup_python_parser } from "treesitter-parsers";
 
 import type { KnownShinyUiNode } from "../ui-node-definitions/uiNodeTypes";
 
-import { parsePythonApp } from "./parsePythonApp";
 import { pythonTreesitterToUiTree } from "./pythonTreesitterToUiTree";
 
 export const basicNavbarPage = {
@@ -13,7 +12,7 @@ export const basicNavbarPage = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Settings",
       },
@@ -32,7 +31,7 @@ export const basicNavbarPage = {
       ],
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Plot 1",
       },
@@ -102,7 +101,7 @@ my_slider = ui.input_slider(
     const converted_node = pythonTreesitterToUiTree(nav_node!);
 
     expect(converted_node).toStrictEqual({
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Plot 1",
       },

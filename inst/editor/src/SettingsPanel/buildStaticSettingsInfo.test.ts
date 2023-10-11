@@ -20,15 +20,15 @@ const navbarWithThreeTabs: ShinyUiParentNode = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: { title: "first tab" },
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: { title: "second tab" },
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: { title: "third tab" },
     },
   ],

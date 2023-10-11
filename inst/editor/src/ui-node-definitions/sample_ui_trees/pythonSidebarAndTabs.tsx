@@ -13,7 +13,7 @@ export const pythonSidebarAndTabs = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "plot",
       },

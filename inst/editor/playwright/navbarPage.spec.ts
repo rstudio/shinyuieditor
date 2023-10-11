@@ -13,7 +13,7 @@ const basicNavbarPage: ShinyUiNode = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Settings",
       },
@@ -28,7 +28,7 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Plot 1",
       },
@@ -44,7 +44,7 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Plot 2",
       },
@@ -110,7 +110,7 @@ test("Basic usage of navbar page", async ({ page }) => {
   // Add a new empty tab panel by clicking the new tab button
   await page.locator(`button[aria-label="Add new tab"]`).click();
 
-  const openTabSelector = `[data-active-tab="true"] [aria-label="tabPanel"]`;
+  const openTabSelector = `[data-active-tab="true"] [aria-label="nav_panel"]`;
   const childrenOfOpenTabLocator = page
     .locator(openTabSelector)
     .locator(`[data-sue-path]`);
