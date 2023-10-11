@@ -23,7 +23,16 @@ const TSParserContext = React.createContext<ParseAppFn>(() => {
  *
  * @param props.children Children for composition
  */
-export function TSParserProvider({ children }: { children: React.ReactNode }) {
+export function TSParserProvider({
+  children,
+  pathToTreeSitterWasm,
+}: {
+  children: React.ReactNode;
+  /**
+   * Optional path to the treesitter wasm bundle. This is useful when we're embedding
+   */
+  pathToTreeSitterWasm?: string;
+}) {
   const metaData = useMetaData();
   const parseAppRef = React.useRef<ParseAppFn>(() => {
     throw new Error("No parser set up yet");
@@ -43,13 +52,14 @@ export function TSParserProvider({ children }: { children: React.ReactNode }) {
       );
     }
 
-    const { language, path_to_ts_wasm } = metaData;
+    const { language, path_to_ts_wasm: pathToTSFromMeta } = metaData;
     const parserInitOptions: ParserInitOptions = {};
 
-    if (path_to_ts_wasm) {
+    const pathToWasm = pathToTreeSitterWasm || pathToTSFromMeta;
+
+    if (pathToWasm) {
       // If we're in a vscode extension we will have info on where to find the
       // wasm bundle that we need to respect or else the parser will fail to load
-      const pathToWasm = path_to_ts_wasm;
       parserInitOptions.locateFile = () => pathToWasm;
     }
 
@@ -69,7 +79,7 @@ export function TSParserProvider({ children }: { children: React.ReactNode }) {
     };
 
     initializedParser.current = true;
-  }, [metaData]);
+  }, [metaData, pathToTreeSitterWasm]);
 
   // This callback remains referentially the same so that the parser can be
   // updated without triggering a whole app rerender

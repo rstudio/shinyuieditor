@@ -20,9 +20,16 @@ import { mergeClasses } from "./utils/mergeClasses";
 export function SUE({
   showMessages = true,
   backendDispatch: { sendMsg, incomingMsgs, mode } = staticDispatchFromTree(),
+  pathToTreeSitterWasm,
 }: {
   backendDispatch?: BackendConnection;
   showMessages?: boolean;
+  /**
+   * Optional path to the treesitter wasm bundle. This is useful when we're embedding
+   * the editor somewhere that doesn't have the luxury of the file being bundled into
+   * everything like it does with vite.
+   */
+  pathToTreeSitterWasm?: string;
 }) {
   const dispatch: BackendConnection = showMessages
     ? {
@@ -46,7 +53,7 @@ export function SUE({
     <ReduxProvider>
       <ErrorBoundary fallbackRender={WholeAppErrorFallback}>
         <BackendConnectionProvider {...dispatch}>
-          <TSParserProvider>
+          <TSParserProvider pathToTreeSitterWasm={pathToTreeSitterWasm}>
             <EditorContainer />
             <ToastContainer />
           </TSParserProvider>
