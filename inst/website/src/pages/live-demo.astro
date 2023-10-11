@@ -8,6 +8,7 @@ import { SUE } from "editor-component-lib";
 import "editor-component-lib/dist/style.css"
 
 import "@/styles/globals.css";
+import { internalLink } from "@/lib/utils";
 ---
 
 <FullPageLayout title="SUE | Live Demo">
@@ -17,7 +18,7 @@ import "@/styles/globals.css";
    
     <div class="p-6 h-full max-h-full relative bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 rounded-xl">
       <div class="overflow-auto w-full h-full">
-        <SUE client:only="React"/>
+        <SUE pathToTreeSitterWasm={internalLink("live-demo/tree-sitter.wasm")} client:only="React"/>
       </div>
     </div>
    
