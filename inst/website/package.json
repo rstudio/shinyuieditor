@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "playwright-preview": "astro build && astro preview",
+    "playwright": "playwright test"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.1.0",
@@ -31,7 +33,9 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.38.1",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/node": "^20.8.4",
     "rollup-plugin-node-builtins": "^2.1.2"
   }
 }

@@ -28,7 +28,7 @@
     "playwright": {
       "cache": false,
       "outputs": [""],
-      "dependsOn": ["^dev", "dev", "install-r-pkg"]
+      "dependsOn": ["^build", "install-r-pkg"]
     },
     "build-storybook": {
       "cache": false,
