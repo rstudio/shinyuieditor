@@ -5,6 +5,7 @@ import {
   bslibCardHeaderInfo,
   bslibCardInfo,
 } from "./Bslib";
+import { bslibNavPanelInfo } from "./Bslib/NavPanel";
 import { bslibSidebar } from "./Bslib/Sidebar";
 import { bslibValueBoxInfo } from "./Bslib/ValueBox/ValueBox";
 import { dtDTOutputInfo } from "./DtDtOutput";
@@ -72,6 +73,7 @@ export const registered_ui_nodes = [
   bslibCardHeaderInfo,
   bslibCardFooterInfo,
   bslibSidebar,
+  bslibNavPanelInfo,
   plotlyPlotlyOutputInfo,
   textNodeInfo,
   markdownNodeInfo,

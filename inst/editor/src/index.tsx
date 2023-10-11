@@ -21,51 +21,63 @@ import { runSUE } from "./runSUE";
 // const language: LanguageMode = "R";
 
 const devModeApp = `library(shiny)
-library(gridlayout)
 library(bslib)
-library(DT)
+library(ggplot2)
 
-ui <- grid_page(
-  layout = c(
-    "sidebar",
-    "table  "
-  ),
-  gap_size = "1rem",
-  col_sizes = c(
-    "1fr"
-  ),
-  row_sizes = c(
-    "1fr",
-    "1fr"
-  ),
-  grid_card(
-    area = "sidebar",
-    card_body(
-      numericInput(
-        inputId = "numRows",
-        label = "Number of table rows",
-        value = 10,
-        min = 1,
-        step = 1,
-        width = "100%"
-      )
+# install.packages("palmerpenguins")
+data(penguins, package = "palmerpenguins")
+
+ui <- page_navbar(
+  title = "Penguins dashboard",
+  sidebar = selectInput(
+    selected = "species",
+    inputId = "color_by",
+    label = "Color by",
+    choices = c(
+      "species",
+      "island",
+      "sex"
     )
   ),
-  grid_card(
-    area = "table",
-    card_body(DTOutput(outputId = "myTable", width = "100%"))
-  )
+  collapsible = nav_spacer(),
+  nav_panel(
+        "Bill Length", 
+        card(
+          full_screen = TRUE,
+          card_header("Bill Length"),
+          plotOutput("bill_length")
+        )
+      ),
+  nav_panel(
+        "Bill Depth", 
+        card(
+          full_screen = TRUE,
+          card_header("Bill depth"),
+          plotOutput("bill_depth")
+        )
+      ),
+  nav_panel(
+        "Body Mass", 
+        card(
+          full_screen = TRUE,
+          card_header("Body Mass"),
+          plotOutput("body_mass")
+        )
+      ),
+  nav_item(tags$a("Posit", href = "https://posit.co"))
 )
 
 server <- function(input, output) {
-   
-  output$myTable <- renderDT({
-    head(faithful, input$numRows)
+  gg_plot <- reactive({
+    ggplot(penguins) +
+      geom_density(aes(fill = !!input$color_by), alpha = 0.2) +
+      theme_bw(base_size = 16) +
+      theme(axis.title = element_blank())
   })
-
-  output$myTable2 <- renderDT({
-    head(faithful, input$numRows1)
-  })
+  
+  output$bill_length <- renderPlot(gg_plot() + aes(bill_length_mm))
+  output$bill_depth <- renderPlot(gg_plot() + aes(bill_depth_mm))
+  output$body_mass <- renderPlot(gg_plot() + aes(body_mass_g))
 }
 
 shinyApp(ui, server)
