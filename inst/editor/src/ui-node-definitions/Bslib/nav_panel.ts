@@ -19,11 +19,10 @@ export const nav_panel = nodeInfoFactory<NavPanelSettings>()({
       },
     ],
   },
-  // py_info: {
-  //   fn_name: "ui.nav",
-  //   package: "shiny",
-  // },
-
+  py_info: {
+    fn_name: "ui.nav",
+    package: "shiny",
+  },
   title: "Nav Panel",
   takesChildren: true,
   settingsInfo: {

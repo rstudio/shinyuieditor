@@ -31,7 +31,6 @@ import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinyRadioButtonsInfo } from "./ShinyRadioButtons/ShinyRadioButtons";
 import { shinySelectInputInfo } from "./ShinySelectInput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
-import { shinyTabPanelInfo } from "./ShinyTabPanel";
 import { shinyTabsetPanelInfo } from "./ShinyTabsetPanel";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput/ShinyTextOutput";
@@ -59,7 +58,6 @@ export const registered_ui_nodes = [
   shinyNavbarPageInfo,
   shinyLayoutSidebarInfo,
   shinyPanelMainInfo,
-  shinyTabPanelInfo,
   shinyTabsetPanelInfo,
   gridlayoutGridPageInfo,
   gridlayoutCardInfo,

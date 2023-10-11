@@ -1,21 +1,21 @@
 import React from "react";
 
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
-import { invalidTabPanelContents } from "../../../Shiny-Ui-Elements/ShinyTabPanel";
+import { invalidNavPanelContents } from "../../../Shiny-Ui-Elements/Bslib/NavPanel";
 import type { NodePath } from "../../../ui-node-definitions/NodePath";
 import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 
 import classes from "./Tabset.module.css";
 
 const dropFilters = {
-  rejected: invalidTabPanelContents.filter((id) => id !== "tabPanel"),
+  rejected: invalidNavPanelContents.filter((id) => id !== "nav_panel"),
 };
 
 const wrap_in_tab_panel = ({ id }: ShinyUiNode) => {
-  return id !== "tabPanel"
+  return id !== "nav_panel"
     ? ({
-        id: "tabPanel",
-        namedArgs: { title: "Tab Panel" },
+        id: "nav_panel",
+        namedArgs: { title: "Nav Panel" },
       } as const)
     : null;
 };
@@ -36,7 +36,7 @@ export function TabDropDetector({
       className={classes.tabDropDetector}
       aria-label="tab drop detector"
       parentPath={parentPath}
-      parentNodeType="tabPanel"
+      parentNodeType="nav_panel"
       child_loc={index}
       dropFilters={dropFilters}
       wrappingNode={wrap_in_tab_panel}

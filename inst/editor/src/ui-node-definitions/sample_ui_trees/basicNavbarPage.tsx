@@ -51,7 +51,7 @@ export const basicNavbarPage = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Settings",
       },
@@ -70,7 +70,7 @@ export const basicNavbarPage = {
       ],
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Plot 1",
       },

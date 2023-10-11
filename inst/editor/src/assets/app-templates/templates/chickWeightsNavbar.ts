@@ -17,7 +17,7 @@ const navbarTree: ShinyUiNode = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Line Plots",
       },
@@ -76,7 +76,7 @@ const navbarTree: ShinyUiNode = {
       ],
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Distributions",
       },

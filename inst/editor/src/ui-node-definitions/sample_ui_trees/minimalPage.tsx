@@ -8,7 +8,7 @@ export const minimalPage = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Plot 1",
       },

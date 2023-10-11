@@ -50,7 +50,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 
     expect(
       uiNodeToPythonCode({
-        id: "tabPanel",
+        id: "nav_panel",
         namedArgs: {
           title: "Tab A",
         },

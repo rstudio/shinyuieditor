@@ -21,7 +21,7 @@ describe("Can add needed libraries to script", () => {
     },
     children: [
       {
-        id: "tabPanel",
+        id: "nav_panel",
         namedArgs: {
           title: "Plot 1",
         },

@@ -12,7 +12,7 @@ const basicNavbarPage: ShinyUiNode = {
   },
   children: [
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Plot",
       },
@@ -28,7 +28,7 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "tabPanel",
+      id: "nav_panel",
       namedArgs: {
         title: "Grid Tab",
       },
