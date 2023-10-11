@@ -7,7 +7,7 @@ export type BslibCardArguments = {
 };
 export const bslib_card = nodeInfoFactory<BslibCardArguments>()({
   r_info: {
-    fn_name: "bs_card",
+    fn_name: "card",
     package: "bslib",
   },
   id: "card",
