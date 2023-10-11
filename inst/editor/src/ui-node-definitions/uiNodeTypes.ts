@@ -174,9 +174,10 @@ const all_r_aware_node_names = r_aware_nodes.flatMap(({ id, r_info }) => {
     (
       r_info.fn_aliases as Required<LangInfo<NamedArgsObject>>["fn_aliases"]
     ).forEach((alias) => {
+      const aliasedPkgName = alias.package || pkg_name;
       names.push(
         [alias.fn_name, id],
-        [namespaceRFn(alias.fn_name, pkg_name), id]
+        [namespaceRFn(alias.fn_name, aliasedPkgName), id]
       );
     });
   }

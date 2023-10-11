@@ -148,6 +148,12 @@ export type LangInfo<
      * Name of other function
      */
     fn_name: string;
+
+    /**
+     * New package name for function. Defaults to the same package as the
+     * original function
+     */
+    package?: string;
     /**
      * Optional function to remap the arguments from this function to the root
      * functions argument format
