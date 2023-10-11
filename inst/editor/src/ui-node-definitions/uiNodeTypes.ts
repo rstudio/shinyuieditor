@@ -4,6 +4,7 @@ import { bslib_card } from "./Bslib/card";
 import { card_body } from "./Bslib/card_body";
 import { card_footer } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
+import { nav_panel } from "./Bslib/nav_panel";
 import { page_navbar } from "./Bslib/page_navbar";
 import { sidebar } from "./Bslib/sidebar";
 import { value_box } from "./Bslib/value_box";
@@ -44,6 +45,7 @@ export type NamedArgsObject = Record<string, unknown | undefined>;
  */
 export const all_node_info = [
   page_navbar,
+  nav_panel,
   tab_panel,
   tabset_panel,
   layout_sidebar,
