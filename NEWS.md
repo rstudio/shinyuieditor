@@ -1,8 +1,15 @@
-# Development version
+# 0.5.1
 
 ### Major changes
 
+- Deleting an output with a bound render function in the server will now ask if you want to delete the render function as well. (#213)
+- Updating the id of an input or output will now update the corresponding id in the server code. (#212)
 - Removed support for multi-file apps. This was a major source of bugs and complexity and was not used by many people.
+- New website based on Astro framework replaces the old one based on `pkgdown`. (#201)
+
+### Minor changes
+
+- Replaced `shiny::tabPanel` with `bslib::nav_panel()` to keep up with modern shiny app components. `tabPanel`s will be auto upgraded when using editor. (#215)
 
 # shinyuieditor 0.5.0
 
