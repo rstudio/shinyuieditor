@@ -3,6 +3,7 @@
 import LinkButton from "@/components/LinkButton.astro";
 import GettingStartedIcon from "@/components/icons/GettingStartedIcon.astro";
 import LiveDemoIcon from "@/components/icons/LiveDemoIcon.astro";
+import DiscordIcon from "@/components/icons/DiscordIcon.astro";
 import { internalLink } from "@/lib/utils";
 
 ---
@@ -40,6 +41,7 @@ import { internalLink } from "@/lib/utils";
           <div class="mt-10 flex items-center justify-center gap-x-6">
             <LinkButton href={internalLink("getting-started")}> <GettingStartedIcon/> Get started</LinkButton>
             <LinkButton href={internalLink("live-demo")} variant="secondary"> <LiveDemoIcon/> Live Demo</LinkButton>
+            <LinkButton href={internalLink("live-demo")} variant="secondary"> <DiscordIcon class="text-xl"/> Discuss on the Shiny Discord </LinkButton>
           </div>
         </div>
         <div class="mt-16 flow-root sm:mt-24">
