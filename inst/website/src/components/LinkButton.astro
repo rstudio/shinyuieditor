@@ -1,24 +1,23 @@
 ---
-import { Icon } from "astro-icon";
+
+const variantClasses = {
+    "primary":   "bg-rstudio-blue/90 hover:bg-rstudio-blue  font-semibold text-white",
+    "secondary": "rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+}
 
 interface Props {
   href: string;
-  variant?: "primary" | "secondary";
+  variant?: keyof typeof variantClasses;
 }
 
 const { href, variant = "primary" } = Astro.props;
-
-const variantClasses = {
-    "primary":   "bg-rstudio-blue/90 hover:bg-rstudio-blue focus-visible:outline-rstudio-blue font-semibold text-white",
-    "secondary": "bg-white      hover:bg-gray-50    text-gray-900 ring-gray-300 "
-}
 
 ---
 
 <a
   href={href}
   type="button"
-  class=`${variantClasses[variant]} inline-flex items-center gap-x-1.5 rounded-md  px-2.5 py-1.5 text-sm  shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`
+  class=`${variantClasses[variant]} inline-flex items-center gap-x-1.5 rounded-md  px-2.5 py-1.5 text-sm  shadow-sm  focus-visible:outline focus-visible:outline-rstudio-blue focus-visible:outline-2 focus-visible:outline-offset-2`
 >
 <slot/>
 
