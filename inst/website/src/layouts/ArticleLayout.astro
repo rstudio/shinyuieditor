@@ -15,6 +15,7 @@ type Props = MarkdownLayoutProps<{
 const { frontmatter, url } = Astro.props;
 
 import "@/styles/globals.css";
+import { internalLink } from "@/lib/utils";
 ---
 
 <html>
@@ -22,7 +23,7 @@ import "@/styles/globals.css";
     <meta charset="UTF-8" />
     <meta name="description" content="ShinyUiEditor Article" />
     <meta name="viewport" content="width=device-width" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+    <link rel="icon" type="image/svg+xml" href={internalLink("favicon.svg")}  />
     <meta name="generator" content={Astro.generator} />
     <title>{`SUE | ${frontmatter.title}`}</title>
   </head>
