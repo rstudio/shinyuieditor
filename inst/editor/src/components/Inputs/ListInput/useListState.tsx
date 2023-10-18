@@ -28,12 +28,12 @@ export function useListState({
   value,
   onChange,
   newItemValue,
-  keyAndValue,
+  valueOnlyMode,
 }: {
   value: NamedList;
   onChange: (x: NamedList) => void;
   newItemValue: NewItemValue;
-  keyAndValue: boolean;
+  valueOnlyMode: boolean;
 }) {
   const [state, setState] = React.useState<ItemArray>([]);
 
@@ -124,7 +124,7 @@ export function useListState({
       newState[i] = { ...newState[i], value: newValue };
 
       // Keep key in sync with value if we're not in the keyInValue mode
-      if (!keyAndValue) {
+      if (valueOnlyMode) {
         newState[i] = { ...newState[i], key: newValue };
       }
 
@@ -132,7 +132,7 @@ export function useListState({
       // the value
       onChange(itemTypeArrayToNamedList(newState));
     },
-    [keyAndValue, onChange, state]
+    [valueOnlyMode, onChange, state]
   );
 
   // If the user has entered the simple only-value mode, we need to
