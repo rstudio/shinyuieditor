@@ -1,6 +1,5 @@
 import React from "react";
 
-import { FloatingPortal } from "@floating-ui/react";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
@@ -9,14 +8,9 @@ import type { InputComponentByType } from "../../../ui-node-definitions/inputFie
 import { makeLabelId } from "../../../ui-node-definitions/inputFieldTypes";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { Trash } from "../../Icons";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "../../PopoverEl/FloatingPopover";
+import { ControlledPopup } from "../../PopoverEl/ControlledPopup";
 import Button from "../Button/Button";
 
-import { ToggleSwitch } from "./ToggleSwitch";
 import { useListState } from "./useListState";
 
 export type NamedList = Record<string, string>;
@@ -62,28 +56,12 @@ export function NamedListInput({
 
   return (
     <div>
-      <Tooltip
-        open={showKeyValueMismatch}
-        // By letting the tooltip have this control we can make sure that the
-        // user can close the tooltip by clicking outside of it
-        onOpenChange={() => setShowKeyValueMismatch(false)}
-        placement="left"
-      >
-        <TooltipTrigger asChild>
-          <div className="flex gap-1">
-            <span className="text-xs text-gray-800">
-              Separate key and values
-            </span>
-            <ToggleSwitch
-              enabled={keyAndValue}
-              setEnabled={setKeyAndValue}
-              label="Use distinct key and values"
-            />
-          </div>
-        </TooltipTrigger>
-
-        <TooltipContent>
-          <div className="p-2 rounded-standard bg-rstudio-white w-64">
+      <ControlledPopup
+        isOpen={showKeyValueMismatch}
+        onClose={() => setShowKeyValueMismatch(false)}
+        accent="warning"
+        content={
+          <>
             <span>
               There are mismatches between keys and values. Should these be
               merged to just the values?
@@ -92,9 +70,31 @@ export function NamedListInput({
               <Button onClick={mergeKeysAndValues}>Merge</Button>
               <Button>Cancel</Button>
             </div>
-          </div>
-        </TooltipContent>
-      </Tooltip>
+          </>
+        }
+      >
+        <div className="flex gap-2 items-center">
+          <label
+            className="text-xs text-gray-800 italic"
+            htmlFor="keyAndValueModeCheckbox"
+            data-value={value ? "TRUE" : "FALSE"}
+          >
+            Separate label and values
+          </label>
+          <input
+            className="transform[translateY(1px)] border mt-[2px]"
+            id="keyAndValueModeCheckbox"
+            aria-labelledby={makeLabelId(id)}
+            aria-label={label}
+            type="checkbox"
+            checked={keyAndValue}
+            onChange={(e) => {
+              setKeyAndValue(e.target.checked);
+            }}
+          />
+        </div>
+      </ControlledPopup>
+
       <div
         className="w-fit flex flex-col items-center my-2"
         aria-labelledby={makeLabelId(id)}
