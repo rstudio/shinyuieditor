@@ -1,6 +1,6 @@
-import type { Page } from "@playwright/test";
 import { expect, test } from "@playwright/test";
 
+import { openAppScriptModal, closeAppScriptModal } from "./openAppScriptModal";
 import { startupMockedApp } from "./utils/mockBackend";
 
 const appScript = `library(shiny)
@@ -166,16 +166,3 @@ test("Outputs that don't have any bound server code just get deleted without a p
   // Make sure that the table is no longer visible
   await expect(page.getByText("unboundTable")).not.toBeVisible();
 });
-
-async function openAppScriptModal(page: Page) {
-  // Click the "Get app script" button to open the app script modal
-  await page.click("text=Get app script");
-
-  // Wait for the modal to open
-  await expect(page.getByRole("dialog")).toBeVisible();
-}
-
-async function closeAppScriptModal(page: Page) {
-  // Close modal
-  await page.click("text=Okay");
-}
