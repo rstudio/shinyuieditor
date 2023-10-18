@@ -42,3 +42,10 @@
   --outline-color: transparent;
   --background-color: transparent;
 }
+
+.secondary {
+  /* --background-color: var(--); */
+  opacity: 0.8;
+  --outline-color: var(--rstudio-grey);
+  --text-color: var(--font-color);
+}

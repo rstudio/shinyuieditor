@@ -28,13 +28,16 @@ export function useListState({
   value,
   onChange,
   newItemValue,
-  valueOnlyMode,
 }: {
   value: NamedList;
   onChange: (x: NamedList) => void;
   newItemValue: NewItemValue;
-  valueOnlyMode: boolean;
 }) {
+  // value-only to avoid so many negative conditions
+  const [valueOnlyMode, setValueOnlyMode] = React.useState<boolean>(false);
+  const [keyValueMismatches, setKeyValueMismatches] =
+    React.useState<ItemArray | null>(null);
+
   const [state, setState] = React.useState<ItemArray>([]);
 
   const numItems = state.length;
@@ -53,6 +56,20 @@ export function useListState({
 
     setState(namedListToItemTypeArray(value));
   }, [state, value]);
+
+  React.useEffect(() => {
+    if (!valueOnlyMode) {
+      return;
+    }
+
+    const mismatches = getKeyValueMismatches(state);
+
+    if (mismatches === null) {
+      return;
+    }
+
+    setKeyValueMismatches(mismatches);
+  }, [state, valueOnlyMode]);
 
   const deleteItem = React.useCallback(
     (itemId: number) => {
@@ -146,7 +163,32 @@ export function useListState({
     });
 
     onChange(itemTypeArrayToNamedList(newState));
+    setValueOnlyMode(true);
+    setKeyValueMismatches(null);
   }, [onChange, state]);
+
+  const onCancelSimplify = () => {
+    setKeyValueMismatches(null);
+  };
+
+  const onValueModeToggle = (simpleMode: boolean) => {
+    if (!simpleMode) {
+      // We can always go to the more complicated mode
+      setValueOnlyMode(false);
+      return;
+    }
+
+    const keyValueMismatches = getKeyValueMismatches(state);
+
+    if (keyValueMismatches === null) {
+      // If the keys and values are the same, we can always go to the simple mode
+      setValueOnlyMode(true);
+      return;
+    }
+
+    // If we can't go to the simple mode, we need to show the mismatch message
+    setKeyValueMismatches(keyValueMismatches);
+  };
 
   return {
     state,
@@ -157,5 +199,21 @@ export function useListState({
     updateKey,
     updateValue,
     mergeKeysAndValues,
+    valueOnlyMode,
+    onValueModeToggle,
+    keyValueMismatches,
+    onCancelSimplify,
   };
+}
+
+function getKeyValueMismatches(x: ItemArray): ItemArray | null {
+  const mismatches = x.filter(
+    (item) => item.key !== item.value && item.key !== ""
+  );
+
+  if (mismatches.length === 0) {
+    return null;
+  }
+
+  return mismatches;
 }
