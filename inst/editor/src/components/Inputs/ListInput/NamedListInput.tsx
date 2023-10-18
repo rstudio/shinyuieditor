@@ -83,8 +83,6 @@ export function NamedListInput({
           <input
             className="transform[translateY(1px)] border mt-[2px]"
             id="keyAndValueModeCheckbox"
-            aria-labelledby={makeLabelId(id)}
-            aria-label={label}
             type="checkbox"
             checked={!valueOnlyMode}
             onChange={(e) => {
