@@ -192,7 +192,7 @@ export const TooltipContent = React.forwardRef<
           <div
             ref={ref}
             className={mergeClasses(
-              "p-2 rounded-standard bg-rstudio-white",
+              "p-2 rounded-standard bg-rstudio-white overflow-hidden",
               className
             )}
             style={{
