@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
@@ -14,6 +16,8 @@ module.exports = {
         "rstudio-blue": "#75aadb",
         "rstudio-white": "white",
         danger: "rgb(250, 83, 22)",
+        success: colors.green,
+        info: "pink",
         icon: "#76838f",
       },
       borderRadius: {
