@@ -24,7 +24,7 @@ export function NamedListInput({
 }: InputComponentByType<"list">) {
   // TODO: Update this name/format to be "true" when the mode is "simple" or
   // value-only to avoid so many negative conditions
-  const [keyAndValue, setKeyAndValue] = React.useState<boolean>(false);
+  const [valueOnlyMode, setValueOnlyMode] = React.useState<boolean>(false);
   const [showKeyValueMismatch, setShowKeyValueMismatch] = React.useState(false);
   const {
     state,
@@ -38,7 +38,7 @@ export function NamedListInput({
     value,
     onChange,
     newItemValue,
-    keyAndValue,
+    valueOnlyMode,
   });
 
   React.useEffect(() => {
@@ -47,12 +47,12 @@ export function NamedListInput({
       (item) => item.key === item.value || item.key === ""
     );
 
-    if (!keyAndValue && !sameKeysAndValues) {
+    if (valueOnlyMode && !sameKeysAndValues) {
       setShowKeyValueMismatch(true);
     } else {
       setShowKeyValueMismatch(false);
     }
-  }, [keyAndValue, state, value]);
+  }, [valueOnlyMode, state, value]);
 
   return (
     <div>
@@ -87,9 +87,9 @@ export function NamedListInput({
             aria-labelledby={makeLabelId(id)}
             aria-label={label}
             type="checkbox"
-            checked={keyAndValue}
+            checked={!valueOnlyMode}
             onChange={(e) => {
-              setKeyAndValue(e.target.checked);
+              setValueOnlyMode(!e.target.checked);
             }}
           />
         </div>
@@ -101,17 +101,17 @@ export function NamedListInput({
         aria-label={label}
       >
         <ListItem
-          keyAndValue={keyAndValue}
+          valueOnlyMode={valueOnlyMode}
           className="text-center -my-1"
           aria-label="Columns field labels"
         >
-          {keyAndValue ? (
+          {valueOnlyMode ? (
+            <span className="col-start-2">Value</span>
+          ) : (
             <>
               <span className="col-start-2">Key</span>
               <span className="col-start-4">Value</span>
             </>
-          ) : (
-            <span className="col-start-2">Value</span>
           )}
         </ListItem>
         <ReactSortable
@@ -121,7 +121,7 @@ export function NamedListInput({
         >
           {state.map((item, i) => (
             <ListItem
-              keyAndValue={keyAndValue}
+              valueOnlyMode={valueOnlyMode}
               className="my-1"
               aria-label="List item"
               key={i}
@@ -132,7 +132,18 @@ export function NamedListInput({
               >
                 <MdDragHandle />
               </div>
-              {keyAndValue ? (
+              {valueOnlyMode ? (
+                <input
+                  title="Value Field"
+                  className="min-w-0"
+                  type="text"
+                  aria-label="List item value"
+                  value={item.value}
+                  onChange={(e) => {
+                    updateValue({ index: i, newValue: e.target.value });
+                  }}
+                />
+              ) : (
                 <>
                   <input
                     title="Key Field"
@@ -156,17 +167,6 @@ export function NamedListInput({
                     }}
                   />
                 </>
-              ) : (
-                <input
-                  title="Value Field"
-                  className="min-w-0"
-                  type="text"
-                  aria-label="List item value"
-                  value={item.value}
-                  onChange={(e) => {
-                    updateValue({ index: i, newValue: e.target.value });
-                  }}
-                />
               )}
 
               <Button
@@ -196,17 +196,17 @@ export function NamedListInput({
 
 // Custom div that takes all the same props as a <div> component
 function ListItem({
-  keyAndValue,
+  valueOnlyMode,
   className,
   ...props
-}: React.ComponentProps<"div"> & { keyAndValue: boolean }) {
+}: React.ComponentProps<"div"> & { valueOnlyMode: boolean }) {
   return (
     <div
       className={mergeClasses(
         className,
-        keyAndValue
-          ? "grid-cols-[15px_1fr_auto_1fr_15px]"
-          : "grid-cols-[15px_1fr_15px]",
+        valueOnlyMode
+          ? "grid-cols-[15px_1fr_15px]"
+          : "grid-cols-[15px_1fr_auto_1fr_15px]",
         "w-100 grid ",
         "gap-1 p-1 items-center rounded [&.sortable-chosen]:outline",
         "[&.sortable-chosen]:outline-offset-[-2px] [&.sortable-chosen]:outline-rstudio-grey/30 [&.sortable-chosen]:shadow-lg"
