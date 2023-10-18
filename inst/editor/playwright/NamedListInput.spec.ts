@@ -113,3 +113,105 @@ test("Can add new element to a named list", async ({ page }) => {
   // Now there should be three choices
   expect(await propertiesPanel.getByLabel(/^list item$/i).count()).toBe(3);
 });
+
+const onMismatchApp = `library(shiny)
+library(plotly)
+library(gridlayout)
+library(bslib)
+
+ui <- grid_page(
+  layout = c(
+    "sidebar"
+  ),
+  gap_size = "1rem",
+  col_sizes = c(
+    "1fr"
+  ),
+  row_sizes = c(
+    "1fr"
+  ),
+  grid_card(
+    area = "sidebar",
+    card_body(
+      selectInput(
+        inputId = "choice",
+        label = "Choose things",
+        choices = list(
+          "A" = "A",
+          "B" = "b",
+        ),
+        selected = "A"
+      )
+    )
+  )
+)
+
+
+server <- function(input, output) {
+  
+}
+
+shinyApp(ui, server)`;
+
+test("Will warn of mismatch when trying to simplify", async ({ page }) => {
+  await startupMockedApp(page, {
+    app_script: onMismatchApp,
+    language: "R",
+  });
+
+  // Select the select input node
+  await page.getByText("Choose things").click();
+
+  // Click the "Seprate label and values" checkbox to trigger the warning
+  await page.getByLabel(/separate label and values/i).click();
+
+  // Make sure the warning is visible
+  await page.getByText(/there are some mismatches/i).isVisible();
+
+  // Press cancel to close the warning without doing anything
+  await page.getByRole("button", { name: "Cancel" }).click();
+
+  // Make sure the warning is gone but we're still in the separate key/value mode
+  await expect(page.getByText(/there are some mismatches/i)).not.toBeVisible();
+  await expect(page.getByLabel(/separate label and values/i)).toBeChecked();
+
+  // There should be multiple key fields visible in the properties pane
+  expect(
+    await page.getByRole("textbox", { name: "List item key" }).count()
+  ).toBeGreaterThan(1);
+
+  // Now click checkbox again, but this time press the merge button
+  await page.getByLabel(/separate label and values/i).click();
+  await page.getByRole("button", { name: "Merge" }).click();
+
+  // There should no longer be any key fields visible
+  expect(
+    await page.getByRole("textbox", { name: "List item key" }).count()
+  ).toBe(0);
+
+  // There should still be value fields, though
+  expect(
+    await page.getByRole("textbox", { name: "List item value" }).count()
+  ).toBeGreaterThan(1);
+
+  // Find all the value fields and make sure that one of them has the value of "B"
+  await expect(
+    page.getByRole("textbox", { name: "List item value" }).last()
+  ).toHaveValue("B");
+
+  // Now we can go back to key-value mode
+  await page.getByLabel(/separate label and values/i).click();
+
+  // There should be multiple key fields visible in the properties pane
+  expect(
+    await page.getByRole("textbox", { name: "List item key" }).count()
+  ).toBeGreaterThan(1);
+
+  // Now that we've updated the value to not have mismatches we should be able
+  // to go back to simple mode without a warning appearing
+  await page.getByLabel(/separate label and values/i).click();
+  // There should no longer be any key fields visible
+  expect(
+    await page.getByRole("textbox", { name: "List item key" }).count()
+  ).toBe(0);
+});
