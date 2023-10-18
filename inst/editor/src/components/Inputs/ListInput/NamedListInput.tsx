@@ -1,5 +1,6 @@
 import React from "react";
 
+import { ArrowsCollapse, X } from "react-bootstrap-icons";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
@@ -22,10 +23,6 @@ export function NamedListInput({
   onChange,
   newItemValue = (i) => ({ key: "Value" + i, value: "value" + i }),
 }: InputComponentByType<"list">) {
-  // TODO: Update this name/format to be "true" when the mode is "simple" or
-  // value-only to avoid so many negative conditions
-  const [valueOnlyMode, setValueOnlyMode] = React.useState<boolean>(false);
-  const [showKeyValueMismatch, setShowKeyValueMismatch] = React.useState(false);
   const {
     state,
     addItem,
@@ -34,41 +31,43 @@ export function NamedListInput({
     updateKey,
     updateValue,
     mergeKeysAndValues,
+    valueOnlyMode,
+    onValueModeToggle,
+    keyValueMismatches,
+    onCancelSimplify,
   } = useListState({
     value,
     onChange,
     newItemValue,
-    valueOnlyMode,
   });
-
-  React.useEffect(() => {
-    // Check if all the keys and values are the same. If they are not, show mismatch message
-    const sameKeysAndValues = state.every(
-      (item) => item.key === item.value || item.key === ""
-    );
-
-    if (valueOnlyMode && !sameKeysAndValues) {
-      setShowKeyValueMismatch(true);
-    } else {
-      setShowKeyValueMismatch(false);
-    }
-  }, [valueOnlyMode, state, value]);
 
   return (
     <div>
       <ControlledPopup
-        isOpen={showKeyValueMismatch}
-        onClose={() => setShowKeyValueMismatch(false)}
+        isOpen={keyValueMismatches !== null}
+        onClose={onCancelSimplify}
         accent="warning"
         content={
           <>
-            <span>
-              There are mismatches between keys and values. Should these be
-              merged to just the values?
-            </span>
-            <div className="flex gap-1 mt-2">
-              <Button onClick={mergeKeysAndValues}>Merge</Button>
-              <Button>Cancel</Button>
+            <p>
+              There are some{" "}
+              <span className="bg-danger/30 px-1 py-[2px] rounded">
+                mismatches
+              </span>{" "}
+              between keys and values preventing simplification to value-only
+              mode.
+            </p>
+            <p>Should these be merged to just the values?</p>
+
+            <div className="flex justify-around mt-2">
+              <Button onClick={mergeKeysAndValues}>
+                <ArrowsCollapse className="text-lg" /> Merge
+              </Button>
+              <Button onClick={onCancelSimplify} variant="secondary">
+                {" "}
+                <X className="text-lg" />
+                Cancel
+              </Button>
             </div>
           </>
         }
@@ -89,7 +88,7 @@ export function NamedListInput({
             type="checkbox"
             checked={!valueOnlyMode}
             onChange={(e) => {
-              setValueOnlyMode(!e.target.checked);
+              onValueModeToggle(!e.target.checked);
             }}
           />
         </div>
@@ -122,7 +121,13 @@ export function NamedListInput({
           {state.map((item, i) => (
             <ListItem
               valueOnlyMode={valueOnlyMode}
-              className="my-1"
+              className={mergeClasses(
+                "my-1",
+                keyValueMismatches &&
+                  keyValueMismatches.find((m) => m.key === item.key)
+                  ? "bg-danger/30"
+                  : null
+              )}
               aria-label="List item"
               key={i}
             >
