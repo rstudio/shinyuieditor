@@ -1,14 +1,11 @@
 import type { AppInfo } from "communication-types/src/AppInfo";
-import type {
-  ScriptRange,
-  ServerPositions,
-} from "communication-types/src/MessageToBackend";
+import type { ServerPositions } from "communication-types/src/MessageToBackend";
 
 import type { CommandOutputGeneric } from "./R-Utils/runRCommand";
 
 export type ServerInfo = {
   server_pos: {
-    server_fn: ScriptRange;
+    server_fn: ServerPositions[number];
     indent: number;
   };
   get_output_position: (outputId: string) => ServerPositions;
