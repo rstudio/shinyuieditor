@@ -35,7 +35,7 @@ If you prefer video format, here's an [in-depth walkthrough of using the ui edit
 
 ### New app
 
-If you set the argument `app_loc` to a location that does not yet exist, the will start in a template-chooser interface. Here you can select a complete app template which will then be written to your `app_loc` and then be edited as an existing app would be. 
+If you set the argument `app_loc` to a location that does not yet exist, it will start in a template-chooser interface. Here, you can select a complete app template, which will then be written to your `app_loc` and then be edited as an existing app would be. 
 
 ```r
 shinyuieditor::launch_editor(app_loc = "new-app/")
