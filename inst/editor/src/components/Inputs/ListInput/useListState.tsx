@@ -15,16 +15,45 @@ export type ItemArray = {
 
 type NewItemValue = Required<InputComponentByType<"list">>["newItemValue"];
 
-function itemTypeArrayToNamedList(array: ItemArray): NamedList {
+/**
+ * Go from the internal state representation of an array of items to the
+ * external state, which either is a key-value pair as an object or a value-only
+ * array
+ * @param array Internal representation
+ * @param valueOnlyMode Whether or not we're in the value-only mode.
+ * @returns An array of strings if in value-only mode, or an object if not
+ */
+function itemTypeArrayToNamedList(
+  array: ItemArray,
+  valueOnlyMode: boolean
+): NamedList {
+  if (valueOnlyMode) {
+    return array.map((item) => item.value);
+  }
+
   return array.reduce((list, { key, value }) => {
     list[key] = value;
     return list;
-  }, {} as NamedList);
+  }, {} as Record<string, string>);
 }
 
-function namedListToItemTypeArray(list: NamedList): ItemArray {
-  return Object.keys(list).map((key, i) => ({ id: i, key, value: list[key] }));
+/**
+ * Convert a NamedList to an array of items for iterating over.
+ * @param list NamedList to convert. Could be a key-value object or an array of strings
+ * @returns An array of items with an id, key, and value
+ */
+export function namedListToItemTypeArray(list: NamedList): ItemArray {
+  if (Array.isArray(list)) {
+    return list.map((value, i) => ({ id: i, key: value, value }));
+  }
+
+  return Object.keys(list).map((key, i) => ({
+    id: i,
+    key,
+    value: list[key],
+  }));
 }
+
 export function useListState({
   value,
   onChange,
@@ -48,7 +77,7 @@ export function useListState({
   // with the value prop so we don't have stale arguments. There is probably
   // a cleaner way to do this but I'm not sure what it is.
   React.useEffect(() => {
-    const valuesFromState = itemTypeArrayToNamedList(state);
+    const valuesFromState = itemTypeArrayToNamedList(state, valueOnlyMode);
 
     if (sameObject(valuesFromState, value)) {
       // Same array detected. No changes should be made
@@ -56,7 +85,7 @@ export function useListState({
     }
 
     setState(namedListToItemTypeArray(value));
-  }, [state, value]);
+  }, [state, value, valueOnlyMode]);
 
   React.useEffect(() => {
     if (!valueOnlyMode) {
@@ -75,7 +104,12 @@ export function useListState({
   const deleteItem = React.useCallback(
     (itemId: number) => {
       const newValue = { ...value };
-      delete newValue[state[itemId].key];
+
+      if (Array.isArray(newValue)) {
+        newValue.splice(itemId, 1);
+      } else {
+        delete newValue[state[itemId].key];
+      }
 
       onChange(newValue);
     },
@@ -98,14 +132,9 @@ export function useListState({
       // The first time this is called it's an empty array so we can ignore that
       if (newItemsOrder.length === 0) return;
 
-      const newValue = newItemsOrder.reduce((newList, item) => {
-        newList[item.key] = item.value;
-        return newList;
-      }, {} as NamedList);
-
-      onChange(newValue);
+      onChange(itemTypeArrayToNamedList(newItemsOrder, valueOnlyMode));
     },
-    [onChange]
+    [onChange, valueOnlyMode]
   );
 
   const updateKey = React.useCallback(
@@ -128,9 +157,9 @@ export function useListState({
 
       // Now convert the state array back into a NamedList and update
       // the value
-      onChange(itemTypeArrayToNamedList(newState));
+      onChange(itemTypeArrayToNamedList(newState, valueOnlyMode));
     },
-    [onChange, state]
+    [onChange, state, valueOnlyMode]
   );
 
   const updateValue = React.useCallback(
@@ -148,7 +177,7 @@ export function useListState({
 
       // Now convert the state array back into a NamedList and update
       // the value
-      onChange(itemTypeArrayToNamedList(newState));
+      onChange(itemTypeArrayToNamedList(newState, valueOnlyMode));
     },
     [valueOnlyMode, onChange, state]
   );
@@ -163,7 +192,7 @@ export function useListState({
       item.value = item.key;
     });
 
-    onChange(itemTypeArrayToNamedList(newState));
+    onChange(itemTypeArrayToNamedList(newState, true));
     setValueOnlyMode(true);
     setKeyValueMismatches(null);
   }, [onChange, state]);
