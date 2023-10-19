@@ -1,5 +1,6 @@
 import icon from "../../assets/icons/shinyCheckgroup.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import { namedListToItemTypeArray } from "../../components/Inputs/ListInput/useListState";
 import type { NamedList } from "../../ui-node-definitions/inputFieldTypes";
 import { input_checkbox_group } from "../../ui-node-definitions/Shiny/input_checkbox_group";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
@@ -27,13 +28,13 @@ export const shinyCheckboxGroupInputInfo = addEditorInfoToUiNode(
         >
           <label>{namedArgs.label}</label>
           <div>
-            {Object.keys(choices).map((key, i) => (
-              <div key={key}>
+            {namedListToItemTypeArray(choices).map(({ key, value, id }, i) => (
+              <div key={id}>
                 <label className={classes.checkbox}>
                   <input
                     type="checkbox"
-                    name={choices[key]}
-                    value={choices[key]}
+                    name={value}
+                    value={value}
                     defaultChecked={i === 0}
                   />
                   <span>{key}</span>

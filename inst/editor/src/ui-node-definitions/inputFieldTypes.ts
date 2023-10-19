@@ -29,7 +29,10 @@ export type InputOptions =
   | { inputType: "boolean"; value: boolean }
   | {
       inputType: "list";
-      value: Record<string, string>;
+      /**
+       * Lists can have key value mode or just plain value mode.
+       */
+      value: Record<string, string> | Array<string>;
       newItemValue?:
         | { key: string; value: string }
         | ((i: number) => { key: string; value: string });

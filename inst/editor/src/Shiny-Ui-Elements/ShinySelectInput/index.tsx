@@ -1,4 +1,5 @@
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
+import { namedListToItemTypeArray } from "../../components/Inputs/ListInput/useListState";
 import { input_select } from "../../ui-node-definitions/Shiny/input_select";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
@@ -13,8 +14,8 @@ export const shinySelectInputInfo = addEditorInfoToUiNode(input_select, {
       <div className={classes.container} {...wrapperProps}>
         <label htmlFor={id}>{namedArgs.label}</label>
         <select id={id}>
-          {Object.keys(choices).map((key, i) => (
-            <option value={choices[key]} key={key}>
+          {namedListToItemTypeArray(choices).map(({ key, value, id }, i) => (
+            <option value={value} key={id}>
               {key}
             </option>
           ))}
