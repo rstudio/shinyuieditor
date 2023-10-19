@@ -1,5 +1,5 @@
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
-import { namedListToItemTypeArray } from "../../components/Inputs/ListInput/useListState";
+import { namedListToItemTypeArray } from "../../components/Inputs/ListInput/namedListUtils";
 import { input_select } from "../../ui-node-definitions/Shiny/input_select";
 import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
