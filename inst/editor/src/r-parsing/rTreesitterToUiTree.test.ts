@@ -32,6 +32,7 @@ describe("Can go from treesitter to UI tree", async () => {
       })
     );
   });
+
   test("Can remap new api's automatically", () => {
     const parse_test = parseRScript(
       my_parser,
@@ -43,5 +44,43 @@ describe("Can go from treesitter to UI tree", async () => {
     const parsed_node = rTreesitterToUiTree(parse_test.firstNamedChild!);
 
     expect(parsed_node.id).toEqual("card_body");
+  });
+
+  test("Handles named list arguments: With key value pairs", () => {
+    const parse_test = parseRScript(
+      my_parser,
+      `selectInput(
+        inputId = "choice",
+        label = "Choose things",
+        choices = list("key a" = "a", "key b" = "b", "key c"="c"),
+        selected = "A"
+      )`
+    ).rootNode;
+
+    const parsed_node = rTreesitterToUiTree(parse_test.firstNamedChild!);
+
+    expect(parsed_node.namedArgs.choices).toEqual(
+      expect.objectContaining({
+        "key a": "a",
+        "key b": "b",
+        "key c": "c",
+      })
+    );
+  });
+
+  test("Handles named list arguments: Just values", () => {
+    const parse_test = parseRScript(
+      my_parser,
+      `selectInput(
+        inputId = "choice",
+        label = "Choose things",
+        choices = list("a", "b", "c"),
+        selected = "a"
+      )`
+    ).rootNode;
+
+    const parsed_node = rTreesitterToUiTree(parse_test.firstNamedChild!);
+
+    expect(parsed_node.namedArgs.choices).toEqual(["a", "b", "c"]);
   });
 });

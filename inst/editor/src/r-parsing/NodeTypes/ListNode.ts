@@ -14,39 +14,55 @@ export function isListNode(node: ParserNode): node is TSListNode {
   return node.type === "call" && node.firstNamedChild?.text === "list";
 }
 
-type PrimativeList = Record<string, Primatives>;
+type KeyValueList = Record<string, Primatives>;
+type ValueOnlyList = (
+  | Primatives
+  | Primatives[]
+  | KeyValueList
+  | ValueOnlyList
+)[];
 
+type ValueType = ValueOnlyList[number];
+
+type ElementType = "key_value" | "value_only";
 /**
  * Get the contents of a string node without the quotes
  * @param listNode String node to extract the content from
  * @returns The text of the string node with the quotes removed
  */
-export function extractListContents(listNode: TSListNode): PrimativeList {
+export function extractListContents(
+  listNode: TSListNode
+): KeyValueList | ValueOnlyList {
   const array_arg_nodes = listNode.namedChild(1)?.namedChildren ?? [];
 
-  const list: Record<string, unknown> = {};
+  let keyValueMode: boolean = false;
 
+  const keys: string[] = [];
+  const values: ValueOnlyList = [];
+
+  // const list: Record<string, unknown> = {};
+
+  debugger;
   array_arg_nodes.forEach((elementNode) => {
-    if (elementNode.type !== "default_argument") {
-      throw new Error("Somehow list is filled with non values");
+    const currentElType: ElementType =
+      elementNode.type === "default_argument" ? "key_value" : "value_only";
+
+    if (currentElType === "key_value" && !keyValueMode) {
+      // The appearance of any key value pair means we have to switch to key
+      // value mode for all elements.
+      keyValueMode = true;
     }
 
     // Verify we have key and value slots
-    const keyNode = elementNode.firstNamedChild;
-    const valueNode = elementNode.lastNamedChild;
+    const valueNode =
+      currentElType === "key_value" ? elementNode.lastNamedChild : elementNode;
 
-    if (!(elementNode.namedChildCount === 2 && keyNode && valueNode)) {
+    if (!valueNode) {
       throw new Error("Somehow list is filled with non values");
     }
-
-    // Grab key for element of list
-    if (!is_string_node(keyNode)) {
-      throw new Error("Somehow list is filled with non values");
-    }
-    const key = extract_string_content(keyNode);
 
     // Grab value for element of list
-    let value: Primatives | PrimativeList;
+    let value: ValueType;
 
     if (is_string_node(valueNode)) {
       value = extract_string_content(valueNode);
@@ -59,10 +75,46 @@ export function extractListContents(listNode: TSListNode): PrimativeList {
         `Only support arrays of numbers and strings. Can't parse array:\n${elementNode.text}`
       );
     }
+    values.push(value);
+
+    // Now get the key node.
+
+    // If we're in a value only mode, then we dont have a key-node and should
+    // just take the value node as the key, provided it is a string
+    if (currentElType === "value_only") {
+      if (!is_string_node(valueNode)) {
+        throw new Error(
+          `Only support arrays of numbers and strings. Can't parse array:\n${elementNode.text}`
+        );
+      }
+
+      keys.push(extract_string_content(valueNode));
+      return;
+    }
+
+    const keyNode = elementNode.firstNamedChild;
+
+    if (!(elementNode.namedChildCount === 2 && keyNode && valueNode)) {
+      throw new Error("Somehow list is filled with non values");
+    }
+
+    // Grab key for element of list
+    if (!is_string_node(keyNode)) {
+      throw new Error("Somehow list is filled with non values");
+    }
+    keys.push(extract_string_content(keyNode));
+    // const key = extract_string_content(keyNode);
 
     // Add key and value to list
-    list[key] = value;
+    // list[key] = value;
   });
 
-  return list as PrimativeList;
+  if (keyValueMode) {
+    return keys.reduce((acc, key, i) => {
+      acc[key] = values[i] as Primatives;
+      return acc;
+    }, {} as KeyValueList);
+  }
+
+  return values;
 }
