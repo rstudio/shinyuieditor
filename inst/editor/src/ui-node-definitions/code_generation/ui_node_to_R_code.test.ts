@@ -144,6 +144,15 @@ describe("Escapes special characters in string nodes", () => {
     expect(printNamedRList(list_with_special_chars)).toBe(expected_result);
   });
 
+  test("Named Lists as string array dont print key and value", () => {
+    const basicArray = ["a", "b", "c"];
+
+    // prettier-ignore
+    const expected_result = `list("a", "b", "c")`;
+
+    expect(printNamedRList(basicArray)).toBe(expected_result);
+  });
+
   test("Argument values", () => {
     const button_node: KnownShinyUiNode = {
       id: "actionButton",
