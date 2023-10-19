@@ -15,14 +15,7 @@ export function isListNode(node: ParserNode): node is TSListNode {
 }
 
 type KeyValueList = Record<string, Primatives>;
-type ValueOnlyList = (
-  | Primatives
-  | Primatives[]
-  | KeyValueList
-  | ValueOnlyList
-)[];
-
-type ValueType = ValueOnlyList[number];
+type ValueOnlyList = Primatives[];
 
 type ElementType = "key_value" | "value_only";
 /**
@@ -40,9 +33,6 @@ export function extractListContents(
   const keys: string[] = [];
   const values: ValueOnlyList = [];
 
-  // const list: Record<string, unknown> = {};
-
-  debugger;
   array_arg_nodes.forEach((elementNode) => {
     const currentElType: ElementType =
       elementNode.type === "default_argument" ? "key_value" : "value_only";
@@ -62,14 +52,12 @@ export function extractListContents(
     }
 
     // Grab value for element of list
-    let value: ValueType;
+    let value: Primatives;
 
     if (is_string_node(valueNode)) {
       value = extract_string_content(valueNode);
     } else if (is_number_node(valueNode)) {
       value = extract_number_content(valueNode);
-    } else if (isListNode(valueNode)) {
-      value = extractListContents(valueNode);
     } else {
       throw new Error(
         `Only support arrays of numbers and strings. Can't parse array:\n${elementNode.text}`
@@ -103,15 +91,11 @@ export function extractListContents(
       throw new Error("Somehow list is filled with non values");
     }
     keys.push(extract_string_content(keyNode));
-    // const key = extract_string_content(keyNode);
-
-    // Add key and value to list
-    // list[key] = value;
   });
 
   if (keyValueMode) {
     return keys.reduce((acc, key, i) => {
-      acc[key] = values[i] as Primatives;
+      acc[key] = values[i];
       return acc;
     }, {} as KeyValueList);
   }
