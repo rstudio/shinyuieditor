@@ -175,46 +175,60 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
   await expect(page.getByText(/there are some mismatches/i)).not.toBeVisible();
   await expect(page.getByLabel(/separate label and values/i)).toBeChecked();
 
-  // There should be multiple key fields visible in the properties pane
+  const keyInputsQuery = page.getByRole("textbox", {
+    name: "List item key",
+  });
+  const valueInputsQuery = page.getByRole("textbox", {
+    name: "List item value",
+  });
 
-  const keyInputs = page.getByRole("textbox", { name: "List item key" });
-  expect(await keyInputs.count()).toBeGreaterThan(1);
+  // There should be multiple key fields visible in the properties pane
+  expect(await keyInputsQuery.count()).toBeGreaterThan(1);
 
   // And one of them should have the value of "B"
-  await expect(keyInputs.last()).toHaveValue("B");
+  await expect(keyInputsQuery.last()).toHaveValue("B");
 
   // Now click checkbox again, but this time press the merge button
   await page.getByLabel(/separate label and values/i).click();
   await page.getByRole("button", { name: "Merge" }).click();
 
   // There should no longer be any key fields visible
-  expect(
-    await page.getByRole("textbox", { name: "List item key" }).count()
-  ).toBe(0);
+  expect(await keyInputsQuery.count()).toBe(0);
 
   // There should still be value fields, though
-  expect(
-    await page.getByRole("textbox", { name: "List item value" }).count()
-  ).toBeGreaterThan(1);
+  expect(await valueInputsQuery.count()).toBeGreaterThan(1);
 
   // Find all the value fields and make sure that one of them has the value of "B"
-  await expect(
-    page.getByRole("textbox", { name: "List item value" }).last()
-  ).toHaveValue("b");
+  await expect(valueInputsQuery.last()).toHaveValue("b");
 
   // Now we can go back to key-value mode
   await page.getByLabel(/separate label and values/i).click();
 
   // There should be multiple key fields visible in the properties pane
-  expect(
-    await page.getByRole("textbox", { name: "List item key" }).count()
-  ).toBeGreaterThan(1);
+  expect(await keyInputsQuery.count()).toBeGreaterThan(1);
 
   // Now that we've updated the value to not have mismatches we should be able
   // to go back to simple mode without a warning appearing
   await page.getByLabel(/separate label and values/i).click();
+
   // There should no longer be any key fields visible
-  expect(
-    await page.getByRole("textbox", { name: "List item key" }).count()
-  ).toBe(0);
+  expect(await keyInputsQuery.count()).toBe(0);
+
+  // Adding a new element to the list will respect the current key-value state
+  await page.getByRole("button", { name: "Add new item to list" }).click();
+
+  // There should still no longer be any key fields visible
+  expect(await keyInputsQuery.count()).toBe(0);
+
+  // Switch back to key-value mode and now adding an element _should_ keep stuff in keyvalue mode
+  await page.getByLabel(/separate label and values/i).click();
+
+  // There should be multiple key fields visible in the properties pane
+  expect(await keyInputsQuery.count()).toBeGreaterThan(1);
+
+  // Add new element
+  await page.getByRole("button", { name: "Add new item to list" }).click();
+
+  // There should still be multiple key fields visible in the properties pane
+  expect(await keyInputsQuery.count()).toBeGreaterThan(1);
 });
