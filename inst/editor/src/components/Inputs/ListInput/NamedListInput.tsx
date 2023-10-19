@@ -14,8 +14,6 @@ import Button from "../Button/Button";
 
 import { useListState } from "./useListState";
 
-export type NamedList = Record<string, string>;
-
 export function NamedListInput({
   id,
   label,

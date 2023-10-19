@@ -1,5 +1,4 @@
-import type { CSSMeasure } from "../inputFieldTypes";
-import type { NamedList } from "../NamedList";
+import type { CSSMeasure, NamedList } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiNode } from "../ShinyUiNode";
 

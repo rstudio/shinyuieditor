@@ -1,7 +1,7 @@
+import type { NamedList } from "../inputFieldTypes";
+
 import { safeStringPrint } from "./printPrimative";
 import { LINE_BREAK_LENGTH, NL_INDENT } from "./utils";
-
-type NamedList = Record<string, string>;
 
 function printNamedList(
   vals: NamedList,
