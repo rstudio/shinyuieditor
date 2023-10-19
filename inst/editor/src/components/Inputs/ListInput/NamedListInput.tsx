@@ -74,7 +74,6 @@ export function NamedListInput({
           <label
             className="text-xs text-gray-800 italic"
             htmlFor="keyAndValueModeCheckbox"
-            data-value={value ? "TRUE" : "FALSE"}
           >
             Separate label and values
           </label>
