@@ -22,14 +22,14 @@ export function NamedListInput({
   newItemValue = (i) => ({ key: "Value" + i, value: "value" + i }),
 }: InputComponentByType<"list">) {
   const {
-    state,
+    flatList,
     addItem,
     deleteItem,
     reorderItems,
     updateKey,
     updateValue,
-    mergeKeysAndValues,
-    valueOnlyMode,
+    swapKeyValueMode,
+    listMode,
     onValueModeToggle,
     keyValueMismatches,
     onCancelSimplify,
@@ -58,7 +58,7 @@ export function NamedListInput({
             <p>Should these be merged to just the values?</p>
 
             <div className="flex justify-around mt-2">
-              <Button onClick={mergeKeysAndValues}>
+              <Button onClick={() => swapKeyValueMode("value-only")}>
                 <ArrowsCollapse className="text-lg" /> Merge
               </Button>
               <Button onClick={onCancelSimplify} variant="secondary">
@@ -81,7 +81,7 @@ export function NamedListInput({
             className="transform[translateY(1px)] border mt-[2px]"
             id="keyAndValueModeCheckbox"
             type="checkbox"
-            checked={!valueOnlyMode}
+            checked={listMode === "key-value"}
             onChange={(e) => {
               onValueModeToggle(!e.target.checked);
             }}
@@ -95,11 +95,11 @@ export function NamedListInput({
         aria-label={label}
       >
         <ListItem
-          valueOnlyMode={valueOnlyMode}
+          valueOnlyMode={listMode === "value-only"}
           className="text-center -my-1"
           aria-label="Columns field labels"
         >
-          {valueOnlyMode ? (
+          {listMode === "value-only" ? (
             <span className="col-start-2">Value</span>
           ) : (
             <>
@@ -109,13 +109,13 @@ export function NamedListInput({
           )}
         </ListItem>
         <ReactSortable
-          list={state}
+          list={flatList}
           setList={reorderItems}
           handle=".NamedListDragHandle"
         >
-          {state.map((item, i) => (
+          {flatList.map((item, i) => (
             <ListItem
-              valueOnlyMode={valueOnlyMode}
+              valueOnlyMode={listMode === "value-only"}
               className={mergeClasses(
                 "my-1",
                 keyValueMismatches &&
@@ -132,7 +132,7 @@ export function NamedListInput({
               >
                 <MdDragHandle />
               </div>
-              {valueOnlyMode ? (
+              {listMode === "value-only" ? (
                 <input
                   title="Value Field"
                   className="min-w-0"
