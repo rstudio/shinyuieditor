@@ -13,8 +13,6 @@ export type CSSMeasure = `${number}${CSSUnit}` | "auto";
 export type CSSUnit = "fr" | "px" | "rem" | "%";
 export type CSSUnitWAuto = CSSUnit | "auto";
 
-type NamedList = Record<string, string>;
-
 export type InputOptions =
   // Special ID input. Like a string input but enforces things like no spaces or
   // special characters. Also checks to make sure ids are unique etc.
@@ -31,7 +29,7 @@ export type InputOptions =
   | { inputType: "boolean"; value: boolean }
   | {
       inputType: "list";
-      value: NamedList;
+      value: Record<string, string>;
       newItemValue?:
         | { key: string; value: string }
         | ((i: number) => { key: string; value: string });
@@ -54,6 +52,8 @@ export type InputOptions =
       inputType: "ui-node";
       value: ShinyUiNode;
     };
+
+export type NamedList = Extract<InputOptions, { inputType: "list" }>["value"];
 
 type ArgTypeToInputType<Arg extends unknown> = Arg extends number
   ? "number"

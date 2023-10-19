@@ -2,9 +2,10 @@ import React from "react";
 
 import { sameObject } from "util-functions/src/equalityCheckers";
 
-import type { InputComponentByType } from "../../../ui-node-definitions/inputFieldTypes";
-
-import type { NamedList } from "./NamedListInput";
+import type {
+  InputComponentByType,
+  NamedList,
+} from "../../../ui-node-definitions/inputFieldTypes";
 
 export type ItemArray = {
   id: number;

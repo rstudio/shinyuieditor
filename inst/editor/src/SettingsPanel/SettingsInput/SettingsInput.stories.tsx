@@ -6,11 +6,11 @@ import {
   alignTextRight,
 } from "../../components/Icons";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
 import type { DropdownOption } from "../../components/Inputs/OptionsDropdown/DropdownSelect";
 import { DEFAULT_DROPDOWN_CHOICE } from "../../components/Inputs/OptionsDropdown/DropdownSelect";
 import type { RadioOption } from "../../components/Inputs/RadioInputs/RadioInputsSimple";
 import { DEFAULT_RADIO_CHOICE } from "../../components/Inputs/RadioInputs/RadioInputsSimple";
+import type { NamedList } from "../../ui-node-definitions/inputFieldTypes";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
 import { SettingsInput } from "./SettingsInput";
