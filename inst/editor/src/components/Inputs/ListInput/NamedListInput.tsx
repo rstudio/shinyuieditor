@@ -39,6 +39,103 @@ export function NamedListInput({
     newItemValue,
   });
 
+  const isEmpty = flatList.length === 0;
+
+  const ItemList = (
+    <div
+      className="w-fit flex flex-col items-center my-2"
+      aria-labelledby={makeLabelId(id)}
+      aria-label={label}
+    >
+      <ListItem
+        valueOnlyMode={listMode === "value-only"}
+        className="text-center -my-1"
+        aria-label="Columns field labels"
+      >
+        {listMode === "value-only" ? (
+          <span className="col-start-2">Value</span>
+        ) : (
+          <>
+            <span className="col-start-2">Key</span>
+            <span className="col-start-4">Value</span>
+          </>
+        )}
+      </ListItem>
+      <ReactSortable
+        list={flatList}
+        setList={reorderItems}
+        handle=".NamedListDragHandle"
+      >
+        {flatList.map((item, i) => (
+          <ListItem
+            valueOnlyMode={listMode === "value-only"}
+            className={mergeClasses(
+              "my-1",
+              keyValueMismatches &&
+                keyValueMismatches.find((m) => m.key === item.key)
+                ? "bg-danger/30"
+                : null
+            )}
+            aria-label="List item"
+            key={i}
+          >
+            <div
+              className="NamedListDragHandle grid place-items-center cursor-ns-resize"
+              title="Reorder list"
+            >
+              <MdDragHandle />
+            </div>
+            {listMode === "value-only" ? (
+              <input
+                title="Value Field"
+                className="min-w-0"
+                type="text"
+                aria-label="List item value"
+                value={item.value}
+                onChange={(e) => {
+                  updateValue({ index: i, newValue: e.target.value });
+                }}
+              />
+            ) : (
+              <>
+                <input
+                  title="Key Field"
+                  className="min-w-0"
+                  aria-label="List item key"
+                  type="text"
+                  value={item.key}
+                  onChange={(e) => {
+                    updateKey({ index: i, newKey: e.target.value });
+                  }}
+                />
+                <span className="mb-[1px]">:</span>
+                <input
+                  title="Value Field"
+                  className="min-w-0"
+                  type="text"
+                  aria-label="List item value"
+                  value={item.value}
+                  onChange={(e) => {
+                    updateValue({ index: i, newValue: e.target.value });
+                  }}
+                />
+              </>
+            )}
+
+            <Button
+              className="grid place-content-center p-0 area[delete] hover:scale-110 mb-[2px]"
+              onClick={() => deleteItem(item.id)}
+              variant={["icon", "transparent"]}
+              title={`Delete ${item.value}`}
+            >
+              <Trash />
+            </Button>
+          </ListItem>
+        ))}
+      </ReactSortable>
+    </div>
+  );
+
   return (
     <div>
       <ControlledPopup
@@ -89,107 +186,23 @@ export function NamedListInput({
         </div>
       </ControlledPopup>
 
-      <div
-        className="w-fit flex flex-col items-center my-2"
-        aria-labelledby={makeLabelId(id)}
-        aria-label={label}
-      >
-        <ListItem
-          valueOnlyMode={listMode === "value-only"}
-          className="text-center -my-1"
-          aria-label="Columns field labels"
-        >
-          {listMode === "value-only" ? (
-            <span className="col-start-2">Value</span>
-          ) : (
-            <>
-              <span className="col-start-2">Key</span>
-              <span className="col-start-4">Value</span>
-            </>
-          )}
-        </ListItem>
-        <ReactSortable
-          list={flatList}
-          setList={reorderItems}
-          handle=".NamedListDragHandle"
-        >
-          {flatList.map((item, i) => (
-            <ListItem
-              valueOnlyMode={listMode === "value-only"}
-              className={mergeClasses(
-                "my-1",
-                keyValueMismatches &&
-                  keyValueMismatches.find((m) => m.key === item.key)
-                  ? "bg-danger/30"
-                  : null
-              )}
-              aria-label="List item"
-              key={i}
-            >
-              <div
-                className="NamedListDragHandle grid place-items-center cursor-ns-resize"
-                title="Reorder list"
-              >
-                <MdDragHandle />
-              </div>
-              {listMode === "value-only" ? (
-                <input
-                  title="Value Field"
-                  className="min-w-0"
-                  type="text"
-                  aria-label="List item value"
-                  value={item.value}
-                  onChange={(e) => {
-                    updateValue({ index: i, newValue: e.target.value });
-                  }}
-                />
-              ) : (
-                <>
-                  <input
-                    title="Key Field"
-                    className="min-w-0"
-                    aria-label="List item key"
-                    type="text"
-                    value={item.key}
-                    onChange={(e) => {
-                      updateKey({ index: i, newKey: e.target.value });
-                    }}
-                  />
-                  <span className="mb-[1px]">:</span>
-                  <input
-                    title="Value Field"
-                    className="min-w-0"
-                    type="text"
-                    aria-label="List item value"
-                    value={item.value}
-                    onChange={(e) => {
-                      updateValue({ index: i, newValue: e.target.value });
-                    }}
-                  />
-                </>
-              )}
+      {isEmpty ? (
+        <div className="text-gray-500 text-xs bg-rstudio-white rounded italic w-full h-[23px] my-1 grid place-content-center ">
+          Empty list
+        </div>
+      ) : (
+        ItemList
+      )}
 
-              <Button
-                className="grid place-content-center p-0 area[delete] hover:scale-110 mb-[2px]"
-                onClick={() => deleteItem(item.id)}
-                variant={["icon", "transparent"]}
-                title={`Delete ${item.value}`}
-              >
-                <Trash />
-              </Button>
-            </ListItem>
-          ))}
-        </ReactSortable>
-        <Button
-          className="text-icon -mt-1 p-1"
-          onClick={() => addItem()}
-          variant={["icon", "transparent"]}
-          title="Add new item"
-          aria-label="Add new item to list"
-        >
-          <FaPlus />
-        </Button>
-      </div>
+      <Button
+        className="text-icon -mt-1 p-1 bg-red-400 w-full"
+        onClick={() => addItem()}
+        variant="transparent"
+        title="Add new item"
+        aria-label="Add new item to list"
+      >
+        <FaPlus />
+      </Button>
     </div>
   );
 }
