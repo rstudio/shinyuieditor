@@ -188,13 +188,13 @@ export function useListState({
   );
 
   // If the user has entered the simple only-value mode, we need to ensure that
-  // the keys and values are the same. The key takes precedence over the value,
-  // so we need to update the values to match the keys
+  // the keys and values are the same. The value takes precedence over the key,
+  // so we need to update the keys to match the values
   const mergeKeysAndValues = React.useCallback(() => {
     const newState = [...state];
 
     newState.forEach((item) => {
-      item.value = item.key;
+      item.key = item.value;
     });
 
     onChange(itemTypeArrayToNamedList(newState, true));

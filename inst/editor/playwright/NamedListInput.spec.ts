@@ -176,9 +176,12 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
   await expect(page.getByLabel(/separate label and values/i)).toBeChecked();
 
   // There should be multiple key fields visible in the properties pane
-  expect(
-    await page.getByRole("textbox", { name: "List item key" }).count()
-  ).toBeGreaterThan(1);
+
+  const keyInputs = page.getByRole("textbox", { name: "List item key" });
+  expect(await keyInputs.count()).toBeGreaterThan(1);
+
+  // And one of them should have the value of "B"
+  await expect(keyInputs.last()).toHaveValue("B");
 
   // Now click checkbox again, but this time press the merge button
   await page.getByLabel(/separate label and values/i).click();
@@ -197,7 +200,7 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
   // Find all the value fields and make sure that one of them has the value of "B"
   await expect(
     page.getByRole("textbox", { name: "List item value" }).last()
-  ).toHaveValue("B");
+  ).toHaveValue("b");
 
   // Now we can go back to key-value mode
   await page.getByLabel(/separate label and values/i).click();
