@@ -72,6 +72,11 @@ export function useListState({
 
   const numItems = state.length;
 
+  // Make sure we start with the correct mode for the value type
+  React.useEffect(() => {
+    setValueOnlyMode(Array.isArray(value));
+  }, [value]);
+
   // The purpose of this useEffect is to handle updating the state to reflect
   // new values sent in via the value prop. This is to keep the state in sync
   // with the value prop so we don't have stale arguments. There is probably
