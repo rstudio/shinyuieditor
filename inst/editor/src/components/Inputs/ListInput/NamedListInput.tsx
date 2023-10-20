@@ -187,7 +187,13 @@ export function NamedListInput({
                 </p>
 
                 <div className="flex justify-around mt-2">
-                  <Button onClick={() => swapKeyValueMode("value-only")}>
+                  <Button
+                    onClick={() => {
+                      swapKeyValueMode("value-only");
+                      setSettingsOpen(false);
+                      onCancelSimplify();
+                    }}
+                  >
                     <ArrowsCollapse className="text-lg" /> Merge
                   </Button>
                   <Button onClick={onCancelSimplify} variant="secondary">
@@ -204,7 +210,10 @@ export function NamedListInput({
         <Button
           className="absolute right-0 bottom-100"
           variant={["icon", "transparent"]}
-          onClick={() => setSettingsOpen((prev) => !prev)}
+          onClick={() => {
+            setSettingsOpen((prev) => !prev);
+            onCancelSimplify();
+          }}
           aria-label={`Open settings for ${label} argument`}
         >
           <Gear />
