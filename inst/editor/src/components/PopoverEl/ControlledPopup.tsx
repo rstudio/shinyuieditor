@@ -4,6 +4,7 @@ import type { Placement } from "@floating-ui/react";
 
 import { mergeClasses } from "../../utils/mergeClasses";
 
+import type { TooltipOptions } from "./FloatingPopover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./FloatingPopover";
 
 const accentBarStyles = {
@@ -29,16 +30,16 @@ export function ControlledPopup({
   children,
   content,
   accent,
-  placement = "left",
   description,
-}: ControlledPopeverProps) {
+  ...tooltipOptions
+}: ControlledPopeverProps & TooltipOptions) {
   return (
     <Tooltip
       open={isOpen}
       // By letting the tooltip have this control we can make sure that the
       // user can close the tooltip by clicking outside of it
       onOpenChange={() => onClose()}
-      placement={placement}
+      {...tooltipOptions}
     >
       <TooltipTrigger asChild noToggle>
         {children}

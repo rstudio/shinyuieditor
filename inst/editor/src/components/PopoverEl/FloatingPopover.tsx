@@ -28,6 +28,13 @@ export interface TooltipOptions {
   placement?: Placement;
   open?: boolean;
   onOpenChange?: React.Dispatch<React.SetStateAction<boolean>>;
+  offset?:
+    | number
+    | {
+        mainAxis?: number;
+        crossAxis?: number;
+        alignmentAxis?: number | null;
+      };
 }
 
 function useTooltip({
@@ -35,6 +42,7 @@ function useTooltip({
   placement = "top",
   open: controlledOpen,
   onOpenChange: setControlledOpen,
+  ...opts
 }: TooltipOptions = {}) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(initialOpen);
   const arrowRef = React.useRef(null);
@@ -51,7 +59,7 @@ function useTooltip({
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(7),
+      offset(opts.offset ?? 7),
       flip({
         fallbackAxisSideDirection: "start",
       }),
