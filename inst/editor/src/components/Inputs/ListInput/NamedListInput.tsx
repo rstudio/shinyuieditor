@@ -139,74 +139,73 @@ export function NamedListInput({
 
   const haveMismatches = keyValueMismatches !== null;
   return (
-    <div className="relative">
-      <ControlledPopup
-        isOpen={settingsOpen}
-        onClose={() => {
-          setSettingsOpen(false);
-          onCancelSimplify();
-        }}
-        description={`Settings panel for ${label} argument`}
-        placement="right-start"
-        accent={haveMismatches ? "warning" : "info"}
-        content={
-          <>
-            <h2 className="bold text-base mb-3">
-              Settings for {label} argument
-            </h2>
-            <div className="flex gap-2 justify-between items-center ">
-              <label htmlFor="keyAndValueModeCheckbox">
-                Keys and Value Mode
-              </label>
-              <input
-                className="transform[translateY(1px)] border mt-[2px]"
-                id="keyAndValueModeCheckbox"
-                type="checkbox"
-                checked={listMode === "key-value"}
-                disabled={haveMismatches}
-                onChange={(e) => {
-                  onValueModeToggle(!e.target.checked);
-                }}
-              />
-            </div>
-            <span className="text-xs text-gray-700 italic">
-              Should the list be displayed as just values or as key-value pairs?
-              Key value pairs will allow you to choose a different display name
-              for each value.
-            </span>
-            {haveMismatches && (
-              <>
-                <hr />
-                <p>
-                  There are some{" "}
-                  <span className="bg-danger/30 px-1 py-[2px] rounded">
-                    mismatches
-                  </span>{" "}
-                  between keys and values preventing simplification to
-                  value-only mode. Merge to just the values?
-                </p>
+    <ControlledPopup
+      isOpen={settingsOpen}
+      onClose={() => {
+        setSettingsOpen(false);
+        onCancelSimplify();
+      }}
+      description={`Settings panel for ${label} argument`}
+      placement="right-start"
+      accent={haveMismatches ? "warning" : "info"}
+      offset={{
+        mainAxis: 9,
+        crossAxis: -23,
+      }}
+      content={
+        <>
+          <h2 className="bold text-base mb-3">Settings for {label} argument</h2>
+          <div className="flex gap-2 justify-between items-center ">
+            <label htmlFor="keyAndValueModeCheckbox">Keys and Value Mode</label>
+            <input
+              className="transform[translateY(1px)] border mt-[2px]"
+              id="keyAndValueModeCheckbox"
+              type="checkbox"
+              checked={listMode === "key-value"}
+              disabled={haveMismatches}
+              onChange={(e) => {
+                onValueModeToggle(!e.target.checked);
+              }}
+            />
+          </div>
+          <span className="text-xs text-gray-700 italic">
+            Should the list be displayed as just values or as key-value pairs?
+            Key value pairs will allow you to choose a different display name
+            for each value.
+          </span>
+          {haveMismatches && (
+            <>
+              <hr />
+              <p>
+                There are some{" "}
+                <span className="bg-danger/30 px-1 py-[2px] rounded">
+                  mismatches
+                </span>{" "}
+                between keys and values preventing simplification to value-only
+                mode. Merge to just the values?
+              </p>
 
-                <div className="flex justify-around mt-2">
-                  <Button
-                    onClick={() => {
-                      swapKeyValueMode("value-only");
-                      setSettingsOpen(false);
-                      onCancelSimplify();
-                    }}
-                  >
-                    <ArrowsCollapse className="text-lg" /> Merge
-                  </Button>
-                  <Button onClick={onCancelSimplify} variant="secondary">
-                    {" "}
-                    <X className="text-lg" />
-                    Cancel
-                  </Button>
-                </div>
-              </>
-            )}
-          </>
-        }
-      >
+              <div className="flex justify-around mt-2">
+                <Button
+                  onClick={() => {
+                    swapKeyValueMode("value-only");
+                    onCancelSimplify();
+                  }}
+                >
+                  <ArrowsCollapse className="text-lg" /> Merge
+                </Button>
+                <Button onClick={onCancelSimplify} variant="secondary">
+                  {" "}
+                  <X className="text-lg" />
+                  Cancel
+                </Button>
+              </div>
+            </>
+          )}
+        </>
+      }
+    >
+      <div className="relative">
         <Button
           className="absolute right-0 bottom-100"
           variant={["icon", "transparent"]}
@@ -218,26 +217,26 @@ export function NamedListInput({
         >
           <Gear />
         </Button>
-      </ControlledPopup>
 
-      {isEmpty ? (
-        <div className="text-gray-500 text-xs bg-rstudio-white rounded italic w-full h-[23px] my-1 grid place-content-center ">
-          Empty list
-        </div>
-      ) : (
-        ItemList
-      )}
+        {isEmpty ? (
+          <div className="text-gray-500 text-xs bg-rstudio-white rounded italic w-full h-[23px] my-1 grid place-content-center ">
+            Empty list
+          </div>
+        ) : (
+          ItemList
+        )}
 
-      <Button
-        className="text-icon -mt-1 p-1 bg-red-400 w-full"
-        onClick={() => addItem()}
-        variant="transparent"
-        title="Add new item"
-        aria-label="Add new item to list"
-      >
-        <FaPlus />
-      </Button>
-    </div>
+        <Button
+          className="text-icon -mt-1 p-1 bg-red-400 w-full"
+          onClick={() => addItem()}
+          variant="transparent"
+          title="Add new item"
+          aria-label="Add new item to list"
+        >
+          <FaPlus />
+        </Button>
+      </div>
+    </ControlledPopup>
   );
 }
 
