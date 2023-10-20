@@ -99,16 +99,13 @@ export function NamedListInput({
               />
             ) : (
               <>
-                <input
-                  title="Key Field"
-                  className="min-w-0"
-                  aria-label="List item key"
-                  type="text"
-                  value={item.key}
-                  onChange={(e) => {
-                    updateKey({ index: i, newKey: e.target.value });
+                <KeyInput
+                  keyValue={item.key}
+                  onUpdate={(newKey) => {
+                    updateKey({ index: i, newKey });
                   }}
                 />
+
                 <span className="mb-[1px]">:</span>
                 <input
                   title="Value Field"
@@ -258,6 +255,33 @@ function ListItem({
         "[&.sortable-chosen]:outline-offset-[-2px] [&.sortable-chosen]:outline-rstudio-grey/30 [&.sortable-chosen]:shadow-lg"
       )}
       {...props}
+    />
+  );
+}
+
+function KeyInput({
+  keyValue,
+  onUpdate,
+}: {
+  keyValue: string;
+  onUpdate: (newKey: string) => void;
+}) {
+  const isEmpty = keyValue === "";
+  return (
+    <input
+      title="Key Field"
+      className={mergeClasses(
+        "min-w-0 w-full placeholder:text-rstudio-white placeholder:text-xs",
+        isEmpty && "bg-danger/30 transition-colors duration-500 delay-300"
+      )}
+      aria-invalid={isEmpty}
+      aria-label="List item key"
+      type="text"
+      value={keyValue}
+      placeholder={"Required"}
+      onChange={(e) => {
+        onUpdate(e.target.value);
+      }}
     />
   );
 }
