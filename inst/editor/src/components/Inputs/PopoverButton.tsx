@@ -11,6 +11,22 @@ import {
 import Button from "./Button/Button";
 
 type ButtonCompProps = React.ComponentProps<typeof Button>;
+
+/**
+ * A button that opens a tooltip on hover.
+ *
+ * @example
+ * ```tsx
+ * <PopoverButton
+ *   variant="primary"
+ *   size="sm"
+ *   tooltipClass="text-center"
+ *   popoverContent="This is a tooltip"
+ * >
+ *   Hover me
+ * </PopoverButton>
+ * ```
+ */
 export const PopoverButton: React.FC<
   TooltipOptions &
     ButtonCompProps & {

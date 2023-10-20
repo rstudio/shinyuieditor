@@ -162,8 +162,13 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
   // Select the select input node
   await page.getByText("Choose things").click();
 
+  // Open settings popover
+  const settingsButton = page.getByLabel("Open settings for Choices argument");
+
+  await settingsButton.click();
+
   // Click the "Seprate label and values" checkbox to trigger the warning
-  await page.getByLabel(/separate label and values/i).click();
+  await page.getByLabel(/keys and value mode/i).click();
 
   // Make sure the warning is visible
   await page.getByText(/there are some mismatches/i).isVisible();
@@ -173,7 +178,10 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
 
   // Make sure the warning is gone but we're still in the separate key/value mode
   await expect(page.getByText(/there are some mismatches/i)).not.toBeVisible();
-  await expect(page.getByLabel(/separate label and values/i)).toBeChecked();
+  await expect(page.getByLabel(/keys and value mode/i)).toBeChecked();
+
+  // Close settings popover
+  await settingsButton.click();
 
   const keyInputsQuery = page.getByRole("textbox", {
     name: "List item key",
@@ -189,8 +197,12 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
   await expect(keyInputsQuery.last()).toHaveValue("B");
 
   // Now click checkbox again, but this time press the merge button
-  await page.getByLabel(/separate label and values/i).click();
+  await settingsButton.click();
+
+  await page.getByLabel(/keys and value mode/i).click();
   await page.getByRole("button", { name: "Merge" }).click();
+
+  await settingsButton.click();
 
   // There should no longer be any key fields visible
   expect(await keyInputsQuery.count()).toBe(0);
@@ -202,14 +214,18 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
   await expect(valueInputsQuery.last()).toHaveValue("b");
 
   // Now we can go back to key-value mode
-  await page.getByLabel(/separate label and values/i).click();
+  await settingsButton.click();
+  await page.getByLabel(/keys and value mode/i).click();
+  await settingsButton.click();
 
   // There should be multiple key fields visible in the properties pane
   expect(await keyInputsQuery.count()).toBeGreaterThan(1);
 
   // Now that we've updated the value to not have mismatches we should be able
   // to go back to simple mode without a warning appearing
-  await page.getByLabel(/separate label and values/i).click();
+  await settingsButton.click();
+  await page.getByLabel(/keys and value mode/i).click();
+  await settingsButton.click();
 
   // There should no longer be any key fields visible
   expect(await keyInputsQuery.count()).toBe(0);
@@ -221,7 +237,9 @@ test("Will warn of mismatch when trying to simplify", async ({ page }) => {
   expect(await keyInputsQuery.count()).toBe(0);
 
   // Switch back to key-value mode and now adding an element _should_ keep stuff in keyvalue mode
-  await page.getByLabel(/separate label and values/i).click();
+  await settingsButton.click();
+  await page.getByLabel(/keys and value mode/i).click();
+  await settingsButton.click();
 
   // There should be multiple key fields visible in the properties pane
   expect(await keyInputsQuery.count()).toBeGreaterThan(1);

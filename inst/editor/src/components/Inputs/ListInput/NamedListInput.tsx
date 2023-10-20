@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ArrowsCollapse, X } from "react-bootstrap-icons";
+import { ArrowsCollapse, Gear, X } from "react-bootstrap-icons";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
@@ -39,6 +39,7 @@ export function NamedListInput({
     newItemValue,
   });
 
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
   const isEmpty = flatList.length === 0;
 
   const ItemList = (
@@ -136,54 +137,78 @@ export function NamedListInput({
     </div>
   );
 
+  const haveMismatches = keyValueMismatches !== null;
   return (
-    <div>
+    <div className="relative">
       <ControlledPopup
-        isOpen={keyValueMismatches !== null}
-        onClose={onCancelSimplify}
-        accent="warning"
+        isOpen={settingsOpen}
+        onClose={() => {
+          setSettingsOpen(false);
+          onCancelSimplify();
+        }}
+        description={`Settings panel for ${label} argument`}
+        placement="right-start"
+        accent={haveMismatches ? "warning" : "info"}
         content={
           <>
-            <p>
-              There are some{" "}
-              <span className="bg-danger/30 px-1 py-[2px] rounded">
-                mismatches
-              </span>{" "}
-              between keys and values preventing simplification to value-only
-              mode.
-            </p>
-            <p>Should these be merged to just the values?</p>
-
-            <div className="flex justify-around mt-2">
-              <Button onClick={() => swapKeyValueMode("value-only")}>
-                <ArrowsCollapse className="text-lg" /> Merge
-              </Button>
-              <Button onClick={onCancelSimplify} variant="secondary">
-                {" "}
-                <X className="text-lg" />
-                Cancel
-              </Button>
+            <h2 className="bold text-base mb-3">
+              Settings for {label} argument
+            </h2>
+            <div className="flex gap-2 justify-between items-center ">
+              <label htmlFor="keyAndValueModeCheckbox">
+                Keys and Value Mode
+              </label>
+              <input
+                className="transform[translateY(1px)] border mt-[2px]"
+                id="keyAndValueModeCheckbox"
+                type="checkbox"
+                checked={listMode === "key-value"}
+                disabled={haveMismatches}
+                onChange={(e) => {
+                  onValueModeToggle(!e.target.checked);
+                }}
+              />
             </div>
+            <span className="text-xs text-gray-700 italic">
+              Should the list be displayed as just values or as key-value pairs?
+              Key value pairs will allow you to choose a different display name
+              for each value.
+            </span>
+            {haveMismatches && (
+              <>
+                <hr />
+                <p>
+                  There are some{" "}
+                  <span className="bg-danger/30 px-1 py-[2px] rounded">
+                    mismatches
+                  </span>{" "}
+                  between keys and values preventing simplification to
+                  value-only mode. Merge to just the values?
+                </p>
+
+                <div className="flex justify-around mt-2">
+                  <Button onClick={() => swapKeyValueMode("value-only")}>
+                    <ArrowsCollapse className="text-lg" /> Merge
+                  </Button>
+                  <Button onClick={onCancelSimplify} variant="secondary">
+                    {" "}
+                    <X className="text-lg" />
+                    Cancel
+                  </Button>
+                </div>
+              </>
+            )}
           </>
         }
       >
-        <div className="flex gap-2 items-center">
-          <label
-            className="text-xs text-gray-800 italic"
-            htmlFor="keyAndValueModeCheckbox"
-          >
-            Separate label and values
-          </label>
-          <input
-            className="transform[translateY(1px)] border mt-[2px]"
-            id="keyAndValueModeCheckbox"
-            type="checkbox"
-            checked={listMode === "key-value"}
-            onChange={(e) => {
-              onValueModeToggle(!e.target.checked);
-            }}
-          />
-        </div>
+        <Button
+          className="absolute right-0 bottom-100"
+          variant={["icon", "transparent"]}
+          onClick={() => setSettingsOpen((prev) => !prev)}
+          aria-label={`Open settings for ${label} argument`}
+        >
+          <Gear />
+        </Button>
       </ControlledPopup>
 
       {isEmpty ? (

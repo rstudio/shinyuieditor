@@ -30,7 +30,7 @@ export interface TooltipOptions {
   onOpenChange?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function useTooltip({
+function useTooltip({
   initialOpen = false,
   placement = "top",
   open: controlledOpen,
@@ -103,6 +103,20 @@ export const useTooltipContext = () => {
   return context;
 };
 
+/**
+ * Context provider for tooltip components.
+ *
+ * @example
+ * ```tsx
+ * <Tooltip>
+ *  <TooltipTrigger>
+ *    <button>Hover me</button>
+ *  </TooltipTrigger>
+ *  <TooltipContent>
+ *   <p>Tooltip content</p>
+ *  </TooltipContent>
+ * </Tooltip>
+ */
 export function Tooltip({
   children,
   ...options
@@ -119,8 +133,11 @@ export function Tooltip({
 
 export const TooltipTrigger = React.forwardRef<
   HTMLElement,
-  React.HTMLProps<HTMLElement> & { asChild?: boolean }
->(function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
+  React.HTMLProps<HTMLElement> & { asChild?: boolean; noToggle?: boolean }
+>(function TooltipTrigger(
+  { children, asChild = false, noToggle = false, ...props },
+  propRef
+) {
   const context = useTooltipContext();
   const childrenRef = (children as any).ref;
   const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
@@ -131,11 +148,14 @@ export const TooltipTrigger = React.forwardRef<
   // close it. We need to toggle it back open so the user doesn't get stuck in a
   // weird no-tooltip scenario when they have started a drag but not finished it
   const toggle_props = React.useMemo(
-    () => ({
-      onMouseDown: context.toggleOpen,
-      onMouseUp: context.toggleOpen,
-    }),
-    [context.toggleOpen]
+    () =>
+      noToggle
+        ? {}
+        : {
+            onMouseDown: context.toggleOpen,
+            onMouseUp: context.toggleOpen,
+          },
+    [context.toggleOpen, noToggle]
   );
 
   // `asChild` allows the user to pass any element as the anchor
