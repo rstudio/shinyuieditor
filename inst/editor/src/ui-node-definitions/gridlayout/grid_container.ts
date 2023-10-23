@@ -12,7 +12,7 @@ export const grid_container = nodeInfoFactory<GridLayoutArgs>()({
   takesChildren: true,
   settingsInfo: {
     gap_size: {
-      label: "Width",
+      label: "Gap size",
       inputType: "cssMeasure",
       defaultValue: "10px",
       units: ["px", "rem"],
