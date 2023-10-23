@@ -100,6 +100,8 @@ export function NamedListInput({
             ) : (
               <>
                 <KeyInput
+                  allElements={flatList}
+                  index={i}
                   keyValue={item.key}
                   onUpdate={(newKey) => {
                     updateKey({ index: i, newKey });
@@ -262,26 +264,67 @@ function ListItem({
 function KeyInput({
   keyValue,
   onUpdate,
+  allElements,
+  index,
 }: {
+  index: number;
   keyValue: string;
   onUpdate: (newKey: string) => void;
+  allElements: ReturnType<typeof useListState>["flatList"];
 }) {
-  const isEmpty = keyValue === "";
+  const [displayedValue, setDisplayedValue] = React.useState(keyValue);
+
+  // Make sure whenever the passed in "true" value updates, then we update the
+  // displayed value to match it
+  React.useEffect(() => {
+    setDisplayedValue(keyValue);
+  }, [keyValue]);
+
+  const otherKeys = allElements.filter((_, i) => i !== index).map((e) => e.key);
+
+  const isEmpty = displayedValue === "";
+
+  const isSameAsOtherKey = otherKeys.includes(displayedValue);
+
+  const isInvalid = isEmpty || isSameAsOtherKey;
+
   return (
-    <input
-      title="Key Field"
+    <span
       className={mergeClasses(
-        "min-w-0 w-full placeholder:text-rstudio-white placeholder:text-xs",
-        isEmpty && "bg-danger/30 transition-colors duration-500 delay-300"
+        "block relative",
+        isSameAsOtherKey &&
+          `after:absolute after:content-["Duplicate_key"] after:block after:text-rstudio-white after:rounded after:min-w-fit after:p-1 after:border after:z-20 after:bg-danger/90`
       )}
-      aria-invalid={isEmpty}
-      aria-label="List item key"
-      type="text"
-      value={keyValue}
-      placeholder={"Required"}
-      onChange={(e) => {
-        onUpdate(e.target.value);
-      }}
-    />
+    >
+      <input
+        title="Key Field"
+        className={mergeClasses(
+          "min-w-0 w-full placeholder:text-rstudio-white placeholder:text-xs",
+          isInvalid && "bg-danger/30 transition-colors duration-500 delay-300"
+        )}
+        aria-invalid={isInvalid}
+        aria-label="List item key"
+        type="text"
+        value={displayedValue}
+        placeholder={isSameAsOtherKey ? "Duplicate" : "Required"}
+        onChange={(e) => {
+          e.stopPropagation();
+          const newValue = e.target.value;
+
+          setDisplayedValue(newValue);
+
+          const validNewValue = !(
+            newValue === "" ||
+            otherKeys.some(
+              (key) => key.toLowerCase() === newValue.toLowerCase()
+            )
+          );
+
+          if (validNewValue) {
+            onUpdate(e.target.value);
+          }
+        }}
+      />
+    </span>
   );
 }

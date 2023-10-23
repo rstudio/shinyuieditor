@@ -87,13 +87,13 @@ export function useListState({
         throw new Error("Cannot update key in value-only mode");
       }
 
-      // Make sure previous key isn't in the list
-      if (newKey in value) {
-        throw new Error("Key already exists");
-      }
-
       // Get previous key value
       const prevKey = Object.keys(value)[i];
+
+      // Make sure previous key isn't in the list
+      if (newKey !== prevKey && newKey in value) {
+        throw new Error(`Key ${newKey} already exists`);
+      }
 
       const newValue = swapKeysForObject(value, prevKey, newKey);
 
