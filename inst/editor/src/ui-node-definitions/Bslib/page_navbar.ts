@@ -2,7 +2,7 @@ import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiParentNode, ShinyUiNode } from "../ShinyUiNode";
 
 export const page_navbar = nodeInfoFactory<{
-  title: string;
+  title?: string;
   collapsible: boolean;
   id?: string;
   selected?: string;
@@ -22,6 +22,7 @@ export const page_navbar = nodeInfoFactory<{
   takesChildren: true,
   settingsInfo: {
     title: {
+      optional: true,
       inputType: "string",
       label: "Page title",
       defaultValue: "navbar-page",
