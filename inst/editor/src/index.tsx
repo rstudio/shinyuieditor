@@ -31,7 +31,7 @@ const showMessages = true;
     // If we're in dev, look at localhost 8888, otherwise use default
     const websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
-      onClose: () => console.log("Websocket closed!!"),
+      onClose: () => console.log("Websocket closed!"),
       pathToWebsocket: DEV_MODE ? "localhost:8888" : undefined,
     });
 
