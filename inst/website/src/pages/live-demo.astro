@@ -11,6 +11,8 @@ import "@/styles/globals.css";
 import { internalLink } from "@/lib/utils";
 ---
 
+
+
 <FullPageLayout title="SUE | Live Demo">
   <Header showBorder={true} />
   <!-- Need min-h-0 to avoid growing over the allotted size  -->
@@ -24,3 +26,13 @@ import { internalLink } from "@/lib/utils";
    
   </main>
 </FullPageLayout>
+
+<script is:inline>
+// This is needed for various older packages that require the global
+// object to be defined because it typically was with older bundlers like
+// webpack
+if (typeof global === "undefined") {
+  global = window;
+}
+
+</script>
