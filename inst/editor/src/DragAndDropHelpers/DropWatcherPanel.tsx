@@ -87,6 +87,11 @@ export type DropWatcherPanelProps = {
   dropFilters?: { rejected: ShinyUiNodeIds[] } | { accepted: ShinyUiNodeIds[] };
 
   /**
+   * Optional placeholder to show when there is no node in this drop watcher
+   */
+  placeHolder?: React.ReactNode;
+
+  /**
    * Arguments to pass to the drop handler. This is useful if you want to
    * override the default behavior of the drop handler. E.g. if you want to
    * perform custom wrapping behavior etc..
@@ -108,6 +113,7 @@ export function DropWatcherPanel({
   minHeightOnAvailable = existing_node ? "fit-content" : "15px",
   style = {},
   children,
+  placeHolder,
   ...divProps
 }: DropWatcherPanelProps &
   Omit<React.ComponentPropsWithoutRef<"div">, "className">) {
@@ -175,7 +181,9 @@ export function DropWatcherPanel({
               path={makeChildPath(parentPath, child_loc)}
               node={existing_node}
             />
-          ) : null}
+          ) : (
+            placeHolder
+          )}
           {children}
         </div>
       </TooltipTrigger>
