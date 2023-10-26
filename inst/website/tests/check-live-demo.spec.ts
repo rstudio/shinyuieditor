@@ -25,4 +25,17 @@ test("Live Demo loads and can be navigated", async ({ page }) => {
 
   // Make sure the main view has loaded by looking for the "Elements" section
   await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+
+  // Make sure tour mode works
+  // Click "Tour App" button
+  await page.getByRole("button", { name: "Tour App" }).click();
+
+  // Make sure that the tour has started
+  await expect(page.getByRole("alertdialog")).toBeVisible();
+
+  // Close the tour with the X button
+  await page.getByLabel("Close").click();
+
+  // Make sure that the tour has closed
+  await expect(page.getByRole("alertdialog")).not.toBeVisible();
 });
