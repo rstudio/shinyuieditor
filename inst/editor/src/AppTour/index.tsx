@@ -7,6 +7,7 @@ import PngIcon from "../components/Icons";
 import Button from "../components/Inputs/Button/Button";
 import styles from "../DragAndDropHelpers/DropWatcherPanel.module.css";
 import { useMetaData } from "../state/metaData";
+import { mergeClasses } from "../utils/mergeClasses";
 
 export function AppTour() {
   const [stepIndex, setStepIndex] = React.useState(0);
@@ -82,13 +83,19 @@ export function AppTour() {
             </p>
             <p>
               In the app view, the areas available for the element to be dropped
-              in will pulse with an{" "}
+              in will pulse orange:{" "}
               <span
-                className={styles.can_accept_drop}
+                className={mergeClasses(
+                  styles.can_accept_drop,
+                  "text-transparent"
+                )}
+                // Ignore for screen readers
+                aria-hidden="true"
                 style={{ padding: "2px" }}
               >
-                orange outline.
+                drop
               </span>
+              .
             </p>
           </div>
         ),
