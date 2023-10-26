@@ -4,6 +4,10 @@
 
 - Tour works again in website live-demo mode
 
+### Bug fixes
+
+- Deleting the element in the value slot of a Value Box no longer causes a crash. (#241)
+
 # 0.5.1
 
 ### Major changes
