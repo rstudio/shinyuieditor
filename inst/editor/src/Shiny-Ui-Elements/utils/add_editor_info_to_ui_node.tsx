@@ -5,10 +5,14 @@ import type { NodeInfoById } from "../../ui-node-definitions";
 import { node_info_by_id } from "../../ui-node-definitions";
 import type { NodePath } from "../../ui-node-definitions/NodePath";
 import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
+import type { NamedArgsObject } from "../../ui-node-definitions/uiNodeTypes";
 
-export function addEditorInfoToUiNode<
-  Info extends { example_args?: unknown; takesChildren: boolean }
->(
+/**
+ * Info about a node with just what's needed for these editor functions
+ */
+type AbridgedInfo = { example_args: NamedArgsObject; takesChildren: boolean };
+
+export function addEditorInfoToUiNode<Info extends AbridgedInfo>(
   info: Info,
   editor_info: {
     /**
@@ -72,12 +76,11 @@ export function addEditorInfoById<Id extends keyof NodeInfoById>(
   };
 }
 
-export type ArgsFromInfo<Info extends { example_args?: unknown }> =
-  Info extends {
-    example_args?: infer Args;
-  }
-    ? Args
-    : never;
+export type ArgsFromInfo<Info extends AbridgedInfo> = Info extends {
+  example_args?: infer Args;
+}
+  ? Args
+  : never;
 
 /**
  * Type of component defining the app view of a given ui node
@@ -95,9 +98,7 @@ export type UiNodeComponent<
     : {})
 ) => JSX.Element;
 
-export type UiComponentFromInfo<
-  Info extends { example_args?: unknown; takesChildren: boolean }
-> = UiNodeComponent<
-  Required<Info["example_args"]>,
+export type UiComponentFromInfo<Info extends AbridgedInfo> = UiNodeComponent<
+  Info["example_args"],
   { TakesChildren: Info["takesChildren"] }
 >;
