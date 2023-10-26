@@ -59,7 +59,7 @@ const ValueBox: UiComponentFromInfo<typeof value_box> = ({
           <div>
             <DropWatcherPanel
               className={
-                namedArgs.value.id === "textNode" ? "text-[1.5rem]" : ""
+                namedArgs.value?.id === "textNode" ? "text-[1.5rem]" : ""
               }
               existing_node={namedArgs.value}
               child_loc={"value"}

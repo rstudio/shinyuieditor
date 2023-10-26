@@ -20,7 +20,7 @@ export const value_box = nodeInfoFactory<{
   title: string;
   showcase_icon?: string;
   showcase?: unknown;
-  value: ShinyUiNode;
+  value?: ShinyUiNode;
   showcase_layout?: keyof typeof layout_dir_to_code;
 }>()({
   id: "value_box",
@@ -76,6 +76,7 @@ export const value_box = nodeInfoFactory<{
     },
     value: {
       inputType: "ui-node",
+      optional: true,
       defaultValue: {
         id: "textNode",
         namedArgs: {
