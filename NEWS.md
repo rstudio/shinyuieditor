@@ -1,3 +1,9 @@
+# Development version
+
+### Minor new features and improvements
+
+- Tour works again in website live-demo mode
+
 # 0.5.1
 
 ### Major changes
