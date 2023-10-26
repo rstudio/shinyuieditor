@@ -1,26 +1,19 @@
 /* eslint-disable no-console */
 import type { BackendConnection } from "communication-types";
-import type { LanguageMode } from "communication-types/src/AppInfo";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
-
-// import { pythonSidebarAndTabs as devModeTree } from "ui-node-definitions/src/sample_ui_trees/pythonSidebarAndTabs";
 
 import {
   setupStaticBackend,
   ui_tree_to_script,
 } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
+import { devModeApp, devModeLanguage } from "./devModeApp";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
-// import { basicNavbarPage as devModeTree } from "./ui-node-definitions/sample_ui_trees/basicNavbarPage";
-// import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
-// import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
-const devModeApp = "TEMPLATE_CHOOSER";
 
-const language: LanguageMode = "R";
 const app_script =
   DEV_MODE && typeof devModeApp !== "string"
-    ? ui_tree_to_script({ ui_tree: devModeApp, language })
+    ? ui_tree_to_script({ ui_tree: devModeApp, language: devModeLanguage })
     : devModeApp;
 
 const showMessages = true;
@@ -40,7 +33,7 @@ const showMessages = true;
         ? setupStaticBackend({
             messageDispatch,
             showMessages,
-            defaultInfo: { language, app_script },
+            defaultInfo: { language: devModeLanguage, app_script },
           })
         : websocketDispatch;
 
