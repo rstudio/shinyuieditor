@@ -3,6 +3,11 @@ import type { CSSProperties } from "react";
 import icon from "../../../assets/icons/shinyValueBox.png";
 import { PopoverButton } from "../../../components/Inputs/PopoverButton";
 import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsSimple";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../../../components/PopoverEl/FloatingPopover";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { InputLabelWrapper } from "../../../SettingsPanel/SettingsInput/SettingsInput";
 import { value_box } from "../../../ui-node-definitions/Bslib/value_box";
@@ -64,9 +69,11 @@ const ValueBox: UiComponentFromInfo<typeof value_box> = ({
               existing_node={namedArgs.value}
               child_loc={"value"}
               parentPath={path}
+              visibleWhenEmpty={true}
               messageOnHover={
                 namedArgs.value ? "Replace value" : "Drop a value node here"
               }
+              placeHolder={<EmptyValuePlaceholder />}
               parentNodeType="value_box"
             />
           </div>
@@ -81,6 +88,21 @@ const ValueBox: UiComponentFromInfo<typeof value_box> = ({
     </div>
   );
 };
+
+function EmptyValuePlaceholder() {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="opacity-70 italic h-10 border grid place-content-center">
+          No value present
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        Drag content here to set the value box's main value field.
+      </TooltipContent>
+    </Tooltip>
+  );
+}
 
 export const bslibValueBoxInfo = addEditorInfoToUiNode(value_box, {
   iconSrc: icon,
