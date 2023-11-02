@@ -1,0 +1,38 @@
+---
+import { cn } from "@/lib/utils";
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const lowestDepth = headings.reduce(
+  (acc, { depth }) => Math.min(acc, depth),
+  Infinity
+);
+---
+
+<div class="w-fit max-w-full p-2 mb-10">
+  <span class="font-medium mb-2 mt-0 text-xl block">On this page</span>
+
+  {
+    headings.map(({ slug, text, depth }) => (
+      <div
+        class={cn(
+          "text-base leading-8",
+          "no-underline border-l-2  hover:underline hover:border-rstudio-blue "
+        )}
+        style={{ paddingInlineStart: `${depth - lowestDepth + 1}rem` }}
+      >
+        <a
+          href={`#${slug}`}
+          class="no-underline font-normal text-[--tw-prose-body]"
+        >
+          {text}
+        </a>
+      </div>
+    ))
+  }
+</div>

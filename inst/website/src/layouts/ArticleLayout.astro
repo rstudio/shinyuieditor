@@ -12,10 +12,11 @@ type Props = MarkdownLayoutProps<{
 
 // Now, `frontmatter`, `url`, and other Markdown layout properties
 // are accessible with type safety
-const { frontmatter, url } = Astro.props;
+const { frontmatter, url, headings } = Astro.props;
 
 import "@/styles/globals.css";
 import { internalLink } from "@/lib/utils";
+import TOC from "@/components/TOC.astro";
 ---
 
 <html>
@@ -23,19 +24,20 @@ import { internalLink } from "@/lib/utils";
     <meta charset="UTF-8" />
     <meta name="description" content="ShinyUiEditor Article" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href={internalLink("favicon.svg")}  />
+    <link rel="icon" type="image/svg+xml" href={internalLink("favicon.svg")} />
     <meta name="generator" content={Astro.generator} />
     <title>{`SUE | ${frontmatter.title}`}</title>
   </head>
   <body>
-    <Header  />
+    <Header />
+
     <MarkdownContainer>
       <h1>{frontmatter.title}</h1>
+      <TOC headings={headings} />
       <slot />
       <p class="text-right italic py-6">
         Written on: {frontmatter.date} by {frontmatter.author}
       </p>
     </MarkdownContainer>
-    
   </body>
 </html>
