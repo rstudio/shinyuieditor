@@ -120,3 +120,101 @@ test("Switching between two inputs doesn't swap their values", async ({
     "head(faithful, input$numRows1)"
   );
 });
+
+const twoCheckboxesApp = `library(shiny)
+library(plotly)
+library(gridlayout)
+library(bslib)
+
+ui <- grid_page(
+  layout = c(
+    "sidebar"
+  ),
+  gap_size = "1rem",
+  col_sizes = c(
+    "1fr"
+  ),
+  row_sizes = c(
+    "1fr"
+  ),
+  grid_card(
+    area = "sidebar",
+    card_body(
+      checkboxGroupInput(
+        inputId = "a",
+        label = "Group A",
+        choices = list("choice a" = "a", "choice b" = "b")
+      ),
+      checkboxGroupInput(
+        inputId = "myCheckboxGroup",
+        label = "Group B",
+        choices = list("choice a" = "a", "choice b" = "b")
+      )
+    )
+  )
+)
+
+
+server <- function(input, output) {
+   
+}
+
+shinyApp(ui, server)`;
+test("Id input doesn't reflect previous input's values", async ({ page }) => {
+  await startupMockedApp(page, { app_script: twoCheckboxesApp, language: "R" });
+
+  // Select the first checkbox
+  await page.click("text=Group A");
+
+  // Make sure the inputId says "a"
+  await expect(page.getByLabel("InputId")).toHaveValue("a");
+
+  // Select the second checkbox group
+  await page.click("text=Group B");
+
+  // Make sure the inputId says "myCheckboxGroup"
+  await expect(page.getByLabel("InputId")).toHaveValue("myCheckboxGroup");
+
+  // Now set a new value for the checkbox id.
+  await page.getByLabel("InputId").fill("newId");
+
+  // Switching back to the first group the id should still be "a"
+  await page.click("text=Group A");
+  await expect(page.getByLabel("InputId")).toHaveValue("a");
+
+  // And going back to B we should still have "newId"
+  await page.click("text=Group B");
+  await expect(page.getByLabel("InputId")).toHaveValue("newId");
+
+  // Now we can get the id into an invalid state by deleting all the characters one by one
+  await page.getByLabel("InputId").fill("");
+
+  // Switching back to the first group the id should still be "a"
+  await page.click("text=Group A");
+  await expect(page.getByLabel("InputId")).toHaveValue("a");
+
+  // Now going back to B we should have it say "newId" as we left it in an
+  // invalid state and thus never triggered an update
+  await page.click("text=Group B");
+  await expect(page.getByLabel("InputId")).toHaveValue("newId");
+
+  // Going back to group A we can try and set its id to newId also which should again be an error state
+  await page.click("text=Group A");
+  // First select the input id field
+  const inputId = page.getByLabel("InputId");
+  await inputId.click();
+
+  // Then erase to empty on the keyboard
+  await page.keyboard.down("Backspace");
+
+  // Then type out newId on the keyboard
+  await inputId.pressSequentially("newId");
+
+  // Then click on the second group
+  await page.click("text=Group B");
+  // Then back to group A
+  await page.click("text=Group A");
+  // Now we should have the ID be "newI" because the last digit was never
+  // committed to the input
+  await expect(page.getByLabel("InputId")).toHaveValue("newI");
+});
