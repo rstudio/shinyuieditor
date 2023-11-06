@@ -7,6 +7,7 @@
 ### Bug fixes
 
 - Deleting the element in the value slot of a Value Box no longer causes a crash. (#241)
+- Switching between two elements of the same input or output type no longer causes the ID field to take the value of the _previous_ element. (#245)
 
 # 0.5.1
 
