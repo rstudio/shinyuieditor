@@ -63,9 +63,9 @@ export function IdInput({
 
   const bindingIds = getAllInputOutputIdsInApp(ui_tree);
 
-  const updateValue = (newValue: string) => {
+  const handleNewValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Replace spaces with underscores
-    newValue = newValue.replace(/ /g, "_");
+    const newValue = e.target.value.replace(/ /g, "_");
 
     // Check if the requested new value is already in use and set invalid if it is
     const isTakenId = bindingIds.includes(newValue) && newValue !== value;
@@ -121,9 +121,7 @@ export function IdInput({
           // the way to an empty field getting stuck writing out an id that
           // contains another id as a prefix
           value={isInvalid ? tempValue : value}
-          onChange={(e) => {
-            updateValue(e.target.value);
-          }}
+          onChange={handleNewValue}
           type="text"
         />
         {boundToServer && (
