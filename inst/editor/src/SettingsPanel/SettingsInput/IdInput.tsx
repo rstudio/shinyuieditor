@@ -32,14 +32,17 @@ export function IdInput({
   // since this is a leaf node
   const appInfo = useCurrentAppInfo();
   const updateServerCode = useUpdateServerCode();
-
   const serverNodes = useCurrentServerNodes();
 
   const [syncStatus, setSyncStatus] = React.useState<
     "synced" | "unsynced" | null
   >(null);
-  const [currValue, setCurrValue] = React.useState(value);
   const [invalidMsg, setInvalidMsg] = React.useState<null | string>(null);
+
+  // TempValue is used to store the value of the input when it is invalid. This
+  // is used to prevent the input from getting stuck in an invalid state if the
+  // user deletes all the way to an empty string etc...
+  const [tempValue, setTempValue] = React.useState<string | null>(null);
 
   // Check if the current value exists in the server locations
   const locationsOfId = getLocationsInServerOfId(value, serverNodes);
@@ -60,28 +63,31 @@ export function IdInput({
 
   const bindingIds = getAllInputOutputIdsInApp(ui_tree);
 
-  const updateValue = (newValue: string) => {
-    // Check if the requested new value is already in use and set invalid if it is
-    const takenId = bindingIds.includes(newValue) && newValue !== value;
-
+  const handleNewValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Replace spaces with underscores
-    newValue = newValue.replace(/ /g, "_");
+    const newValue = e.target.value.replace(/ /g, "_");
 
-    setCurrValue(newValue);
+    // Check if the requested new value is already in use and set invalid if it is
+    const isTakenId = bindingIds.includes(newValue) && newValue !== value;
+    const isEmptyId = newValue === "";
 
-    if (takenId) {
+    if (isTakenId) {
       setInvalidMsg(`The id ${newValue} is already taken`);
-      return;
     }
 
     // If the id is empty, don't send that as that's not a valid ID
-    if (newValue === "") {
+    if (isEmptyId) {
       setInvalidMsg("ID cannot be empty");
+    }
+
+    if (isTakenId || isEmptyId) {
+      setTempValue(newValue);
       return;
     }
 
     onChange(newValue);
     setInvalidMsg(null);
+    setTempValue(null);
 
     if (syncStatus === "synced" && locationsOfId !== null) {
       updateServerCode((oldScript) => {
@@ -98,27 +104,26 @@ export function IdInput({
     }
   };
 
-  const isInvalid = invalidMsg !== null;
-
-  const common_props = {
-    className: "SUE-Input",
-    "aria-label": label,
-    "aria-labelledby": makeLabelId(id),
-    "aria-invalid": isInvalid,
-    autoComplete: "off",
-    id,
-    value: currValue,
-    onChange: (
-      e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => {
-      updateValue(e.target.value);
-    },
-  };
+  const isInvalid = typeof tempValue === "string";
 
   return (
     <>
       <div className="flex items-center gap-1">
-        <input {...common_props} type="text" />
+        <input
+          className="SUE-Input"
+          aria-label={label}
+          aria-labelledby={makeLabelId(id)}
+          aria-invalid={isInvalid}
+          id={id}
+          // If the tempValue is not null we must be in an invalid state and
+          // should show that value instead of the real real one so users can
+          // fix it. This prevents the input from never letting you delete all
+          // the way to an empty field getting stuck writing out an id that
+          // contains another id as a prefix
+          value={isInvalid ? tempValue : value}
+          onChange={handleNewValue}
+          type="text"
+        />
         {boundToServer && (
           <Tooltip placement="right-start">
             <TooltipTrigger asChild>
