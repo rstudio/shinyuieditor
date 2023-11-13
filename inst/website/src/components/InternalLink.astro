@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  
+}
+
+const { href  } = Astro.props;
+
+
+
+import { internalLink } from "@/lib/utils";
+
+---
+
+
+<a href={internalLink(href)}>
+  <slot />
+</a>
