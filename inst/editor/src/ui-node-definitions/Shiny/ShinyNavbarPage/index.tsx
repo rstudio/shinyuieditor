@@ -7,8 +7,8 @@ import UiNode from "../../../components/UiNode/UiNode";
 import { useLanguageMode } from "../../../state/languageMode";
 import { getTabPanelTitle } from "../../Bslib/page_navbar";
 import { SidebarDropWatcherPanel } from "../../Bslib/SidebarDropWatcherPanel";
-import { makeChildPath, pathToString } from "../../nodePathUtils";
 import { addEditorInfoById } from "../../utils/add_editor_info_to_ui_node";
+import { makeChildPath, pathToString } from "../../utils/nodePathUtils";
 
 export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {
   UiComponent: ({

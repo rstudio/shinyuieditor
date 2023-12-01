@@ -1,11 +1,12 @@
 import type { useMakeWrapperProps } from "../../components/UiNode/useMakeWrapperProps";
 import type { CustomFormRenderFn } from "../../SettingsPanel/FormBuilder";
 import type { UpdateAction, DeleteAction } from "../../state/app_info";
-import type { NodeInfoById } from "..";
-import { node_info_by_id } from "..";
 import type { NodePath } from "../NodePath";
 import type { ShinyUiNode } from "../ShinyUiNode";
+import { node_info_by_id } from "../uiNodeTypes";
 import type { NamedArgsObject } from "../uiNodeTypes";
+
+export type NodeInfoById = typeof node_info_by_id;
 
 /**
  * Info about a node with just what's needed for these editor functions

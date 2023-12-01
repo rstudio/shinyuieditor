@@ -1,7 +1,7 @@
 import { is_object } from "util-functions/src/is_object";
 
-import type { ShinyUiNode } from "./ShinyUiNode";
-import { shinyids } from "./uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
+import { shinyids } from "../uiNodeTypes";
 
 /**
  * Check if a value is a shiny ui node in the sense that it has a `id` and

@@ -1,4 +1,4 @@
-import type { NodePath, PathElement } from "./NodePath";
+import type { NodePath, PathElement } from "../NodePath";
 
 export function makeChildPath(
   path: NodePath,

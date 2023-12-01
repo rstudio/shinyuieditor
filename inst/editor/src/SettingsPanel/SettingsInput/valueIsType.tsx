@@ -4,7 +4,7 @@ import type {
   KnownInputFieldTypes,
   InputTypeNames,
 } from "../../ui-node-definitions/inputFieldTypes";
-import { isShinyUiNode } from "../../ui-node-definitions/isShinyUiNode";
+import { isShinyUiNode } from "../../ui-node-definitions/utils/isShinyUiNode";
 
 // import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
 

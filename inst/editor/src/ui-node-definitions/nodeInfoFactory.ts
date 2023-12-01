@@ -7,15 +7,15 @@ import type {
 import type { Primatives } from "../parsing/Primatives";
 import type { Parsed_Kwarg_Node } from "../r-parsing/NodeTypes/KeywordArgNode";
 
-import type {
-  DynamicArgumentInfo,
-  OnlyStaticSettingsInfo,
-} from "./buildStaticSettingsInfo";
-import { getOrderedPositionalArgs } from "./get_ordered_positional_args";
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type { input_action_button } from "./Shiny/input_action_button";
 import type { ShinyUiNode } from "./ShinyUiNode";
 import type { NamedArgsObject } from "./uiNodeTypes";
+import type {
+  DynamicArgumentInfo,
+  OnlyStaticSettingsInfo,
+} from "./utils/buildStaticSettingsInfo";
+import { getOrderedPositionalArgs } from "./utils/get_ordered_positional_args";
 
 /**
  * Info on server binding for a node. This is used for checking for server

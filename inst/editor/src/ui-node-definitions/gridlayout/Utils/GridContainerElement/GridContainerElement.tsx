@@ -4,6 +4,8 @@ import UiNode from "../../../../components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "../../../../DragAndDropHelpers/DragAndDropHelpers";
 import { DropWatcherPanel } from "../../../../DragAndDropHelpers/DropWatcherPanel";
 import { usePlaceNode } from "../../../../state/usePlaceNode";
+import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
+import { makeChildPath } from "../../../utils/nodePathUtils";
 import type { GridLayoutArgs } from "../../GridLayoutArgs";
 import { findEmptyCells } from "../../gridTemplates/findItemLocation";
 import { areasToItemLocations } from "../../gridTemplates/itemLocations";
@@ -15,8 +17,6 @@ import type { TemplatedGridProps } from "../../gridTemplates/TemplatedGridProps"
 import type { GridItemExtent } from "../../gridTemplates/types";
 import { isValidGridItem } from "../../isValidGridItem";
 import { makeGridFriendlyNode } from "../../makeGridFriendlyNode";
-import { makeChildPath } from "../../../nodePathUtils";
-import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import { NameNewPanelModal } from "../NameNewPanelModal";

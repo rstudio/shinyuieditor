@@ -5,7 +5,7 @@ import {
   is_string_node,
   extract_string_content,
 } from "../../r-parsing/NodeTypes/StringNode";
-import { makeUnknownUiFunction } from "../make_unknown_ui_function";
+import { makeUnknownUiFunction } from "../internal/UnknownUiFunction/make_unknown_ui_function";
 import type { PreprocessedArgNode } from "../nodeInfoFactory";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiNode } from "../ShinyUiNode";

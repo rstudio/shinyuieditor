@@ -1,6 +1,7 @@
+import type { ShinyUiNode } from "../ShinyUiNode";
+import { isParentNode } from "../ShinyUiNode";
+
 import { isShinyUiNode } from "./isShinyUiNode";
-import type { ShinyUiNode } from "./ShinyUiNode";
-import { isParentNode } from "./ShinyUiNode";
 
 /**
  * Walk a ui node tree and run a callback on each node.

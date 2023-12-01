@@ -5,13 +5,13 @@ import { DropWatcherPanel } from "../DragAndDropHelpers/DropWatcherPanel";
 
 import styles from "./ChildrenWithDropNodes.module.css";
 import type { NodePath } from "./NodePath";
-import { makeChildPath } from "./nodePathUtils";
 import type { ShinyUiParentNode } from "./ShinyUiNode";
 import type {
   ShinyUiNodeIds,
   KnownShinyUiNode,
   NodeInfoByRPackage,
 } from "./uiNodeTypes";
+import { makeChildPath } from "./utils/nodePathUtils";
 
 /**
  * Render Ui Children along with drop nodes between children. Used in situations

@@ -1,7 +1,7 @@
 import type { ParserNode } from "treesitter-parsers";
 import { extract_call_content, is_call_node } from "treesitter-parsers";
 
-import { makeUnknownUiFunction } from "../ui-node-definitions/make_unknown_ui_function";
+import { makeUnknownUiFunction } from "../ui-node-definitions/internal/UnknownUiFunction/make_unknown_ui_function";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { pyFnNameToNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 

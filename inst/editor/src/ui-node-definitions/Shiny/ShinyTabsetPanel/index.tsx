@@ -3,8 +3,8 @@ import Tabset from "../../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../../components/UiNode/UiNode";
 import icon from "../../assets/icons/tabsetPanel.png";
 import { getTabPanelTitle } from "../../Bslib/page_navbar";
-import { makeChildPath, pathToString } from "../../nodePathUtils";
 import { addEditorInfoById } from "../../utils/add_editor_info_to_ui_node";
+import { makeChildPath, pathToString } from "../../utils/nodePathUtils";
 
 export const shinyTabsetPanelInfo = addEditorInfoById("tabsetPanel", {
   UiComponent: ({ namedArgs, children, path, wrapperProps }) => {

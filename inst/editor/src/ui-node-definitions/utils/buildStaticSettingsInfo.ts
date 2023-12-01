@@ -7,8 +7,8 @@ import type {
   NonDynamicArgs,
   StaticInputOptions,
   StaticInputOptionsByInputType,
-} from "./inputFieldTypes";
-import type { ShinyUiNode } from "./ShinyUiNode";
+} from "../inputFieldTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 type ConvertToStatic<ArgsInfo extends Record<string, Record<string, unknown>>> =
   {

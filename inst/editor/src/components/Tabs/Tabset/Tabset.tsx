@@ -6,9 +6,9 @@ import { seqArray } from "util-functions/src/arrays";
 import { useCurrentSelection } from "../../../state/selectedPath";
 import { usePlaceNode } from "../../../state/usePlaceNode";
 import type { NodePath } from "../../../ui-node-definitions/NodePath";
-import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
 import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 import { nodeDepth } from "../../../ui-node-definitions/TreeManipulation/nodeDepth";
+import { makeChildPath } from "../../../ui-node-definitions/utils/nodePathUtils";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { PopoverButton } from "../../Inputs/PopoverButton";
 

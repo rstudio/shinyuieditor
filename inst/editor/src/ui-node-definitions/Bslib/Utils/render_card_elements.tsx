@@ -4,8 +4,8 @@ import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import type { NodePath } from "../../NodePath";
-import { makeChildPath } from "../../nodePathUtils";
 import type { ShinyUiParentNode } from "../../ShinyUiNode";
+import { makeChildPath } from "../../utils/nodePathUtils";
 
 import styles from "./CardUtils.module.css";
 

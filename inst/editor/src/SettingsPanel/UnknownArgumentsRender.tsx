@@ -8,7 +8,7 @@ import {
   TooltipContent,
 } from "../components/PopoverEl/FloatingPopover";
 import type { UnknownUiNode } from "../ui-node-definitions/internal/UnknownUiFunction/unknown_code";
-import { isKnownShinyUiNode } from "../ui-node-definitions/isShinyUiNode";
+import { isKnownShinyUiNode } from "../ui-node-definitions/utils/isShinyUiNode";
 
 import type { FormBuilderProps } from "./FormBuilder";
 

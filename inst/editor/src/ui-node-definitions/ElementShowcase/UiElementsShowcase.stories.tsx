@@ -10,14 +10,14 @@ import "../App.css";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
-} from "../SettingsPanel/buildStaticSettingsInfo";
-import { FormBuilder } from "../SettingsPanel/FormBuilder";
-import ReduxProvider from "../state/ReduxProvider";
+} from "../../SettingsPanel/buildStaticSettingsInfo";
+import { FormBuilder } from "../../SettingsPanel/FormBuilder";
+import ReduxProvider from "../../state/ReduxProvider";
+import { getUiNodeInfo } from "../registered_ui_nodes";
+import type { ShinyUiNode } from "../ShinyUiNode";
+import { shinyids } from "../uiNodeTypes";
 
-import { getUiNodeInfo } from "./registered_ui_nodes";
-import type { ShinyUiNode } from "./ShinyUiNode";
 import classes from "./UiElementsShowcase.module.css";
-import { shinyids } from "./uiNodeTypes";
 
 function UiNodeAndSettings({ id, namedArgs }: ShinyUiNode) {
   const [infoToRender, setInfoToRender] = React.useState<{

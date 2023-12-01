@@ -2,8 +2,8 @@
 
 import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
-import { makeChildPath } from "../../nodePathUtils";
 import { addEditorInfoById } from "../../utils/add_editor_info_to_ui_node";
+import { makeChildPath } from "../../utils/nodePathUtils";
 import { RenderUiChildren } from "../../utils/RenderUiChildren";
 
 import classes from "./ShinyLayoutSidebar.module.css";
