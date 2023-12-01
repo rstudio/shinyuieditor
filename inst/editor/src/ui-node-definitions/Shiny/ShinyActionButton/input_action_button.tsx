@@ -55,4 +55,5 @@ export const input_action_button = nodeInfoFactory<{
       </div>
     );
   },
+  iconSrc: buttonIcon,
 });

@@ -79,6 +79,12 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
     py_info?: PyInfo;
     r_info?: RInfo;
 
+    /**
+     * The source of the icon. This comes from the importing of a png. If this is
+     * not provided then the node will not show up in the element palette.
+     */
+    iconSrc?: string;
+
     ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
 
     /**
