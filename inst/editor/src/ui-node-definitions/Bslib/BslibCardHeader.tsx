@@ -1,7 +1,7 @@
-import { card_header } from "../../ui-node-definitions/Bslib/card_header";
-import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
-import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
+import { ChildrenWithDropNodes } from "../../Shiny-Ui-Elements/ChildrenWithDropNodes";
+import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 
+import { card_header } from "./card_header";
 import { CardHeader } from "./Utils/CardElements";
 
 export const bslibCardHeaderInfo = addEditorInfoToUiNode(card_header, {

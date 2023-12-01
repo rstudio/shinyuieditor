@@ -1,13 +1,14 @@
-import { testingErrorNodeInfo } from "./__TestingErrorNode";
 import {
   bslibCardBodyInfo,
-  bslibCardFooterInfo,
   bslibCardHeaderInfo,
   bslibCardInfo,
-} from "./Bslib";
-import { bslibNavPanelInfo } from "./Bslib/NavPanel";
-import { bslibSidebar } from "./Bslib/Sidebar";
-import { bslibValueBoxInfo } from "./Bslib/ValueBox/ValueBox";
+} from "../ui-node-definitions/Bslib";
+import { bslibCardFooterInfo } from "../ui-node-definitions/Bslib/card_footer";
+import { bslibNavPanelInfo } from "../ui-node-definitions/Bslib/NavPanel";
+import { bslibSidebar } from "../ui-node-definitions/Bslib/Sidebar";
+import { bslibValueBoxInfo } from "../ui-node-definitions/Bslib/ValueBox/ValueBox";
+
+import { testingErrorNodeInfo } from "./__TestingErrorNode";
 import { dtDTOutputInfo } from "./DtDtOutput";
 import {
   gridlayoutCardInfo,

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
-import { invalidNavPanelContents } from "../../../Shiny-Ui-Elements/Bslib/NavPanel";
+import { invalidNavPanelContents } from "../../../ui-node-definitions/Bslib/NavPanel";
 import type { NodePath } from "../../../ui-node-definitions/NodePath";
 import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 

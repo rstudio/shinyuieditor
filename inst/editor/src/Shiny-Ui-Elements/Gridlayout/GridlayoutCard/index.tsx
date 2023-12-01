@@ -1,7 +1,7 @@
+import { BslibCardContainer } from "../../../ui-node-definitions/Bslib/BslibCardContainer";
+import { renderCardElements } from "../../../ui-node-definitions/Bslib/Utils/render_card_elements";
 import { grid_card } from "../../../ui-node-definitions/gridlayout/grid_card";
 import type { KnownShinyUiNode } from "../../../ui-node-definitions/uiNodeTypes";
-import { BslibCardContainer } from "../../Bslib/BslibCardContainer";
-import { renderCardElements } from "../../Bslib/Utils/render_card_elements";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";

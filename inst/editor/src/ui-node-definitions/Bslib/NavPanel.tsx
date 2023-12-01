@@ -1,9 +1,10 @@
 // import icon from "../../assets/icons/tabPanel.png";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import { nav_panel } from "../../ui-node-definitions/Bslib/nav_panel";
-import type { ShinyUiNodeIds } from "../../ui-node-definitions/uiNodeTypes";
-import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
-import { RenderUiChildren } from "../utils/RenderUiChildren";
+import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import { RenderUiChildren } from "../../Shiny-Ui-Elements/utils/RenderUiChildren";
+import type { ShinyUiNodeIds } from "../uiNodeTypes";
+
+import { nav_panel } from "./nav_panel";
 
 export const invalidNavPanelContents: ShinyUiNodeIds[] = [
   "navbarPage",

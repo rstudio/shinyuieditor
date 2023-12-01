@@ -1,6 +1,10 @@
+import { ChildrenWithDropNodes } from "../../Shiny-Ui-Elements/ChildrenWithDropNodes";
+import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import type { CSSMeasure } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode } from "../ShinyUiNode";
+
+import { CardBody } from "./Utils/CardElements";
 
 type CardBodyFillSettings = {
   gap?: CSSMeasure;
@@ -56,4 +60,19 @@ export const card_body = nodeInfoFactory<CardBodyFillSettings>()({
   },
   category: "Cards",
   description: "body holder for bslib cards",
+});
+
+export const bslibCardBodyInfo = addEditorInfoToUiNode(card_body, {
+  UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
+    return (
+      <CardBody {...wrapperProps} args={namedArgs}>
+        <ChildrenWithDropNodes
+          children={children}
+          parentPath={path}
+          parentid="card_body"
+          messageOnHover="Add to card body"
+        />
+      </CardBody>
+    );
+  },
 });

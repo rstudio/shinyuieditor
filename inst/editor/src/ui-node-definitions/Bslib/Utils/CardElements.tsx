@@ -1,6 +1,6 @@
-import type { card_body } from "../../../ui-node-definitions/Bslib/card_body";
+import type { ArgsFromInfo } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import type { ArgsFromInfo } from "../../utils/add_editor_info_to_ui_node";
+import type { card_body } from "../card_body";
 
 import styles from "./CardUtils.module.css";
 

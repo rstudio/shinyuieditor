@@ -6,7 +6,7 @@ import { card_footer } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
 import { nav_panel } from "./Bslib/nav_panel";
 import { page_navbar } from "./Bslib/page_navbar";
-import { sidebar } from "./Bslib/sidebar";
+import { sidebar } from "./Bslib/Sidebar";
 import { value_box } from "./Bslib/value_box";
 import { output_dt } from "./DT/output_dt";
 import { grid_card } from "./gridlayout/grid_card";

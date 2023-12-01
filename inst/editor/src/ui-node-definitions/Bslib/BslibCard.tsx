@@ -1,8 +1,8 @@
 import icon from "../../assets/icons/shinyContainer.png";
-import { bslib_card } from "../../ui-node-definitions/Bslib/card";
-import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 
 import { BslibCardContainer } from "./BslibCardContainer";
+import { bslib_card } from "./card";
 import { renderCardElements } from "./Utils/render_card_elements";
 
 export const bslibCardInfo = addEditorInfoToUiNode(bslib_card, {

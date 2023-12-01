@@ -6,11 +6,11 @@ import { NodeWrapper } from "../../components/UiNode/NodeWraper";
 import UiNode from "../../components/UiNode/UiNode";
 import { useLanguageMode } from "../../state/languageMode";
 import { getTabPanelTitle } from "../../ui-node-definitions/Bslib/page_navbar";
+import { SidebarDropWatcherPanel } from "../../ui-node-definitions/Bslib/SidebarDropWatcherPanel";
 import {
   makeChildPath,
   pathToString,
 } from "../../ui-node-definitions/nodePathUtils";
-import { SidebarDropWatcherPanel } from "../Bslib/SidebarDropWatcherPanel";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
 export const shinyNavbarPageInfo = addEditorInfoById("navbarPage", {

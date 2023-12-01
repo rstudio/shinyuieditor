@@ -1,15 +1,73 @@
 import { useState } from "react";
+import React from "react";
 
 import { ChevronLeft } from "react-bootstrap-icons";
 
 import { NodeWrapper } from "../../components/UiNode/NodeWraper";
+import { ChildrenWithDropNodes } from "../../Shiny-Ui-Elements/ChildrenWithDropNodes";
+import { addEditorInfoById } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { useSetCurrentSelection } from "../../state/selectedPath";
-import { getParentPath } from "../../ui-node-definitions/TreeManipulation/getParentPath";
 import { mergeClasses } from "../../utils/mergeClasses";
-import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
-import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
+import type { CSSMeasure } from "../inputFieldTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
+import { getParentPath } from "../TreeManipulation/getParentPath";
 
-import classes from "./Sidebar.module.css";
+import classes from "./BslibCard.module.css";
+
+export const sidebar = nodeInfoFactory<{
+  title: string;
+  open?: "desktop" | "open" | "closed" | "always";
+  width?: CSSMeasure;
+  id?: string;
+}>()({
+  id: "sidebar",
+  r_info: {
+    fn_name: "sidebar",
+    package: "bslib",
+  },
+  py_info: {
+    fn_name: "ui.sidebar",
+    package: "shiny",
+  },
+  title: "Sidebar",
+  takesChildren: true,
+  settingsInfo: {
+    title: {
+      inputType: "string",
+      label: "Title",
+      defaultValue: "Sidebar Title",
+    },
+    id: {
+      inputType: "id",
+      label: "Id for tabset",
+      defaultValue: "tabset-default-id",
+      optional: true,
+    },
+    open: {
+      inputType: "radio",
+      label: "Initial open state",
+      defaultValue: "desktop",
+      choices: {
+        desktop: { label: "Desktop" },
+        open: { label: "Open" },
+        closed: { label: "Closed" },
+        always: { label: "Always" },
+      },
+      optionsPerColumn: 2,
+      optional: true,
+    },
+    width: {
+      inputType: "cssMeasure",
+      label: "Width",
+      defaultValue: "250px",
+      units: ["px", "rem"],
+      optional: true,
+    },
+  },
+  category: "Layout",
+  description: "Collapsible sidebar",
+  allowedParents: ["navbarPage"],
+});
 
 export const bslibSidebar = addEditorInfoById("sidebar", {
   UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {

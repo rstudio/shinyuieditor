@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/experimental-ct-react";
 
-import { IconSelector } from "../../src/Shiny-Ui-Elements/Bslib/ValueBox/IconSelector";
+import { IconSelector } from "../../src/ui-node-definitions/Bslib/ValueBox/IconSelector";
 
 test("Can choose icons with search", async ({ mount, page }) => {
   let chosen_icon: string | null = null;
