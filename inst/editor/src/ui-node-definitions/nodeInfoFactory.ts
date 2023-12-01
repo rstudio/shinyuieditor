@@ -87,7 +87,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
      */
     iconSrc?: string;
 
-    ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
+    ui_component: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
     settingsFormRender?: CustomFormRenderFn<Args>;
 
     /**
@@ -161,7 +161,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       py_info: undefined extends PyInfo ? never : PyInfo;
       r_info: undefined extends RInfo ? never : RInfo;
       category: Cat;
-      ui_comopnent?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
+      ui_component: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
     } & Required<CommonInfo<Args, TakesChildren>> &
       ComputedInfo;
   };
