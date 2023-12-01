@@ -28,6 +28,7 @@ type ServerBindingInfo = {
   argType: "input" | "output";
 };
 
+// Add a new link to factory pattern from typescript course
 /**
  * Typescript factory function that takes as a type parameter the arguments type
  * for your node and then produces a function that will type check the info
