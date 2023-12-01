@@ -8,6 +8,7 @@ import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperPro
 import type { Primatives } from "../parsing/Primatives";
 import type { Parsed_Kwarg_Node } from "../r-parsing/NodeTypes/KeywordArgNode";
 import type { CustomFormRenderFn } from "../SettingsPanel/FormBuilder";
+import type { UpdateAction, DeleteAction } from "../state/app_info";
 
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type { NodePath } from "./NodePath";
@@ -88,6 +89,14 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
 
     ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
     settingsFormRender?: CustomFormRenderFn<Args>;
+
+    /**
+     * Optional update subscribers
+     */
+    stateUpdateSubscribers?: {
+      UPDATE_NODE?: UpdateAction;
+      DELETE_NODE?: DeleteAction;
+    };
 
     /**
      * What category does this node belong to? If left blank will default to
