@@ -2,11 +2,16 @@ import * as React from "react";
 
 import { GoGraph } from "react-icons/go";
 
+import type { CSSMeasure } from "../../inputFieldTypes";
 import { InputOutputTitle } from "../../utils/InputOutputTitle";
 
-import type { ShinyPlotOutputProps } from "./index";
-
 import classes from "./styles.module.css";
+
+type ShinyPlotOutputProps = {
+  outputId: string;
+  width?: CSSMeasure;
+  height?: CSSMeasure;
+};
 
 export function StaticPlotPlaceholder({ outputId }: ShinyPlotOutputProps) {
   const plotHolderRef = React.useRef<HTMLDivElement>(null);

@@ -6,8 +6,8 @@ import sliderIcon from "../../assets/icons/shinySlider.png";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { InputOutputTitle } from "../../utils/InputOutputTitle";
-import { input_slider } from "../input_slider";
 
+import { input_slider } from "./input_slider";
 import classes from "./styles.module.css";
 
 const ShinySliderInput: UiComponentFromInfo<typeof input_slider> = ({

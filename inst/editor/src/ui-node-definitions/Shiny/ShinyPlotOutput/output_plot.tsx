@@ -1,5 +1,8 @@
-import type { CSSMeasure } from "../inputFieldTypes";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import type { CSSMeasure } from "../../inputFieldTypes";
+import { nodeInfoFactory } from "../../nodeInfoFactory";
+
+import { StaticPlotPlaceholder } from "./StaticPlotPlaceholder";
+import classes from "./styles.module.css";
 
 export const output_plot = nodeInfoFactory<{
   outputId: string;
@@ -51,4 +54,18 @@ export const output_plot = nodeInfoFactory<{
   },
   category: "Outputs",
   description: "Render a `renderPlot()` within an application page.",
+  ui_component: ({
+    namedArgs: { outputId, width, height = "400px" },
+    wrapperProps,
+  }) => {
+    return (
+      <div
+        className={classes.container}
+        style={{ height, width }}
+        {...wrapperProps}
+      >
+        <StaticPlotPlaceholder outputId={outputId} />
+      </div>
+    );
+  },
 });

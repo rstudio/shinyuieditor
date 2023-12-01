@@ -1,8 +1,8 @@
 import type { CSSMeasure } from "../../../components/Inputs/CSSUnitInput/CSSMeasure";
 import plotIcon from "../../assets/icons/shinyPlot.png";
 import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
-import { output_plot } from "../output_plot";
 
+import { output_plot } from "./output_plot";
 import { StaticPlotPlaceholder } from "./StaticPlotPlaceholder";
 import classes from "./styles.module.css";
 
