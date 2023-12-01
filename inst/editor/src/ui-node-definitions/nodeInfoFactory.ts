@@ -4,11 +4,13 @@ import type {
   PickKeyFn,
 } from "util-functions/src/TypescriptUtils";
 
+import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { Primatives } from "../parsing/Primatives";
 import type { Parsed_Kwarg_Node } from "../r-parsing/NodeTypes/KeywordArgNode";
 
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
-import type { input_action_button } from "./Shiny/input_action_button";
+import type { NodePath } from "./NodePath";
+import type { input_action_button } from "./Shiny/ShinyActionButton/input_action_button";
 import type { ShinyUiNode } from "./ShinyUiNode";
 import type { NamedArgsObject } from "./uiNodeTypes";
 import type {
@@ -27,6 +29,22 @@ type ServerBindingInfo = {
   argName: string;
   argType: "input" | "output";
 };
+
+/**
+ * Type of component defining the app view of a given ui node
+ */
+export type UiNodeComponent<
+  NodeSettings extends object,
+  Opts extends { TakesChildren: boolean }
+> = (
+  props: {
+    namedArgs: NodeSettings;
+    path: NodePath;
+    wrapperProps: ReturnType<typeof useMakeWrapperProps>;
+  } & (Opts["TakesChildren"] extends true
+    ? { children: Array<ShinyUiNode> }
+    : {})
+) => JSX.Element;
 
 // Add a new link to factory pattern from typescript course
 /**
@@ -60,6 +78,8 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
 
     py_info?: PyInfo;
     r_info?: RInfo;
+
+    ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
 
     /**
      * What category does this node belong to? If left blank will default to
@@ -124,6 +144,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       py_info: undefined extends PyInfo ? never : PyInfo;
       r_info: undefined extends RInfo ? never : RInfo;
       category: Cat;
+      ui_comopnent?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
     } & Required<CommonInfo<Args, TakesChildren>> &
       ComputedInfo;
   };

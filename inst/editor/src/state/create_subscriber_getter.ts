@@ -1,4 +1,4 @@
-import { registered_ui_nodes } from "../ui-node-definitions/registered_ui_nodes";
+import { registered_ui_nodes } from "../ui-node-definitions/uiNodeTypes";
 
 import type { UpdateAction, DeleteAction } from "./app_info";
 

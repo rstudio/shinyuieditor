@@ -1,25 +1,41 @@
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
+import { bslibCardBodyInfo, bslibCardHeaderInfo, bslibCardInfo } from "./Bslib";
 import { bslib_card } from "./Bslib/card";
 import { card_body } from "./Bslib/card_body";
 import { card_footer } from "./Bslib/card_footer";
+import { bslibCardFooterInfo } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
 import { nav_panel } from "./Bslib/nav_panel";
+import { bslibNavPanelInfo } from "./Bslib/NavPanel";
 import { page_navbar } from "./Bslib/page_navbar";
 import { sidebar } from "./Bslib/Sidebar";
+import { bslibSidebar } from "./Bslib/Sidebar";
 import { value_box } from "./Bslib/value_box";
+import { bslibValueBoxInfo } from "./Bslib/ValueBox/ValueBox";
+import { dtDTOutputInfo } from "./DT";
 import { output_dt } from "./DT/output_dt";
+import {
+  gridlayoutCardInfo,
+  gridlayoutGridCardPlotInfo,
+  gridlayoutGridContainerInfo,
+  gridlayoutGridPageInfo,
+  gridlayoutTextPanelInfo,
+} from "./gridlayout";
 import { grid_card } from "./gridlayout/GridlayoutCard/grid_card";
 import { grid_card_text } from "./gridlayout/GridlayoutCardText/grid_card_text";
 import { grid_card_plot } from "./gridlayout/GridlayoutGridCardPlot/grid_card_plot";
 import { grid_container } from "./gridlayout/GridlayoutGridContainer/grid_container";
 import { grid_page } from "./gridlayout/GridlayoutGridPage/grid_page";
+import { testingErrorNodeInfo } from "./internal/__TestingErrorNode";
 import { testing_error_node } from "./internal/__TestingErrorNode/testing_error_node";
+import { textNodeInfo } from "./internal/TextNode";
 import { text_node } from "./internal/TextNode/text_node";
+import { unknownUiFunctionInfo } from "./internal/UnknownUiFunction";
 import { unknown_code } from "./internal/UnknownUiFunction/unknown_code";
 import type { LangInfo } from "./nodeInfoFactory";
+import { plotlyPlotlyOutputInfo } from "./plotly";
 import { output_plotly } from "./plotly/output_plotly";
-import { input_action_button } from "./Shiny/input_action_button";
 import { input_checkbox } from "./Shiny/input_checkbox";
 import { input_checkbox_group } from "./Shiny/input_checkbox_group";
 import { input_numeric } from "./Shiny/input_numeric";
@@ -33,6 +49,25 @@ import { output_plot } from "./Shiny/output_plot";
 import { output_text } from "./Shiny/output_text";
 import { output_ui } from "./Shiny/output_ui";
 import { panel_main } from "./Shiny/panel_main";
+import { shinyActionButtonInfo } from "./Shiny/ShinyActionButton";
+import { input_action_button } from "./Shiny/ShinyActionButton/input_action_button";
+import { shinyCheckboxGroupInputInfo } from "./Shiny/ShinyCheckboxGroupInput";
+import { shinyCheckboxInputInfo } from "./Shiny/ShinyCheckboxInput";
+import {
+  shinyLayoutSidebarInfo,
+  shinyPanelMainInfo,
+} from "./Shiny/ShinyLayoutSidebar/LayoutSidebar";
+import { markdownNodeInfo } from "./Shiny/ShinyMarkdown/markdown";
+import { shinyNavbarPageInfo } from "./Shiny/ShinyNavbarPage";
+import { shinyNumericInputInfo } from "./Shiny/ShinyNumericInput";
+import { shinyPlotOutputInfo } from "./Shiny/ShinyPlotOutput";
+import { shinyRadioButtonsInfo } from "./Shiny/ShinyRadioButtons/ShinyRadioButtons";
+import { shinySelectInputInfo } from "./Shiny/ShinySelectInput";
+import { shinySliderInputInfo } from "./Shiny/ShinySliderInput";
+import { shinyTabsetPanelInfo } from "./Shiny/ShinyTabsetPanel";
+import { shinyTextInputInfo } from "./Shiny/ShinyTextInput";
+import { shinyTextOutputInfo } from "./Shiny/ShinyTextOutput/ShinyTextOutput";
+import { shinyUiOutputInfo } from "./Shiny/ShinyUiOutput";
 import { tabset_panel } from "./Shiny/tabset_panel";
 
 export type NamedArgsObject = Record<string, unknown | undefined>;
@@ -81,6 +116,47 @@ export const all_node_info = [
 ] as const;
 
 /**
+ * This is the main object that contains the info about a given uiNode. Once the
+ * node info object is created and added here the ui-node will be usable within
+ * the editor
+ */
+export const registered_ui_nodes = [
+  shinyActionButtonInfo,
+  shinyNumericInputInfo,
+  shinySliderInputInfo,
+  shinyTextInputInfo,
+  shinyCheckboxInputInfo,
+  shinyCheckboxGroupInputInfo,
+  shinySelectInputInfo,
+  shinyRadioButtonsInfo,
+  shinyPlotOutputInfo,
+  shinyTextOutputInfo,
+  shinyUiOutputInfo,
+  shinyNavbarPageInfo,
+  shinyLayoutSidebarInfo,
+  shinyPanelMainInfo,
+  shinyTabsetPanelInfo,
+  gridlayoutGridPageInfo,
+  gridlayoutCardInfo,
+  gridlayoutTextPanelInfo,
+  gridlayoutGridCardPlotInfo,
+  gridlayoutGridContainerInfo,
+  dtDTOutputInfo,
+  bslibCardInfo,
+  bslibValueBoxInfo,
+  bslibCardBodyInfo,
+  bslibCardHeaderInfo,
+  bslibCardFooterInfo,
+  bslibSidebar,
+  bslibNavPanelInfo,
+  plotlyPlotlyOutputInfo,
+  textNodeInfo,
+  markdownNodeInfo,
+  unknownUiFunctionInfo,
+  testingErrorNodeInfo,
+] as const;
+
+/**
  * Object that maps node ids to node info objects
  */
 export const node_info_by_id = all_node_info.reduce((acc, info) => {
@@ -109,13 +185,10 @@ export const containerNodes = new Set<string>(
  */
 export function getUiNodeInfo(id: string): ShinyUiNodeInfo {
   if (!shinyUiNodeInfo.has(id)) {
-    throw new Error(
-      `Failed to find node info for requested node on backend: ${id}`
-    );
+    throw new Error(`Failed to find node info for requested node: ${id}`);
   }
   return shinyUiNodeInfo.get(id) as ShinyUiNodeInfo;
 }
-
 /**
  * Get plain english title of a node based on its id
  * @param id Name of ui node to look up

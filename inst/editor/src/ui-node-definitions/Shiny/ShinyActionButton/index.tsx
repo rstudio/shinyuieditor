@@ -1,8 +1,8 @@
 import Button from "../../../components/Inputs/Button/Button";
 import buttonIcon from "../../assets/icons/shinyButton.png";
 import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
-import { input_action_button } from "../input_action_button";
 
+import { input_action_button } from "./input_action_button";
 import classes from "./styles.module.css";
 
 export const shinyActionButtonInfo = addEditorInfoToUiNode(
