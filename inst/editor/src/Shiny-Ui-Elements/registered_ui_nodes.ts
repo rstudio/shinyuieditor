@@ -7,16 +7,16 @@ import { bslibCardFooterInfo } from "../ui-node-definitions/Bslib/card_footer";
 import { bslibNavPanelInfo } from "../ui-node-definitions/Bslib/NavPanel";
 import { bslibSidebar } from "../ui-node-definitions/Bslib/Sidebar";
 import { bslibValueBoxInfo } from "../ui-node-definitions/Bslib/ValueBox/ValueBox";
-
-import { testingErrorNodeInfo } from "./__TestingErrorNode";
-import { dtDTOutputInfo } from "./DtDtOutput";
 import {
   gridlayoutCardInfo,
   gridlayoutGridCardPlotInfo,
   gridlayoutGridContainerInfo,
   gridlayoutGridPageInfo,
   gridlayoutTextPanelInfo,
-} from "./Gridlayout";
+} from "../ui-node-definitions/gridlayout";
+
+import { testingErrorNodeInfo } from "./__TestingErrorNode";
+import { dtDTOutputInfo } from "./DtDtOutput";
 import { plotlyPlotlyOutputInfo } from "./PlotlyPlotlyOutput";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
