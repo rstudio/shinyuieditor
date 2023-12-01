@@ -7,6 +7,7 @@ import type {
 import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { Primatives } from "../parsing/Primatives";
 import type { Parsed_Kwarg_Node } from "../r-parsing/NodeTypes/KeywordArgNode";
+import type { CustomFormRenderFn } from "../SettingsPanel/FormBuilder";
 
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type { NodePath } from "./NodePath";
@@ -86,6 +87,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
     iconSrc?: string;
 
     ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
+    settingsFormRender?: CustomFormRenderFn<Args>;
 
     /**
      * What category does this node belong to? If left blank will default to

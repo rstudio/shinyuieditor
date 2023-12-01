@@ -38,7 +38,6 @@ import { plotlyPlotlyOutputInfo } from "./plotly";
 import { output_plotly } from "./plotly/output_plotly";
 import { input_checkbox } from "./Shiny/input_checkbox";
 import { input_checkbox_group } from "./Shiny/input_checkbox_group";
-import { input_numeric } from "./Shiny/input_numeric";
 import { input_radio_buttons } from "./Shiny/input_radio_buttons";
 import { input_select } from "./Shiny/input_select";
 import { input_slider } from "./Shiny/input_slider";
@@ -60,6 +59,7 @@ import {
 import { markdownNodeInfo } from "./Shiny/ShinyMarkdown/markdown";
 import { shinyNavbarPageInfo } from "./Shiny/ShinyNavbarPage";
 import { shinyNumericInputInfo } from "./Shiny/ShinyNumericInput";
+import { input_numeric } from "./Shiny/ShinyNumericInput/input_numeric";
 import { shinyPlotOutputInfo } from "./Shiny/ShinyPlotOutput";
 import { shinyRadioButtonsInfo } from "./Shiny/ShinyRadioButtons/ShinyRadioButtons";
 import { shinySelectInputInfo } from "./Shiny/ShinySelectInput";

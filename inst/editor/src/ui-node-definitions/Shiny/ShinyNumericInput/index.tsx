@@ -6,8 +6,8 @@ import { mergeClasses } from "../../../utils/mergeClasses";
 import icon from "../../assets/icons/shinyNumericinput.png";
 import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
 import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
-import { input_numeric } from "../input_numeric";
 
+import { input_numeric } from "./input_numeric";
 import classes from "./styles.module.css";
 
 const ShinyNumericInput: UiComponentFromInfo<typeof input_numeric> = ({
