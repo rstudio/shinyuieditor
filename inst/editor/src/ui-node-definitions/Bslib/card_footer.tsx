@@ -1,6 +1,6 @@
-import { ChildrenWithDropNodes } from "../../Shiny-Ui-Elements/ChildrenWithDropNodes";
-import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { CardFooter } from "./Utils/CardElements";
 

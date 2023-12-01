@@ -5,7 +5,7 @@ import {
 } from "../components/PopoverEl/FloatingPopover";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import { getDefaultSettings } from "../SettingsPanel/buildStaticSettingsInfo";
-import { getUiNodeIcon } from "../Shiny-Ui-Elements/registered_ui_nodes";
+import { getUiNodeIcon } from "../ui-node-definitions/registered_ui_nodes";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import type { ShinyUiNodeIds } from "../ui-node-definitions/uiNodeTypes";
 import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";

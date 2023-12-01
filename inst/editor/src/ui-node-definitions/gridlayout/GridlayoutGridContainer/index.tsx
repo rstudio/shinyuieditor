@@ -1,5 +1,5 @@
 import icon from "../../../assets/icons/shinyGridContainer.png";
-import { addEditorInfoToUiNode } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import type { GridLayoutArgs } from "../GridLayoutArgs";
 import { GridContainerElement } from "../Utils/GridContainerElement/GridContainerElement";
 import {

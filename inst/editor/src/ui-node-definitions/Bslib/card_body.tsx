@@ -1,8 +1,8 @@
-import { ChildrenWithDropNodes } from "../../Shiny-Ui-Elements/ChildrenWithDropNodes";
-import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import type { CSSMeasure } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode } from "../ShinyUiNode";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { CardBody } from "./Utils/CardElements";
 

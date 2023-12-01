@@ -16,7 +16,7 @@ import type { GridItemExtent } from "../../gridTemplates/types";
 import { isValidGridItem } from "../../isValidGridItem";
 import { makeGridFriendlyNode } from "../../makeGridFriendlyNode";
 import { makeChildPath } from "../../../nodePathUtils";
-import type { UiNodeComponent } from "../../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import { NameNewPanelModal } from "../NameNewPanelModal";

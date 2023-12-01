@@ -1,7 +1,7 @@
 import { textNodeToCode } from "../../r-parsing/NodeTypes/TextNode";
-import { isTextUiNode } from "../internal/text_node";
-import type { UnknownUiNode } from "../internal/unknown_code";
-import { isUnknownUiNode } from "../internal/unknown_code";
+import { isTextUiNode } from "../internal/TextNode/text_node";
+import type { UnknownUiNode } from "../internal/UnknownUiFunction/unknown_code";
+import { isUnknownUiNode } from "../internal/UnknownUiFunction/unknown_code";
 import type { ShinyUiNode } from "../ShinyUiNode";
 import type { ShinyUiNodeInfo, KnownShinyUiNode } from "../uiNodeTypes";
 

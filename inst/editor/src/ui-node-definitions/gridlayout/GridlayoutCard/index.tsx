@@ -1,8 +1,8 @@
-import type { UiComponentFromInfo } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
-import { addEditorInfoToUiNode } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { BslibCardContainer } from "../../Bslib/BslibCardContainer";
 import { renderCardElements } from "../../Bslib/Utils/render_card_elements";
 import type { KnownShinyUiNode } from "../../uiNodeTypes";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
+import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
 import { grid_card } from "./grid_card";

@@ -1,8 +1,8 @@
 import icon from "../../../assets/icons/shinyPlot.png";
-import { StaticPlotPlaceholder } from "../../../Shiny-Ui-Elements/ShinyPlotOutput/StaticPlotPlaceholder";
-import type { UiComponentFromInfo } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
-import { addEditorInfoToUiNode } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { mergeClasses } from "../../../utils/mergeClasses";
+import { StaticPlotPlaceholder } from "../../Shiny/ShinyPlotOutput/StaticPlotPlaceholder";
+import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { BsCard } from "../Utils/BsCard";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 

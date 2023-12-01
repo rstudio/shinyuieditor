@@ -10,10 +10,10 @@ import {
 } from "../../../components/PopoverEl/FloatingPopover";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { InputLabelWrapper } from "../../../SettingsPanel/SettingsInput/SettingsInput";
-import { ChildrenWithDropNodes } from "../../../Shiny-Ui-Elements/ChildrenWithDropNodes";
-import type { UiComponentFromInfo } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
-import { addEditorInfoToUiNode } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { mergeClasses } from "../../../utils/mergeClasses";
+import { ChildrenWithDropNodes } from "../../ChildrenWithDropNodes";
+import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { value_box } from "../value_box";
 
 import { BsIcon } from "./BsIcon";

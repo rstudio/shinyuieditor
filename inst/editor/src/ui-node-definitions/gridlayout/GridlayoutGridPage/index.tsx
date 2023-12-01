@@ -1,4 +1,4 @@
-import { addEditorInfoToUiNode } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import { GridContainerElement } from "../Utils/GridContainerElement/GridContainerElement";
 import {
   removeDeletedGridAreaFromLayout,

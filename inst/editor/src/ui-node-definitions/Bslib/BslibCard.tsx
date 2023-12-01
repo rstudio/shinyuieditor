@@ -1,5 +1,5 @@
 import icon from "../../assets/icons/shinyContainer.png";
-import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { BslibCardContainer } from "./BslibCardContainer";
 import { bslib_card } from "./card";

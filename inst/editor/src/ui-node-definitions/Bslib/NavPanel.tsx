@@ -1,8 +1,8 @@
 // import icon from "../../assets/icons/tabPanel.png";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import { addEditorInfoToUiNode } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
-import { RenderUiChildren } from "../../Shiny-Ui-Elements/utils/RenderUiChildren";
 import type { ShinyUiNodeIds } from "../uiNodeTypes";
+import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
+import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import { nav_panel } from "./nav_panel";
 

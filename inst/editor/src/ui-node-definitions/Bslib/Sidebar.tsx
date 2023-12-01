@@ -4,13 +4,13 @@ import React from "react";
 import { ChevronLeft } from "react-bootstrap-icons";
 
 import { NodeWrapper } from "../../components/UiNode/NodeWraper";
-import { ChildrenWithDropNodes } from "../../Shiny-Ui-Elements/ChildrenWithDropNodes";
-import { addEditorInfoById } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { useSetCurrentSelection } from "../../state/selectedPath";
 import { mergeClasses } from "../../utils/mergeClasses";
+import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import type { CSSMeasure } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import { getParentPath } from "../TreeManipulation/getParentPath";
+import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./BslibCard.module.css";
 

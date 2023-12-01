@@ -5,7 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
-import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
+import { getUiNodeSettingsRenderer } from "../ui-node-definitions/registered_ui_nodes";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import {

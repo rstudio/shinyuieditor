@@ -3,8 +3,8 @@ import React from "react";
 import { PopoverButton } from "../../components/Inputs/PopoverButton";
 import { Portal } from "../../components/PortalModal/Portal";
 import { sizes_inline_styles } from "../../EditorContainer/App_Layout_Sizes";
-import type { ArgsFromInfo } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { mergeClasses } from "../../utils/mergeClasses";
+import type { ArgsFromInfo } from "../utils/add_editor_info_to_ui_node";
 
 import styles from "./BslibCard.module.css";
 import type { bslib_card } from "./card";

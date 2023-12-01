@@ -1,5 +1,5 @@
-import type { UiComponentFromInfo } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
-import { addEditorInfoToUiNode } from "../../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import type { UiComponentFromInfo } from "../../utils/add_editor_info_to_ui_node";
+import { addEditorInfoToUiNode } from "../../utils/add_editor_info_to_ui_node";
 import textIcon from "../../assets/icons/shinyText.png";
 import { BsCard } from "../Utils/BsCard";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
