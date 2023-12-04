@@ -1,3 +1,5 @@
+// import icon from "../../assets/icons/tabPanel.png";
+
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode } from "../ShinyUiNode";

@@ -1,14 +1,17 @@
+import plotIcon from "../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 
 import { StaticPlotPlaceholder } from "./StaticPlotPlaceholder";
 import classes from "./styles.module.css";
 
-export const output_plot = nodeInfoFactory<{
+export type ShinyPlotOutputProps = {
   outputId: string;
   width?: CSSMeasure;
   height?: CSSMeasure;
-}>()({
+};
+
+export const output_plot = nodeInfoFactory<ShinyPlotOutputProps>()({
   id: "plotOutput",
   r_info: {
     fn_name: "plotOutput",
@@ -54,6 +57,7 @@ export const output_plot = nodeInfoFactory<{
   },
   category: "Outputs",
   description: "Render a `renderPlot()` within an application page.",
+  iconSrc: plotIcon,
   ui_component: ({
     namedArgs: { outputId, width, height = "400px" },
     wrapperProps,

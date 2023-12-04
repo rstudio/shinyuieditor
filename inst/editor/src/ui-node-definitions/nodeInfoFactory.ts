@@ -87,7 +87,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
      */
     iconSrc?: string;
 
-    ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
+    ui_component: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
     settingsFormRender?: CustomFormRenderFn<Args>;
 
     /**

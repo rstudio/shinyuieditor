@@ -12,7 +12,7 @@ import { nodeInfoFactory } from "../nodeInfoFactory";
 import { getParentPath } from "../TreeManipulation/getParentPath";
 import { addEditorInfoById } from "../utils/add_editor_info_to_ui_node";
 
-import classes from "./BslibCard.module.css";
+import classes from "./Sidebar.module.css";
 
 export const sidebar = nodeInfoFactory<{
   title: string;
@@ -67,10 +67,8 @@ export const sidebar = nodeInfoFactory<{
   category: "Layout",
   description: "Collapsible sidebar",
   allowedParents: ["navbarPage"],
-});
-
-export const bslibSidebar = addEditorInfoById("sidebar", {
-  UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
+  ui_component: ({ namedArgs, children = [], path, wrapperProps }) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const setSelection = useSetCurrentSelection();
     return (
       <NodeWrapper wrapperProps={wrapperProps} className={classes.outerWrapper}>

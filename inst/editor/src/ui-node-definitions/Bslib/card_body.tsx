@@ -2,7 +2,6 @@ import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import type { CSSMeasure } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode } from "../ShinyUiNode";
-import { addEditorInfoToUiNode } from "../utils/add_editor_info_to_ui_node";
 
 import { CardBody } from "./Utils/CardElements";
 
@@ -60,10 +59,7 @@ export const card_body = nodeInfoFactory<CardBodyFillSettings>()({
   },
   category: "Cards",
   description: "body holder for bslib cards",
-});
-
-export const bslibCardBodyInfo = addEditorInfoToUiNode(card_body, {
-  UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
+  ui_component: ({ namedArgs, children = [], path, wrapperProps }) => {
     return (
       <CardBody {...wrapperProps} args={namedArgs}>
         <ChildrenWithDropNodes

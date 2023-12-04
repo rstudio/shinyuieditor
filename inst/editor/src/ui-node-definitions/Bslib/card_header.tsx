@@ -1,29 +1,29 @@
 import { ChildrenWithDropNodes } from "../ChildrenWithDropNodes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 
-import { CardFooter } from "./Utils/CardElements";
+import { CardHeader } from "./Utils/CardElements";
 
-export const card_footer = nodeInfoFactory<{}>()({
+export const card_header = nodeInfoFactory<{}>()({
   r_info: {
-    fn_name: "card_footer",
+    fn_name: "card_header",
     package: "bslib",
   },
-  id: "card_footer",
-  title: "Card Footer",
+  id: "card_header",
+  title: "Card Header",
   takesChildren: true,
   settingsInfo: {},
   category: "Cards",
   description: "Header for bslib cards",
-  ui_component: ({ namedArgs, children = [], path, wrapperProps }) => {
+  ui_component: ({ children, path, wrapperProps }) => {
     return (
-      <CardFooter {...wrapperProps}>
+      <CardHeader {...wrapperProps}>
         <ChildrenWithDropNodes
           children={children}
           parentPath={path}
-          parentid="card_footer"
-          messageOnHover="Add to card footer"
+          parentid="card_header"
+          messageOnHover="Add to card header"
         />
-      </CardFooter>
+      </CardHeader>
     );
   },
 });

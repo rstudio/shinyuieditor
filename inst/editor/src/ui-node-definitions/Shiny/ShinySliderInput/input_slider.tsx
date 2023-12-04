@@ -1,6 +1,7 @@
 import React from "react";
 
 import { mergeClasses } from "../../../utils/mergeClasses";
+import sliderIcon from "../../assets/icons/shinySlider.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import { InputOutputTitle } from "../../utils/InputOutputTitle";
@@ -71,6 +72,7 @@ export const input_slider = nodeInfoFactory<{
       useDefaultIfOptional: true,
     },
   },
+  iconSrc: sliderIcon,
   category: "Inputs",
   description:
     "Constructs a slider widget to select a number from a range. _(Dates and date-times not currently supported.)_",
