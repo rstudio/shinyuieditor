@@ -1,6 +1,6 @@
 import React from "react";
 
-import icon from "../../assets/icons/shinyRadioButtons.png";
+import icon from "../../../assets/icons/shinyRadioButtons.png";
 import type { CSSMeasure, NamedList } from "../../inputFieldTypes";
 import type { UiNodeComponent } from "../../nodeInfoFactory";
 import { nodeInfoFactory } from "../../nodeInfoFactory";

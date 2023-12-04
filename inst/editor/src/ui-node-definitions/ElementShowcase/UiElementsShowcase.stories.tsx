@@ -13,9 +13,8 @@ import {
 } from "../../SettingsPanel/buildStaticSettingsInfo";
 import { FormBuilder } from "../../SettingsPanel/FormBuilder";
 import ReduxProvider from "../../state/ReduxProvider";
-import { getUiNodeInfo } from "../registered_ui_nodes";
 import type { ShinyUiNode } from "../ShinyUiNode";
-import { shinyids } from "../uiNodeTypes";
+import { getUiNodeInfo, shinyids } from "../uiNodeTypes";
 
 import classes from "./UiElementsShowcase.module.css";
 
@@ -38,7 +37,7 @@ function UiNodeAndSettings({ id, namedArgs }: ShinyUiNode) {
 
     setInfoToRender({
       node: newNode,
-      Comp: nodeInfo.UiComponent,
+      Comp: nodeInfo.ui_component!,
       settingsInfo: buildStaticFormInfo(nodeInfo.settingsInfo, newNode),
     });
   }, [namedArgs, id]);

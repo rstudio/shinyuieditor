@@ -1,4 +1,4 @@
-import plotIcon from "../../assets/icons/shinyPlot.png";
+import plotIcon from "../../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 

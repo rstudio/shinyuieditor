@@ -1,6 +1,6 @@
 import React from "react";
 
-import icon from "../../assets/icons/shinycheckbox.png";
+import icon from "../../../assets/icons/shinycheckbox.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import type { UiNodeComponent } from "../../nodeInfoFactory";
 import { nodeInfoFactory } from "../../nodeInfoFactory";

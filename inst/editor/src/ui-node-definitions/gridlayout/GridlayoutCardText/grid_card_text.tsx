@@ -1,4 +1,4 @@
-import textIcon from "../../assets/icons/shinyText.png";
+import textIcon from "../../../assets/icons/shinyText.png";
 import type { UiNodeComponent } from "../../nodeInfoFactory";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import { grid_parents } from "../GridlayoutCard/grid_card";

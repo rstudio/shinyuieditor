@@ -1,5 +1,5 @@
+import icon from "../../../assets/icons/shinyCheckgroup.png";
 import { namedListToItemTypeArray } from "../../../components/Inputs/ListInput/namedListUtils";
-import icon from "../../assets/icons/shinyCheckgroup.png";
 import type { CSSMeasure, NamedList } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 

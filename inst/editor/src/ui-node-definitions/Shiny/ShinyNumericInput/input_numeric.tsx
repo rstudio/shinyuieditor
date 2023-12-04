@@ -1,9 +1,9 @@
 import React from "react";
 
+import icon from "../../../assets/icons/shinyNumericinput.png";
 import { NumberInputSimple } from "../../../components/Inputs/NumberInput/NumberInput";
 import { LabeledInputCategory } from "../../../SettingsPanel/LabeledInputCategory";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import icon from "../../assets/icons/shinyNumericinput.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 

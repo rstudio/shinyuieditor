@@ -5,7 +5,6 @@ import {
 } from "../components/PopoverEl/FloatingPopover";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import { getDefaultSettings } from "../SettingsPanel/buildStaticSettingsInfo";
-import { getUiNodeIcon } from "../ui-node-definitions/registered_ui_nodes";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import type { ShinyUiNodeIds } from "../ui-node-definitions/uiNodeTypes";
 import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
@@ -51,4 +50,14 @@ export function UiElementIcon({ id }: { id: ShinyUiNodeIds }) {
       <MarkdownTooltipContent content={infoPopup} />
     </Tooltip>
   );
+}
+
+/**
+ *
+ * @param id Name of ui node to look up
+ * @returns icon source for node or undefined if that icon doesn't exist
+ * @throws Error if node doesn't exist
+ */
+function getUiNodeIcon(id: string): string | undefined {
+  return getUiNodeInfo(id).iconSrc;
 }

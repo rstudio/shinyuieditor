@@ -162,6 +162,11 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       r_info: undefined extends RInfo ? never : RInfo;
       category: Cat;
       ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
+      settingsFormRender?: CustomFormRenderFn<Args>;
+      stateUpdateSubscribers?: {
+        UPDATE_NODE?: UpdateAction;
+        DELETE_NODE?: DeleteAction;
+      };
     } & Required<CommonInfo<Args, TakesChildren>> &
       ComputedInfo;
   };

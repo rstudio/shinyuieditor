@@ -1,7 +1,7 @@
 import React from "react";
 
+import sliderIcon from "../../../assets/icons/shinySlider.png";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import sliderIcon from "../../assets/icons/shinySlider.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import { InputOutputTitle } from "../../utils/InputOutputTitle";

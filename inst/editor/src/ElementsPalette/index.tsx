@@ -3,7 +3,7 @@ import type { LanguageMode } from "communication-types/src/AppInfo";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../state/languageMode";
 import type { ShinyUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
-import { registered_ui_nodes } from "../ui-node-definitions/uiNodeTypes";
+import { all_node_info } from "../ui-node-definitions/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";
@@ -23,7 +23,7 @@ const categoryOrder = Object.keys({
   Uncategorized: 1,
 } satisfies Record<Exclude<ShinyUiNodeInfo["category"], "TESTING">, 1>);
 
-type NodeInfo = (typeof registered_ui_nodes)[number];
+type NodeInfo = (typeof all_node_info)[number];
 
 function sortByCategory(info_a: NodeInfo, info_b: NodeInfo): number {
   const cat_a = categoryOrder.indexOf(info_a.category);
@@ -44,7 +44,7 @@ function filterToLanguage(info: NodeInfo, language: LanguageMode): boolean {
 export default function ElementsPalette() {
   const languageMode = useLanguageMode();
 
-  const ui_node_names = registered_ui_nodes
+  const ui_node_names = all_node_info
     .filter((info) => filterToLanguage(info, languageMode))
     .sort(sortByCategory)
     .map((info) => info.id);

@@ -1,5 +1,5 @@
+import buttonIcon from "../../../assets/icons/shinyButton.png";
 import Button from "../../../components/Inputs/Button/Button";
-import buttonIcon from "../../assets/icons/shinyButton.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 

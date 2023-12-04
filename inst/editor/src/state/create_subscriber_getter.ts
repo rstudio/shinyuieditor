@@ -1,4 +1,4 @@
-import { registered_ui_nodes } from "../ui-node-definitions/uiNodeTypes";
+import { all_node_info } from "../ui-node-definitions/uiNodeTypes";
 
 import type { UpdateAction, DeleteAction } from "./app_info";
 
@@ -33,7 +33,7 @@ function createSubscriberGetter<T extends keyof StateUpdateSubscribers>(
     subscriptions = new Set<StateUpdateSubscribers[T]>();
     // Sometimes in a test/storybook environments we may not have loaded the
     // node info module so we need to watch out for this.
-    for (const info of registered_ui_nodes) {
+    for (const info of all_node_info) {
       if ("stateUpdateSubscribers" in info) {
         const nodeUpdateSubscriber = info.stateUpdateSubscribers?.[type];
         if (nodeUpdateSubscriber) {

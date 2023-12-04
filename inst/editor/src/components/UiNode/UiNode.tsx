@@ -4,9 +4,9 @@ import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
 
 import type { NodePath } from "../../ui-node-definitions/NodePath";
-import { getUiNodeComponent } from "../../ui-node-definitions/registered_ui_nodes";
 import type { ShinyUiNode } from "../../ui-node-definitions/ShinyUiNode";
 import { isParentNode } from "../../ui-node-definitions/ShinyUiNode";
+import { getUiNodeInfo } from "../../ui-node-definitions/uiNodeTypes";
 import type { UiNodeComponent } from "../../ui-node-definitions/utils/add_editor_info_to_ui_node";
 
 import { UiNodeErrorView } from "./UiNodeErrorView";
@@ -50,3 +50,13 @@ function UiNode({ path, node, canDrag = true }: UiNodeProps) {
 }
 
 export default UiNode;
+
+/**
+ *
+ * @param id Name of ui node to look up
+ * @returns Component used to render that node
+ * @throws Error if node doesn't exist
+ */
+function getUiNodeComponent(id: string) {
+  return getUiNodeInfo(id).ui_component;
+}

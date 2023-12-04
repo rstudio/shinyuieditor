@@ -1,6 +1,6 @@
+import icon from "../../../assets/icons/shinyText.png";
 import type { TextNodeSettings } from "../../../r-parsing/NodeTypes/TextNode";
 import { sizeNameToTag } from "../../../r-parsing/NodeTypes/TextNode";
-import icon from "../../assets/icons/shinyText.png";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import type { MakeShinyUiNode, ShinyUiNode } from "../../ShinyUiNode";
 

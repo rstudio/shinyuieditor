@@ -1,5 +1,5 @@
+import selectBoxIcon from "../../../assets/icons/shinySelectbox.png";
 import { namedListToItemTypeArray } from "../../../components/Inputs/ListInput/namedListUtils";
-import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
 import type { CSSMeasure, NamedList } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import type { ShinyUiNode } from "../../ShinyUiNode";

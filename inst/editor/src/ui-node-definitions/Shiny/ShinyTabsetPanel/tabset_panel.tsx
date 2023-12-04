@@ -1,7 +1,7 @@
+import icon from "../../../assets/icons/tabsetPanel.png";
 import TabPanel from "../../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../../components/UiNode/UiNode";
-import icon from "../../assets/icons/tabsetPanel.png";
 import {
   getFirstTabName,
   getTabNames,

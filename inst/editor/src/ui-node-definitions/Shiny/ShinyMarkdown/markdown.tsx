@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 
+import icon from "../../../assets/icons/shinyMarkdown.png";
 import {
   is_array_node,
   extract_array_contents,
@@ -8,7 +9,6 @@ import {
   is_string_node,
   extract_string_content,
 } from "../../../r-parsing/NodeTypes/StringNode";
-import icon from "../../assets/icons/shinyMarkdown.png";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 
 export const markdown_node = nodeInfoFactory<{

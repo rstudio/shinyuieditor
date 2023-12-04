@@ -1,7 +1,7 @@
 import React from "react";
 
+import icon from "../../../assets/icons/shinyTextinput.png";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import icon from "../../assets/icons/shinyTextinput.png";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import type { UiNodeComponent } from "../../nodeInfoFactory";
 import { nodeInfoFactory } from "../../nodeInfoFactory";

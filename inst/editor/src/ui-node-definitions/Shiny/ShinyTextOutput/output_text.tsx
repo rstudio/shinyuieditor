@@ -1,5 +1,5 @@
+import uiIcon from "../../../assets/icons/shinyTextOutput.png";
 import { NodeWrapper } from "../../../components/UiNode/NodeWraper";
-import uiIcon from "../../assets/icons/shinyTextOutput.png";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 
 export const output_text = nodeInfoFactory<{

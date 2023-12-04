@@ -81,13 +81,6 @@ export const all_node_info = [
 ] as const;
 
 /**
- * This is the main object that contains the info about a given uiNode. Once the
- * node info object is created and added here the ui-node will be usable within
- * the editor
- */
-export const registered_ui_nodes = [] as const;
-
-/**
  * Object that maps node ids to node info objects
  */
 export const node_info_by_id = all_node_info.reduce((acc, info) => {
