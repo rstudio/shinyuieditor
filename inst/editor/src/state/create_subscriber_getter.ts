@@ -1,18 +1,6 @@
 import { all_node_info } from "../ui-node-definitions/uiNodeTypes";
 
-import type { UpdateAction, DeleteAction } from "./app_info";
-
-/**
- * Optional functions that will hook into the state update reducers and allow
- * a component the ability to respond to state manipulation before the main
- * tree update action has been preformed. These are dangerous and should only
- * be used as a last resort. perform state mutations in response in addition
- * to the plain updating of the node (which will occur last)
- */
-type StateUpdateSubscribers = {
-  UPDATE_NODE: UpdateAction;
-  DELETE_NODE: DeleteAction;
-};
+import type { StateUpdateSubscribers } from "./app_info";
 
 /**
  * Generate a getter to lazily retreive update subscriptions from various nodes.

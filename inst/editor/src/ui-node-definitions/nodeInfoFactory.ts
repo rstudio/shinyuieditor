@@ -8,7 +8,7 @@ import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperPro
 import type { Primatives } from "../parsing/Primatives";
 import type { Parsed_Kwarg_Node } from "../r-parsing/NodeTypes/KeywordArgNode";
 import type { CustomFormRenderFn } from "../SettingsPanel/FormBuilder";
-import type { UpdateAction, DeleteAction } from "../state/app_info";
+import type { StateUpdateSubscribers } from "../state/app_info";
 
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type { NodePath } from "./NodePath";
@@ -67,7 +67,8 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
     UIComponent extends UiNodeComponent<
       Args,
       { TakesChildren: TakesChildren }
-    > = UiNodeComponent<Args, { TakesChildren: TakesChildren }>
+    > = UiNodeComponent<Args, { TakesChildren: TakesChildren }>,
+    SettingsRenderer extends CustomFormRenderFn<Args> = CustomFormRenderFn<Args>
   >({
     id,
     py_info,
@@ -92,15 +93,12 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
     iconSrc?: string;
 
     ui_component: UIComponent;
-    settingsFormRender?: CustomFormRenderFn<Args>;
+    settingsFormRender?: SettingsRenderer;
 
     /**
      * Optional update subscribers
      */
-    stateUpdateSubscribers?: {
-      UPDATE_NODE?: UpdateAction;
-      DELETE_NODE?: DeleteAction;
-    };
+    stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
 
     /**
      * What category does this node belong to? If left blank will default to
@@ -166,11 +164,8 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       r_info: undefined extends RInfo ? never : RInfo;
       category: Cat;
       ui_component?: UIComponent;
-      settingsFormRender?: CustomFormRenderFn<Args>;
-      stateUpdateSubscribers?: {
-        UPDATE_NODE?: UpdateAction;
-        DELETE_NODE?: DeleteAction;
-      };
+      settingsFormRender?: SettingsRenderer;
+      stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
     } & Required<CommonInfo<Args, TakesChildren>> &
       ComputedInfo;
   };
