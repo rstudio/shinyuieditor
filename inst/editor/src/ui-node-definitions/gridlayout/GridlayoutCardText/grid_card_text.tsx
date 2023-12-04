@@ -14,7 +14,7 @@ type GridCardArgs = {
 
 const GridlayoutGridCardText: UiNodeComponent<
   GridCardArgs,
-  { TakesChildren: true }
+  { TakesChildren: false }
 > = ({
   namedArgs: { content: title, area, alignment },
   path,

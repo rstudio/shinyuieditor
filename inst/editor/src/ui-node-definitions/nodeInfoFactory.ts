@@ -63,7 +63,11 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
     TakesChildren extends boolean,
     const PyInfo extends LangInfo<Args> | undefined,
     const RInfo extends LangInfo<Args> | undefined,
-    Cat extends string = "Uncategorized"
+    Cat extends string = "Uncategorized",
+    UIComponent extends UiNodeComponent<
+      Args,
+      { TakesChildren: TakesChildren }
+    > = UiNodeComponent<Args, { TakesChildren: TakesChildren }>
   >({
     id,
     py_info,
@@ -87,7 +91,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
      */
     iconSrc?: string;
 
-    ui_component: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
+    ui_component: UIComponent;
     settingsFormRender?: CustomFormRenderFn<Args>;
 
     /**
@@ -161,7 +165,7 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       py_info: undefined extends PyInfo ? never : PyInfo;
       r_info: undefined extends RInfo ? never : RInfo;
       category: Cat;
-      ui_component?: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
+      ui_component?: UIComponent;
       settingsFormRender?: CustomFormRenderFn<Args>;
       stateUpdateSubscribers?: {
         UPDATE_NODE?: UpdateAction;
