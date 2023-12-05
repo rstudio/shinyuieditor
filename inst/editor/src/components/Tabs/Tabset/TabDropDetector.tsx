@@ -33,7 +33,7 @@ export function TabDropDetector({
 }) {
   return (
     <DropWatcherPanel
-      className={classes.tabDropDetector}
+      className={`w-[--baseWidth] h-full relative data-[can-accept-drop=true]:w-[--availableWidth]`}
       aria-label="tab drop detector"
       parentPath={parentPath}
       parentNodeType="nav_panel"
@@ -44,6 +44,7 @@ export function TabDropDetector({
       style={
         {
           "--baseWidth": baseWidth,
+          "--availableWidth": `calc(2*${baseWidth})`,
           order: index - 1,
         } as React.CSSProperties
       }

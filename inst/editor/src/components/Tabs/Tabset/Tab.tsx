@@ -19,6 +19,7 @@ type TabProps = {
   isActive: boolean;
   parentPath: NodePath;
   index: number;
+  className: string;
 };
 
 const dummyNode: ShinyUiNode = {
@@ -39,7 +40,13 @@ function useGetNode(path: NodePath) {
   return node;
 }
 
-export function Tab({ name, isActive, index, parentPath }: TabProps) {
+export function Tab({
+  name,
+  isActive,
+  index,
+  parentPath,
+  className,
+}: TabProps) {
   const pathToTabPanel = makeChildPath(parentPath, index);
 
   const selectedPath = useCurrentSelection();
@@ -48,7 +55,7 @@ export function Tab({ name, isActive, index, parentPath }: TabProps) {
 
   return (
     <NodeWrapper
-      className={classes.tab}
+      className={className}
       data-active-tab={isActive}
       data-selected-tab={isSelected}
       wrapperProps={{
