@@ -3,11 +3,8 @@ import React from "react";
 import icon from "../../../assets/icons/shinyNumericinput.png";
 import { NumberInputSimple } from "../../../components/Inputs/NumberInput/NumberInput";
 import { LabeledInputCategory } from "../../../SettingsPanel/LabeledInputCategory";
-import { mergeClasses } from "../../../utils/mergeClasses";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
-
-import classes from "./styles.module.css";
 
 export const input_numeric = nodeInfoFactory<{
   inputId: string;
@@ -89,7 +86,7 @@ export const input_numeric = nodeInfoFactory<{
 
     return (
       <div
-        className={mergeClasses(classes.container, "numericInput")}
+        className="relative p-1 numericInput"
         style={{
           width: settings.width ?? "200px",
           // If we're using the default width, don't let it go over the width of its container
