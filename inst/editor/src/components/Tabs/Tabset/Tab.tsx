@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 
 import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";
-import { isKnownShinyUiNode } from "../../../ui-node-definitions/isShinyUiNode";
 import type { NodePath } from "../../../ui-node-definitions/NodePath";
-import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
 import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 import { getNode } from "../../../ui-node-definitions/TreeManipulation/getNode";
 import { samePath } from "../../../ui-node-definitions/TreeManipulation/samePath";
+import { isKnownShinyUiNode } from "../../../ui-node-definitions/utils/isShinyUiNode";
+import { makeChildPath } from "../../../ui-node-definitions/utils/nodePathUtils";
 import { NodeWrapper } from "../../UiNode/NodeWraper";
 
 import classes from "./Tabset.module.css";
@@ -19,6 +19,7 @@ type TabProps = {
   isActive: boolean;
   parentPath: NodePath;
   index: number;
+  className: string;
 };
 
 const dummyNode: ShinyUiNode = {
@@ -39,7 +40,13 @@ function useGetNode(path: NodePath) {
   return node;
 }
 
-export function Tab({ name, isActive, index, parentPath }: TabProps) {
+export function Tab({
+  name,
+  isActive,
+  index,
+  parentPath,
+  className,
+}: TabProps) {
   const pathToTabPanel = makeChildPath(parentPath, index);
 
   const selectedPath = useCurrentSelection();
@@ -48,7 +55,7 @@ export function Tab({ name, isActive, index, parentPath }: TabProps) {
 
   return (
     <NodeWrapper
-      className={classes.tab}
+      className={className}
       data-active-tab={isActive}
       data-selected-tab={isSelected}
       wrapperProps={{

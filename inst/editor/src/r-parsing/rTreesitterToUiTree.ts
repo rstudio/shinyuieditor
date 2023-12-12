@@ -1,7 +1,7 @@
 import type { ParserNode } from "treesitter-parsers";
 import { inANotInB } from "util-functions/src/arrays";
 
-import { makeUnknownUiFunction } from "../ui-node-definitions/make_unknown_ui_function";
+import { makeUnknownUiFunction } from "../ui-node-definitions/internal/UnknownUiFunction/make_unknown_ui_function";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 
 import { getRInfoIfKnown } from "./get_r_info_if_known";

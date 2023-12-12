@@ -4,7 +4,7 @@ import type {
   KnownInputFieldTypes,
   InputTypeNames,
 } from "../../ui-node-definitions/inputFieldTypes";
-import { isShinyUiNode } from "../../ui-node-definitions/isShinyUiNode";
+import { isShinyUiNode } from "../../ui-node-definitions/utils/isShinyUiNode";
 
 // import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
 
@@ -46,10 +46,6 @@ export function valueIsType(
 
   if (type === "radio") {
     return typeof value === "string";
-  }
-
-  if (type === "string-array") {
-    return Array.isArray(value) && typeof value[0] === "string";
   }
 
   if (type === "ui-node") {

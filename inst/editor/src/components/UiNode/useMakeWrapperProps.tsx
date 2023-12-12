@@ -1,5 +1,5 @@
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
-import { pathToString } from "../../ui-node-definitions/nodePathUtils";
+import { pathToString } from "../../ui-node-definitions/utils/nodePathUtils";
 
 import type { UiNodeProps } from "./UiNode";
 import { usePathInformation } from "./usePathInformation";

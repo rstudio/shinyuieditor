@@ -227,7 +227,7 @@ export function NamedListInput({
         )}
 
         <Button
-          className="text-icon -mt-1 p-1 bg-red-400 w-full"
+          className="text-icon -mt-1 p-1 w-full"
           onClick={() => addItem()}
           variant="transparent"
           title="Add new item"

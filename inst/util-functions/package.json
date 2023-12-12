@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "shared-configs": "*",
-    "typescript": "^5.0.4",
+    "typescript": "^5.3.0",
     "vitest": "^0.30.0",
     "just-clone": "^6.1.1"
   },

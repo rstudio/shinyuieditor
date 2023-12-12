@@ -6,9 +6,9 @@ import { seqArray } from "util-functions/src/arrays";
 import { useCurrentSelection } from "../../../state/selectedPath";
 import { usePlaceNode } from "../../../state/usePlaceNode";
 import type { NodePath } from "../../../ui-node-definitions/NodePath";
-import { makeChildPath } from "../../../ui-node-definitions/nodePathUtils";
 import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 import { nodeDepth } from "../../../ui-node-definitions/TreeManipulation/nodeDepth";
+import { makeChildPath } from "../../../ui-node-definitions/utils/nodePathUtils";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { PopoverButton } from "../../Inputs/PopoverButton";
 
@@ -92,12 +92,22 @@ function Tabset({
       {sidebar}
       <div className={classes.header}>
         <h1 className={classes.pageTitle}>{title}</h1>
-        <div className={classes.tabHolder} aria-label="tabs container">
+        <div
+          className={mergeClasses("flex items-end")}
+          aria-label="tabs container"
+        >
           {tabNames.map((name, i) => (
             <Tab
               key={name + i}
               name={name}
               parentPath={path}
+              className={mergeClasses(
+                "grid content-center px-2 py-1 h-5/6 text-center cursor-pointer max-w-[200px] shrink-0",
+                i === activeTab
+                  ? "bg-rstudio-white border-b-rstudio-white"
+                  : "bg-gray-300",
+                classes.tab
+              )}
               isActive={i === activeTab}
               index={i}
             />
