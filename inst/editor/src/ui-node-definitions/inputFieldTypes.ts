@@ -48,10 +48,6 @@ export type InputOptions =
       optionsPerColumn?: number;
     }
   | {
-      inputType: "string-array";
-      value: string[];
-    }
-  | {
       inputType: "ui-node";
       value: ShinyUiNode;
     };
@@ -68,8 +64,6 @@ type ArgTypeToInputType<Arg extends unknown> = Arg extends number
   ? "boolean"
   : Arg extends NamedList
   ? "list"
-  : Arg extends string[]
-  ? "string-array"
   : Arg extends ShinyUiNode
   ? "ui-node"
   : "omitted";

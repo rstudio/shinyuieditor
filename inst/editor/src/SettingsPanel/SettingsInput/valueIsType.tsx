@@ -48,10 +48,6 @@ export function valueIsType(
     return typeof value === "string";
   }
 
-  if (type === "string-array") {
-    return Array.isArray(value) && typeof value[0] === "string";
-  }
-
   if (type === "ui-node") {
     return isShinyUiNode(value);
   }
