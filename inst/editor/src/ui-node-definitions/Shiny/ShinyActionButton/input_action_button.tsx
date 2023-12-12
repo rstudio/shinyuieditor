@@ -3,8 +3,6 @@ import Button from "../../../components/Inputs/Button/Button";
 import type { CSSMeasure } from "../../inputFieldTypes";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 
-import classes from "./styles.module.css";
-
 export const input_action_button = nodeInfoFactory<{
   inputId: string;
   label: string;
@@ -46,11 +44,15 @@ export const input_action_button = nodeInfoFactory<{
   category: "Inputs",
   description:
     "Creates an action button whose value is initially zero, and increments by one each time it is pressed.",
-  ui_component: ({ namedArgs, wrapperProps }) => {
-    const { label = "My Action Button", width } = namedArgs;
-
+  ui_component: ({
+    namedArgs: { label = "My Action Button", width },
+    wrapperProps,
+  }) => {
     return (
-      <div className={classes.container} {...wrapperProps}>
+      <div
+        className="grid place-content-center grid-cols-1 grid-rows-1 p-1 max-h-full"
+        {...wrapperProps}
+      >
         <Button style={width ? { width } : undefined}>{label}</Button>
       </div>
     );

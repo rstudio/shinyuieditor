@@ -1,8 +1,0 @@
-.container {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr;
-  place-content: center;
-  padding: 5px;
-  max-height: 100%;
-}
