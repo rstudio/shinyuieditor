@@ -2,7 +2,7 @@ import { isBslibCard } from "../Bslib/card";
 import type { ShinyUiNode } from "../ShinyUiNode";
 import type { KnownShinyUiNode } from "../uiNodeTypes";
 
-import type { GridlayoutCardNode } from "./grid_card";
+import type { GridlayoutCardNode } from "./GridlayoutCard/grid_card";
 import type { GridItemNode } from "./isValidGridItem";
 import { isValidGridItem } from "./isValidGridItem";
 

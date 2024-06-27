@@ -147,6 +147,18 @@ export type DeleteAction = (
   payload: RemoveNodeArguments
 ) => void;
 
+/**
+ * Optional functions that will hook into the state update reducers and allow
+ * a component the ability to respond to state manipulation before the main
+ * tree update action has been preformed. These are dangerous and should only
+ * be used as a last resort. perform state mutations in response in addition
+ * to the plain updating of the node (which will occur last)
+ */
+export type StateUpdateSubscribers = {
+  UPDATE_NODE: UpdateAction;
+  DELETE_NODE: DeleteAction;
+};
+
 export function useCurrentAppInfo() {
   return useSelector((state: RootState) => state.app_info);
 }

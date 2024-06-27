@@ -1,12 +1,12 @@
 import type { LanguageMode } from "communication-types/src/AppInfo";
 import type { GeneratedUiDef } from "communication-types/src/MessageToBackend";
 
-import type { DynamicArgumentInfo } from "../buildStaticSettingsInfo";
-import { isShinyUiNode } from "../isShinyUiNode";
 import type { LangInfo } from "../nodeInfoFactory";
 import type { ShinyUiNode } from "../ShinyUiNode";
 import type { NamedArgsObject } from "../uiNodeTypes";
 import { getUiNodeInfo } from "../uiNodeTypes";
+import type { DynamicArgumentInfo } from "../utils/buildStaticSettingsInfo";
+import { isShinyUiNode } from "../utils/isShinyUiNode";
 
 import {
   isInternalUiNode,

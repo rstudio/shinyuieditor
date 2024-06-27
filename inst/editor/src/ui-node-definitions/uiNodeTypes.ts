@@ -6,34 +6,34 @@ import { card_footer } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
 import { nav_panel } from "./Bslib/nav_panel";
 import { page_navbar } from "./Bslib/page_navbar";
-import { sidebar } from "./Bslib/sidebar";
-import { value_box } from "./Bslib/value_box";
+import { sidebar } from "./Bslib/Sidebar";
+import { value_box } from "./Bslib/ValueBox/value_box";
 import { output_dt } from "./DT/output_dt";
-import { grid_card } from "./gridlayout/grid_card";
-import { grid_card_plot } from "./gridlayout/grid_card_plot";
-import { grid_card_text } from "./gridlayout/grid_card_text";
-import { grid_container } from "./gridlayout/grid_container";
-import { grid_page } from "./gridlayout/grid_page";
-import { testing_error_node } from "./internal/testing_error_node";
-import { text_node } from "./internal/text_node";
-import { unknown_code } from "./internal/unknown_code";
+import { grid_card } from "./gridlayout/GridlayoutCard/grid_card";
+import { grid_card_text } from "./gridlayout/GridlayoutCardText/grid_card_text";
+import { grid_card_plot } from "./gridlayout/GridlayoutGridCardPlot/grid_card_plot";
+import { grid_container } from "./gridlayout/GridlayoutGridContainer/grid_container";
+import { grid_page } from "./gridlayout/GridlayoutGridPage/grid_page";
+import { testing_error_node } from "./internal/__TestingErrorNode/testing_error_node";
+import { text_node } from "./internal/TextNode/text_node";
+import { unknown_code } from "./internal/UnknownUiFunction/unknown_code";
 import type { LangInfo } from "./nodeInfoFactory";
 import { output_plotly } from "./plotly/output_plotly";
-import { input_action_button } from "./Shiny/input_action_button";
-import { input_checkbox } from "./Shiny/input_checkbox";
-import { input_checkbox_group } from "./Shiny/input_checkbox_group";
-import { input_numeric } from "./Shiny/input_numeric";
-import { input_radio_buttons } from "./Shiny/input_radio_buttons";
-import { input_select } from "./Shiny/input_select";
-import { input_slider } from "./Shiny/input_slider";
-import { input_text } from "./Shiny/input_text";
-import { layout_sidebar } from "./Shiny/layout_sidebar";
-import { markdown_node } from "./Shiny/markdown";
-import { output_plot } from "./Shiny/output_plot";
-import { output_text } from "./Shiny/output_text";
-import { output_ui } from "./Shiny/output_ui";
-import { panel_main } from "./Shiny/panel_main";
-import { tabset_panel } from "./Shiny/tabset_panel";
+import { input_action_button } from "./Shiny/ShinyActionButton/input_action_button";
+import { input_checkbox_group } from "./Shiny/ShinyCheckboxGroupInput/input_checkbox_group";
+import { input_checkbox } from "./Shiny/ShinyCheckboxInput/input_checkbox";
+import { layout_sidebar } from "./Shiny/ShinyLayoutSidebar/layout_sidebar";
+import { panel_main } from "./Shiny/ShinyLayoutSidebar/panel_main";
+import { markdown_node } from "./Shiny/ShinyMarkdown/markdown";
+import { input_numeric } from "./Shiny/ShinyNumericInput/input_numeric";
+import { output_plot } from "./Shiny/ShinyPlotOutput/output_plot";
+import { input_radio_buttons } from "./Shiny/ShinyRadioButtons/input_radio_buttons";
+import { input_select } from "./Shiny/ShinySelectInput/input_select";
+import { input_slider } from "./Shiny/ShinySliderInput/input_slider";
+import { tabset_panel } from "./Shiny/ShinyTabsetPanel/tabset_panel";
+import { input_text } from "./Shiny/ShinyTextInput/input_text";
+import { output_text } from "./Shiny/ShinyTextOutput/output_text";
+import { output_ui } from "./Shiny/ShinyUiOutput/output_ui";
 
 export type NamedArgsObject = Record<string, unknown | undefined>;
 
@@ -49,7 +49,6 @@ export const all_node_info = [
   layout_sidebar,
   panel_main,
   sidebar,
-  grid_container,
   grid_card,
   grid_card_plot,
   grid_card_text,
@@ -60,7 +59,6 @@ export const all_node_info = [
   card_body,
   card_footer,
   card_header,
-  output_dt,
   text_node,
   output_dt,
   output_plot,
@@ -68,9 +66,9 @@ export const all_node_info = [
   output_text,
   output_ui,
   input_action_button,
+  input_numeric,
   input_checkbox,
   input_checkbox_group,
-  input_numeric,
   input_radio_buttons,
   markdown_node,
   input_select,
@@ -109,13 +107,10 @@ export const containerNodes = new Set<string>(
  */
 export function getUiNodeInfo(id: string): ShinyUiNodeInfo {
   if (!shinyUiNodeInfo.has(id)) {
-    throw new Error(
-      `Failed to find node info for requested node on backend: ${id}`
-    );
+    throw new Error(`Failed to find node info for requested node: ${id}`);
   }
   return shinyUiNodeInfo.get(id) as ShinyUiNodeInfo;
 }
-
 /**
  * Get plain english title of a node based on its id
  * @param id Name of ui node to look up

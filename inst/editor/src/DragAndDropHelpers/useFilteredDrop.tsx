@@ -144,7 +144,10 @@ function useDropHighlights({
     // the layout shift from the drop mode can cause the mouse to leave the
     // dragged item and thus prematurely terminate the drag event
     setTimeout(() => {
-      watcherRef.current?.classList.add(canAcceptDropClass);
+      if (!watcherRef.current) return;
+
+      watcherRef.current.classList.add(canAcceptDropClass);
+      watcherRef.current.dataset.canAcceptDrop = "true";
     }, 1);
   }, [canAcceptDropClass, watcherRef]);
 
@@ -165,6 +168,7 @@ function useDropHighlights({
 
     watcherRef.current.classList.remove(hoveringOverClass);
     watcherRef.current.classList.remove(canAcceptDropClass);
+    watcherRef.current.dataset.canAcceptDrop = "false";
   }, [canAcceptDropClass, hoveringOverClass, watcherRef]);
 
   return {

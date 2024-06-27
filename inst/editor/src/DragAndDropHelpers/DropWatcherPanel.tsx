@@ -9,7 +9,6 @@ import {
 import UiNode from "../components/UiNode/UiNode";
 import { usePlaceNode } from "../state/usePlaceNode";
 import type { PathElement, NodePath } from "../ui-node-definitions/NodePath";
-import { makeChildPath } from "../ui-node-definitions/nodePathUtils";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { getIsValidMove } from "../ui-node-definitions/TreeManipulation/getIsValidMove";
 import type { WrappingNode } from "../ui-node-definitions/TreeManipulation/wrapInNode";
@@ -18,6 +17,7 @@ import {
   getUiNodeTitle,
   getUiNodeInfo,
 } from "../ui-node-definitions/uiNodeTypes";
+import { makeChildPath } from "../ui-node-definitions/utils/nodePathUtils";
 import { mergeClasses } from "../utils/mergeClasses";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";

@@ -1,4 +1,4 @@
-import type { DynamicArgumentInfo } from "../buildStaticSettingsInfo";
+import type { DynamicArgumentInfo } from "../utils/buildStaticSettingsInfo";
 
 export function getOrderedPositionalArgs(
   settingsInfo: DynamicArgumentInfo

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
-import { invalidNavPanelContents } from "../../../Shiny-Ui-Elements/Bslib/NavPanel";
+import { invalidNavPanelContents } from "../../../ui-node-definitions/Bslib/nav_panel";
 import type { NodePath } from "../../../ui-node-definitions/NodePath";
 import type { ShinyUiNode } from "../../../ui-node-definitions/ShinyUiNode";
 
@@ -33,7 +33,7 @@ export function TabDropDetector({
 }) {
   return (
     <DropWatcherPanel
-      className={classes.tabDropDetector}
+      className={`w-[--baseWidth] h-full relative data-[can-accept-drop=true]:w-[--availableWidth]`}
       aria-label="tab drop detector"
       parentPath={parentPath}
       parentNodeType="nav_panel"
@@ -44,6 +44,7 @@ export function TabDropDetector({
       style={
         {
           "--baseWidth": baseWidth,
+          "--availableWidth": `calc(2*${baseWidth})`,
           order: index - 1,
         } as React.CSSProperties
       }

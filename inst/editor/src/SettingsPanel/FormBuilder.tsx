@@ -19,9 +19,26 @@ import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
 type SettingsObj = Record<string, unknown>;
 
+/**
+ * A function that can be used to render a custom form for a node.
+ */
 export type CustomFormRenderFn<Settings extends SettingsObj> = (x: {
+  /**
+   * A map keyed by the name of an argument with values that are react elements rendering the appropriate settings input for adjusting that argument.
+   */
   inputs: Record<StringKeys<Settings>, JSX.Element>;
+  /**
+   * The current values of the settings/ arugments for a node
+   */
   settings: Settings;
+
+  /**
+   * Callback that can be used to update an argument's value if more complex
+   * logic is needed than is provided in the component provided by the arguments `inputs` component.
+   * @param name Name of the argument to update
+   * @param action How to update the argument. Is an object with either `type: "UPDATE"` or `type: "REMOVE"` and a `value` property if the type is `UPDATE`
+   * @returns void
+   */
   onSettingsChange?: (name: string, action: SettingsUpdateAction) => void;
 }) => JSX.Element;
 

@@ -1,5 +1,5 @@
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
-import { walkUiNode } from "../ui-node-definitions/walkUiNode";
+import { walkUiNode } from "../ui-node-definitions/utils/walkUiNode";
 
 export function getAllInputOutputIdsInApp(ui_tree: ShinyUiNode): string[] {
   const ids: string[] = [];

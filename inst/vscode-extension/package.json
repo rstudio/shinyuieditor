@@ -138,7 +138,7 @@
     "ts-jest": "^29.0.3",
     "shared-configs": "*",
     "tsx": "^3.12.1",
-    "typescript": "^5.0.4",
+    "typescript": "^5.3.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "dependencies": {

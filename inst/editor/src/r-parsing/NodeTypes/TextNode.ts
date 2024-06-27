@@ -2,7 +2,7 @@ import type { ParserNode } from "treesitter-parsers";
 import { extract_call_content, is_call_node } from "treesitter-parsers";
 import type { Brand } from "util-functions/src/TypescriptUtils";
 
-import type { TextUiNode } from "../../ui-node-definitions/internal/text_node";
+import type { TextUiNode } from "../../ui-node-definitions/internal/TextNode/text_node";
 
 import { extract_string_content, is_string_node } from "./StringNode";
 

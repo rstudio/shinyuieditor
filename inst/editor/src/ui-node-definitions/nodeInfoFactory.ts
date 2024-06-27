@@ -4,18 +4,22 @@ import type {
   PickKeyFn,
 } from "util-functions/src/TypescriptUtils";
 
+import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { Primatives } from "../parsing/Primatives";
 import type { Parsed_Kwarg_Node } from "../r-parsing/NodeTypes/KeywordArgNode";
+import type { CustomFormRenderFn } from "../SettingsPanel/FormBuilder";
+import type { StateUpdateSubscribers } from "../state/app_info";
 
+import type { ArgsToDynamicInfo } from "./inputFieldTypes";
+import type { NodePath } from "./NodePath";
+import type { input_action_button } from "./Shiny/ShinyActionButton/input_action_button";
+import type { ShinyUiNode } from "./ShinyUiNode";
+import type { NamedArgsObject } from "./uiNodeTypes";
 import type {
   DynamicArgumentInfo,
   OnlyStaticSettingsInfo,
-} from "./buildStaticSettingsInfo";
-import { getOrderedPositionalArgs } from "./get_ordered_positional_args";
-import type { ArgsToDynamicInfo } from "./inputFieldTypes";
-import type { input_action_button } from "./Shiny/input_action_button";
-import type { ShinyUiNode } from "./ShinyUiNode";
-import type { NamedArgsObject } from "./uiNodeTypes";
+} from "./utils/buildStaticSettingsInfo";
+import { getOrderedPositionalArgs } from "./utils/get_ordered_positional_args";
 
 /**
  * Info on server binding for a node. This is used for checking for server
@@ -28,6 +32,23 @@ type ServerBindingInfo = {
   argType: "input" | "output";
 };
 
+/**
+ * Type of component defining the app view of a given ui node
+ */
+export type UiNodeComponent<
+  NodeSettings extends object,
+  Opts extends { TakesChildren: boolean }
+> = (
+  props: {
+    namedArgs: NodeSettings;
+    path: NodePath;
+    wrapperProps: ReturnType<typeof useMakeWrapperProps>;
+  } & (Opts["TakesChildren"] extends true
+    ? { children: Array<ShinyUiNode> }
+    : {})
+) => JSX.Element;
+
+// Add a new link to factory pattern from typescript course
 /**
  * Typescript factory function that takes as a type parameter the arguments type
  * for your node and then produces a function that will type check the info
@@ -42,7 +63,12 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
     TakesChildren extends boolean,
     const PyInfo extends LangInfo<Args> | undefined,
     const RInfo extends LangInfo<Args> | undefined,
-    Cat extends string = "Uncategorized"
+    Cat extends string = "Uncategorized",
+    UIComponent extends UiNodeComponent<
+      Args,
+      { TakesChildren: TakesChildren }
+    > = UiNodeComponent<Args, { TakesChildren: TakesChildren }>,
+    SettingsRenderer extends CustomFormRenderFn<Args> = CustomFormRenderFn<Args>
   >({
     id,
     py_info,
@@ -59,6 +85,20 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
 
     py_info?: PyInfo;
     r_info?: RInfo;
+
+    /**
+     * The source of the icon. This comes from the importing of a png. If this is
+     * not provided then the node will not show up in the element palette.
+     */
+    iconSrc?: string;
+
+    ui_component: UIComponent;
+    settingsFormRender?: SettingsRenderer;
+
+    /**
+     * Optional update subscribers
+     */
+    stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
 
     /**
      * What category does this node belong to? If left blank will default to
@@ -123,6 +163,9 @@ export function nodeInfoFactory<Args extends NamedArgsObject>() {
       py_info: undefined extends PyInfo ? never : PyInfo;
       r_info: undefined extends RInfo ? never : RInfo;
       category: Cat;
+      ui_component?: UIComponent;
+      settingsFormRender?: SettingsRenderer;
+      stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
     } & Required<CommonInfo<Args, TakesChildren>> &
       ComputedInfo;
   };

@@ -5,7 +5,6 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
-import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
 import type { ShinyUiNode } from "../ui-node-definitions/ShinyUiNode";
 import { getUiNodeInfo } from "../ui-node-definitions/uiNodeTypes";
 import {
@@ -22,6 +21,16 @@ import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
 import { useGetNodeServerBindingInfo } from "./useGetNodeServerBindingInfo";
 import { useUpdateSettings } from "./useUpdateSettings";
+
+/**
+ *
+ * @param id Name of ui node to look up
+ * @returns Component used to render that node
+ * @throws Error if node doesn't exist
+ */
+function getUiNodeSettingsRenderer(id: string) {
+  return getUiNodeInfo(id).settingsFormRender;
+}
 
 export function SettingsPanel({ app_tree }: { app_tree: ShinyUiNode }) {
   const {
